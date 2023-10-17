@@ -29,11 +29,13 @@ Taken as a whole, this database is quite large and a comprehensive analysis of a
 
 As an end-goal for this project, we would like to conduct an appropriate analysis of 10-15 organic contaminants and their concentrations, spatial distributions, relationship to sediment type/composition and produce visualizations that effectively demonstrate our findings.  We will display spatial data with numerical as well as categorical data, and will need to overcome some challenges of effectively displaying highly skewed data associated with chemical concentrations.
 
-
 ## 2. Data
 Our data files can be found in the 'data' folder in our project repository on GitHub.  They are as follows:
 
 STAT2002.xls (stations data), TXTR2002.xls (sediment textural data), INOR2002.xls (inorganics), PCBS2002.xls (PCBs, pesticides), PAHS2002.xls (PAHs), GENO2002.xls (General organics)
+
+Data Citation:
+Marilyn R. Buchholtz ten Brink, F. T. Manheim, E.L. Mecray, M. E. Hastings, J.M. Currence, J.W. Farrington, S. H. Jones, P. F. Larsen, B.W. Tripp, G.T. Wallace, L. G. Ward, T.J. Fredette, M. L. Liebman, W. Smith Leo. 2002. Contaminated sediments database for the Gulf of Maine. USGS.  10.3133/ofr02403. Accessed 10/12/2023.
 
 A bibliography of this database can be found here: https://github.com/jharkness25/project-joshua-and-autumn/blob/main/data/GOMDBBib.doc
 
@@ -56,8 +58,7 @@ glimpse(PCBs)
 glimpse(PAHs)
 ```
 
-As shown here, there are a lot of missing values (NAs) in our data...there is also a lot of numeric variables, some useful categorical variables, and some formated date/time variables.
-
+As shown here, there are a lot of missing values (NAs) in our data...there is also a lot of numeric variables, some useful categorical variables, and some formatted date/time variables.
 
 ```{r stations-map, echo=FALSE, warning=FALSE}
 stations %>%
@@ -66,7 +67,7 @@ stations %>%
   theme_bw()
 ```
 
-Map of raw station data for Gulf of Maine, representing sediment sampling locations.  You can see the outline of the New England coast where points are dense, representing greater sampling near-shore.
+Map of raw station data for Gulf of Maine, represe1nting sediment sampling locations.  You can see the outline of the New England coast where points are dense, representing greater sampling near-shore.
 
 ## 3. Ethics review
 Not applicable
@@ -77,11 +78,12 @@ The first step in our analysis will have to be the paring down of our ata files 
 
 #### Statistical analysis
 We will conduct appropriate statistical analyses as part of our project.  Research hypotheses we wish to test are: 1) Are specific organic contaminant concentrations significantly different between locations? 2) Are organic contaminant concentrations significantly different between initial sampling and resampling? 3) Are organic contaminant concentrations significantly related to any particular sediment character?
+<<<<<<< HEAD
 
 We will test these hypothesis with simple T-tests, ANOVAs, and general linear models where our data meet parametric assumptions.  Where non-parametric, we will use bootstrapping to test for significance.  If our data requires it, we may use more complex statistical tests such as MANOVAs to test for difference within a matrix of parameters (e.g., between several sediment characters).  We will also likely employ Chi-Squared tests when testing between categorical variables.  Most statistical tests will be run with base R code, though we may use the `boot` package if we find it necessary to use bootstrapping.  We will also calculate simple summary statistics where needed, such as mean, median, IQR, standard deviation, etc.
 
 #### Visualizations
-One of the main relationships we hope to better understand through this project is the spatial distribution of certain contaminants.  We will need to associate contaminants and sediment data with X/Y coordinates (Lat/Lon, dec.) through joining these data files with the stations data file.  Then we will need to plot X/Y data and use colors or shapes to display the associated sediments/contaminants data.  We will probably find the packages `leaflet` and `sp` useful.  Pie charts may be useful to overlay on map plots to display percent composition of sediment types.
+One of the main relationships we hope to better understand through this project is the spatial distribution of certain contaminants.  We will need to associate contaminants and sediment data with X/Y coordinates (Lat/Lon, dec.) through joining these data files with the stations data file.  Then we will need to plot X/Y data and use colors or shapes to display the associated sediments/contaminants data.  We will probably find the packages `sf`, `leaflet`, and `sp` useful. Pie charts may be useful to overlay on map plots to display percent composition of sediment types.
 
 Histograms and density plots will be useful in depicting the relationship of single numeric variables, such as statistical distributions of chemical concentrations.  We will also make use of boxplots, bar plots, and potentially ridge and violin plots to display chemical concentrations and compare between specific locations (e.g., between inshore and offshore).  Concentration data may present a challenge due to its highly skewed nature (most values are at or close to 0), and outliers can be far outside the interquartile range.
 
@@ -151,4 +153,4 @@ DDT_T_NoZero%>%
   theme_bw()
 ```
 
-Removing zeros from this data and visualizing using a hex plot helps show where concentrations of DDT are highest.  The high count hexagons at lower left are apparently in and around Boston Harbor.
+Removing zeros from this data and visualizing using a hex plot helps show where concentrations of DDT are highest. The high count hexagons at lower left are where more samples in which DDT was detected were collected.
