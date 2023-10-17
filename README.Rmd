@@ -1,6 +1,6 @@
 ---
 title: Project title
-author: by Team name
+author: by Joshua A. Harkness and Autumn L. Pauly
 output: github_document
 ---
 
