@@ -7,6 +7,21 @@ output: github_document
 ```{r load-packages, message = FALSE}
 library(tidyverse)
 library(broom)
+library(readxl)
+```
+
+```{r load-data, echo=FALSE, message=FALSE, warning=FALSE}
+stations = read_excel("/cloud/project/data/STAT2002.xls", sheet = 2, skip = 3)
+
+sediments = read_excel("/cloud/project/data/TXTR2002.xls", sheet = 2, skip = 3)
+
+PCBs = read_excel("/cloud/project/data/PCBP2002.xls", sheet = 2, skip = 3)
+
+PAHs = read_excel("/cloud/project/data/PAHS2002.xls", sheet = 2, skip = 3)
+
+organics = read_excel("/cloud/project/data/GENO2002.xls", sheet = 2, skip = 3)
+
+inorganics = read_excel("/cloud/project/data/INOR2002.xls", sheet = 2, skip = 3)
 ```
 
 ## 1. Introduction
