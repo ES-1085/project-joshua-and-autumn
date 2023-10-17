@@ -26,9 +26,68 @@ STAT2002.xls (stations data), TXTR2002.xls (sediment textural data), INOR2002.xl
 
 A bibliography of this database can be found here: https://github.com/jharkness25/project-joshua-and-autumn/blob/main/data/GOMDBBib.doc
 
+#### Stations data
+```{r glimpse-stations, echo=FALSE}
+glimpse(stations)
+```
+
+#### Sediments data
+```{r glimpse-sediments, echo=FALSE}
+glimpse(sediments)
+```
+
+#### PCB and pesticide data
+```{r glimpse-pcb, echo=FALSE}
+glimpse(PCBs)
+```
+#### PAH Data
+```{r glimpse-pah, echo=FALSE}
+glimpse(PAHs)
+```
+
+As shown here, there are a lot of missing values (NAs) in our data...there is also a lot of numeric variables, some useful categorical variables, and some formated date/time variables.
+
+```{r stations-map, echo=FALSE, warning=FALSE}
+stations %>%
+  ggplot(aes(x = LONGITUDE, y = LATITUDE))+
+  geom_point()+
+  theme_bw()
+```
+
+Map of raw station data for Gulf of Maine, representing sediment sampling locations.  You can see the outline of the New England coast where points are dense, representing greater sampling near-shore.
+
 ## 3. Ethics review
+Not applicable
 
 ## 4. Data analysis plan
+#### Data tidying
+The first step in our analysis will have to be the paring down of our ata files into more manageable forms; this means filtering and/or subsetting our data files to include only the variables we will need in our analysis. Many of the variables in each data file contain information that is not useful for our project: these include comments, notes, some calculated values, duplicates of geographical information, as well as some variables that are irrelevant to our research questions, and which we plan to exclude from our analysis.  We may also make use of subsetting (base R) where it is more efficient than fitering and saving as new objects.  Once we have pared our data file down to what we will use in our analysis, it will be helpful to join each data file to create a single working dataframe, which will include all of the variables of interest.  Variables of interest are principally those giving location and date/time of sample collection, sediment characters including particle size, percent composition, distribution, and concentrations of contaminants of interest.  At this point, we are unlikely to bring in any other data.
 
+#### Statistical analysis
+We will conduct appropriate statistical analyses as part of our project.  Research hypotheses we wish to test are: 1) Are specific organic contaminant concentrations significantly different between locations? 2) Are organic contaminant concentrations significantly different between initial sampling and resampling? 3) Are organic contaminant concentrations significantly related to any particular sediment character?
 
+We will test these hypothesis with simple T-tests, ANOVAs, and general linear models where our data meet parametric assumptions.  Where non-parametric, we will use bootstrapping to test for significance.  If our data requires it, we may use more complex statistical tests such as MANOVAs to test for difference within a matrix of parameters (e.g., between several sediment characters).  We will also likely employ Chi-Squared tests when testing between categorical variables.  Most statistical tests will be run with base R code, though we may use the `boot` package if we find it necessary to use bootstrapping.  We will also calculate simple summary statistics where needed, such as mean, median, IQR, standard deviation, etc.
 
+#### Visualizations
+One of the main relationships we hope to better understand through this project is the spatial distribution of certain contaminants.  We will need to associate contaminants and sediment data with X/Y coordinates (Lat/Lon, dec.) through joining these data files with the stations data file.  Then we will need to plot X/Y data and use colors or shapes to display the associated sediments/contaminants data.  We will probably find the packages `leaflet` and `sp` useful.  Pie charts may be useful to overlay on map plots to display percent composition of sediment types.
+
+Histograms and density plots will be useful in depicting the relationship of single numeric variables, such as statistical distributions of chemical concentrations.  We will also make use of boxplots, bar plots, and potentially ridge and violin plots to display chemical concentrations and compare between specific locations (e.g., between inshore and offshore).  Concentration data may present a challenge due to its highly skewed nature (most values are at or close to 0), and outliers can be far outside the interquartile range.
+
+```{r join-stations-organics, echo=FALSE, warning=FALSE}
+StationOrganics = right_join(stations, organics, by = "UNIQUE_ID")
+
+BostonOrganics = filter(StationOrganics, GEN_LOC_NM %in% c("BOSTON INNER HARBOR","NORTHWEST BOSTON HARBOR","CENTRAL BOSTON HARBOR"))
+
+BostonOrganics %>%
+  ggplot(aes(x = GEN_LOC_NM, y = PCB_T_UGG))+
+  geom_boxplot()
+```
+
+In this boxplot comparing three subsites within Boston Harbor, the mean concentrations of each site are all close to 0, but Boston Inner Harbor has some highly significant outliers as high as 3000ug/g.  This presents some graphical problems, as these boxplots appear as simple lines, preventing the viewer from inferring anything more than the Inner Harbor having some highly significant outliers.
+
+```{r pcb-box1-zoomed, echo=FALSE, warning=FALSE}
+BostonOrganics %>%
+  ggplot(aes(x = GEN_LOC_NM, y = PCB_T_UGG))+
+  geom_boxplot()+
+  ylim(0,7.5)
+```
