@@ -48,7 +48,7 @@
 `UNIQUE_ID` : Unique Sample ID (US#)
 `REPL_NO` : Replicate no _ of n (metals).
 `TOT_REPL` : Count of replicates (metals).
-`AG_UG_G` : Any qualifier data or comments about the Silver concentration (µg/g) .
+`AG_UG_G` : Concentration of Au (silver) (µg/g) .
 `AL_UG_G` : Concentration of Al (aluminum) (µg/g). 
 `AS_UG_G` : Concentration of As (arsenic)  (µg/g)
 `AU_UG_G` : Concentration of Au (gold)  (µg/g)
