@@ -11,15 +11,27 @@ library(sf)
 ```
 
 ```{r load-data, warning=FALSE}
-stations_full = read_excel("/cloud/project/data/STAT2002.xls", sheet = 2, skip = 3)
+#stations_full = read_excel("/cloud/project/data/STAT2002.xls", sheet = 2, skip = 3)
 sediments_full = read_excel("/cloud/project/data/TXTR2002.xls", sheet = 2, skip = 3)
-PCBs_full = read_excel("/cloud/project/data/PCBP2002.xls", sheet = 2, skip = 3)
+#PCBs_full = read_excel("/cloud/project/data/PCBP2002.xls", sheet = 2, skip = 3)
 PAHs_full = read_excel("/cloud/project/data/PAHS2002.xls", sheet = 2, skip = 3)
 organics_full = read_excel("/cloud/project/data/GENO2002.xls", sheet = 2, skip = 3)
 inorganics_full = read_excel("/cloud/project/data/INOR2002.xls", sheet = 2, skip = 3)
+textures_full = read_excel("/cloud/project/data/TXTR2002.xls", sheet = 2, skip = 3)
 ```
 
 ```{r select-var-PCBs}
 PCBs = select(PCBs_full, c(UNIQUE_ID, PCB_52_NGG, PCB101_NGG, PCB118_NGG, PCB128_NGG, PCB138_NGG, PCB153_NGG, PCB180_NGG, PCB206_NGG, PCB209_NGG, DDT_4_4_C, DDT_2_4_C, DDE_4_4_C, DDD_4_4_C, ENDRIN_C, ENDR_ALD_C, ALDRIN_C, DIELDRN_C, CLRDNE_T_C, MIREX_C, METHOXYCLC, BHC_A_C, BHC_B_C, BHC_D_C, LINDANE_C))
 ```
 
+```{r select-var-STATs}
+Station2002 = select(stations_full, c(UNIQUE_ID, LATITUDE, LONGITUDE, SOUNDING_M, STATE_NAME, QUAD_NAME, GEN_LOC_NM, SPECFC_LOC, AREA_CODE, SAMP_DATE1, TO_SMP_DT2, DPTH_N_COR, DPTH_CODE, COR_GRB_CD))
+```
+
+```{r select-var-TXTR}
+Texture2002 = select(textures_full, c(UNIQUE_ID, SAMPLE_WT, SAMP_UNITS, Q1_MM, Q2_MED_MM, Q3_MM, GRN_SI_PCT, SPECIFIC_G, GRAVEL_PCT, SAND_PCT, SILT_PCT, CLAY_PCT, FINES_SIL, SED_CLASS, CLASSIF_S, MEDIAN, MEAN, STDEV_SORT, SKEWNESS, KURTOSIS))
+```
+
+```{r select-var-INORG}
+Inorganics2002 = select(textures_full, c(UNIQUE_ID, SAMPLE_WT, SAMP_UNITS, Q1_MM, Q2_MED_MM, Q3_MM, GRN_SI_PCT, SPECIFIC_G, GRAVEL_PCT, SAND_PCT, SILT_PCT, CLAY_PCT, FINES_SIL, SED_CLASS, CLASSIF_S, MEDIAN, MEAN, STDEV_SORT, SKEWNESS, KURTOSIS))
+```
