@@ -37,3 +37,7 @@ inorganics_full = read_excel("/cloud/project/data/INOR2002.xls", sheet = 2, skip
     ## New names:
     ## • `O_RAD_D_G` -> `O_RAD_D_G...233`
     ## • `O_RAD_D_G` -> `O_RAD_D_G...234`
+
+``` r
+PCBs = select(PCBs_full, c(UNIQUE_ID, PCB_52_NGG, PCB101_NGG, PCB118_NGG, PCB128_NGG, PCB138_NGG, PCB153_NGG, PCB180_NGG, PCB206_NGG, PCB209_NGG, DDT_4_4_C, DDT_2_4_C, DDE_4_4_C, DDD_4_4_C, ENDRIN_C, ENDR_ALD_C, ALDRIN_C, DIELDRN_C, CLRDNE_T_C, MIREX_C, METHOXYCLC, BHC_A_C, BHC_B_C, BHC_D_C, LINDANE_C))
+```
