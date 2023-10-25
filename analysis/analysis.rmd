@@ -60,3 +60,13 @@ Texture_loc <- full_join(Station2002, Texture2002, by = "UNIQUE_ID")
   data <- full_join(PCBs_loc, PAHs2002, by = "UNIQUE_ID") 
 ```
 
+# Pivoting data - data
+```{r select-var-ORG}
+data_pivot_pcb <- data %>% 
+  pivot_longer(cols = `PCB_52_NGG`:`DIELDRN_C`, 
+               names_to = "pcb_detected", 
+               values_to = "amount_detected")
+
+view(data_pivot_pcb)
+```
+
