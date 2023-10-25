@@ -64,7 +64,7 @@ Texture_loc <- full_join(Station2002, Texture2002, by = "UNIQUE_ID")
 # Pivoting data - data
 ```{r pivot-pcbs-longer}
   pcbs_pivot_longer <- PCBs_loc %>%
-  pivot_longer(cols = `PCB_52_NGG`:`DIELDRN_C`, 
+  pivot_longer(cols = `PCB_52_NGG`:`LINDANE_C`, 
                names_to = "pcb_detected", 
                values_to = "amount_detected")
 #View(pcbs_pivot_longer)
