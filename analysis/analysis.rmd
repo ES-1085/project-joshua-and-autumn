@@ -69,4 +69,5 @@ Texture_loc <- full_join(Station2002, Texture2002, by = "UNIQUE_ID")
                values_to = "amount_detected")
 #View(pcbs_pivot_longer)
 ```
+`View(pcbs_pivot_longer)` is commented out as it is too large to load when knitting file.
 

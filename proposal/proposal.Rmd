@@ -125,7 +125,7 @@ StationOrganics%>%
   geom_histogram(fill = "red4")+
   theme_minimal()
 ```
-1
+
 
 ```{r density-ddt, echo=FALSE, warning=FALSE}
 StationOrganics%>%
