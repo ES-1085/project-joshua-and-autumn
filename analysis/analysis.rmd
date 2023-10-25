@@ -22,4 +22,9 @@ inorganics_full = read_excel("/cloud/project/data/INOR2002.xls", sheet = 2, skip
 ```{r select-var-PCBs}
 PCBs = select(PCBs_full, c(UNIQUE_ID, PCB_52_NGG, PCB101_NGG, PCB118_NGG, PCB128_NGG, PCB138_NGG, PCB153_NGG, PCB180_NGG, PCB206_NGG, PCB209_NGG, DDT_4_4_C, DDT_2_4_C, DDE_4_4_C, DDD_4_4_C, ENDRIN_C, ENDR_ALD_C, ALDRIN_C, DIELDRN_C, CLRDNE_T_C, MIREX_C, METHOXYCLC, BHC_A_C, BHC_B_C, BHC_D_C, LINDANE_C))
 ```
+These are the variables within the PCBs dataset that have values -- many have NA values and no zeros.
+
+```{r select-var-PAHs}
+PAHs = select(PAHs_full, c("UNIQUE ID", "BENZNE_C", "C1DIBZTPNC", "C2DIBZTPNC"))
+```
 

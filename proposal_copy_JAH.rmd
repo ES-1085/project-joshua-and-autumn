@@ -1,0 +1,154 @@
+---
+title: "Project proposal: Contaminated sediments in the Gulf of Maine"
+author: "Joshua Harkness and Autumn Pauly,"
+date: "October 2023"
+output: github_document
+---
+
+```{r load-packages, echo=FALSE, message = FALSE}
+library(tidyverse)
+library(broom)
+library(readxl)
+```
+
+```{r load-data, echo=FALSE, message=FALSE, warning=FALSE}
+stations = read_excel("/cloud/project/data/STAT2002.xls", sheet = 2, skip = 3)
+sediments = read_excel("/cloud/project/data/TXTR2002.xls", sheet = 2, skip = 3)
+PCBs = read_excel("/cloud/project/data/PCBP2002.xls", sheet = 2, skip = 3)
+PAHs = read_excel("/cloud/project/data/PAHS2002.xls", sheet = 2, skip = 3)
+organics = read_excel("/cloud/project/data/GENO2002.xls", sheet = 2, skip = 3)
+inorganics = read_excel("/cloud/project/data/INOR2002.xls", sheet = 2, skip = 3)
+```
+
+## 1. Introduction
+We will be looking at distributions and concentrations of contaminated sediments in the Gulf of Maine, using the Gulf of Maine Contaminated Sediments Database published by the U.S. Geological Survey in their Open-File Report 02-403.  There are seven data files in this database which we may use in some form, principally these include geographic information on stations (collection sites), textural sediments data, and contaminants data.  Each data file includes `r nrow(stations)` observations in `r ncol(organics)` to `r ncol(inorganics)` variables, respectively.  In this format, each observation represents a sediment sample; this unique ID is shared between each data file, allowing contaminant data to be associated with geographic location and other data.  Said another way, this is a database containing information on `r nrow(stations)` observations collected from the Gulf of Maine between `r min(stations$YEAR1, na.rm = T)` and `r max(stations$YEAR2, na.rm = T)` by multiple researchers as part of multiple projects.  
+
+The database includes data on the collection of sediment samples, including geographic location, by general and specific location categories (i.e., "Boston Harbor"), when the sample was collected, and by whom.  Samples were collected from the sea floor using a "grab" or "core" method; a "core" being defined as when multiple subsamples were collected within a larger vertical sample.  Station data is principally sample specific unique IDs, coordinates, and date of collection.  Sediment textural data includes particle size, percent composition of sand, gravel, silt, clay, etc., along with summary statistics and distributions of particle types/sizes within each sample.  The inorganics dataset includes concentrations of many inorganic contaminents, such as lead, mercury, arsenic, cadmium, and sample radioactivity.  Organic contaminants are split between three datasets: PCBs includes numerous polychlorinated biphenyls (PCBs), cyclohexanes, and organochlorine pesticides (such as DDT, DDE, aldrin, dieldrin, etc.)  PAHs includes polycyclic hydrocarbons (PAHs), which are hydrocarbon rings (excluding benzene) common in coal and oil products.  General organic contaminants includes butyls, total concentrations of PCBs, PAHs, and pesticides, and volatility of tested samples.
+
+Taken as a whole, this database is quite large and a comprehensive analysis of all the data it contains is unrealistic for this 5-week long project.  It is necessary to pare this database down to the components we wish to explore in the course of this project.  We are most interested in examining the relationship between sediments types and patterns of spatial distribution and concentrations of organic contaminants.  At this point, we are specifically interested in the relationships between PCBs, PAHs, organochlorine pesticides, and sediment type distribution and composition.  We are unlikely to use either the inorganic or the general organic contaminants datasets in our analysis; likewise, these are excluded from our 'Data' section below.  Since there are between `r ncol(organics)` and `r ncol(inorganics)` variables in each dataset, we will need to make extensive use of data tidying.  Many of these variables are either not relevant or not useful for our analysis; this will require us to cut down on the number of variables in each data file through subsetting and filtering to make our analysis more manageable.  Similarly, the nature of these data files is such that we will need to join multiple data files by the sample's unique ID, in order to analyze spatial distribution of contaminants and their relationship with sediment characteristics.  Filtering will probably also be useful for making direct comparisons between specific sample sites (e.g., between Frenchman Bay and Penobscot Bay).  Even by cutting out two data files from our analysis, we will still have to choose between specific variables to analyze.  At this point, we are aiming to analyze 10-15 organic contaminants of regional importance (these will include PCBs, some pesticides such as DDT and aldrin, and potentially some PAHs).  Making this analysis feasible means cutting back on what data we include in our analysis, by means of formulating specific research questions, which no doubt, will become more specific as we continue data exploration.  
+
+As an end-goal for this project, we would like to conduct an appropriate analysis of 10-15 organic contaminants and their concentrations, spatial distributions, relationship to sediment type/composition and produce visualizations that effectively demonstrate our findings.  We will display spatial data with numerical as well as categorical data, and will need to overcome some challenges of effectively displaying highly skewed data associated with chemical concentrations.
+
+
+## 2. Data
+Our data files can be found in the 'data' folder in our project repository on GitHub.  They are as follows:
+
+STAT2002.xls (stations data), TXTR2002.xls (sediment textural data), INOR2002.xls (inorganics), PCBS2002.xls (PCBs, pesticides), PAHS2002.xls (PAHs), GENO2002.xls (General organics)
+
+A bibliography of this database can be found here: https://github.com/jharkness25/project-joshua-and-autumn/blob/main/data/GOMDBBib.doc
+
+#### Stations data
+```{r glimpse-stations, echo=FALSE}
+glimpse(stations)
+```
+
+#### Sediments data
+```{r glimpse-sediments, echo=FALSE}
+glimpse(sediments)
+```
+
+#### PCB and pesticide data
+```{r glimpse-pcb, echo=FALSE}
+glimpse(PCBs)
+```
+#### PAH Data
+```{r glimpse-pah, echo=FALSE}
+glimpse(PAHs)
+```
+
+As shown here, there are a lot of missing values (NAs) in our data...there is also a lot of numeric variables, some useful categorical variables, and some formated date/time variables.
+
+
+```{r stations-map, echo=FALSE, warning=FALSE}
+stations %>%
+  ggplot(aes(x = LONGITUDE, y = LATITUDE))+
+  geom_point()+
+  theme_bw()
+```
+
+Map of raw station data for Gulf of Maine, representing sediment sampling locations.  You can see the outline of the New England coast where points are dense, representing greater sampling near-shore.
+
+## 3. Ethics review
+Not applicable
+
+## 4. Data analysis plan
+#### Data tidying
+The first step in our analysis will have to be the paring down of our ata files into more manageable forms; this means filtering and/or subsetting our data files to include only the variables we will need in our analysis. Many of the variables in each data file contain information that is not useful for our project: these include comments, notes, some calculated values, duplicates of geographical information, as well as some variables that are irrelevant to our research questions, and which we plan to exclude from our analysis.  We may also make use of subsetting (base R) where it is more efficient than fitering and saving as new objects.  Once we have pared our data file down to what we will use in our analysis, it will be helpful to join each data file to create a single working dataframe, which will include all of the variables of interest.  Variables of interest are principally those giving location and date/time of sample collection, sediment characters including particle size, percent composition, distribution, and concentrations of contaminants of interest.  At this point, we are unlikely to bring in any other data.
+
+#### Statistical analysis
+We will conduct appropriate statistical analyses as part of our project.  Research hypotheses we wish to test are: 1) Are specific organic contaminant concentrations significantly different between locations? 2) Are organic contaminant concentrations significantly different between initial sampling and resampling? 3) Are organic contaminant concentrations significantly related to any particular sediment character?
+
+We will test these hypothesis with simple T-tests, ANOVAs, and general linear models where our data meet parametric assumptions.  Where non-parametric, we will use bootstrapping to test for significance.  If our data requires it, we may use more complex statistical tests such as MANOVAs to test for difference within a matrix of parameters (e.g., between several sediment characters).  We will also likely employ Chi-Squared tests when testing between categorical variables.  Most statistical tests will be run with base R code, though we may use the `boot` package if we find it necessary to use bootstrapping.  We will also calculate simple summary statistics where needed, such as mean, median, IQR, standard deviation, etc.
+
+#### Visualizations
+One of the main relationships we hope to better understand through this project is the spatial distribution of certain contaminants.  We will need to associate contaminants and sediment data with X/Y coordinates (Lat/Lon, dec.) through joining these data files with the stations data file.  Then we will need to plot X/Y data and use colors or shapes to display the associated sediments/contaminants data.  We will probably find the packages `leaflet` and `sp` useful.  Pie charts may be useful to overlay on map plots to display percent composition of sediment types.
+
+Histograms and density plots will be useful in depicting the relationship of single numeric variables, such as statistical distributions of chemical concentrations.  We will also make use of boxplots, bar plots, and potentially ridge and violin plots to display chemical concentrations and compare between specific locations (e.g., between inshore and offshore).  Concentration data may present a challenge due to its highly skewed nature (most values are at or close to 0), and outliers can be far outside the interquartile range.
+
+```{r join-stations-organics, echo=FALSE, warning=FALSE}
+StationOrganics = right_join(stations, organics, by = "UNIQUE_ID")
+
+BostonOrganics = filter(StationOrganics, GEN_LOC_NM %in% c("BOSTON INNER HARBOR","NORTHWEST BOSTON HARBOR","CENTRAL BOSTON HARBOR"))
+
+BostonOrganics %>%
+  ggplot(aes(x = GEN_LOC_NM, y = PCB_T_UGG))+
+  geom_boxplot()
+```
+
+In this boxplot comparing three subsites within Boston Harbor, the mean concentrations of each site are all close to 0, but Boston Inner Harbor has some highly significant outliers as high as 3000ug/g.  This presents some graphical problems, as these boxplots appear as simple lines, preventing the viewer from inferring anything more than the Inner Harbor having some highly significant outliers.
+
+```{r pcb-box1-zoomed, echo=FALSE, warning=FALSE}
+BostonOrganics %>%
+  ggplot(aes(x = GEN_LOC_NM, y = PCB_T_UGG))+
+  geom_boxplot()+
+  ylim(0,7.5)
+```
+
+Setting `ylim(0,7.5)` allows us to see the full data distribution of Central and Northwest Boston Harbors, but we lose the ability to see the significance of the Inner Harbor's outliers.  Mean PCB abundance (ug/g) are less than 0.5 for Boston Inner Harbor, Central Boston Harbor, and Northwest Boston Harbor.
+
+```{r pcb-summary-stats, echo=FALSE}
+StationOrganics%>%
+  group_by(GEN_LOC_NM) %>%
+  summarise(mean = mean(PCB_T_UGG, na.rm = T),
+            median = median(PCB_T_UGG, na.rm = T),
+            sd = sd(PCB_T_UGG, na.rm = T), 
+            IQR = IQR(PCB_T_UGG, na.rm = T))
+```
+
+Above is a table of some summary statistics for PCB concentrations (ug/g) by general location names for the Gulf of Maine.  Skewness is apparent here as well, with all medians close to, or at zero.  Note how high the means are for Boston Inner Harbor and Cape Ann to 43.5N.
+
+```{r hist-ddt, echo=FALSE, warning=FALSE}
+StationOrganics%>%
+  ggplot(aes(x = DDT_T_NGG))+
+  geom_histogram(fill = "red4")+
+  theme_minimal()
+```
+
+```{r density-ddt, echo=FALSE, warning=FALSE}
+StationOrganics%>%
+  ggplot(aes(x = DDT_T_NGG))+
+  geom_density()+
+  theme_minimal()
+```
+
+The same issues of skewness is encountered with histograms and density plots, due to the abundance of zeros in the dataset.  Removing values equal to zero would improve he visual quality of the graphs, but it would only give us graphical information about where DDT WAS detected; it is just as important to know where it was NOT detected -- this is an important distinction between zeros and missing values. We will have to determine an approach that suits this situation best, creating useful graphics while appropriate displaying data.
+
+```{r density-ddt-nozero}
+DDT_T_NoZero = filter(StationOrganics, DDT_T_NGG != "0")
+
+DDT_T_NoZero %>%
+  ggplot(aes(x = DDT_T_NGG))+
+  geom_density()+
+  theme_minimal()
+```
+
+Removing zeros from the data does not help much in this case considering that there are still many observations near but not equal to 0, but it does make the smaller peaks on this density plot more visible.
+
+```{r map-ddt, echo=FALSE, warning=FALSE}
+DDT_T_NoZero%>%
+  ggplot(aes(x = LONGITUDE, y = LATITUDE, col = DDT_T_NGG))+
+  geom_hex()+
+  theme_bw()
+```
+
+Removing zeros from this data and visualizing using a hex plot helps show where concentrations of DDT are highest.  The high count hexagons at lower left are apparently in and around Boston Harbor.
