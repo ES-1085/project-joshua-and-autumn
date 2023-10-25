@@ -48,7 +48,7 @@ Organics2002 = select(organics_full, c(UNIQUE_ID, REPNO_ORG, TOTREP_ORG, TVS_EP_
 ```
 
 # Creating PAHs2002 dataset with select variables.
-```{r select-var-ORG}
+```{r select-var-PAH}
 PAHs2002 = select(PAHs_full, c("UNIQUE ID", BENZNE_C, "2BZTPN_C", "2BZTPN_T_C", C1DIBZTPNC, C2DIBZTPNC, C3DIBZTPNC, "2BZFRN_T_C", NAPHTHLN_C, NPHTLN_T_C, C1NPHTLN_C, "1MTYLNAP_C", "2MTYLNAP_C", C2NPHTLN_C, C3NPHTLN_C, C4NPHTLN_C, BIPHENYL_C, ACNPHTHN_C, ACNPHTYL_C, FLUORENE_C, C1FLORNE_C, C2FLORNE_C, C3FLORNE_C, PHNANTHR_C, "1MT_PHE_C", C2PHNANT_C, C3PHNANT_C, C4PHNANT_C, ANTHRACN_C, BZ_A_ANT_C, "2_AH_ANT_C", PYRENE_C, C1PYRENE_C, BZ_A_PYR_C, BZ_E_PYR_C, IN_123_PYC, "3_4BNZPY_C", FLORNTHN_C, C1FLRNTHNC, BZ_B_FLUOC, BZ_K_FLUOC, CHRYSENE_C, CHRYS_C1_C, CHRYS_C2_C, CHRYS_C3_C, CHRYS_C4_C, PERYLENE_C, BNZ_G_PYLC, B_GHI_PYLC))
 
 colnames(PAHs2002)[1] ="UNIQUE_ID"
@@ -62,11 +62,11 @@ Texture_loc <- full_join(Station2002, Texture2002, by = "UNIQUE_ID")
 ```
 
 # Pivoting data - data
-```{r select-var-ORG}
+```{r pivot-pcbs-longer}
   pcbs_pivot_longer <- PCBs_loc %>%
   pivot_longer(cols = `PCB_52_NGG`:`DIELDRN_C`, 
                names_to = "pcb_detected", 
                values_to = "amount_detected")
-View(pcbs_pivot_longer)
+#View(pcbs_pivot_longer)
 ```
 
