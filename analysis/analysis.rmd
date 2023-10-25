@@ -11,13 +11,13 @@ library(sf)
 ```
 
 ```{r load-data, warning=FALSE}
-# stations_full = read_excel("/cloud/project/data/STAT2002.xls", sheet = 2, skip = 3)
-# sediments_full = read_excel("/cloud/project/data/TXTR2002.xls", sheet = 2, skip = 3)
-# PCBs_full = read_excel("/cloud/project/data/PCBP2002.xls", sheet = 2, skip = 3)
-# PAHs_full = read_excel("/cloud/project/data/PAHS2002.xls", sheet = 2, skip = 3)
-# organics_full = read_excel("/cloud/project/data/GENO2002.xls", sheet = 2, skip = 3)
-# inorganics_full = read_excel("/cloud/project/data/INOR2002.xls", sheet = 2, skip = 3)
-# textures_full = read_excel("/cloud/project/data/TXTR2002.xls", sheet = 2, skip = 3)
+stations_full = read_excel("/cloud/project/data/STAT2002.xls", sheet = 2, skip = 3)
+sediments_full = read_excel("/cloud/project/data/TXTR2002.xls", sheet = 2, skip = 3)
+PCBs_full = read_excel("/cloud/project/data/PCBP2002.xls", sheet = 2, skip = 3)
+PAHs_full = read_excel("/cloud/project/data/PAHS2002.xls", sheet = 2, skip = 3)
+organics_full = read_excel("/cloud/project/data/GENO2002.xls", sheet = 2, skip = 3)
+inorganics_full = read_excel("/cloud/project/data/INOR2002.xls", sheet = 2, skip = 3)
+textures_full = read_excel("/cloud/project/data/TXTR2002.xls", sheet = 2, skip = 3)
 ```
 # Creating PCBs dataset with select variables. 
 ```{r select-var-PCBs}
@@ -52,4 +52,9 @@ Organics2002 = select(organics_full, c(UNIQUE_ID, REPNO_ORG, TOTREP_ORG, TVS_EP_
 PAHs2002 = select(PAHs_full, c("UNIQUE ID", BENZNE_C, "2BZTPN_C", "2BZTPN_T_C", C1DIBZTPNC, C2DIBZTPNC, C3DIBZTPNC, "2BZFRN_T_C", NAPHTHLN_C, NPHTLN_T_C, C1NPHTLN_C, "1MTYLNAP_C", "2MTYLNAP_C", C2NPHTLN_C, C3NPHTLN_C, C4NPHTLN_C, BIPHENYL_C, ACNPHTHN_C, ACNPHTYL_C, FLUORENE_C, C1FLORNE_C, C2FLORNE_C, C3FLORNE_C, PHNANTHR_C, "1MT_PHE_C", C2PHNANT_C, C3PHNANT_C, C4PHNANT_C, ANTHRACN_C, BZ_A_ANT_C, "2_AH_ANT_C", PYRENE_C, C1PYRENE_C, BZ_A_PYR_C, BZ_E_PYR_C, IN_123_PYC, "3_4BNZPY_C", FLORNTHN_C, C1FLRNTHNC, BZ_B_FLUOC, BZ_K_FLUOC, CHRYSENE_C, CHRYS_C1_C, CHRYS_C2_C, CHRYS_C3_C, CHRYS_C4_C, PERYLENE_C, BNZ_G_PYLC, B_GHI_PYLC))
 ```
 
+```{r join-data-frames}
+Texture_loc = full_join(Station2002, Texture2002, by = "UNIQUE_ID") %>%
+  PCBs_loc = full_join(Texture_loc, PCBs) %>%
+  data = full_join(PCBs_loc, PAHs2002) 
+```
 
