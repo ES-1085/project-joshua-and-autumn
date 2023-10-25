@@ -21,7 +21,7 @@ textures_full = read_excel("/cloud/project/data/TXTR2002.xls", sheet = 2, skip =
 ```
 # Creating PCBs dataset with select variables. 
 ```{r select-var-PCBs}
-PCBs = select(PCBs_full, c(UNIQUE_ID, PCB_52_NGG, PCB101_NGG, PCB118_NGG, PCB128_NGG, PCB138_NGG, PCB153_NGG, PCB180_NGG, PCB206_NGG, PCB209_NGG, DDT_4_4_C, DDT_2_4_C, DDE_4_4_C, DDD_4_4_C, ENDRIN_C, ENDR_ALD_C, ALDRIN_C, DIELDRN_C, CLRDNE_T_C, MIREX_C, METHOXYCLC, BHC_A_C, BHC_B_C, BHC_D_C, LINDANE_C))
+PCBs2002 = select(PCBs_full, c(UNIQUE_ID, PCB_52_NGG, PCB101_NGG, PCB118_NGG, PCB128_NGG, PCB138_NGG, PCB153_NGG, PCB180_NGG, PCB206_NGG, PCB209_NGG, DDT_4_4_C, DDT_2_4_C, DDE_4_4_C, DDD_4_4_C, ENDRIN_C, ENDR_ALD_C, ALDRIN_C, DIELDRN_C, CLRDNE_T_C, MIREX_C, METHOXYCLC, BHC_A_C, BHC_B_C, BHC_D_C, LINDANE_C))
 ```
 These are the variables within the PCBs dataset that have values -- many have NA values and no zeros.
 
@@ -55,8 +55,8 @@ colnames(PAHs2002)[1] ="UNIQUE_ID"
 ```
 
 ```{r join-data-frames}
-Texture_loc = full_join(Station2002, Texture2002, by = "UNIQUE_ID") %>%
-  PCBs_loc = full_join(Texture_loc, PCBs) %>%
-  data = full_join(PCBs_loc, PAHs2002) 
+Texture_loc <- full_join(Station2002, Texture2002, by = "UNIQUE_ID")
+  PCBs_loc <- full_join(Texture_loc, PCBs2002, by = "UNIQUE_ID")
+  data <- full_join(PCBs_loc, PAHs2002, by = "UNIQUE_ID") 
 ```
 
