@@ -56,17 +56,50 @@ colnames(PAHs2002)[1] ="UNIQUE_ID"
 
 ```{r join-data-frames}
 Texture_loc <- full_join(Station2002, Texture2002, by = "UNIQUE_ID")
+
   PCBs_loc <- full_join(Station2002, PCBs2002, by = "UNIQUE_ID")
+  
   PAHs_loc <- full_join(Station2002, PAHs2002, by = "UNIQUE_ID")
+   
   Organics_loc <- full_join(Station2002, Organics2002, by = "UNIQUE_ID")
+```
+
+``` {r removing >}
+
+  PAHs_loc <- PAHs_loc %>%
+    mutate(CHRYSENE_C = recode(CHRYSENE_C, "<" = "")) 
+
+ PAHs_loc <- PAHs_loc %>%
+   recode()
+
+  PAHs_loc %>%
+    distinct(CHRYSENE_C) %>%
+    arrange(desc(CHRYSENE_C)) 
+    #as.numeric(length = 1, CHRYSENE_C)
+
+
 ```
 
 # Pivoting data - data
 ```{r pivot-pcbs-longer}
+ 
+#PCBs
   pcbs_pivot_longer <- PCBs_loc %>%
-  pivot_longer(cols = `PCB_52_NGG`:`LINDANE_C`, 
+  pivot_longer(cols = `PCB_52_NGG`:`DIELDRN_C`, 
                names_to = "pcb_detected", 
                values_to = "amount_detected")
+#PAHs
+  pahs_pivot_longer <- PAHs_loc %>%
+  pivot_longer(cols = `BENZNE_C`:`B_GHI_PYLC`, 
+               names_to = "pah_detected", 
+               values_to = "amount_detected")
+ 
+#Organics
+   organics_pivot_longer <- Organics_loc %>%
+  pivot_longer(cols = `REPNO_ORG`:`TTBT_C`, 
+               names_to = "organic_detected", 
+               values_to = "amount_detected")
+   
 #View(pcbs_pivot_longer)
 ```
 
