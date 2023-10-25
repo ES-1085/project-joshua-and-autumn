@@ -57,7 +57,7 @@ colnames(PAHs2002)[1] ="UNIQUE_ID"
 ```
 
 ```{r join-data-frames}
-Texture_loc <- full_join(Station2002, Texture2002, by = "UNIQUE_ID")
+  Texture_loc <- full_join(Station2002, Texture2002, by = "UNIQUE_ID")
 
   PCBs_loc <- full_join(Station2002, PCBs2002, by = "UNIQUE_ID")
   #Should we instead to `PCBs_loc <- full_join(Texture_loc, PCBs2002, by = "UNIQUE_ID")` to include textures?
@@ -101,7 +101,7 @@ pahs_pivot_longer <- PAHs_loc %>%
     mutate(amount_detected_with_na = ifelse(is.na(amount_detected), 0, amount_detected))
  
 #Organics
-   organics_pivot_longer <- Organics_loc %>%
+  organics_pivot_longer <- Organics_loc %>%
   pivot_longer(cols = `REPNO_ORG`:`TTBT_C`, 
                names_to = "organic_detected", 
                values_to = "amount_detected")
@@ -136,4 +136,14 @@ pahs_pivot_longer <- PAHs_loc %>%
  visdat::vis_miss(Texture_loc)
 
 #This shows us in which station specific textures are found
+```
+
+# Graphs?
+``` {r plotting-stations-with-PAHs}
+
+  ggplot(pcbs_pivot_longer, aes(y = pcb_detected, fill = pcb_detected)) +
+  geom_bar() +
+  facet_wrap(~UNIQUE_ID, nrow = 4)
+
+
 ```
