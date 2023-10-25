@@ -8,6 +8,8 @@ output: github_document
 library(tidyverse)
 library(readxl)
 library(sf)
+library(visdat)
+library(naniar)
 ```
 
 ```{r load-data, warning=FALSE}
@@ -64,43 +66,72 @@ Texture_loc <- full_join(Station2002, Texture2002, by = "UNIQUE_ID")
   Organics_loc <- full_join(Station2002, Organics2002, by = "UNIQUE_ID")
 ```
 
-``` {r removing >}
+``` {r converting-PAHs-as.numeric}
 
   PAHs_loc <- PAHs_loc %>%
-    mutate(CHRYSENE_C = recode(CHRYSENE_C, "<" = "")) 
-
- PAHs_loc <- PAHs_loc %>%
-   recode()
+    mutate(CHRYSENE_C = recode(CHRYSENE_C, ">" = "NA")) 
 
   PAHs_loc %>%
     distinct(CHRYSENE_C) %>%
     arrange(desc(CHRYSENE_C)) 
     #as.numeric(length = 1, CHRYSENE_C)
 
+  PAHs_loc %>%
+    transform(PAHs_loc, CHRYSENE_C = as.numeric(CHRYSENE_C))
 
 ```
 
-# Pivoting data - data
+# Pivoting data
+## From wide to long
 ```{r pivot-pcbs-longer}
  
 #PCBs
   pcbs_pivot_longer <- PCBs_loc %>%
-  pivot_longer(cols = `PCB_52_NGG`:`DIELDRN_C`, 
+  pivot_longer(cols = `PCB_52_NGG`:`LINDANE_C`, 
                names_to = "pcb_detected", 
                values_to = "amount_detected")
 #PAHs
-  pahs_pivot_longer <- PAHs_loc %>%
+pahs_pivot_longer <- PAHs_loc %>%
+  mutate(CHRYSENE_C = as.numeric(CHRYSENE_C)) %>%
   pivot_longer(cols = `BENZNE_C`:`B_GHI_PYLC`, 
                names_to = "pah_detected", 
                values_to = "amount_detected")
+  pahs_pivot_longer <- pahs_pivot_longer %>%
+    mutate(amount_detected_with_na = ifelse(is.na(amount_detected), 0, amount_detected))
  
 #Organics
    organics_pivot_longer <- Organics_loc %>%
   pivot_longer(cols = `REPNO_ORG`:`TTBT_C`, 
                names_to = "organic_detected", 
                values_to = "amount_detected")
-   
+
+  
 #View(pcbs_pivot_longer)
+   
 ```
 `View(pcbs_pivot_longer)` is commented out as it is too large to load when knitting file.
 
+# Visualizing Missing Data
+``` {r missing-data-PCBs}
+ visdat::vis_miss(PCBs_loc)
+
+#we should highlight the locations where there are PCBs detected
+```
+
+``` {r missing-data-PAHs}
+ visdat::vis_miss(PAHs_loc)
+
+#we should highlight the locations where there are PAHs detected
+```
+
+``` {r missing-data-Organics}
+ visdat::vis_miss(Organics_loc)
+
+#This shows us in which station specific textures are found
+```
+
+``` {r missing-data-Textures}
+ visdat::vis_miss(Texture_loc)
+
+#This shows us in which station specific textures are found
+```
