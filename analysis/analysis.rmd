@@ -60,3 +60,4 @@ Texture_loc <- full_join(Station2002, Texture2002, by = "UNIQUE_ID")
   data <- full_join(PCBs_loc, PAHs2002, by = "UNIQUE_ID") 
 ```
 
+
