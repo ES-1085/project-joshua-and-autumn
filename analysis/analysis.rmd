@@ -1,9 +1,10 @@
 ---
-title: "GOM Contaminated Sediments analysis"
+title: "GOM Contaminated Sediments analysis: data tidying"
 author: "Joshua Harkness and Autumn Pauly,"
 date: "2023-10-20"
 output: github_document
 ---
+## Load packages
 ```{r load-packages}
 library(tidyverse)
 library(readxl)
@@ -12,51 +13,60 @@ library(visdat)
 library(naniar)
 ```
 
+##Load full datasets
 ```{r load-data, warning=FALSE}
 stations_full = read_excel("/cloud/project/data/STAT2002.xls", sheet = 2, skip = 3)
 sediments_full = read_excel("/cloud/project/data/TXTR2002.xls", sheet = 2, skip = 3)
 PCBs_full = read_excel("/cloud/project/data/PCBP2002.xls", sheet = 2, skip = 3)
 PAHs_full = read_excel("/cloud/project/data/PAHS2002.xls", sheet = 2, skip = 3)
 organics_full = read_excel("/cloud/project/data/GENO2002.xls", sheet = 2, skip = 3)
-inorganics_full = read_excel("/cloud/project/data/INOR2002.xls", sheet = 2, skip = 3)
+#inorganics_full = read_excel("/cloud/project/data/INOR2002.xls", sheet = 2, skip = 3)
 textures_full = read_excel("/cloud/project/data/TXTR2002.xls", sheet = 2, skip = 3)
 ```
+Since these are all very large data files, we will select useful variables and variables we are interested in looking at to pare them down to a more manageable size.  Note that the `inorganics_full` dataframe is commented out because we are unlikely to use it in our final analysis.
 
-# Creating PCBs dataset with select variables. 
+#Selecting variables 
+###PCBs
 ```{r select-var-PCBs}
 PCBs2002 = select(PCBs_full, c(UNIQUE_ID, PCB_52_NGG, PCB101_NGG, PCB118_NGG, PCB128_NGG, PCB138_NGG, PCB153_NGG, PCB180_NGG, PCB206_NGG, PCB209_NGG, DDT_4_4_C, DDT_2_4_C, DDE_4_4_C, DDD_4_4_C, ENDRIN_C, ENDR_ALD_C, ALDRIN_C, DIELDRN_C, CLRDNE_T_C, MIREX_C, METHOXYCLC, BHC_A_C, BHC_B_C, BHC_D_C, LINDANE_C))
 ```
-These are the variables within the PCBs dataset that have values -- many have NA values and no zeros.
+Creates PCBs2002 dataframe.  These are variables of interest, principally contaminant concentration with assigned unique IDs that can be associated to unique IDs in the other dataframes.
 
-# Creating Stations2002 dataset with select variables.
+###Stations
 ```{r select-var-STATs}
 Station2002 = select(stations_full, c(UNIQUE_ID, LATITUDE, LONGITUDE, SOUNDING_M, STATE_NAME, QUAD_NAME, GEN_LOC_NM, SPECFC_LOC, AREA_CODE, SAMP_DATE1, TO_SMP_DT2, DPTH_N_COR, DPTH_CODE, COR_GRB_CD))
 ```
+Creates Stations2002 dataframe.  These are unique IDs, coordinates (Lat/Lon in decimal degrees), depth sounding (meters), state name, USGS quad name, general and specific location names, area code, sampling date, resampling date, and information on sediment collection
 
-# Creating Texture2002 dataset with select variables.
+###Textures
 ```{r select-var-TXTR}
 Texture2002 = select(textures_full, c(UNIQUE_ID, SAMPLE_WT, SAMP_UNITS, Q1_MM, Q2_MED_MM, Q3_MM, GRN_SI_PCT, SPECIFIC_G, GRAVEL_PCT, SAND_PCT, SILT_PCT, CLAY_PCT, FINES_SIL, SED_CLASS, CLASSIF_S, MEDIAN, MEAN, STDEV_SORT, SKEWNESS, KURTOSIS))
 ```
+Creates Textures2002 dataframe.  These are sediment characters.  We are mostly interested in comparing grain size, percent composition of sediment (sand, gravel, clay, silt).  There is also general information about samples, and some statistics to describe the distribution of sediment characters.
 
-# Creating Inorganics2002 dataset with select variables.
+###Inorganics
 ```{r select-var-INORG}
 #Not going to use this for the time being... will determine if we need these variables in the future. 
 #Inorganics2002 = select(inorganics_full, c(UNIQUE_ID, REPL_NO, TOT_REPL, AG_UG_G, AL_UG_G, AS_UG_G, AS_UG_G, AU_UG_G, B_UG_G, BA_UG_G, BE_UG_G, CA_UG_G, CD_UG_G, CL_UG_G, CO_UG_G, CR_UG_G, CU_UG_G, FE_UG_G, HG_UG_G, K_UG_G, LI_UG_G, MG_UG_G, MN_UG_G, MO_UG_G, NA_UG_G, NI_UG_G, P_UG_G, PB_UG_G, RA_UG_G, SB_UG_G, SE_UG_G, SI_UG_G, SN_UG_G, TI_UG_G, TL_UG_G, TH_UG_G, U_UG_G, V_UG_G, ZN_UG_G, C_INOR_PCT, C_ORG_PCT, C_TOT_PCT, VOLAT_PCT, HYDROG_PCT, NITROG_PCT, NH3_MOL_KG, NO3_MOL_KG, O2_MOL_KG, SO2_MOL_KG, SO3_MOL_KG, SO4_MOL_KG, AVS_MOL_G, COD_UG_G, CEC_MOL_KG, SURF_M2_G, TOTSAMP_G, TSOL_WTPCT, WATER_WPCT, R_MOHMS, SP_C_MOHMS, SALIN_PPT, ALK_MEQ_KG, PH, TOTR_MR_HR, ALPHA_PC_G, BETA_PC_G, BULK_RAD_Q))
 ```
+Creates Inorganics2002 dataframe with selected variables.  This code chunk is commented out as we are unlikely to use the inorganics dataframe in our analysis. 
 
-# Creating Organics2002 dataset with select variables.
+###Organics
 ```{r select-var-ORG}
 Organics2002 = select(organics_full, c(UNIQUE_ID, REPNO_ORG, TOTREP_ORG, TVS_EP_PCT, O_G_PCT, O_G_UGG, PHCTOT_PCT, PHCTOT_UGG, PCB_T_UGG, DDT_T_NGG, DDE_T_NGG, DDD_T_NGG, PEST_UG_G, PAHTOT_PCT, PAHTOT_UGG, LIPIDS_NGG, CLOST_SP_G, MBT_C, DBT_C, TBT_C, TTBT_C))
 ```
+Creates Organics2002 dataframe with selected variables of interest.  These include general organics as well as total PCB and some notable pesticide concentrations.
 
-# Creating PAHs2002 dataset with select variables.
+###PAHs
 ```{r select-var-PAH}
 PAHs2002 = select(PAHs_full, c("UNIQUE ID", BENZNE_C, "2BZTPN_C", "2BZTPN_T_C", C1DIBZTPNC, C2DIBZTPNC, C3DIBZTPNC, "2BZFRN_T_C", NAPHTHLN_C, NPHTLN_T_C, C1NPHTLN_C, "1MTYLNAP_C", "2MTYLNAP_C", C2NPHTLN_C, C3NPHTLN_C, C4NPHTLN_C, BIPHENYL_C, ACNPHTHN_C, ACNPHTYL_C, FLUORENE_C, C1FLORNE_C, C2FLORNE_C, C3FLORNE_C, PHNANTHR_C, "1MT_PHE_C", C2PHNANT_C, C3PHNANT_C, C4PHNANT_C, ANTHRACN_C, BZ_A_ANT_C, "2_AH_ANT_C", PYRENE_C, C1PYRENE_C, BZ_A_PYR_C, BZ_E_PYR_C, IN_123_PYC, "3_4BNZPY_C", FLORNTHN_C, C1FLRNTHNC, BZ_B_FLUOC, BZ_K_FLUOC, CHRYSENE_C, CHRYS_C1_C, CHRYS_C2_C, CHRYS_C3_C, CHRYS_C4_C, PERYLENE_C, BNZ_G_PYLC, B_GHI_PYLC))
 
 colnames(PAHs2002)[1] ="UNIQUE_ID"
 ```
+Creates PAHs2002 dataframe with selected variables of interest.  These are principally contaminat concentrations with unique IDs associated with other dataframes.
 
-# Joining Dataframes - PCBs, PAHs, and Organics without textures
+#Joining Dataframes
+###Associates location information with texture and contaminant data by sample unique ID
 ```{r join-data-frames}
   Texture_loc <- full_join(Station2002, Texture2002, by = "UNIQUE_ID")
 
@@ -65,12 +75,10 @@ colnames(PAHs2002)[1] ="UNIQUE_ID"
   PAHs_loc <- full_join(Station2002, PAHs2002, by = "UNIQUE_ID")
   
   Organics_loc <- full_join(Station2002, Organics2002, by = "UNIQUE_ID")
-
-
 ```
 
-# Joining Dataframes - PCBs, PAHs, and Organics with Textures
-```{r join-data-frames}
+###Associates location and sediment character information with contaminant data by sample unique ID
+```{r join-data-frames-with-textures}
 
   #PCBs_loc_with_texture <- full_join(Texture_loc, PCBs2002, by = "UNIQUE_ID")
   
@@ -82,6 +90,7 @@ colnames(PAHs2002)[1] ="UNIQUE_ID"
 
 ```
 
+###Recode special character value in PAHs$CHRYSENE_C as numeric.
 ``` {r converting-PAHs-as.numeric}
 
   PAHs_loc <- PAHs_loc %>%
@@ -93,55 +102,60 @@ colnames(PAHs2002)[1] ="UNIQUE_ID"
 ```
 
 # Pivoting data
-## From wide to long
+### From wide to long
 ```{r pivot-pcbs-longer}
  
 #PCBs
-  pcbs_pivot_longer <- PCBs_loc %>%
-  pivot_longer(cols = `PCB_52_NGG`:`LINDANE_C`, 
-               names_to = "pcb_detected", 
-               values_to = "amount_detected")
+#  pcbs_pivot_longer <- PCBs_loc %>%
+#  pivot_longer(cols = `PCB_52_NGG`:`LINDANE_C`, 
+#               names_to = "pcb_detected", 
+#               values_to = "amount_detected")
 #PAHs
-pahs_pivot_longer <- PAHs_loc %>%
-  mutate(CHRYSENE_C = as.numeric(CHRYSENE_C)) %>%
-  pivot_longer(cols = `BENZNE_C`:`B_GHI_PYLC`, 
-               names_to = "pah_detected", 
-               values_to = "amount_detected")
-  pahs_pivot_longer <- pahs_pivot_longer %>%
-    mutate(amount_detected_with_na = ifelse(is.na(amount_detected), 0, amount_detected))
+#pahs_pivot_longer <- PAHs_loc %>%
+#  mutate(CHRYSENE_C = as.numeric(CHRYSENE_C)) %>%
+#  pivot_longer(cols = `BENZNE_C`:`B_GHI_PYLC`, 
+#               names_to = "pah_detected", 
+#               values_to = "amount_detected")
+#  pahs_pivot_longer <- pahs_pivot_longer %>%
+#    mutate(amount_detected_with_na = ifelse(is.na(amount_detected), 0, amount_detected))
  
 #Organics
-  organics_pivot_longer <- Organics_loc %>%
-  pivot_longer(cols = `REPNO_ORG`:`TTBT_C`, 
-               names_to = "organic_detected", 
-               values_to = "amount_detected")
+#  organics_pivot_longer <- Organics_loc %>%
+#  pivot_longer(cols = `REPNO_ORG`:`TTBT_C`, 
+#               names_to = "organic_detected", 
+#               values_to = "amount_detected")
 
 
   
 #View(pcbs_pivot_longer)
    
 ```
-`View(pcbs_pivot_longer)` is commented out as it is too large to load when knitting file.
+
+This code chunk is commented out as it is too taxing on RAM currently.
 
 # Visualizing Missing Data
+###PCBs
 ``` {r missing-data-PCBs}
  visdat::vis_miss(PCBs_loc)
 
 #we should highlight the locations where there are PCBs detected
 ```
 
+###PAHs
 ``` {r missing-data-PAHs}
  visdat::vis_miss(PAHs_loc)
 
 #we should highlight the locations where there are PAHs detected
 ```
 
+###PAHs
 ``` {r missing-data-Organics}
  visdat::vis_miss(Organics_loc)
 
 #This shows us in which station specific textures are found
 ```
 
+###Textures
 ``` {r missing-data-Textures}
  visdat::vis_miss(Texture_loc)
 
@@ -151,9 +165,7 @@ pahs_pivot_longer <- PAHs_loc %>%
 # Graphs?
 ``` {r plotting-stations-with-PAHs}
 
-  ggplot(pcbs_pivot_longer, aes(y = pcb_detected, fill = pcb_detected)) +
-  geom_bar() +
-  facet_wrap(~UNIQUE_ID, nrow = 4)
-
-
+#  ggplot(pcbs_pivot_longer, aes(y = pcb_detected, fill = pcb_detected)) +
+ # geom_bar() +
+  #facet_wrap(~UNIQUE_ID, nrow = 4)
 ```
