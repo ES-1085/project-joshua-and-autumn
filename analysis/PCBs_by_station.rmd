@@ -12,6 +12,11 @@ library(visdat)
 library(naniar)
 ```
 
+# 
 ```{r load-data, warning=FALSE}
-load(PCBs_loc.csv)
+PCBs_loc = read_csv("/cloud/project/data/datasets_loc/PCBs_loc.csv")
+
+##joining texture
+#Texture_loc = read_csv("/cloud/project/data/datasets_loc/Texture_loc.csv")
+#PCBs_loc_with_texture <- full_join(texture_loc, PCBs_loc, by = "UNIQUE_ID")
 ```
