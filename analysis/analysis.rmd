@@ -147,13 +147,23 @@ pahs_pivot_longer <- PAHs_loc %>%
 
 #This shows us in which station specific textures are found
 ```
+# Loading full datasets as CSVs
+``` {r saving data_loc into csv files}
+write_csv(organics_full, "organics_full.csv")
+write_csv(PAHs_full, "PAHs_full.csv")
+write_csv(PCBs_full, "PCBs_full.csv")
+write_csv(sediments_full, "sediments_full.csv")
+write_csv(stations_full, "stations_full.csv")
+write_csv(textures_full, "textures_full.csv")
+write_csv(inorganics_full, "inorganics_full.csv")
+```
 
-# Graphs?
-``` {r plotting-stations-with-PAHs}
-
-  ggplot(pcbs_pivot_longer, aes(y = pcb_detected, fill = pcb_detected)) +
-  geom_bar() +
-  facet_wrap(~UNIQUE_ID, nrow = 4)
-
+# Loading loc datasets as CSVs
+``` {r saving data_loc into csv files}
+write_csv(Texture_loc, "Texture_loc.csv")
+write_csv(Organics_loc, "Organics_loc.csv")
+write_csv(Inorganics_loc, "Inorganics_loc.csv")
+write_csv(PAHs_loc, "PAHs_loc.csv")
+write_csv(PCBs_loc, "PCBs_loc.csv")
 
 ```
