@@ -15,3 +15,7 @@ library(leaflet)
 PCBs <- read.csv(paste0("/cloud/project/data/datasets_loc/PCBs_loc.csv"), header = T)
 ```
 
+```{r glimpse-data, warning=FALSE}
+glimpse(PCBs)
+```
+
