@@ -1,5 +1,5 @@
 ---
-title: 'GOM Contaminated Sediments analysis: PCBs'
+title: 'GOM Contaminated Sediments analysis: PAHs'
 author: "Joshua Harkness and Autumn Pauly"
 date: "2023-10-28"
 output: github_document
@@ -12,9 +12,9 @@ library(leaflet)
 ```
 
 ```{r load-data}
-PCBs <- read.csv(paste0("/cloud/project/data/datasets_loc/PCBs_loc.csv"), header = T)
+PAHs <- read.csv(paste0("/cloud/project/data/datasets_loc/PAHs_loc.csv"), header = T)
 ```
 
 ```{r glimpse-data, warning=FALSE}
-glimpse(PCBs)
+glimpse(PAHs)
 ```
