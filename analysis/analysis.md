@@ -35,13 +35,13 @@ library(naniar)
 \##Load full datasets
 
 ``` r
-stations_full = read_excel("/cloud/project/data/STAT2002.xls", sheet = 2, skip = 3)
-sediments_full = read_excel("/cloud/project/data/TXTR2002.xls", sheet = 2, skip = 3)
-PCBs_full = read_excel("/cloud/project/data/PCBP2002.xls", sheet = 2, skip = 3)
-PAHs_full = read_excel("/cloud/project/data/PAHS2002.xls", sheet = 2, skip = 3)
-organics_full = read_excel("/cloud/project/data/GENO2002.xls", sheet = 2, skip = 3)
-#inorganics_full = read_excel("/cloud/project/data/INOR2002.xls", sheet = 2, skip = 3)
-textures_full = read_excel("/cloud/project/data/TXTR2002.xls", sheet = 2, skip = 3)
+stations_full = read_excel("/cloud/project/data/original_datasets/STAT2002.xls", sheet = 2, skip = 3)
+sediments_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
+PCBs_full = read_excel("/cloud/project/data/original_datasets/PCBP2002.xls", sheet = 2, skip = 3)
+PAHs_full = read_excel("/cloud/project/data/original_datasets/PAHS2002.xls", sheet = 2, skip = 3)
+organics_full = read_excel("/cloud/project/data/original_datasets/GENO2002.xls", sheet = 2, skip = 3)
+#inorganics_full = read_excel("/cloud/project/data/original_datasets/INOR2002.xls", sheet = 2, skip = 3)
+textures_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
 ```
 
 Since these are all very large data files, we will select useful
@@ -23642,10 +23642,24 @@ This code chunk is commented out as it is too taxing on RAM currently.
 #This shows us in which station specific textures are found
 ```
 
-# Graphs?
+# Loading full datasets as CSVs
 
 ``` r
-#  ggplot(pcbs_pivot_longer, aes(y = pcb_detected, fill = pcb_detected)) +
- # geom_bar() +
-  #facet_wrap(~UNIQUE_ID, nrow = 4)
+write_csv(organics_full, "organics_full.csv")
+write_csv(PAHs_full, "PAHs_full.csv")
+write_csv(PCBs_full, "PCBs_full.csv")
+write_csv(sediments_full, "sediments_full.csv")
+write_csv(stations_full, "stations_full.csv")
+write_csv(textures_full, "textures_full.csv")
+#write_csv(inorganics_full, "inorganics_full.csv")
+```
+
+# Loading loc datasets as CSVs
+
+``` r
+write_csv(Texture_loc, "Texture_loc.csv")
+write_csv(Organics_loc, "Organics_loc.csv")
+#write_csv(Inorganics_loc, "Inorganics_loc.csv")
+write_csv(PAHs_loc, "PAHs_loc.csv")
+write_csv(PCBs_loc, "PCBs_loc.csv")
 ```
