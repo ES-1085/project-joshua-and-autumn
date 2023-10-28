@@ -23594,6 +23594,10 @@ This code chunk is commented out as it is too taxing on RAM currently.
 
 # Visualizing Missing Data
 
+Visualizing missing data can help us determine which specific
+contaminants were actually detected, and should then be analyzed, as
+there are a lot of missing values within each dataset.
+
 \###PCBs
 
 ``` r
