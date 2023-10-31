@@ -37,7 +37,8 @@ glimpse(PAHs)
 pahs_longer_filtered <- pahs_pivot_longer %>%
   filter(!is.na(amount_detected))
 
-# how can I exclude 0 values?
+# how can I exclude 0 values without creating a new data frame?
+#how can I filter values so that I am only looking at general PAHs?
 
 pahs_longer_filtered %>%
   ggplot(data = pahs_longer_filtered, mapping = aes(x = UNIQUE_ID, y = amount_detected, color = pah_detected)) +
