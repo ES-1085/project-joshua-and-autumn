@@ -38,6 +38,7 @@ glimpse(PCBs)
 
 ```{r}
 PCBs %>%
+  drop_na(DDT_2_4_C) %>%
   ggplot(aes(x = LONGITUDE, y = LATITUDE, color = DDT_2_4_C))+
   geom_point()
 ```
@@ -126,3 +127,16 @@ Summary_Organics_1 %>%
        y = "Mean total PCB concentration ug/g",
        caption = "Error bars = 1 standard error")
 ```
+
+## Statistical tests
+### Difference between general locations
+
+Does total PCB concentration differ significantly between general locations?
+
+
+## Map Plots
+
+```{r}
+NE_states <- st_read(system.file("/cloud/project/extra/", package="sf"))
+```
+
