@@ -1,0 +1,20 @@
+---
+title: 'GOM Contaminated Sediments analysis: PAHs'
+author: "Joshua Harkness and Autumn Pauly"
+date: "2023-10-28"
+output: github_document
+---
+
+```{r load-packages}
+library(tidyverse)
+library(sf)
+library(leaflet)
+```
+
+```{r load-data}
+PAHs <- read.csv(paste0("/cloud/project/data/datasets_loc/PAHs_loc.csv"), header = T)
+```
+
+```{r glimpse-data, warning=FALSE}
+glimpse(PAHs)
+```

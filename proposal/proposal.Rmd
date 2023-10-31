@@ -12,12 +12,12 @@ library(readxl)
 ```
 
 ```{r load-data, echo=FALSE, message=FALSE, warning=FALSE}
-stations = read_excel("/cloud/project/data/STAT2002.xls", sheet = 2, skip = 3)
-sediments = read_excel("/cloud/project/data/TXTR2002.xls", sheet = 2, skip = 3)
-PCBs = read_excel("/cloud/project/data/PCBP2002.xls", sheet = 2, skip = 3)
-PAHs = read_excel("/cloud/project/data/PAHS2002.xls", sheet = 2, skip = 3)
-organics = read_excel("/cloud/project/data/GENO2002.xls", sheet = 2, skip = 3)
-inorganics = read_excel("/cloud/project/data/INOR2002.xls", sheet = 2, skip = 3)
+stations = read_excel("/cloud/project/data/original_datasets/STAT2002.xls", sheet = 2, skip = 3)
+sediments = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
+PCBs = read_excel("/cloud/project/data/original_datasets/PCBP2002.xls", sheet = 2, skip = 3)
+PAHs = read_excel("/cloud/project/data/original_datasets/PAHS2002.xls", sheet = 2, skip = 3)
+organics = read_excel("/cloud/project/data/original_datasets/GENO2002.xls", sheet = 2, skip = 3)
+inorganics = read_excel("/cloud/project/data/original_datasets/INOR2002.xls", sheet = 2, skip = 3)
 ```
 
 ## 1. Introduction
@@ -70,7 +70,8 @@ stations %>%
 Map of raw station data for Gulf of Maine, represe1nting sediment sampling locations.  You can see the outline of the New England coast where points are dense, representing greater sampling near-shore.
 
 ## 3. Ethics review
-Not applicable
+### Limitations in data sources
+Our project data was collected by multiple researchers over several decades.  Our understanding is that standardized data collection forms were distributed by the USGS to researchers for data entry.  Bias, missing values, and uncertainty are always present in data, but in the case of our dataset, there are potentially multiple sources of bias and multiple data collection styles between researchers.  One issue we are facing currently is how to treat missing values in our data.  For some contaminants, the researchers that analyzed the sediment samples report zeros in their values, but there are a lot of missing values (NAs) as well, and we suspect that some fields in the data collection forms were left blank by some parties rather than reporting zeros.
 
 ## 4. Data analysis plan
 #### Data tidying
