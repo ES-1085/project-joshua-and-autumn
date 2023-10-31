@@ -73,6 +73,12 @@ Map of raw station data for Gulf of Maine, represe1nting sediment sampling locat
 ### Limitations in data sources
 Our project data was collected by multiple researchers over several decades.  Our understanding is that standardized data collection forms were distributed by the USGS to researchers for data entry.  Bias, missing values, and uncertainty are always present in data, but in the case of our dataset, there are potentially multiple sources of bias and multiple data collection styles between researchers.  One issue we are facing currently is how to treat missing values in our data.  For some contaminants, the researchers that analyzed the sediment samples report zeros in their values, but there are a lot of missing values (NAs) as well, and we suspect that some fields in the data collection forms were left blank by some parties rather than reporting zeros.
 
+### Postivie Effects on People
+
+### Negative Effects on People
+
+### Minimising negative impact
+
 ## 4. Data analysis plan
 #### Data tidying
 The first step in our analysis will have to be the paring down of our ata files into more manageable forms; this means filtering and/or subsetting our data files to include only the variables we will need in our analysis. Many of the variables in each data file contain information that is not useful for our project: these include comments, notes, some calculated values, duplicates of geographical information, as well as some variables that are irrelevant to our research questions, and which we plan to exclude from our analysis.  We may also make use of subsetting (base R) where it is more efficient than fitering and saving as new objects.  Once we have pared our data file down to what we will use in our analysis, it will be helpful to join each data file to create a single working dataframe, which will include all of the variables of interest.  Variables of interest are principally those giving location and date/time of sample collection, sediment characters including particle size, percent composition, distribution, and concentrations of contaminants of interest.  At this point, we are unlikely to bring in any other data.

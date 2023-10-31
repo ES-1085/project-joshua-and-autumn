@@ -31,18 +31,26 @@ glimpse(PAHs)
 
 #glimpse(PAHs)
 
+#joining station and pivoting
+PAHs_station <- full_join(Station2002, PAHs, by = "UNIQUE_ID")
+
+PAHs_station <- PAHs_station %>%
+  mutate(CHRYSENE_C = as.numeric(CHRYSENE_C)) %>%
+  pivot_longer(cols = `BENZNE_C`:`B_GHI_PYLC`, 
+               names_to = "pah_detected", 
+               values_to = "amount_detected")
+  
+PAHs_station_nona <- PAHs_station %>%
+    mutate(amount_detected_with_na = ifelse(is.na(amount_detected), 0, amount_detected))
+
 ```
 
 ``` {r summing-columns, warning=FALSE}
 
-pahs_longer_filtered <- pahs_pivot_longer %>%
-  filter(!is.na(amount_detected))
-
-# how can I exclude 0 values without creating a new data frame?
-#how can I filter values so that I am only looking at general PAHs?
-
-pahs_longer_filtered %>%
-  ggplot(data = pahs_longer_filtered, mapping = aes(x = UNIQUE_ID, y = amount_detected, color = pah_detected)) +
+PAHs_station %>%
+  mutate(amount_detected = as.numeric(amount_detected)) %>%
+  filter(pah_detected == "BENZNE_C"|"NAPHTHLN_C"|"BIPHENYL_C"|"ACNPHTHN_C"|"ACNPHTYL_C"|"FLUORENE_C"|"PHNANTHR_C"|"ANTHRACN_C"|"PYRENE_C"|"FLORNTHN_C"|"CHRYSENE_C"|"PERYLENE_C") %>%
+ggplot(aes(x = pah_detected, y = amount_detected)) +
   geom_point()
 
 ```
