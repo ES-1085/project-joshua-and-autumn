@@ -18,3 +18,36 @@ PAHs <- read.csv(paste0("/cloud/project/data/datasets_loc/PAHs_loc.csv"), header
 ```{r glimpse-data, warning=FALSE}
 glimpse(PAHs)
 ```
+``` {r joining-columns, warning=FALSE}
+
+#PAHs <- PAHs %>%
+#mutate(sum_DIBZTPN = C1DIBZTPNC + C2DIBZTPNC + C3DIBZTPNC) %>% 
+#mutate(sum_ = BHC_A_C + BHC_B_C + BHC_D_C) +
+#mutate(sum_)
+
+#PAHs <- PAHs %>% 
+#  select(-C1DIBZTPNC, -C2DIBZTPNC, -C3DIBZTPNC, )
+
+#glimpse(PAHs)
+
+```
+
+``` {r summing-columns, warning=FALSE}
+
+pahs_longer_filtered <- pahs_pivot_longer %>%
+  filter(!is.na(amount_detected))
+
+# how can I exclude 0 values?
+#JAH -- See next code chunk.
+
+pahs_longer_filtered %>%
+  ggplot(data = pahs_longer_filtered, mapping = aes(x = UNIQUE_ID, y = amount_detected, color = pah_detected)) +
+  geom_point()
+
+```
+
+```{r}
+pahs_long_no_zero <-pahs_pivot_longer %>%
+  filter(amount_detected != "0")
+```
+
