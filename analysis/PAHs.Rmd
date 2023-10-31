@@ -18,6 +18,7 @@ PAHs <- read.csv(paste0("/cloud/project/data/datasets_loc/PAHs_loc.csv"), header
 ```{r glimpse-data, warning=FALSE}
 glimpse(PAHs)
 ```
+<<<<<<< HEAD
 ``` {r joining-columns, warning=FALSE}
 
 #PAHs <- PAHs %>%
@@ -45,3 +46,5 @@ pahs_longer_filtered %>%
   geom_point()
 
 ```
+=======
+>>>>>>> c713a5abb770da7fa22ca403edd9b004b2c45bcc

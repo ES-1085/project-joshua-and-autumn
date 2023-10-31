@@ -699,7 +699,19 @@ where points are dense, representing greater sampling near-shore.
 
 ## 3. Ethics review
 
-Not applicable
+### Limitations in data sources
+
+Our project data was collected by multiple researchers over several
+decades. Our understanding is that standardized data collection forms
+were distributed by the USGS to researchers for data entry. Bias,
+missing values, and uncertainty are always present in data, but in the
+case of our dataset, there are potentially multiple sources of bias and
+multiple data collection styles between researchers. One issue we are
+facing currently is how to treat missing values in our data. For some
+contaminants, the researchers that analyzed the sediment samples report
+zeros in their values, but there are a lot of missing values (NAs) as
+well, and we suspect that some fields in the data collection forms were
+left blank by some parties rather than reporting zeros.
 
 ## 4. Data analysis plan
 
@@ -731,7 +743,7 @@ contaminant concentrations significantly different between locations? 2)
 Are organic contaminant concentrations significantly different between
 initial sampling and resampling? 3) Are organic contaminant
 concentrations significantly related to any particular sediment
-character? \<\<\<\<\<\<\< HEAD
+character?
 
 We will test these hypothesis with simple T-tests, ANOVAs, and general
 linear models where our data meet parametric assumptions. Where
