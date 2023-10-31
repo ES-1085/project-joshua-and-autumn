@@ -18,6 +18,7 @@ PAHs <- read.csv(paste0("/cloud/project/data/datasets_loc/PAHs_loc.csv"), header
 ```{r glimpse-data, warning=FALSE}
 glimpse(PAHs)
 ```
+
 ``` {r joining-columns, warning=FALSE}
 
 #PAHs <- PAHs %>%
@@ -38,7 +39,6 @@ pahs_longer_filtered <- pahs_pivot_longer %>%
   filter(!is.na(amount_detected))
 
 # how can I exclude 0 values?
-#JAH -- See next code chunk.
 
 pahs_longer_filtered %>%
   ggplot(data = pahs_longer_filtered, mapping = aes(x = UNIQUE_ID, y = amount_detected, color = pah_detected)) +
@@ -47,7 +47,32 @@ pahs_longer_filtered %>%
 ```
 
 ```{r}
-pahs_long_no_zero <-pahs_pivot_longer %>%
-  filter(amount_detected != "0")
+#joining station and pivoting
+PAHs_station <- full_join(Station2002, PAHs, by = "UNIQUE_ID")
+
+PAHs_station <- PAHs_station %>%
+  mutate(CHRYSENE_C = as.numeric(CHRYSENE_C)) %>%
+  pivot_longer(cols = `BENZNE_C`:`B_GHI_PYLC`, 
+               names_to = "pah_detected", 
+               values_to = "amount_detected")
+  
+#PAHs_station_nona <- PAHs_station %>%
+   # mutate(amount_detected_with_na = ifelse(is.na(amount_detected), 0, amount_detected))
+
+#PAHs_station_nona <- PAHs_station %>%
+  # mutate(amount_detected = as.numeric(amount_detected))
+
+```
+
+``` {r summing-columns, warning=FALSE}
+
+PAHs_station_nona %>%
+  filter(pah_detected %in% c("BENZNE_C", "BENZNE_C", "NAPHTHLN_C", "BIPHENYL_C", "ACNPHTHN_C", "ACNPHTYL_C", "FLUORENE_C", "PHNANTHR_C", "ANTHRACN_C", "PYRENE_C", "FLORNTHN_C", "CHRYSENE_C", "PERYLENE_C")) %>%
+  ggplot(aes(x = pah_detected, y = amount_detected, color = pah_detected)) +
+  geom_col() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+#I do now know why it is colored like that
+
 ```
 
