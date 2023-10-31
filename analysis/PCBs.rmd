@@ -18,4 +18,17 @@ PCBs <- read.csv(paste0("/cloud/project/data/datasets_loc/PCBs_loc.csv"), header
 ```{r glimpse-data, warning=FALSE}
 glimpse(PCBs)
 ```
+```{r combine-variables}
+#PCBs %>%
+  #drop_na(c(PCB_52_NGG:PCB209_NGG))
+  #mutate(PCBs = sum(c(PCB_52_NGGPCB209_NGG)), na.rm = T)
+  #unite("PCBs", PCB_52_NGG:PCB209_NGG, remove = TRUE)
+```
+
+
+```{r}
+PCBs %>%
+  ggplot(aes(x = LONGITUDE, y = LATITUDE, color = DDT_2_4_C))+
+  geom_point()
+```
 
