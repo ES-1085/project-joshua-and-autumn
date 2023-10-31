@@ -9,6 +9,9 @@ output: github_document
 library(tidyverse)
 library(sf)
 library(leaflet)
+
+install.packages("dplyr")
+library(dplyr)
 ```
 
 ```{r load-data}
@@ -17,4 +20,17 @@ PCBs <- read.csv(paste0("/cloud/project/data/datasets_loc/PCBs_loc.csv"), header
 
 ```{r glimpse-data, warning=FALSE}
 glimpse(PCBs)
+```
+
+```{r joining-columns, warning=FALSE}
+
+PCBs <- PCBs %>%
+  mutate(sum_PCBs = PCB101_NGG + PCB118_NGG + PCB128_NGG + PCB138_NGG + PCB153_NGG + PCB180_NGG + PCB206_NGG + PCB209_NGG) %>% 
+  mutate(sumBHCs = BHC_A_C + BHC_B_C + BHC_D_C)
+
+PCBs <- PCBs %>% 
+  select(-BHC_A_C, -BHC_B_C, -BHC_D_C, -PCB101_NGG,  -PCB118_NGG, -PCB128_NGG, -PCB138_NGG, -PCB153_NGG, -PCB180_NGG, -PCB206_NGG, -PCB209_NGG)
+
+glimpse(PCBs)
+
 ```
