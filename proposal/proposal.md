@@ -743,7 +743,7 @@ contaminant concentrations significantly different between locations? 2)
 Are organic contaminant concentrations significantly different between
 initial sampling and resampling? 3) Are organic contaminant
 concentrations significantly related to any particular sediment
-character? \<\<\<\<\<\<\< HEAD
+character?
 
 We will test these hypothesis with simple T-tests, ANOVAs, and general
 linear models where our data meet parametric assumptions. Where

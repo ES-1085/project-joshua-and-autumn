@@ -79,7 +79,6 @@ The first step in our analysis will have to be the paring down of our ata files 
 
 #### Statistical analysis
 We will conduct appropriate statistical analyses as part of our project.  Research hypotheses we wish to test are: 1) Are specific organic contaminant concentrations significantly different between locations? 2) Are organic contaminant concentrations significantly different between initial sampling and resampling? 3) Are organic contaminant concentrations significantly related to any particular sediment character?
-<<<<<<< HEAD
 
 We will test these hypothesis with simple T-tests, ANOVAs, and general linear models where our data meet parametric assumptions.  Where non-parametric, we will use bootstrapping to test for significance.  If our data requires it, we may use more complex statistical tests such as MANOVAs to test for difference within a matrix of parameters (e.g., between several sediment characters).  We will also likely employ Chi-Squared tests when testing between categorical variables.  Most statistical tests will be run with base R code, though we may use the `boot` package if we find it necessary to use bootstrapping.  We will also calculate simple summary statistics where needed, such as mean, median, IQR, standard deviation, etc.
 
