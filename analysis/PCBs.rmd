@@ -153,9 +153,9 @@ Sum_Org_site %>%
        y = "Mean total PCB concentration ug/g")
 ```
 
-Need to figure out how to keep categories with zero values.  For example, samples from the Penobscot River yielded no PCBs and are entered as zero values but will not display in ggplot.  "Tried scale_x_discrete(drop = FALSE)" with no effect.
+Need to figure out how to keep categories with zero values.  For example, samples from the Penobscot River yielded no PCBs and are entered as zero values but will not display in ggplot.  Tried "scale_x_discrete(drop = FALSE)" with no effect.
 
-Also would like to combine the values for the two Piscataquis River sites into one category, so that there is only one bar in these plots.
+Also would like to combine the values for the two Piscataqua River sites into one category, so that there is only one bar in these plots.
 
 ```{r}
 Sum_Org_site %>%
@@ -333,7 +333,8 @@ ggplot(GOM_states)+
 
 ```{r create-html-labels}
 #labels <- sprintf("<strong>%s</strong><br/>%g ug/g", 
-#                  Org_no_na$SPECFC_LOC, Org_no_na$PCB_T_UGG) %>% #lapply(htmltools::HTML)
+#                  Org_no_na$SPECFC_LOC, Org_no_na$PCB_T_UGG) %>%
+#  lapply(htmltools::HTML)
 
 #head(labels, 1)
 ```
@@ -344,7 +345,7 @@ ggplot(GOM_states)+
 #  setView(lng = -68.5, 
 #          lat = 43.5, 
 #          zoom = 6) %>%
-#  addCircleMarkers(lng = ~LONGITUDE, lat = ~LATITUDE, popup = c(~SPECFC_LOC, #~PCB_T_UGG), label = labels)
+#  addCircleMarkers(lng = ~LONGITUDE, lat = ~LATITUDE, popup = c(~SPECFC_LOC, ~PCB_T_UGG), label = labels)
 ```
 
 Note that the two above code chunks are commented out as .rmd will not knit to github document with html functions.  Uncomment to run and change output type to `html_document` to knit.
