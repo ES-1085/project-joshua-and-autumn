@@ -86,15 +86,20 @@ glimpse(PCBs)
   #drop_na(c(PCB_52_NGG:PCB209_NGG))
   #mutate(PCBs = sum(c(PCB_52_NGGPCB209_NGG)), na.rm = T)
   #unite("PCBs", PCB_52_NGG:PCB209_NGG, remove = TRUE)
+
+##This is what I (Autumn) tried to do, but it still wouldn't recognize the columns. 
+#PCBs %>%
+  #drop_na(c(PCB_52_NGG:PCB209_NGG))
+  #mutate(PCBs = PCB_52_NGG + PCB101_NGG + PCB118_NGG + PCB128_NGG + PCB138_NGG + PCB153_NGG + PCB180_NGG + PCB206_NGG + PCB209_NGG), na.rm = T)
+  #unite("PCBs", PCB_52_NGG:PCB209_NGG, remove = TRUE)
 ```
 
 ``` r
 PCBs %>%
+  drop_na(DDT_2_4_C) %>%
   ggplot(aes(x = LONGITUDE, y = LATITUDE, color = DDT_2_4_C))+
   geom_point()
 ```
-
-    ## Warning: Removed 319 rows containing missing values (`geom_point()`).
 
 ![](PCBs_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
@@ -200,3 +205,70 @@ Summary_Organics_1 %>%
 ```
 
 ![](PCBs_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+## Statistical tests
+
+### Difference between general locations
+
+Does total PCB concentration differ significantly between general
+locations?
+
+## Map Plots
+
+``` r
+GOM_states <- st_read("/cloud/project/extra/GOM_DD.shp")
+```
+
+    ## Reading layer `GOM_DD' from data source `/cloud/project/extra/GOM_DD.shp' using driver `ESRI Shapefile'
+    ## Simple feature collection with 8 features and 6 fields
+    ## Geometry type: MULTIPOLYGON
+    ## Dimension:     XY
+    ## Bounding box:  xmin: -73.72972 ymin: 40.98249 xmax: -59.69256 ymax: 48.06532
+    ## Geodetic CRS:  NAD83
+
+``` r
+Bathy <- st_read("/cloud/project/extra/BATHYMGM_ARC.shp")
+```
+
+    ## Reading layer `BATHYMGM_ARC' from data source 
+    ##   `/cloud/project/extra/BATHYMGM_ARC.shp' using driver `ESRI Shapefile'
+    ## Simple feature collection with 5383 features and 2 fields
+    ## Geometry type: LINESTRING
+    ## Dimension:     XY
+    ## Bounding box:  xmin: 174878.8 ymin: 577731.9 xmax: 923912.7 ymax: 1311467
+    ## Projected CRS: NAD83 / Massachusetts Mainland
+
+``` r
+unique(Bathy$CONTOUR)
+```
+
+    ##  [1]    -5   -40   -15   -20   -10     0   -50   -30   -70   -60  -100   -90
+    ## [13]   -80  -120  -220  -200  -160  -180  -140  -240  -300  -280  -260  -500
+    ## [25]  -400 -2000 -1000 -3000 -4000
+
+``` r
+Bathy <- Bathy%>%
+  filter(CONTOUR %in% c("-100", "-200","-400","-1000","-2000","-3000","-4000"))
+ggplot(Bathy) +
+  geom_sf(aes())
+```
+
+![](PCBs_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+``` r
+Org_no_na <- Organics %>%
+  drop_na(PCB_T_UGG)
+```
+
+``` r
+ggplot(GOM_states)+
+  geom_sf(aes())+
+  geom_point(data=Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
+  xlim(-72,-65)+
+  ylim(40,45)+
+  theme_bw()
+```
+
+    ## Warning: Removed 56 rows containing missing values (`geom_point()`).
+
+![](PCBs_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->

@@ -137,6 +137,32 @@ Does total PCB concentration differ significantly between general locations?
 ## Map Plots
 
 ```{r}
-NE_states <- st_read(system.file("/cloud/project/extra/", package="sf"))
+GOM_states <- st_read("/cloud/project/extra/GOM_DD.shp")
+```
+```{r}
+Bathy <- st_read("/cloud/project/extra/BATHYMGM_ARC.shp")
+```
+```{r}
+unique(Bathy$CONTOUR)
 ```
 
+
+
+```{r}
+Bathy <- Bathy%>%
+  filter(CONTOUR %in% c("-100", "-200","-400","-1000","-2000","-3000","-4000"))
+ggplot(Bathy) +
+  geom_sf(aes())
+```
+```{r}
+Org_no_na <- Organics %>%
+  drop_na(PCB_T_UGG)
+```
+```{r}
+ggplot(GOM_states)+
+  geom_sf(aes())+
+  geom_point(data=Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
+  xlim(-72,-65)+
+  ylim(40,45)+
+  theme_bw()
+```
