@@ -32,8 +32,8 @@ library(dplyr)
 ```
 
 ``` r
-PCBs <- read.csv(paste0("/cloud/project/data/datasets_loc/PCBs_loc.csv"), header = T)
-Organics <- read.csv(paste0("/cloud/project/data/datasets_loc/Organics_loc.csv"), header = T)
+PCBs <- read.csv(paste0("/cloud/project/analysis/PCBs_loc.csv"), header = T)
+Organics <- read.csv(paste0("/cloud/project/analysis/Organics_loc.csv"), header = T)
 ```
 
 ``` r
@@ -41,7 +41,7 @@ glimpse(PCBs)
 ```
 
     ## Rows: 7,848
-    ## Columns: 38
+    ## Columns: 39
     ## $ UNIQUE_ID  <chr> "US00001", "US00002", "US00003", "US00004", "US00005", "US0…
     ## $ LATITUDE   <dbl> 42.35972, 42.36028, 42.38500, 42.38500, 42.38500, 42.38500,…
     ## $ LONGITUDE  <dbl> -71.02861, -71.02778, -71.04611, -71.04611, -71.04611, -71.…
@@ -56,6 +56,7 @@ glimpse(PCBs)
     ## $ DPTH_N_COR <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "0"…
     ## $ DPTH_CODE  <chr> "Unknown", "Unknown", "Depth", "Depth", "Unknown", "Unknown…
     ## $ COR_GRB_CD <chr> "Grab", "Grab", "Core", "Core", "Grab", "Grab", "Grab", "Gr…
+    ## $ site       <chr> "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BI…
     ## $ PCB_52_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
     ## $ PCB101_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
     ## $ PCB118_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
@@ -200,19 +201,19 @@ Summary_Organics %>%
 ### Specific Locations
 
 ``` r
-Sum_Org_SPC <- Organics %>%
-  group_by(SPECFC_LOC) %>%
+Sum_Org_site <- Organics %>%
+  group_by(site) %>%
   drop_na(PCB_T_UGG) %>%
   summarise(mean_PCB_T = mean(PCB_T_UGG),
     sd_PCB_T = sd(PCB_T_UGG),
     n_PCB_T = n(),
     SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
 
-Sum_Org_SPC
+Sum_Org_site
 ```
 
-    ## # A tibble: 193 × 5
-    ##    SPECFC_LOC                     mean_PCB_T sd_PCB_T n_PCB_T SE_PCB_T
+    ## # A tibble: 190 × 5
+    ##    site                           mean_PCB_T sd_PCB_T n_PCB_T SE_PCB_T
     ##    <chr>                               <dbl>    <dbl>   <int>    <dbl>
     ##  1 1-U.S. GypsumCo.200TerminalSt.     1.5     NA            1  NA     
     ##  2 2-U.S. GypsumCo.200TerminalSt.     1.1     NA            1  NA     
@@ -224,12 +225,12 @@ Sum_Org_SPC
     ##  8 BOI                                0.116    0.0396       8   0.014 
     ##  9 BOSTON HARBOR                      0.0809   0.0495       4   0.0247
     ## 10 BOSTON HARBOR MARINA               0        0            2   0     
-    ## # ℹ 183 more rows
+    ## # ℹ 180 more rows
 
 ``` r
-Sum_Org_SPC %>%
-  filter(SPECFC_LOC %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(SPECFC_LOC, mean_PCB_T)), y = mean_PCB_T, fill = SPECFC_LOC))+
+Sum_Org_site %>%
+  filter(site %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = mean_PCB_T, fill = site))+
   geom_bar(stat="identity", col = "black")+
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
   scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
@@ -254,9 +255,9 @@ Also would like to combine the values for the two Piscataquis River
 sites into one category, so that there is only one bar in these plots.
 
 ``` r
-Sum_Org_SPC %>%
-  filter(SPECFC_LOC %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor", "Union River")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(SPECFC_LOC, mean_PCB_T)), y = mean_PCB_T, fill = SPECFC_LOC))+
+Sum_Org_site %>%
+  filter(site %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor", "Union River")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = mean_PCB_T, fill = site))+
   geom_col(col = "black")+
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
   scale_fill_manual(values = c("gray50", "gray50", "gray50", "gray50", "gray50", "firebrick2", "gray50"))+
@@ -276,9 +277,9 @@ There are no errorbars for Union River as n = 1; single sample from this
 site so only a mean value.
 
 ``` r
-Sum_Org_SPC %>%
-  filter(SPECFC_LOC %in% c("BASS RIVER", "ESSEX RIVER", "MYSTIC RIVER", "FORE RIVER", "CHELSEA RIVER", "Chelsea River, Golf Oil Fuel Off-Loading Pier", "Mill Creek", "Neponset River Bridge", "South River", "Weymouth Fore & Town River", "North & Danvers River")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(SPECFC_LOC, mean_PCB_T)), y = mean_PCB_T, fill = SPECFC_LOC))+
+Sum_Org_site %>%
+  filter(site %in% c("BASS RIVER", "ESSEX RIVER", "MYSTIC RIVER", "FORE RIVER", "CHELSEA RIVER", "Chelsea River", "Mill Creek", "Neponset River Bridge", "South River", "Weymouth Fore & Town River", "North & Danvers River")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = mean_PCB_T, fill = site))+
   geom_bar(stat="identity", col = "black")+
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
   scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+

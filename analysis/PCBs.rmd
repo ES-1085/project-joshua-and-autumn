@@ -15,8 +15,8 @@ library(dplyr)
 ```
 
 ```{r load-data}
-PCBs <- read.csv(paste0("/cloud/project/data/datasets_loc/PCBs_loc.csv"), header = T)
-Organics <- read.csv(paste0("/cloud/project/data/datasets_loc/Organics_loc.csv"), header = T)
+PCBs <- read.csv(paste0("/cloud/project/analysis/PCBs_loc.csv"), header = T)
+Organics <- read.csv(paste0("/cloud/project/analysis/Organics_loc.csv"), header = T)
 ```
 
 ```{r glimpse-data, warning=FALSE}
@@ -124,22 +124,22 @@ Summary_Organics %>%
 ### Specific Locations
 
 ```{r}
-Sum_Org_SPC <- Organics %>%
-  group_by(SPECFC_LOC) %>%
+Sum_Org_site <- Organics %>%
+  group_by(site) %>%
   drop_na(PCB_T_UGG) %>%
   summarise(mean_PCB_T = mean(PCB_T_UGG),
     sd_PCB_T = sd(PCB_T_UGG),
     n_PCB_T = n(),
     SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
 
-Sum_Org_SPC
+Sum_Org_site
 ```
 
 
 ```{r}
-Sum_Org_SPC %>%
-  filter(SPECFC_LOC %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(SPECFC_LOC, mean_PCB_T)), y = mean_PCB_T, fill = SPECFC_LOC))+
+Sum_Org_site %>%
+  filter(site %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = mean_PCB_T, fill = site))+
   geom_bar(stat="identity", col = "black")+
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
   scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
@@ -158,9 +158,9 @@ Need to figure out how to keep categories with zero values.  For example, sample
 Also would like to combine the values for the two Piscataquis River sites into one category, so that there is only one bar in these plots.
 
 ```{r}
-Sum_Org_SPC %>%
-  filter(SPECFC_LOC %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor", "Union River")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(SPECFC_LOC, mean_PCB_T)), y = mean_PCB_T, fill = SPECFC_LOC))+
+Sum_Org_site %>%
+  filter(site %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor", "Union River")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = mean_PCB_T, fill = site))+
   geom_col(col = "black")+
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
   scale_fill_manual(values = c("gray50", "gray50", "gray50", "gray50", "gray50", "firebrick2", "gray50"))+
@@ -177,9 +177,9 @@ Sum_Org_SPC %>%
 There are no errorbars for Union River as n = 1; single sample from this site so only a mean value.
 
 ```{r}
-Sum_Org_SPC %>%
-  filter(SPECFC_LOC %in% c("BASS RIVER", "ESSEX RIVER", "MYSTIC RIVER", "FORE RIVER", "CHELSEA RIVER", "Chelsea River, Golf Oil Fuel Off-Loading Pier", "Mill Creek", "Neponset River Bridge", "South River", "Weymouth Fore & Town River", "North & Danvers River")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(SPECFC_LOC, mean_PCB_T)), y = mean_PCB_T, fill = SPECFC_LOC))+
+Sum_Org_site %>%
+  filter(site %in% c("BASS RIVER", "ESSEX RIVER", "MYSTIC RIVER", "FORE RIVER", "CHELSEA RIVER", "Chelsea River", "Mill Creek", "Neponset River Bridge", "South River", "Weymouth Fore & Town River", "North & Danvers River")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = mean_PCB_T, fill = site))+
   geom_bar(stat="identity", col = "black")+
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
   scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
