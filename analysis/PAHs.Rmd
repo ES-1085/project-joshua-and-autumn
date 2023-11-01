@@ -168,3 +168,42 @@ kw1=kruskal.test(PAHs_station$amount_detected ~ PAHs_station$GEN_LOC_NM.x)
 kw1
 ```
 This shows that it is significant. We will now run a Dunn post-hoc test to identify any significance between locations.
+```{r}
+#install.packages("dunn.test")
+library(dunn.test)
+
+dunn=dunn.test(PAHs_station$amount_detected,Organics$GEN_LOC_NM.x,method="bh")
+
+```
+Interpretation: Most general locations have significantly different mean total PAH concentrations.
+
+## Map Plots
+### Static maps
+```{r load-GOM_states-shp}
+GOM_states <- st_read("/cloud/project/extra/GOM_DD.shp")
+```
+```{r load-bathy-shp}
+Bathy <- st_read("/cloud/project/extra/BATHYMGM_ARC.shp")
+```
+Bathymetry data is in projected coordinate system (NAD83), other data is geodetic (NAD83).  
+Wasn't able to add this layer to map plot -- need to change projection.
+
+```{r bathy-to-NAD83-format}
+st_crs(Bathy)
+Bathy <- st_transform(Bathy, "+init=epsg:4269")
+```
+Now the Bathy shapefile is in geodetic NAD83 format.
+
+```{r unique-bathy}
+unique(Bathy$CONTOUR)
+```
+
+```{r plot-bathy}
+Bathy_low_res <- Bathy%>%
+ filter(CONTOUR %in% c("-100","-500","-1000","-2000","-3000","-4000"))
+ggplot(Bathy_low_res) +
+  geom_sf(aes())
+```
+
+
+
