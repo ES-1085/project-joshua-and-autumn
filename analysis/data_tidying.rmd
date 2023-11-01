@@ -65,6 +65,34 @@ colnames(PAHs2002)[1] ="UNIQUE_ID"
 ```
 Creates PAHs2002 dataframe with selected variables of interest.  These are principally contaminat concentrations with unique IDs associated with other dataframes.
 
+# Recode/combine categories
+### Stations
+
+
+```{r combine-loc-categories}
+Station2002 <- Station2002 %>%
+  mutate(site = fct_recode(SPECFC_LOC,
+                           "Chelsea River" = "Upper Chelsea River",
+                           "Chelsea River" = "Lower Chelsea River", 
+                           "Chelsea River" = "Chelsea River mouth",
+                           "Chelsea River" = "Chelsea River A",
+                           "Chelsea River" = "Chelsea River B",
+                           "Chelsea River" = "Chelsea River C",
+                           "Chelsea River" = "Chelsea River D",
+                           "Chelsea River" = "Chelsea River E",
+                           "Chelsea River" = "Chelsea River F",
+                           "Chelsea River" = "Chelsea River G",
+                           "Chelsea River" = "Chelsea River H"))
+```
+"Chelsea River A"                                                                                                    
+ [60] "Chelsea River B"                                                                                                    
+ [61] "Chelsea River C"                                                                                                    
+ [62] "Chelsea River D"                                                                                                    
+ [63] "Chelsea River E"                                                                                                    
+ [64] "Chelsea River F"                                                                                                    
+ [65] "Chelsea River G"                                                                                                    
+ [66] "Chelsea River H"
+
 #Joining Dataframes
 ###Associates location information with texture and contaminant data by sample unique ID
 ```{r join-data-frames}
