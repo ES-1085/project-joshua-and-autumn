@@ -124,4 +124,17 @@ Summary_PAHs %>%
        caption = "Error bars = 1 standard error")
 ```
 
+### Specific Locations
 
+
+```{r}
+Sum_PAH_site <- PAHs_station %>%
+  group_by(SPECFC_LOC.x) %>%
+  drop_na(amount_detected) %>%
+  summarise(mean_PAH = mean(amount_detected),
+    sd_PAH = sd(amount_detected),
+    n_PAH = n(),
+    SE_PAH = sd(amount_detected) / sqrt(n()))
+
+Sum_PAH_site
+```
