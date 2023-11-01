@@ -154,3 +154,17 @@ Sum_PAH_site %>%
        y = "Mean total PAH concentration ug/g")
 ```
 Why won't the graph only show the river areas? Why is it showing all?
+
+## Statistical tests
+### Difference between general locations
+
+Does total PAH concentration differ significantly between general locations?
+
+```{r}
+hist(PAHs_station$amount_detected)
+```
+```{r}
+kw1=kruskal.test(PAHs_station$amount_detected ~ PAHs_station$GEN_LOC_NM.x)
+kw1
+```
+This shows that it is significant. We will now run a Dunn post-hoc test to identify any significance between locations.
