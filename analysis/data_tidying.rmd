@@ -63,7 +63,7 @@ PAHs2002 = select(PAHs_full, c("UNIQUE ID", BENZNE_C, "2BZTPN_C", "2BZTPN_T_C", 
 
 colnames(PAHs2002)[1] ="UNIQUE_ID"
 ```
-Creates PAHs2002 dataframe with selected variables of interest.  These are principally contaminat concentrations with unique IDs associated with other dataframes.
+Creates PAHs2002 dataframe with selected variables of interest.  These are principally contaminat concentrations with unique IDs associated with other data frames.
 
 # Recode/combine categories
 ### Stations
@@ -166,48 +166,48 @@ Visualizing missing data can help us determine which specific contaminants were 
 
 ###PCBs
 ``` {r missing-data-PCBs}
- visdat::vis_miss(PCBs_loc)
+ #visdat::vis_miss(PCBs_loc)
 
 #we should highlight the locations where there are PCBs detected
 ```
 
 ###PAHs
 ``` {r missing-data-PAHs}
- visdat::vis_miss(PAHs_loc)
+ #visdat::vis_miss(PAHs_loc)
 
 #we should highlight the locations where there are PAHs detected
 ```
 
 ###Organics
 ``` {r missing-data-Organics}
- visdat::vis_miss(Organics_loc)
+# visdat::vis_miss(Organics_loc)
 
 #This shows us in which station specific textures are found
 ```
 
 ###Textures
 ``` {r missing-data-Textures}
- visdat::vis_miss(Texture_loc)
+ #visdat::vis_miss(Texture_loc)
 
 #This shows us in which station specific textures are found
 ```
 
 # Loading full datasets as CSVs
 ``` {r saving-full-data-into-csv-files}
-write_csv(organics_full, "organics_full.csv")
-write_csv(PAHs_full, "PAHs_full.csv")
-write_csv(PCBs_full, "PCBs_full.csv")
-write_csv(sediments_full, "sediments_full.csv")
-write_csv(stations_full, "stations_full.csv")
-write_csv(textures_full, "textures_full.csv")
-#write_csv(inorganics_full, "inorganics_full.csv")
+write_csv(organics_full, "/cloud/project/data/datasets_csv/organics_full.csv")
+write_csv(PAHs_full, "/cloud/project/data/datasets_csv/PAHs_full.csv")
+write_csv(PCBs_full, "/cloud/project/data/datasets_csv/PCBs_full.csv")
+write_csv(sediments_full, "/cloud/project/data/datasets_csv/sediments_full.csv")
+write_csv(stations_full, "/cloud/project/data/datasets_csv/stations_full.csv")
+write_csv(textures_full, "/cloud/project/data/datasets_csv/textures_full.csv")
+#write_csv(inorganics_full, "/cloud/project/data/datasets_csv/inorganics_full.csv")
 ```
 
 # Loading loc datasets as CSVs
 ``` {r saving-data_loc-into-csv-files}
-write_csv(Texture_loc, "Texture_loc.csv")
-write_csv(Organics_loc, "Organics_loc.csv")
-#write_csv(Inorganics_loc, "Inorganics_loc.csv")
-write_csv(PAHs_loc, "PAHs_loc.csv")
-write_csv(PCBs_loc, "PCBs_loc.csv")
+write_csv(Texture_loc, "/cloud/project/data/datasets_csv/Texture_loc.csv")
+write_csv(Organics_loc, "/cloud/project/data/datasets_csv/Organics_loc.csv")
+#write_csv(Inorganics_loc, "/cloud/project/data/datasets_csv/Inorganics_loc.csv")
+write_csv(PAHs_loc, "/cloud/project/data/datasets_csv/PAHs_loc.csv")
+write_csv(PCBs_loc, "/cloud/project/data/datasets_csv/PCBs_loc.csv")
 ```
