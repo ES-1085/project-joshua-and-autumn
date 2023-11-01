@@ -232,6 +232,7 @@ Sum_Org_site %>%
   filter(site %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = mean_PCB_T, fill = site))+
   geom_bar(stat="identity", col = "black")+
+  scale_x_discrete(drop=FALSE)+
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
   scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
   theme_bw()+
@@ -281,6 +282,7 @@ Sum_Org_site %>%
   filter(site %in% c("BASS RIVER", "ESSEX RIVER", "MYSTIC RIVER", "FORE RIVER", "CHELSEA RIVER", "Chelsea River", "Mill Creek", "Neponset River Bridge", "South River", "Weymouth Fore & Town River", "North & Danvers River")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = mean_PCB_T, fill = site))+
   geom_bar(stat="identity", col = "black")+
+  scale_x_discrete(drop=FALSE)+
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
   scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
   theme_bw()+
@@ -427,6 +429,68 @@ Bathy <- st_read("/cloud/project/extra/BATHYMGM_ARC.shp")
     ## Bounding box:  xmin: 174878.8 ymin: 577731.9 xmax: 923912.7 ymax: 1311467
     ## Projected CRS: NAD83 / Massachusetts Mainland
 
+Bathymetry data is in projected coordinate system (NAD83), other data is
+geodetic (NAD83). Wasn’t able to add this layer to map plot – need to
+change projection.
+
+``` r
+st_crs(Bathy)
+```
+
+    ## Coordinate Reference System:
+    ##   User input: NAD83 / Massachusetts Mainland 
+    ##   wkt:
+    ## PROJCRS["NAD83 / Massachusetts Mainland",
+    ##     BASEGEOGCRS["NAD83",
+    ##         DATUM["North American Datum 1983",
+    ##             ELLIPSOID["GRS 1980",6378137,298.257222101,
+    ##                 LENGTHUNIT["metre",1]]],
+    ##         PRIMEM["Greenwich",0,
+    ##             ANGLEUNIT["degree",0.0174532925199433]],
+    ##         ID["EPSG",4269]],
+    ##     CONVERSION["SPCS83 Massachusetts Mainland zone (meters)",
+    ##         METHOD["Lambert Conic Conformal (2SP)",
+    ##             ID["EPSG",9802]],
+    ##         PARAMETER["Latitude of false origin",41,
+    ##             ANGLEUNIT["degree",0.0174532925199433],
+    ##             ID["EPSG",8821]],
+    ##         PARAMETER["Longitude of false origin",-71.5,
+    ##             ANGLEUNIT["degree",0.0174532925199433],
+    ##             ID["EPSG",8822]],
+    ##         PARAMETER["Latitude of 1st standard parallel",42.6833333333333,
+    ##             ANGLEUNIT["degree",0.0174532925199433],
+    ##             ID["EPSG",8823]],
+    ##         PARAMETER["Latitude of 2nd standard parallel",41.7166666666667,
+    ##             ANGLEUNIT["degree",0.0174532925199433],
+    ##             ID["EPSG",8824]],
+    ##         PARAMETER["Easting at false origin",200000,
+    ##             LENGTHUNIT["metre",1],
+    ##             ID["EPSG",8826]],
+    ##         PARAMETER["Northing at false origin",750000,
+    ##             LENGTHUNIT["metre",1],
+    ##             ID["EPSG",8827]]],
+    ##     CS[Cartesian,2],
+    ##         AXIS["easting (X)",east,
+    ##             ORDER[1],
+    ##             LENGTHUNIT["metre",1]],
+    ##         AXIS["northing (Y)",north,
+    ##             ORDER[2],
+    ##             LENGTHUNIT["metre",1]],
+    ##     USAGE[
+    ##         SCOPE["unknown"],
+    ##         AREA["USA - Massachusetts - SPCS - mainland"],
+    ##         BBOX[41.46,-73.5,42.89,-69.86]],
+    ##     ID["EPSG",26986]]
+
+``` r
+Bathy <- st_transform(Bathy, "+init=epsg:4269")
+```
+
+    ## Warning in CPL_crs_from_input(x): GDAL Message 1: +init=epsg:XXXX syntax is
+    ## deprecated. It might return a CRS with a non-EPSG compliant axis order.
+
+Now the Bathy shapefile is in geodetic NAD83 format.
+
 ``` r
 unique(Bathy$CONTOUR)
 ```
@@ -436,15 +500,22 @@ unique(Bathy$CONTOUR)
     ## [25]  -400 -2000 -1000 -3000 -4000
 
 ``` r
-Bathy <- Bathy%>%
- filter(CONTOUR %in% c("-100", "-200","-400","-1000","-2000","-3000","-4000"))
-ggplot(Bathy) +
+Bathy_low_res <- Bathy%>%
+ filter(CONTOUR %in% c("-100","-500","-1000","-2000","-3000","-4000"))
+ggplot(Bathy_low_res) +
   geom_sf(aes())
 ```
 
-![](PCBs_files/figure-gfm/plot-bathy-1.png)<!-- --> Bathymetry data is
-in projected coordinate system (NAD83), other data is geodetic (NAD83).
-Wasn’t able to add this layer to map plot – need to change projection.
+![](PCBs_files/figure-gfm/plot-bathy-1.png)<!-- -->
+
+``` r
+Bathy_hi_res <- Bathy%>%
+ filter(CONTOUR %in% c("-40","-80","-120","160","200","240"))
+ggplot(Bathy_hi_res) +
+  geom_sf(aes())
+```
+
+![](PCBs_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
 Org_no_na <- Organics %>%
@@ -454,7 +525,8 @@ Org_no_na <- Organics %>%
 ``` r
 ggplot(GOM_states)+
   geom_sf(aes())+
-  geom_point(data=Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
+  geom_sf(data = Bathy_low_res, color = "gray80", width = 1)+
+  geom_point(data = Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
   xlim(-72,-65)+
   ylim(40,45)+
   theme_bw()+
@@ -483,6 +555,7 @@ ggplot(GOM_states)+
 ``` r
 ggplot(GOM_states)+
   geom_sf(aes())+
+  geom_sf(data = Bathy_hi_res, color = "gray80", width = 1)+
   geom_point(data=Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
   xlim(-69.2,-68)+
   ylim(44,44.5)+
@@ -507,6 +580,9 @@ ggplot(GOM_states)+
       text_family = "ArcherPro Book"))
 ```
 
+    ## Warning in layer_sf(geom = GeomSf, data = data, mapping = mapping, stat = stat,
+    ## : Ignoring unknown parameters: `width`
+
     ## Warning: Removed 1483 rows containing missing values (`geom_point()`).
 
 ![](PCBs_files/figure-gfm/MDI-area-map-1.png)<!-- -->
@@ -514,12 +590,13 @@ ggplot(GOM_states)+
 ``` r
 ggplot(GOM_states)+
   geom_sf(aes())+
+  geom_sf(data = Bathy_hi_res, color = "gray80", width = 1)+
   geom_point(data=Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
   xlim(-71.2,-69.5)+
   ylim(41.8,43)+
   theme_bw()+
   labs(title = "Distribution and concentration of PCBs",
-       subtitle ="Massachusetts and Cape Cod Bay sediments",
+       subtitle ="Boston, MA and Cape Cod Bay sediments",
        x = "Longitude",
        y = "Latitude")+
   guides(size = guide_legend(title = "PCB ug/g"))+
@@ -538,9 +615,12 @@ ggplot(GOM_states)+
       text_family = "ArcherPro Book"))
 ```
 
+    ## Warning in layer_sf(geom = GeomSf, data = data, mapping = mapping, stat = stat,
+    ## : Ignoring unknown parameters: `width`
+
     ## Warning: Removed 667 rows containing missing values (`geom_point()`).
 
-![](PCBs_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](PCBs_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ### Interactive map
 
