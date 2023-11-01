@@ -95,15 +95,6 @@ glimpse(PCBs)
 ```
 
 ``` r
-PCBs %>%
-  drop_na(DDT_2_4_C) %>%
-  ggplot(aes(x = LONGITUDE, y = LATITUDE, color = DDT_2_4_C))+
-  geom_point()
-```
-
-![](PCBs_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
-
-``` r
 #PCBs <- PCBs %>%
 #  mutate(sum_PCBs = PCB101_NGG + PCB118_NGG + PCB128_NGG + PCB138_NGG + PCB153_NGG + PCB180_NGG + PCB206_NGG + PCB209_NGG) %>% 
  # mutate(sumBHCs = BHC_A_C + BHC_B_C + BHC_D_C)
@@ -168,7 +159,7 @@ Summary_Organics_1 %>%
        caption = "Error bars = 1 standard error")
 ```
 
-![](PCBs_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](PCBs_files/figure-gfm/pcb-gen-loc-1.png)<!-- -->
 
 ``` r
 Summary_Organics_1 %>%
@@ -186,7 +177,7 @@ Summary_Organics_1 %>%
        caption = "Error bars = 1 standard error")
 ```
 
-![](PCBs_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](PCBs_files/figure-gfm/pcb-boston-harbor1-1.png)<!-- -->
 
 ``` r
 Summary_Organics_1 %>%
@@ -204,7 +195,7 @@ Summary_Organics_1 %>%
        caption = "Error bars = 1 standard error")
 ```
 
-![](PCBs_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](PCBs_files/figure-gfm/pcb-boston-harbor2-1.png)<!-- -->
 
 ## Statistical tests
 
@@ -248,12 +239,14 @@ unique(Bathy$CONTOUR)
 
 ``` r
 Bathy <- Bathy%>%
-  filter(CONTOUR %in% c("-100", "-200","-400","-1000","-2000","-3000","-4000"))
+ filter(CONTOUR %in% c("-100", "-200","-400","-1000","-2000","-3000","-4000"))
 ggplot(Bathy) +
   geom_sf(aes())
 ```
 
-![](PCBs_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](PCBs_files/figure-gfm/plot-bathy-1.png)<!-- --> Bathymetry data is
+in projected coordinate system (NAD83), other data is geodetic (NAD83).
+Wasn’t able to add this layer to map plot – need to change projection.
 
 ``` r
 Org_no_na <- Organics %>%
@@ -266,9 +259,13 @@ ggplot(GOM_states)+
   geom_point(data=Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
   xlim(-72,-65)+
   ylim(40,45)+
-  theme_bw()
+  theme_bw()+
+  labs(title = "Distribution and concentration of PCBs",
+       subtitle ="Gulf of Maine",
+       x = "Longitude",
+       y = "Latitude")+
+  guides(size = guide_legend(title = "PCB ug/g"))+
+  guides(alpha = FALSE)
 ```
 
-    ## Warning: Removed 56 rows containing missing values (`geom_point()`).
-
-![](PCBs_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](PCBs_files/figure-gfm/pcb-gom-map-plot-1.png)<!-- -->
