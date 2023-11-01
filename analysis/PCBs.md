@@ -197,6 +197,102 @@ Summary_Organics %>%
 
 ![](PCBs_files/figure-gfm/pcb-boston-harbor2-1.png)<!-- -->
 
+### Specific Locations
+
+``` r
+Sum_Org_SPC <- Organics %>%
+  group_by(SPECFC_LOC) %>%
+  drop_na(PCB_T_UGG) %>%
+  summarise(mean_PCB_T = mean(PCB_T_UGG),
+    sd_PCB_T = sd(PCB_T_UGG),
+    n_PCB_T = n(),
+    SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
+
+Sum_Org_SPC
+```
+
+    ## # A tibble: 193 × 5
+    ##    SPECFC_LOC                     mean_PCB_T sd_PCB_T n_PCB_T SE_PCB_T
+    ##    <chr>                               <dbl>    <dbl>   <int>    <dbl>
+    ##  1 1-U.S. GypsumCo.200TerminalSt.     1.5     NA            1  NA     
+    ##  2 2-U.S. GypsumCo.200TerminalSt.     1.1     NA            1  NA     
+    ##  3 3-U.S. GypsumCo.200TerminalSt.     0.8     NA            1  NA     
+    ##  4 4-U.S. GypsumCo.200TerminalSt.     0.2     NA            1  NA     
+    ##  5 BASS RIVER                         1.97     1.70         3   0.980 
+    ##  6 BEVERLY HARBOR                     0       NA            1  NA     
+    ##  7 BIH                                5.10    20.0         37   3.29  
+    ##  8 BOI                                0.116    0.0396       8   0.014 
+    ##  9 BOSTON HARBOR                      0.0809   0.0495       4   0.0247
+    ## 10 BOSTON HARBOR MARINA               0        0            2   0     
+    ## # ℹ 183 more rows
+
+``` r
+Sum_Org_SPC %>%
+  filter(SPECFC_LOC %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(SPECFC_LOC, mean_PCB_T)), y = mean_PCB_T, fill = SPECFC_LOC))+
+  geom_bar(stat="identity", col = "black")+
+  geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
+  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
+  theme_bw()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "PCB Concentrations in Maine Rivers",
+       subtitle = "Union River excluded",
+       caption = "Error bars = 1 standard error",
+       x = "Location",
+       y = "Mean total PCB concentration ug/g")
+```
+
+![](PCBs_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
+Need to figure out how to keep categories with zero values. For example,
+samples from the Penobscot River yielded no PCBs and are entered as zero
+values but will not display in ggplot. “Tried scale_x_discrete(drop =
+FALSE)” with no effect.
+
+Also would like to combine the values for the two Piscataquis River
+sites into one category, so that there is only one bar in these plots.
+
+``` r
+Sum_Org_SPC %>%
+  filter(SPECFC_LOC %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor", "Union River")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(SPECFC_LOC, mean_PCB_T)), y = mean_PCB_T, fill = SPECFC_LOC))+
+  geom_col(col = "black")+
+  geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
+  scale_fill_manual(values = c("gray50", "gray50", "gray50", "gray50", "gray50", "firebrick2", "gray50"))+
+  theme_bw()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "PCB Concentrations in Maine Rivers",
+       subtitle = "With Union River, Ellsworth",
+       caption = "Error bars = 1 standard error",
+       x = "Location",
+       y = "Mean total PCB concentration ug/g")
+```
+
+![](PCBs_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
+There are no errorbars for Union River as n = 1; single sample from this
+site so only a mean value.
+
+``` r
+Sum_Org_SPC %>%
+  filter(SPECFC_LOC %in% c("BASS RIVER", "ESSEX RIVER", "MYSTIC RIVER", "FORE RIVER", "CHELSEA RIVER", "Chelsea River, Golf Oil Fuel Off-Loading Pier", "Mill Creek", "Neponset River Bridge", "South River", "Weymouth Fore & Town River", "North & Danvers River")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(SPECFC_LOC, mean_PCB_T)), y = mean_PCB_T, fill = SPECFC_LOC))+
+  geom_bar(stat="identity", col = "black")+
+  geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
+  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
+  theme_bw()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "PCB Concentrations in Massachusetts Rivers",
+       caption = "Error bars = 1 standard error",
+       x = "Location",
+       y = "Mean total PCB concentration ug/g")
+```
+
+![](PCBs_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
 ## Statistical tests
 
 ### Difference between general locations
@@ -208,7 +304,7 @@ locations?
 hist(Organics$PCB_T_UGG)
 ```
 
-![](PCBs_files/figure-gfm/unnamed-chunk-1-1.png)<!-- --> The
+![](PCBs_files/figure-gfm/unnamed-chunk-5-1.png)<!-- --> The
 distribution of total PCB concentrations is highly skewed, with high
 influence outliers. It fails to meet parametric assumptions, so it
 should be analyzed with non-parametric methods. We could do
@@ -382,6 +478,68 @@ ggplot(GOM_states)+
 ```
 
 ![](PCBs_files/figure-gfm/pcb-gom-map-plot-1.png)<!-- -->
+
+``` r
+ggplot(GOM_states)+
+  geom_sf(aes())+
+  geom_point(data=Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
+  xlim(-69.2,-68)+
+  ylim(44,44.5)+
+  theme_bw()+
+  labs(title = "Distribution and concentration of PCBs",
+       subtitle ="MDI and Penobscot Bay sediments",
+       x = "Longitude",
+       y = "Latitude")+
+  guides(size = guide_legend(title = "PCB ug/g"))+
+  guides(alpha = FALSE)+
+  ggspatial::annotation_scale(
+    location = "bl",
+    bar_cols = c("grey60", "white"),
+    text_family = "ArcherPro Book"
+  ) +
+  ggspatial::annotation_north_arrow(
+    location = "tr", which_north = "true",
+    pad_x = unit(0, "in"), pad_y = unit(0.2, "in"),
+    style = ggspatial::north_arrow_nautical(
+      fill = c("grey40", "white"),
+      line_col = "grey20",
+      text_family = "ArcherPro Book"))
+```
+
+    ## Warning: Removed 1483 rows containing missing values (`geom_point()`).
+
+![](PCBs_files/figure-gfm/MDI-area-map-1.png)<!-- -->
+
+``` r
+ggplot(GOM_states)+
+  geom_sf(aes())+
+  geom_point(data=Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
+  xlim(-71.2,-69.5)+
+  ylim(41.8,43)+
+  theme_bw()+
+  labs(title = "Distribution and concentration of PCBs",
+       subtitle ="Massachusetts and Cape Cod Bay sediments",
+       x = "Longitude",
+       y = "Latitude")+
+  guides(size = guide_legend(title = "PCB ug/g"))+
+  guides(alpha = FALSE)+
+  ggspatial::annotation_scale(
+    location = "bl",
+    bar_cols = c("grey60", "white"),
+    text_family = "ArcherPro Book"
+  ) +
+  ggspatial::annotation_north_arrow(
+    location = "tr", which_north = "true",
+    pad_x = unit(0, "in"), pad_y = unit(0.1, "in"),
+    style = ggspatial::north_arrow_nautical(
+      fill = c("grey40", "white"),
+      line_col = "grey20",
+      text_family = "ArcherPro Book"))
+```
+
+    ## Warning: Removed 667 rows containing missing values (`geom_point()`).
+
+![](PCBs_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ### Interactive map
 
