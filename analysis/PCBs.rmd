@@ -21,6 +21,8 @@ Organics <- read.csv(paste0("/cloud/project/analysis/Organics_loc.csv"), header 
 
 ```{r glimpse-data, warning=FALSE}
 glimpse(PCBs)
+
+glimpse(Organics)
 ```
 
 ```{r joining-columns, warning=FALSE}
