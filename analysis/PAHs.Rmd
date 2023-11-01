@@ -16,7 +16,7 @@ library(RColorBrewer)
 
 #Loading data
 ```{r load-data}
-PAHs <- read.csv(paste0("/cloud/project/data/datasets_loc/PAHs_loc.csv"), header = T)
+PAHs <- read.csv(paste0("/cloud/project/data/datasets_csv/PAHs_loc.csv"), header = T)
 ```
 
 #Glimpsing PAH
@@ -34,11 +34,8 @@ PAHs_station <- PAHs_station %>%
   pivot_longer(cols = `BENZNE_C`:`B_GHI_PYLC`, 
                names_to = "pah_detected", 
                values_to = "amount_detected")
-  
-PAHs_station_nona <- PAHs_station %>%
-   mutate(amount_detected_with_na = ifelse(is.na(amount_detected), 0, amount_detected))
 
-PAHs_station = select(PAHs_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDING_M.x, QUAD_NAME.x, GEN_LOC_NM.x, SPECFC_LOC.x, AREA_CODE.x, SAMP_DATE1.x, TO_SMP_DT2.x, DPTH_N_COR.x, DPTH_CODE.x, COR_GRB_CD.x, pah_detected, amount_detected))
+PAHs_station = select(PAHs_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDING_M.x, QUAD_NAME.x, GEN_LOC_NM.x, SPECFC_LOC.x, AREA_CODE.x, SAMP_DATE1.x, TO_SMP_DT2.x, DPTH_N_COR.x, DPTH_CODE.x, COR_GRB_CD.x, site.x, pah_detected, amount_detected))
 
 glimpse(PAHs_station)
 
@@ -129,7 +126,7 @@ Summary_PAHs %>%
 
 ```{r}
 Sum_PAH_site <- PAHs_station %>%
-  group_by(SPECFC_LOC.x) %>%
+  group_by(site.x) %>%
   drop_na(amount_detected) %>%
   summarise(mean_PAH = mean(amount_detected),
     sd_PAH = sd(amount_detected),
@@ -137,4 +134,22 @@ Sum_PAH_site <- PAHs_station %>%
     SE_PAH = sd(amount_detected) / sqrt(n()))
 
 Sum_PAH_site
+```
+
+```{r}
+Sum_PAH_site %>%
+  filter(site.x %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(site.x, mean_PAH)), y = mean_PAH, fill = site.x))+
+  geom_bar(stat="identity", col = "black")+
+  scale_x_discrete(drop=FALSE)+
+  geom_errorbar(aes(ymin = mean_PAH - SE_PAH, ymax = mean_PAH + SE_PAH), width = 0.2)+
+  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
+  theme_bw()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "PAH Concentrations in Maine Rivers",
+       subtitle = "Union River excluded",
+       caption = "Error bars = 1 standard error",
+       x = "Location",
+       y = "Mean total PAH concentration ug/g")
 ```
