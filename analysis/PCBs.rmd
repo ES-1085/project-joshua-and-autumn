@@ -62,7 +62,7 @@ glimpse(PCBs)
 
  
 ```{r calculate-sum-stats-organics}
-Summary_Organics_1 <- Organics %>%
+Summary_Organics <- Organics %>%
   group_by(GEN_LOC_NM) %>%
   drop_na(PCB_T_UGG) %>%
   summarise(mean_PCB_T = mean(PCB_T_UGG),
@@ -70,11 +70,11 @@ Summary_Organics_1 <- Organics %>%
     n_PCB_T = n(),
     SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
 
-Summary_Organics_1
+Summary_Organics
 ```
 
 ```{r pcb-gen-loc}
-Summary_Organics_1 %>%
+Summary_Organics %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = mean_PCB_T, fill = GEN_LOC_NM))+
   geom_col(col = "black")+
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
@@ -90,7 +90,7 @@ Summary_Organics_1 %>%
  
  
 ```{r pcb-boston-harbor1}
-Summary_Organics_1 %>%
+Summary_Organics %>%
   filter(GEN_LOC_NM %in% c("BOSTON INNER HARBOR", "CENTRAL BOSTON HARBOR", "SOUTHEAST BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = mean_PCB_T, fill = GEN_LOC_NM))+
   geom_col(col = "black")+
@@ -106,7 +106,7 @@ Summary_Organics_1 %>%
 ```
  
 ```{r pcb-boston-harbor2}
-Summary_Organics_1 %>%
+Summary_Organics %>%
   filter(GEN_LOC_NM %in% c("CENTRAL BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
   ggplot(aes(x = fct_reorder(GEN_LOC_NM, mean_PCB_T), y = mean_PCB_T, fill = GEN_LOC_NM))+
   geom_col(col = "black")+
@@ -125,6 +125,28 @@ Summary_Organics_1 %>%
 ### Difference between general locations
 
 Does total PCB concentration differ significantly between general locations?
+
+```{r}
+hist(Organics$PCB_T_UGG)
+```
+The distribution of total PCB concentrations is highly skewed, with high influence outliers.  It fails to meet parametric assumptions, so it should be analyzed with non-parametric methods.  We could do bootstrapping here, but a Kruskal Wallis test is appropriate and simpler.
+
+```{r}
+kw1=kruskal.test(Organics$PCB_T_UGG ~ Organics$GEN_LOC_NM)
+kw1
+```
+
+Significant -- now a Dunn post-hoc test to identify significance between locations.
+
+```{r}
+#install.packages("dunn.test")
+library(dunn.test)
+
+dunn=dunn.test(Organics$PCB_T_UGG,Organics$GEN_LOC_NM,method="bh")
+
+```
+Interpretation: Most general locations have significantly different mean total PCB concentrations...
+
 
 
 ## Map Plots

@@ -117,7 +117,7 @@ glimpse(PCBs)
 ```
 
 ``` r
-Summary_Organics_1 <- Organics %>%
+Summary_Organics <- Organics %>%
   group_by(GEN_LOC_NM) %>%
   drop_na(PCB_T_UGG) %>%
   summarise(mean_PCB_T = mean(PCB_T_UGG),
@@ -125,7 +125,7 @@ Summary_Organics_1 <- Organics %>%
     n_PCB_T = n(),
     SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
 
-Summary_Organics_1
+Summary_Organics
 ```
 
     ## # A tibble: 12 × 5
@@ -145,7 +145,7 @@ Summary_Organics_1
     ## 12 SOUTHEAST BOSTON HARBOR         18.4     73.2         33 12.7
 
 ``` r
-Summary_Organics_1 %>%
+Summary_Organics %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = mean_PCB_T, fill = GEN_LOC_NM))+
   geom_col(col = "black")+
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
@@ -162,7 +162,7 @@ Summary_Organics_1 %>%
 ![](PCBs_files/figure-gfm/pcb-gen-loc-1.png)<!-- -->
 
 ``` r
-Summary_Organics_1 %>%
+Summary_Organics %>%
   filter(GEN_LOC_NM %in% c("BOSTON INNER HARBOR", "CENTRAL BOSTON HARBOR", "SOUTHEAST BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = mean_PCB_T, fill = GEN_LOC_NM))+
   geom_col(col = "black")+
@@ -180,7 +180,7 @@ Summary_Organics_1 %>%
 ![](PCBs_files/figure-gfm/pcb-boston-harbor1-1.png)<!-- -->
 
 ``` r
-Summary_Organics_1 %>%
+Summary_Organics %>%
   filter(GEN_LOC_NM %in% c("CENTRAL BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
   ggplot(aes(x = fct_reorder(GEN_LOC_NM, mean_PCB_T), y = mean_PCB_T, fill = GEN_LOC_NM))+
   geom_col(col = "black")+
@@ -203,6 +203,105 @@ Summary_Organics_1 %>%
 
 Does total PCB concentration differ significantly between general
 locations?
+
+``` r
+hist(Organics$PCB_T_UGG)
+```
+
+![](PCBs_files/figure-gfm/unnamed-chunk-1-1.png)<!-- --> The
+distribution of total PCB concentrations is highly skewed, with high
+influence outliers. It fails to meet parametric assumptions, so it
+should be analyzed with non-parametric methods. We could do
+bootstrapping here, but a Kruskal Wallis test is appropriate and
+simpler.
+
+``` r
+kw1=kruskal.test(Organics$PCB_T_UGG ~ Organics$GEN_LOC_NM)
+kw1
+```
+
+    ## 
+    ##  Kruskal-Wallis rank sum test
+    ## 
+    ## data:  Organics$PCB_T_UGG by Organics$GEN_LOC_NM
+    ## Kruskal-Wallis chi-squared = 305.22, df = 11, p-value < 2.2e-16
+
+Significant – now a Dunn post-hoc test to identify significance between
+locations.
+
+``` r
+#install.packages("dunn.test")
+library(dunn.test)
+
+dunn=dunn.test(Organics$PCB_T_UGG,Organics$GEN_LOC_NM,method="bh")
+```
+
+    ##   Kruskal-Wallis rank sum test
+    ## 
+    ## data: x and group
+    ## Kruskal-Wallis chi-squared = 305.2249, df = 11, p-value = 0
+    ## 
+    ## 
+    ##                            Comparison of x by group                            
+    ##                              (Benjamini-Hochberg)                              
+    ## Col Mean-|
+    ## Row Mean |   43.5N to   BOSTON I   CAPE ANN   CAPE COD   CENTRAL    GULF OF 
+    ## ---------+------------------------------------------------------------------
+    ## BOSTON I |  -8.580242
+    ##          |    0.0000*
+    ##          |
+    ## CAPE ANN |  -2.267240   6.608954
+    ##          |    0.0157*    0.0000*
+    ##          |
+    ## CAPE COD |   1.263044   6.385018   2.518770
+    ##          |     0.1136    0.0000*    0.0086*
+    ##          |
+    ## CENTRAL  |  -8.266858  -2.316164  -6.922390  -7.161257
+    ##          |    0.0000*    0.0141*    0.0000*    0.0000*
+    ##          |
+    ## GULF OF  |  -1.990179   6.419146   0.141015  -2.388203   6.851563
+    ##          |     0.0296    0.0000*     0.4439    0.0121*    0.0000*
+    ##          |
+    ## HARBOR A |  -5.824430  -1.147375  -4.751600  -5.620210   0.633012  -4.752161
+    ##          |    0.0000*     0.1359    0.0000*    0.0000*     0.2716    0.0000*
+    ##          |
+    ## INLAND / |   3.955073   9.744852   5.442675   1.758389   9.775045   5.200293
+    ##          |    0.0001*    0.0000*    0.0000*     0.0481    0.0000*    0.0000*
+    ##          |
+    ## MASS BAY |  -0.898571   8.893072   1.754542  -1.763760   8.216040   1.452708
+    ##          |     0.1932    0.0000*     0.0476     0.0484    0.0000*     0.0847
+    ##          |
+    ## North of |   4.360601   12.08961   6.514231   1.276609   10.80155   6.028459
+    ##          |    0.0000*    0.0000*    0.0000*     0.1128    0.0000*    0.0000*
+    ##          |
+    ## NORTHWES |  -4.400477   4.995650  -2.061251  -3.653067   5.807612  -2.073387
+    ##          |    0.0000*    0.0000*     0.0254    0.0002*    0.0000*     0.0252
+    ##          |
+    ## SOUTHEAS |  -2.658858   2.562417  -1.423638  -3.018050   3.949112  -1.476458
+    ##          |    0.0060*    0.0078*     0.0879    0.0020*    0.0001*     0.0824
+    ## Col Mean-|
+    ## Row Mean |   HARBOR A   INLAND /   MASS BAY   North of   NORTHWES
+    ## ---------+-------------------------------------------------------
+    ## INLAND / |   7.625903
+    ##          |    0.0000*
+    ##          |
+    ## MASS BAY |   5.634273  -4.740582
+    ##          |    0.0000*    0.0000*
+    ##          |
+    ## North of |   7.918463  -0.905835   5.834998
+    ##          |    0.0000*     0.1943    0.0000*
+    ##          |
+    ## NORTHWES |   3.838720  -6.836496  -4.281813  -8.647419
+    ##          |    0.0001*    0.0000*    0.0000*    0.0000*
+    ##          |
+    ## SOUTHEAS |   2.836188  -5.043804  -2.335094  -5.096827  -0.344662
+    ##          |    0.0036*    0.0000*    0.0137*    0.0000*     0.3708
+    ## 
+    ## alpha = 0.05
+    ## Reject Ho if p <= alpha/2
+
+Interpretation: Most general locations have significantly different mean
+total PCB concentrations…
 
 ## Map Plots
 
