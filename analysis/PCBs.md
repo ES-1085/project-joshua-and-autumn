@@ -263,11 +263,23 @@ ggplot(GOM_states)+
   ylim(40,45)+
   theme_bw()+
   labs(title = "Distribution and concentration of PCBs",
-       subtitle ="Gulf of Maine",
+       subtitle ="Gulf of Maine sediments",
        x = "Longitude",
        y = "Latitude")+
   guides(size = guide_legend(title = "PCB ug/g"))+
-  guides(alpha = FALSE)
+  guides(alpha = FALSE)+
+  ggspatial::annotation_scale(
+    location = "bl",
+    bar_cols = c("grey60", "white"),
+    text_family = "ArcherPro Book"
+  ) +
+  ggspatial::annotation_north_arrow(
+    location = "tr", which_north = "true",
+    pad_x = unit(0, "in"), pad_y = unit(0.2, "in"),
+    style = ggspatial::north_arrow_nautical(
+      fill = c("grey40", "white"),
+      line_col = "grey20",
+      text_family = "ArcherPro Book"))
 ```
 
 ![](PCBs_files/figure-gfm/pcb-gom-map-plot-1.png)<!-- -->
@@ -289,3 +301,7 @@ ggplot(GOM_states)+
 #          zoom = 6) %>%
 #  addCircleMarkers(lng = ~LONGITUDE, lat = ~LATITUDE, popup = c(~SPECFC_LOC, #~PCB_T_UGG), label = labels)
 ```
+
+Note that the two above code chunks are commented out as .rmd will not
+knit to github document with html functions. Uncomment to run and change
+output type to `html_document` to knit.
