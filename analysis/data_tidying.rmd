@@ -65,6 +65,34 @@ colnames(PAHs2002)[1] ="UNIQUE_ID"
 ```
 Creates PAHs2002 dataframe with selected variables of interest.  These are principally contaminat concentrations with unique IDs associated with other dataframes.
 
+# Recode/combine categories
+### Stations
+
+
+```{r combine-loc-categories}
+Station2002 <- Station2002 %>%
+  mutate(site = fct_recode(SPECFC_LOC,
+                           "Chelsea River" = "Upper Chelsea River",
+                           "Chelsea River" = "Lower Chelsea River", 
+                           "Chelsea River" = "Chelsea River mouth",
+                           "Chelsea River" = "Chelsea River A",
+                           "Chelsea River" = "Chelsea River B",
+                           "Chelsea River" = "Chelsea River C",
+                           "Chelsea River" = "Chelsea River D",
+                           "Chelsea River" = "Chelsea River E",
+                           "Chelsea River" = "Chelsea River F",
+                           "Chelsea River" = "Chelsea River G",
+                           "Chelsea River" = "Chelsea River H"))
+```
+"Chelsea River A"                                                                                                    
+ [60] "Chelsea River B"                                                                                                    
+ [61] "Chelsea River C"                                                                                                    
+ [62] "Chelsea River D"                                                                                                    
+ [63] "Chelsea River E"                                                                                                    
+ [64] "Chelsea River F"                                                                                                    
+ [65] "Chelsea River G"                                                                                                    
+ [66] "Chelsea River H"
+
 #Joining Dataframes
 ###Associates location information with texture and contaminant data by sample unique ID
 ```{r join-data-frames}
@@ -138,48 +166,48 @@ Visualizing missing data can help us determine which specific contaminants were 
 
 ###PCBs
 ``` {r missing-data-PCBs}
- visdat::vis_miss(PCBs_loc)
+ #visdat::vis_miss(PCBs_loc)
 
 #we should highlight the locations where there are PCBs detected
 ```
 
 ###PAHs
 ``` {r missing-data-PAHs}
- visdat::vis_miss(PAHs_loc)
+ #visdat::vis_miss(PAHs_loc)
 
 #we should highlight the locations where there are PAHs detected
 ```
 
 ###Organics
 ``` {r missing-data-Organics}
- visdat::vis_miss(Organics_loc)
+# visdat::vis_miss(Organics_loc)
 
 #This shows us in which station specific textures are found
 ```
 
 ###Textures
 ``` {r missing-data-Textures}
- visdat::vis_miss(Texture_loc)
+ #visdat::vis_miss(Texture_loc)
 
 #This shows us in which station specific textures are found
 ```
 
 # Loading full datasets as CSVs
 ``` {r saving-full-data-into-csv-files}
-write_csv(organics_full, "organics_full.csv")
-write_csv(PAHs_full, "PAHs_full.csv")
-write_csv(PCBs_full, "PCBs_full.csv")
-write_csv(sediments_full, "sediments_full.csv")
-write_csv(stations_full, "stations_full.csv")
-write_csv(textures_full, "textures_full.csv")
-#write_csv(inorganics_full, "inorganics_full.csv")
+write_csv(organics_full, "/cloud/project/data/datasets_csv/organics_full.csv")
+write_csv(PAHs_full, "/cloud/project/data/datasets_csv/PAHs_full.csv")
+write_csv(PCBs_full, "/cloud/project/data/datasets_csv/PCBs_full.csv")
+write_csv(sediments_full, "/cloud/project/data/datasets_csv/sediments_full.csv")
+write_csv(stations_full, "/cloud/project/data/datasets_csv/stations_full.csv")
+write_csv(textures_full, "/cloud/project/data/datasets_csv/textures_full.csv")
+#write_csv(inorganics_full, "/cloud/project/data/datasets_csv/inorganics_full.csv")
 ```
 
 # Loading loc datasets as CSVs
 ``` {r saving-data_loc-into-csv-files}
-write_csv(Texture_loc, "Texture_loc.csv")
-write_csv(Organics_loc, "Organics_loc.csv")
-#write_csv(Inorganics_loc, "Inorganics_loc.csv")
-write_csv(PAHs_loc, "PAHs_loc.csv")
-write_csv(PCBs_loc, "PCBs_loc.csv")
+write_csv(Texture_loc, "/cloud/project/data/datasets_csv/Texture_loc.csv")
+write_csv(Organics_loc, "/cloud/project/data/datasets_csv/Organics_loc.csv")
+#write_csv(Inorganics_loc, "/cloud/project/data/datasets_csv/Inorganics_loc.csv")
+write_csv(PAHs_loc, "/cloud/project/data/datasets_csv/PAHs_loc.csv")
+write_csv(PCBs_loc, "/cloud/project/data/datasets_csv/PCBs_loc.csv")
 ```

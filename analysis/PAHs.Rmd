@@ -9,29 +9,24 @@ output: github_document
 library(tidyverse)
 library(sf)
 library(leaflet)
+library(ggplot2)
+library(RColorBrewer)
+
 ```
 
+#Loading data
 ```{r load-data}
 PAHs <- read.csv(paste0("/cloud/project/data/datasets_loc/PAHs_loc.csv"), header = T)
 ```
 
+#Glimpsing PAH
 ```{r glimpse-data, warning=FALSE}
 glimpse(PAHs)
 ```
 
-``` {r joining-columns, warning=FALSE}
+# Joining the Station Information to the PAH dataset
+```{r joining-station-info, warning=FALSE}
 
-#PAHs <- PAHs %>%
-#mutate(sum_DIBZTPN = C1DIBZTPNC + C2DIBZTPNC + C3DIBZTPNC) %>% 
-#mutate(sum_ = BHC_A_C + BHC_B_C + BHC_D_C) +
-#mutate(sum_)
-
-#PAHs <- PAHs %>% 
-#  select(-C1DIBZTPNC, -C2DIBZTPNC, -C3DIBZTPNC, )
-
-#glimpse(PAHs)
-
-#joining station and pivoting
 PAHs_station <- full_join(Station2002, PAHs, by = "UNIQUE_ID")
 
 PAHs_station <- PAHs_station %>%
@@ -40,15 +35,18 @@ PAHs_station <- PAHs_station %>%
                names_to = "pah_detected", 
                values_to = "amount_detected")
   
-#PAHs_station_nona <- PAHs_station %>%
-   # mutate(amount_detected_with_na = ifelse(is.na(amount_detected), 0, amount_detected))
+PAHs_station_nona <- PAHs_station %>%
+   mutate(amount_detected_with_na = ifelse(is.na(amount_detected), 0, amount_detected))
 
-#PAHs_station_nona <- PAHs_station %>%
-  # mutate(amount_detected = as.numeric(amount_detected))
+PAHs_station = select(PAHs_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDING_M.x, QUAD_NAME.x, GEN_LOC_NM.x, SPECFC_LOC.x, AREA_CODE.x, SAMP_DATE1.x, TO_SMP_DT2.x, DPTH_N_COR.x, DPTH_CODE.x, COR_GRB_CD.x, pah_detected, amount_detected))
+
+glimpse(PAHs_station)
 
 ```
+Joining the station data with the PAH sample taken. The dataset is pivoted so that each observation is the PAH that was observed. Creates the PAHs_station_nona data frame that has the stations joined to the dataset with all na values omitted from the amount_detected column. 
 
-``` {r summing-columns, warning=FALSE}
+# Plotting PAHs Detected in GOM
+``` {r plotting-pahs-detected, warning=FALSE}
 
 PAHs_station_nona %>%
   filter(pah_detected %in% c("BENZNE_C", "BENZNE_C", "NAPHTHLN_C", "BIPHENYL_C", "ACNPHTHN_C", "ACNPHTYL_C", "FLUORENE_C", "PHNANTHR_C", "ANTHRACN_C", "PYRENE_C", "FLORNTHN_C", "CHRYSENE_C", "PERYLENE_C")) %>%
@@ -60,3 +58,22 @@ PAHs_station_nona %>%
 
 ```
 
+``` {r plotting-names-test}
+
+PAHs_station %>%
+  ggplot(aes(x = LONGITUDE.x, y = LATITUDE.x, color = GEN_LOC_NM.x)) + 
+  geom_point()
+
+```
+
+``` {r saving-pah-as-shapefile, warning=FALSE}
+st_write(PAHs_station, "/cloud/project/data/datasets_shp/PAHs_station.shp")
+
+PAHs_station_shp <- st_read("/cloud/project/data/datasets_shp/PAHs_station.dbf")
+```
+Rewriting the PAHs_station dataset as a shape file. 
+
+``` {r}
+ggplot(data = PAHs_station_shp) +
+  geom_sf()
+```

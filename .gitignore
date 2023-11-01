@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+data/datasets_shp/*.dbf
+extra/*
