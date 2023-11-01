@@ -108,5 +108,20 @@ Summary_PAHs %>%
        y = "Mean total PAH concentration ug/g",
        caption = "Error bars = 1 standard error")
 ```
+```{r pah-boston-harbor2}
+Summary_PAHs %>%
+  filter(GEN_LOC_NM.x %in% c("CENTRAL BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
+  ggplot(aes(x = fct_reorder(GEN_LOC_NM.x, mean_PAH), y = mean_PAH, fill = GEN_LOC_NM.x))+
+  geom_col(col = "black")+
+  geom_errorbar(aes(ymin = mean_PAH - SE_PAH, ymax = mean_PAH + SE_PAH), width = 0.2)+
+  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
+  theme_bw()+
+  theme(legend.position = "none")+
+  labs(title = "PAH Concentrations in Boston Harbor Sediments",
+       subtitle = "Central and Northwest Boston Harbor",
+       x = "General location",
+       y = "Mean total PCB concentration ug/g",
+       caption = "Error bars = 1 standard error")
+```
 
 
