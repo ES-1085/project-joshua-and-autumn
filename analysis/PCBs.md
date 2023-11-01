@@ -206,6 +206,8 @@ locations?
 
 ## Map Plots
 
+### Static maps
+
 ``` r
 GOM_states <- st_read("/cloud/project/extra/GOM_DD.shp")
 ```
@@ -269,3 +271,21 @@ ggplot(GOM_states)+
 ```
 
 ![](PCBs_files/figure-gfm/pcb-gom-map-plot-1.png)<!-- -->
+
+### Interactive map
+
+``` r
+#labels <- sprintf("<strong>%s</strong><br/>%g ug/g", 
+#                  Org_no_na$SPECFC_LOC, Org_no_na$PCB_T_UGG) %>% #lapply(htmltools::HTML)
+
+#head(labels, 1)
+```
+
+``` r
+#leaflet(data = Org_no_na) %>%
+#  addProviderTiles(providers$Esri.WorldTopoMap) %>%
+#  setView(lng = -68.5, 
+#          lat = 43.5, 
+#          zoom = 6) %>%
+#  addCircleMarkers(lng = ~LONGITUDE, lat = ~LATITUDE, popup = c(~SPECFC_LOC, #~PCB_T_UGG), label = labels)
+```
