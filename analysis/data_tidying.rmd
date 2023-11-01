@@ -63,7 +63,7 @@ PAHs2002 = select(PAHs_full, c("UNIQUE ID", BENZNE_C, "2BZTPN_C", "2BZTPN_T_C", 
 
 colnames(PAHs2002)[1] ="UNIQUE_ID"
 ```
-Creates PAHs2002 dataframe with selected variables of interest.  These are principally contaminat concentrations with unique IDs associated with other dataframes.
+Creates PAHs2002 dataframe with selected variables of interest.  These are principally contaminat concentrations with unique IDs associated with other data frames.
 
 # Recode/combine categories
 ### Stations
