@@ -243,6 +243,7 @@ ggplot(GOM_states)+
       line_col = "grey20",
       text_family = "ArcherPro Book"))
 ```
+Above is the Distribution and concentration of PAHs in the Gulf of Maine sediments. 
 
 ```{r MDI-area-map-pah}
 ggplot(GOM_states)+
@@ -271,6 +272,56 @@ ggplot(GOM_states)+
       line_col = "grey20",
       text_family = "ArcherPro Book"))
 ```
+Above is the Distribution and concentration of PAHs in MDI and Penobscot Bay sediments. 
 
+```{r boston-and-ma-area-map-pah}
+ggplot(GOM_states)+
+  geom_sf(aes())+
+  geom_sf(data = Bathy_hi_res, color = "gray80", width = 1)+
+  geom_point(data=PAH_no_na, (aes(x = LONGITUDE.x, y = LATITUDE.x, size = amount_detected, alpha = 0.5)))+
+  xlim(-71.2,-69.5)+
+  ylim(41.8,43)+
+  theme_bw()+
+  labs(title = "Distribution and concentration of PAHs",
+       subtitle ="Boston, MA and Cape Cod Bay sediments",
+       x = "Longitude",
+       y = "Latitude")+
+  guides(size = guide_legend(title = "PAH ng/g"))+
+  guides(alpha = FALSE)+
+  ggspatial::annotation_scale(
+    location = "bl",
+    bar_cols = c("grey60", "white"),
+    text_family = "ArcherPro Book"
+  ) +
+  ggspatial::annotation_north_arrow(
+    location = "tr", which_north = "true",
+    pad_x = unit(0, "in"), pad_y = unit(0.1, "in"),
+    style = ggspatial::north_arrow_nautical(
+      fill = c("grey40", "white"),
+      line_col = "grey20",
+      text_family = "ArcherPro Book"))
+```
+Above is the Distribution and concentration of PAHs in Boston, MA and Cape Cod Bay sediments. 
+
+### Interactive map
+
+```{r create-html-labels-pah}
+labels <- sprintf("<strong>%s</strong><br/>%g ng/g", 
+                  PAH_no_na$SPECFC_LOC.x, PAH_no_na$amount_detected) %>%
+  lapply(htmltools::HTML)
+
+head(labels, 1)
+```
+
+```{r leaflet-map-pcb}
+leaflet(data = PAH_no_na) %>%
+  addProviderTiles(providers$Esri.WorldTopoMap) %>%
+  setView(lng = -68.5, 
+          lat = 43.5, 
+          zoom = 6) %>%
+  addCircleMarkers(lng = ~LONGITUDE.x, lat = ~LATITUDE.x, popup = c(~SPECFC_LOC.x, ~amount_detected), label = labels)
+```
+
+Note that the two above code chunks are commented out as .rmd will not knit to github document with html functions.  Uncomment to run and change output type to `html_document` to knit.
 
 
