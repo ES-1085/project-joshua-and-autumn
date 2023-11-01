@@ -23,19 +23,6 @@ Organics <- read.csv(paste0("/cloud/project/analysis/Organics_loc.csv"), header 
 glimpse(PCBs)
 ```
 
-```{r combine-variables}
-#PCBs %>%
-  #drop_na(c(PCB_52_NGG:PCB209_NGG))
-  #mutate(PCBs = sum(c(PCB_52_NGGPCB209_NGG)), na.rm = T)
-  #unite("PCBs", PCB_52_NGG:PCB209_NGG, remove = TRUE)
-
-##This is what I (Autumn) tried to do, but it still wouldn't recognize the columns. 
-#PCBs %>%
-  #drop_na(c(PCB_52_NGG:PCB209_NGG))
-  #mutate(PCBs = PCB_52_NGG + PCB101_NGG + PCB118_NGG + PCB128_NGG + PCB138_NGG + PCB153_NGG + PCB180_NGG + PCB206_NGG + PCB209_NGG), na.rm = T)
-  #unite("PCBs", PCB_52_NGG:PCB209_NGG, remove = TRUE)
-```
-
 ```{r joining-columns, warning=FALSE}
 
 #PCBs <- PCBs %>%
