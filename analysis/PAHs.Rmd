@@ -66,3 +66,16 @@ PAHs_station %>%
 
 ```
 
+``` {r summary-stats-PAHs}
+Summary_PAHs <- PAHs_station %>%
+  group_by(GEN_LOC_NM.x) %>%
+  drop_na(amount_detected) %>%
+  summarise(mean_PCB_T = mean(amount_detected),
+    sd_PCB_T = sd(amount_detected),
+    n_PCB_T = n(),
+    SE_PCB_T = sd(amount_detected) / sqrt(n()))
+
+Summary_PAHs
+
+```
+
