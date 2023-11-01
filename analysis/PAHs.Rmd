@@ -66,14 +66,3 @@ PAHs_station %>%
 
 ```
 
-``` {r saving-pah-as-shapefile, warning=FALSE}
-st_write(PAHs_station, "/cloud/project/data/datasets_shp/PAHs_station.shp")
-
-PAHs_station_shp <- st_read("/cloud/project/data/datasets_shp/PAHs_station.dbf")
-```
-Rewriting the PAHs_station dataset as a shape file. 
-
-``` {r}
-ggplot(data = PAHs_station_shp) +
-  geom_sf()
-```
