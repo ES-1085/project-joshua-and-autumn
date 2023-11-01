@@ -209,28 +209,29 @@ Sum_Org_site <- Organics %>%
     n_PCB_T = n(),
     SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
 
-Sum_Org_site
+Sum_Org_site %>%
+  distinct(site)
 ```
 
-    ## # A tibble: 190 × 5
-    ##    site                           mean_PCB_T sd_PCB_T n_PCB_T SE_PCB_T
-    ##    <chr>                               <dbl>    <dbl>   <int>    <dbl>
-    ##  1 1-U.S. GypsumCo.200TerminalSt.     1.5     NA            1  NA     
-    ##  2 2-U.S. GypsumCo.200TerminalSt.     1.1     NA            1  NA     
-    ##  3 3-U.S. GypsumCo.200TerminalSt.     0.8     NA            1  NA     
-    ##  4 4-U.S. GypsumCo.200TerminalSt.     0.2     NA            1  NA     
-    ##  5 BASS RIVER                         1.97     1.70         3   0.980 
-    ##  6 BEVERLY HARBOR                     0       NA            1  NA     
-    ##  7 BIH                                5.10    20.0         37   3.29  
-    ##  8 BOI                                0.116    0.0396       8   0.014 
-    ##  9 BOSTON HARBOR                      0.0809   0.0495       4   0.0247
-    ## 10 BOSTON HARBOR MARINA               0        0            2   0     
+    ## # A tibble: 190 × 1
+    ##    site                          
+    ##    <chr>                         
+    ##  1 1-U.S. GypsumCo.200TerminalSt.
+    ##  2 2-U.S. GypsumCo.200TerminalSt.
+    ##  3 3-U.S. GypsumCo.200TerminalSt.
+    ##  4 4-U.S. GypsumCo.200TerminalSt.
+    ##  5 BASS RIVER                    
+    ##  6 BEVERLY HARBOR                
+    ##  7 BIH                           
+    ##  8 BOI                           
+    ##  9 BOSTON HARBOR                 
+    ## 10 BOSTON HARBOR MARINA          
     ## # ℹ 180 more rows
 
 ``` r
 Sum_Org_site %>%
-  filter(site %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = mean_PCB_T, fill = site))+
+  filter(site %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River To Bangor")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -0.01,x) ), fill = site))+
   geom_bar(stat="identity", col = "black")+
   scale_x_discrete(drop=FALSE)+
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
@@ -257,11 +258,11 @@ into one category, so that there is only one bar in these plots.
 
 ``` r
 Sum_Org_site %>%
-  filter(site %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor", "Union River")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = mean_PCB_T, fill = site))+
+  filter(site %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River To Bangor", "Union River")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -2,x)), fill = site))+
   geom_col(col = "black")+
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
-  scale_fill_manual(values = c("gray50", "gray50", "gray50", "gray50", "gray50", "firebrick2", "gray50"))+
+  scale_fill_manual(values = c("gray50", "skyblue", "skyblue", "gray50", "gray50", "gray50", "chocolate1", "gray50"))+
   theme_bw()+
   coord_flip()+
   theme(legend.position = "none")+
