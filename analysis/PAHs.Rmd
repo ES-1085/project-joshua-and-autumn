@@ -136,7 +136,7 @@ Sum_PAH_site <- PAHs_station %>%
 Sum_PAH_site
 ```
 
-```{r}
+```{r pah-concentrations-in-me-rivers}
 Sum_PAH_site %>%
   filter(site.x %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site.x, mean_PAH)), y = mean_PAH, fill = site.x))+
@@ -153,3 +153,4 @@ Sum_PAH_site %>%
        x = "Location",
        y = "Mean total PAH concentration ug/g")
 ```
+Why won't the graph only show the river areas? Why is it showing all?
