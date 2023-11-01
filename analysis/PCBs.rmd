@@ -123,6 +123,7 @@ Summary_Organics %>%
 
 ### Specific Locations
 
+
 ```{r}
 Sum_Org_site <- Organics %>%
   group_by(site) %>%
@@ -136,11 +137,13 @@ Sum_Org_site
 ```
 
 
+
 ```{r}
 Sum_Org_site %>%
   filter(site %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = mean_PCB_T, fill = site))+
   geom_bar(stat="identity", col = "black")+
+  scale_x_discrete(drop=FALSE)+
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
   scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
   theme_bw()+
@@ -181,6 +184,7 @@ Sum_Org_site %>%
   filter(site %in% c("BASS RIVER", "ESSEX RIVER", "MYSTIC RIVER", "FORE RIVER", "CHELSEA RIVER", "Chelsea River", "Mill Creek", "Neponset River Bridge", "South River", "Weymouth Fore & Town River", "North & Danvers River")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = mean_PCB_T, fill = site))+
   geom_bar(stat="identity", col = "black")+
+  scale_x_discrete(drop=FALSE)+
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
   scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
   theme_bw()+
@@ -229,6 +233,18 @@ GOM_states <- st_read("/cloud/project/extra/GOM_DD.shp")
 ```{r load-bathy-shp}
 Bathy <- st_read("/cloud/project/extra/BATHYMGM_ARC.shp")
 ```
+
+Bathymetry data is in projected coordinate system (NAD83), other data is geodetic (NAD83).  Wasn't able to add this layer to map plot -- need to change projection.
+
+
+```{r}
+st_crs(Bathy)
+Bathy <- st_transform(Bathy, "+init=epsg:4269")
+```
+
+
+Now the Bathy shapefile is in geodetic NAD83 format.
+
 ```{r unique-bathy}
 unique(Bathy$CONTOUR)
 ```
@@ -236,12 +252,18 @@ unique(Bathy$CONTOUR)
 
 
 ```{r plot-bathy}
-Bathy <- Bathy%>%
- filter(CONTOUR %in% c("-100", "-200","-400","-1000","-2000","-3000","-4000"))
-ggplot(Bathy) +
+Bathy_low_res <- Bathy%>%
+ filter(CONTOUR %in% c("-100","-500","-1000","-2000","-3000","-4000"))
+ggplot(Bathy_low_res) +
   geom_sf(aes())
 ```
-Bathymetry data is in projected coordinate system (NAD83), other data is geodetic (NAD83).  Wasn't able to add this layer to map plot -- need to change projection.
+```{r}
+Bathy_hi_res <- Bathy%>%
+ filter(CONTOUR %in% c("-40","-80","-120","160","200","240"))
+ggplot(Bathy_hi_res) +
+  geom_sf(aes())
+```
+
 
 ```{r drop-na-PCB_T}
 Org_no_na <- Organics %>%
@@ -250,7 +272,8 @@ Org_no_na <- Organics %>%
 ```{r pcb-gom-map-plot, warning = FALSE}
 ggplot(GOM_states)+
   geom_sf(aes())+
-  geom_point(data=Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
+  geom_sf(data = Bathy_low_res, color = "gray80", width = 1)+
+  geom_point(data = Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
   xlim(-72,-65)+
   ylim(40,45)+
   theme_bw()+
@@ -277,6 +300,7 @@ ggplot(GOM_states)+
 ```{r MDI-area-map}
 ggplot(GOM_states)+
   geom_sf(aes())+
+  geom_sf(data = Bathy_hi_res, color = "gray80", width = 1)+
   geom_point(data=Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
   xlim(-69.2,-68)+
   ylim(44,44.5)+
@@ -304,12 +328,13 @@ ggplot(GOM_states)+
 ```{r}
 ggplot(GOM_states)+
   geom_sf(aes())+
+  geom_sf(data = Bathy_hi_res, color = "gray80", width = 1)+
   geom_point(data=Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
   xlim(-71.2,-69.5)+
   ylim(41.8,43)+
   theme_bw()+
   labs(title = "Distribution and concentration of PCBs",
-       subtitle ="Massachusetts and Cape Cod Bay sediments",
+       subtitle ="Boston, MA and Cape Cod Bay sediments",
        x = "Longitude",
        y = "Latitude")+
   guides(size = guide_legend(title = "PCB ug/g"))+
