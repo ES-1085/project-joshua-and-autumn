@@ -16,7 +16,7 @@ library(dplyr)
 
 ```{r load-data}
 PCBs <- read.csv(paste0("/cloud/project/analysis/PCBs_loc.csv"), header = T)
-Organics <- read.csv(paste0("/cloud/project/analysis/Organics_loc.csv"), header = T)
+Organics <- read.csv(paste0("/cloud/project/data/datasets_csv/Organics_loc.csv"), header = T)
 ```
 
 ```{r glimpse-data, warning=FALSE}
