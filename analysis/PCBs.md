@@ -33,7 +33,7 @@ library(dplyr)
 
 ``` r
 PCBs <- read.csv(paste0("/cloud/project/analysis/PCBs_loc.csv"), header = T)
-Organics <- read.csv(paste0("/cloud/project/analysis/Organics_loc.csv"), header = T)
+Organics <- read.csv(paste0("/cloud/project/data/datasets_csv/Organics_loc.csv"), header = T)
 ```
 
 ``` r
@@ -41,7 +41,7 @@ glimpse(PCBs)
 ```
 
     ## Rows: 7,848
-    ## Columns: 39
+    ## Columns: 38
     ## $ UNIQUE_ID  <chr> "US00001", "US00002", "US00003", "US00004", "US00005", "US0…
     ## $ LATITUDE   <dbl> 42.35972, 42.36028, 42.38500, 42.38500, 42.38500, 42.38500,…
     ## $ LONGITUDE  <dbl> -71.02861, -71.02778, -71.04611, -71.04611, -71.04611, -71.…
@@ -56,7 +56,6 @@ glimpse(PCBs)
     ## $ DPTH_N_COR <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "0"…
     ## $ DPTH_CODE  <chr> "Unknown", "Unknown", "Depth", "Depth", "Unknown", "Unknown…
     ## $ COR_GRB_CD <chr> "Grab", "Grab", "Core", "Core", "Grab", "Grab", "Grab", "Gr…
-    ## $ site       <chr> "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BI…
     ## $ PCB_52_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
     ## $ PCB101_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
     ## $ PCB118_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
@@ -83,17 +82,46 @@ glimpse(PCBs)
     ## $ LINDANE_C  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
 
 ``` r
-#PCBs %>%
-  #drop_na(c(PCB_52_NGG:PCB209_NGG))
-  #mutate(PCBs = sum(c(PCB_52_NGGPCB209_NGG)), na.rm = T)
-  #unite("PCBs", PCB_52_NGG:PCB209_NGG, remove = TRUE)
-
-##This is what I (Autumn) tried to do, but it still wouldn't recognize the columns. 
-#PCBs %>%
-  #drop_na(c(PCB_52_NGG:PCB209_NGG))
-  #mutate(PCBs = PCB_52_NGG + PCB101_NGG + PCB118_NGG + PCB128_NGG + PCB138_NGG + PCB153_NGG + PCB180_NGG + PCB206_NGG + PCB209_NGG), na.rm = T)
-  #unite("PCBs", PCB_52_NGG:PCB209_NGG, remove = TRUE)
+glimpse(Organics)
 ```
+
+    ## Rows: 7,849
+    ## Columns: 35
+    ## $ UNIQUE_ID  <chr> "US00001", "US00002", "US00003", "US00004", "US00005", "US0…
+    ## $ LATITUDE   <dbl> 42.35972, 42.36028, 42.38500, 42.38500, 42.38500, 42.38500,…
+    ## $ LONGITUDE  <dbl> -71.02861, -71.02778, -71.04611, -71.04611, -71.04611, -71.…
+    ## $ SOUNDING_M <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+    ## $ STATE_NAME <chr> "MA", "MA", "MA", "MA", "MA", "MA", "MA", "MA", "MA", "MA",…
+    ## $ QUAD_NAME  <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+    ## $ GEN_LOC_NM <chr> "BOSTON INNER HARBOR", "BOSTON INNER HARBOR", "BOSTON INNER…
+    ## $ SPECFC_LOC <chr> "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BI…
+    ## $ AREA_CODE  <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+    ## $ SAMP_DATE1 <chr> NA, NA, "5/1/1981", "5/1/1981", "5/1/1981", "5/1/1981", "5/…
+    ## $ TO_SMP_DT2 <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+    ## $ DPTH_N_COR <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "0"…
+    ## $ DPTH_CODE  <chr> "Unknown", "Unknown", "Depth", "Depth", "Unknown", "Unknown…
+    ## $ COR_GRB_CD <chr> "Grab", "Grab", "Core", "Core", "Grab", "Grab", "Grab", "Gr…
+    ## $ site       <chr> "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BI…
+    ## $ REPNO_ORG  <int> 1, 1, 1, NA, NA, 1, 1, NA, 1, NA, 1, 1, 1, 1, 1, 1, 1, NA, …
+    ## $ TOTREP_ORG <int> 1, 1, 1, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1, 1, 1, 1, 1,…
+    ## $ TVS_EP_PCT <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 10.00, 9.50, 9.…
+    ## $ O_G_PCT    <dbl> 0.05, 0.06, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+    ## $ O_G_UGG    <dbl> NA, NA, NA, NA, 10882.00, 3115.00, 880.00, 542.30, 31.44, N…
+    ## $ PHCTOT_PCT <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+    ## $ PHCTOT_UGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+    ## $ PCB_T_UGG  <dbl> NA, NA, NA, NA, 0.500, 0.500, 0.500, 0.500, 0.500, NA, NA, …
+    ## $ DDT_T_NGG  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 76.50, 33.00, 1…
+    ## $ DDE_T_NGG  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+    ## $ DDD_T_NGG  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+    ## $ PEST_UG_G  <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+    ## $ PAHTOT_PCT <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+    ## $ PAHTOT_UGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+    ## $ LIPIDS_NGG <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+    ## $ CLOST_SP_G <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+    ## $ MBT_C      <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+    ## $ DBT_C      <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+    ## $ TBT_C      <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+    ## $ TTBT_C     <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
 
 ``` r
 #PCBs <- PCBs %>%
@@ -209,28 +237,68 @@ Sum_Org_site <- Organics %>%
     n_PCB_T = n(),
     SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
 
-Sum_Org_site %>%
-  distinct(site)
+Sum_Org_site
 ```
 
-    ## # A tibble: 190 × 1
-    ##    site                          
-    ##    <chr>                         
-    ##  1 1-U.S. GypsumCo.200TerminalSt.
-    ##  2 2-U.S. GypsumCo.200TerminalSt.
-    ##  3 3-U.S. GypsumCo.200TerminalSt.
-    ##  4 4-U.S. GypsumCo.200TerminalSt.
-    ##  5 BASS RIVER                    
-    ##  6 BEVERLY HARBOR                
-    ##  7 BIH                           
-    ##  8 BOI                           
-    ##  9 BOSTON HARBOR                 
-    ## 10 BOSTON HARBOR MARINA          
+    ## # A tibble: 190 × 5
+    ##    site                           mean_PCB_T sd_PCB_T n_PCB_T SE_PCB_T
+    ##    <chr>                               <dbl>    <dbl>   <int>    <dbl>
+    ##  1 1-U.S. GypsumCo.200TerminalSt.     1.5     NA            1  NA     
+    ##  2 2-U.S. GypsumCo.200TerminalSt.     1.1     NA            1  NA     
+    ##  3 3-U.S. GypsumCo.200TerminalSt.     0.8     NA            1  NA     
+    ##  4 4-U.S. GypsumCo.200TerminalSt.     0.2     NA            1  NA     
+    ##  5 BASS RIVER                         1.97     1.70         3   0.980 
+    ##  6 BEVERLY HARBOR                     0       NA            1  NA     
+    ##  7 BIH                                5.10    20.0         37   3.29  
+    ##  8 BOI                                0.116    0.0396       8   0.014 
+    ##  9 BOSTON HARBOR                      0.0809   0.0495       4   0.0247
+    ## 10 BOSTON HARBOR MARINA               0        0            2   0     
     ## # ℹ 180 more rows
 
 ``` r
+Organics %>%
+  filter(STATE_NAME == "ME") %>%
+  filter(PCB_T_UGG != "NA") %>%
+  distinct(site)
+```
+
+    ##                                                       site
+    ## 1                            Southern Harbor (North Haven)
+    ## 2                                      Portland Fore River
+    ## 3                                              Royal River
+    ## 4                             Portland Harbor & Fore River
+    ## 5                                        Stonington Harbor
+    ## 6                                          Kennebunk River
+    ## 7                                             Lermond Cove
+    ## 8                                               Bar Harbor
+    ## 9                                          Rockport Harbor
+    ## 10                                          Castine Harbor
+    ## 11                     Portsmouth Naval Shipyard (Kittery)
+    ## 12                                              Mack Point
+    ## 13                                             York Harbor
+    ## 14                                           Camden Harbor
+    ## 15                                            Wells Harbor
+    ## 16                            Portland Back Cove & Channel
+    ## 17                                  Kennebec River to Bath
+    ## 18                                   Sears Island Terminal
+    ## 19                                             Union River
+    ## 20                               Penobscot River To Bangor
+    ## 21                          Jonesport Harbor - Sawyer Cove
+    ## 22                                  Isle Au Haut Thorofare
+    ## 23                     Beals Harbor (Barneys Cove - Beals)
+    ## 24                                             Bass Harbor
+    ## 25                                          Tenants Harbor
+    ## 26 Back Channel Near N. shore of entrance to Barters Creek
+    ## 27             West of Jamaica Is. in Back Channel of PNSY
+    ## 28          Back Channel E side of back gate entr. to PNSY
+    ## 29                                              York River
+    ## 30                                               Casco Bay
+    ## 31                                           Penobscot Bay
+    ## 32                                         Portland Harbor
+
+``` r
 Sum_Org_site %>%
-  filter(site %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River To Bangor")) %>%
+  filter(site %in% c("York River", "Kennebunk River", "Portland Fore River", "Royal River", "Kennebec River to Bath", "Penobscot River To Bangor")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -0.01,x) ), fill = site))+
   geom_bar(stat="identity", col = "black")+
   scale_x_discrete(drop=FALSE)+
@@ -246,23 +314,22 @@ Sum_Org_site %>%
        y = "Mean total PCB concentration ug/g")
 ```
 
-![](PCBs_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
-
-Need to figure out how to keep categories with zero values. For example,
-samples from the Penobscot River yielded no PCBs and are entered as zero
-values but will not display in ggplot. Tried “scale_x_discrete(drop =
-FALSE)” with no effect.
-
-Also would like to combine the values for the two Piscataqua River sites
-into one category, so that there is only one bar in these plots.
+![](PCBs_files/figure-gfm/bar-me-rivers-without-union-1.png)<!-- -->
+Sites with only one observation or mean = 0 do not have error bars.
 
 ``` r
 Sum_Org_site %>%
-  filter(site %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River To Bangor", "Union River")) %>%
+  filter(site %in% c("York River", "Kennebunk River", "Portland Fore River", "Royal River", "Kennebec River to Bath", "Penobscot River To Bangor", "Union River")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -2,x)), fill = site))+
   geom_col(col = "black")+
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
-  scale_fill_manual(values = c("gray50", "skyblue", "skyblue", "gray50", "gray50", "gray50", "chocolate1", "gray50"))+
+  scale_fill_manual(values = c("Kennebec River to Bath" = "skyblue",
+                               "Penobstoc River to Bangor" = "skyblue",
+                               "Royal River" = "gray50",
+                               "York River" = "gray50",
+                               "Kennebunk River" = "gray50",
+                               "Portland Fore River" = "gray50",
+                               "Union River" = "chocolate1"))+
   theme_bw()+
   coord_flip()+
   theme(legend.position = "none")+
@@ -273,10 +340,145 @@ Sum_Org_site %>%
        y = "Mean total PCB concentration ug/g")
 ```
 
-![](PCBs_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](PCBs_files/figure-gfm/bar-me-rivers-with-union-1.png)<!-- -->
 
 There are no errorbars for Union River as n = 1; single sample from this
 site so only a mean value.
+
+``` r
+Organics %>%
+  filter(STATE_NAME == "MA") %>%
+  filter(PCB_T_UGG != "NA") %>%
+  distinct(site)
+```
+
+    ##                                                                                          site
+    ## 1                                                                                         BIH
+    ## 2                                                                                        MBDS
+    ## 3   Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 4                                                                              DORCHESTER BAY
+    ## 5                                                                         CRYSTAL COVE MARINA
+    ## 6                                                                                  BASS RIVER
+    ## 7                                                                               HINGAM HARBOR
+    ## 8                                                                              HINGHAM HARBOR
+    ## 9                                                                                MYSTIC RIVER
+    ## 10                                                                                 SMITH COVE
+    ## 11                                                                            WINTHROP HARBOR
+    ## 12                                                                             WINTROP HARBOR
+    ## 13                                                                      Little Mystic Channel
+    ## 14                                                                          MANCHESTER HARBOR
+    ## 15                                                                            SCITUATE HARBOR
+    ## 16                                                                                 FORE RIVER
+    ## 17                                                                               SALEM HARBOR
+    ## 18                                                                       BOSTON HARBOR MARINA
+    ## 19                                                                          GLOUCESTER HARBOR
+    ## 20                                                                              BOSTON HARBOR
+    ## 21                                                                                DUXBURY BAY
+    ## 22                                                                             BEVERLY HARBOR
+    ## 23                                                                    PORT NORFOLK YACHT CLUB
+    ## 24                                              Chelsea River, Golf Oil Fuel Off-Loading Pier
+    ## 25                                              Chelsea River, Gulf Oil Fuel Off-Loading Pier
+    ## 26                                                                             Dorchester Bay
+    ## 27                                                                    Rowes and Fosters Wharf
+    ## 28                                                                                 Mill Creek
+    ## 29                                                            Victory Road Park Inlet Channel
+    ## 30                                                                 Seaward of Waterfront Park
+    ## 31                                                                                 Long Wharf
+    ## 32                                                                                South River
+    ## 33                                                                            Winthrop Harbor
+    ## 34                                                          Winthrop Harbor, entrance channel
+    ## 35                                                                      North & Danvers River
+    ## 36                                                                           Mystic River "B"
+    ## 37                                                                              Chelsea River
+    ## 38                                                                          Reserve Channel B
+    ## 39                                                                       Inner Confluence "B"
+    ## 40                                                                            Mystic "A"-7830
+    ## 41                                                                            Mystic "B"-7831
+    ## 42                                                                           Chelsea "A"-7828
+    ## 43                                                                           Chelsea "E"-7829
+    ## 44                                                                           Reserve "B"-7826
+    ## 45                                                                           Reserve "D"-7827
+    ## 46                                                               FADS-Reference location-7832
+    ## 47                                                                               Gulf Oil Co.
+    ## 48                                                                               Gibb Oil ???
+    ## 49                                                                       Gibb Oil North Berth
+    ## 50                                                                       Gibb Oil South Berth
+    ## 51                                                                       ESE of Castle Island
+    ## 52                                                          btwn Deer I. & Governors I. Flats
+    ## 53                                                                                 Quincy Bay
+    ## 54                                                            Nantasket Roads W of Perry Cove
+    ## 55                                                                                   Hull Bay
+    ## 56                                                                SE of The Graves, Mass. Bay
+    ## 57                                                                          Massachusetts Bay
+    ## 58                                                                               Cape Cod Bay
+    ## 59                                                             HbrView Marina,Town Rvr Quincy
+    ## 60                                                                                  Foul Area
+    ## 61                                                            Marina Bay, Squantum Pt, Quincy
+    ## 62                                                                           ISLAND END RIVER
+    ## 63                                                                                 NUT ISLAND
+    ## 64                                                                                DEER ISLAND
+    ## 65                                                                            Cohasset Harbor
+    ## 66                                                                            Scituate Harbor
+    ## 67                                                                                        NAR
+    ## 68                                                                                        DOB
+    ## 69                                                                                        BOI
+    ## 70                                                                                        PRR
+    ## 71                                                                                        LDF
+    ## 72                                                                                        BRS
+    ## 73                                                                                        MAB
+    ## 74                                                                                       <NA>
+    ## 75                                                                                Broad Sound
+    ## 76                                                                                Salem Sound
+    ## 77                                                                            Foul area north
+    ## 78                                                                           Foul area center
+    ## 79                                                                            Foul area south
+    ## 80                                                                             Foul area east
+    ## 81                                                                             Foul area west
+    ## 82                                                                         south of Foul area
+    ## 83                                                                               Spec. Island
+    ## 84                                                                           Third Hbr Tunnel
+    ## 85                                                                            MERRIMACK RIVER
+    ## 86                                                                                        QUB
+    ## 87                                                                           Island End River
+    ## 88                                                                         Fort Point Channel
+    ## 89                                                             1-U.S. GypsumCo.200TerminalSt.
+    ## 90                                                             2-U.S. GypsumCo.200TerminalSt.
+    ## 91                                                             3-U.S. GypsumCo.200TerminalSt.
+    ## 92                                                             4-U.S. GypsumCo.200TerminalSt.
+    ## 93                                                                                       FADS
+    ## 94                                                                          JEFFRIES POINT YC
+    ## 95                                                                       MBDS Reference sites
+    ## 96                                                                        STFP outfall siting
+    ## 97                                                                                Hingham Bay
+    ## 98                                                                        Weymouth Fore River
+    ## 99                                                                            Nantasket Roads
+    ## 100                                                                             Sculpin Ledge
+    ## 101                                                                          Northwest Harbor
+    ## 102                                                                              Mystic River
+    ## 103                                                                        Charleston Channel
+    ## 104                                                                            Boston Channel
+    ## 105                                                                             Channel Mouth
+    ## 106                                                                          Reserved Channel
+    ## 107                                                                            Boston Wharves
+    ## 108                                                  South Bay area of the Fort Point Channel
+    ## 109                                                  between Spectacle Island and Long Island
+    ## 110                                                                                Town Brook
+    ## 111                                                                            Beverly Harbor
+    ## 112                                                         WINTHROP HARBOR, BELLE ISLE INLET
+    ## 113                                                                    LOGAN AIRPORT E.BOSTON
+    ## 114                                                              Logan Airport Runway End 22L
+    ## 115                                                               Logan Airport Runway End 27
+    ## 116                                                              Logan Airport Runway End 33L
+    ## 117                                                                  Winthrop Basin Anchorage
+    ## 118                                                                Wnthrop Basin Spur Channel
+    ## 119                                                    Entrance Channel Opposite Snake Island
+    ## 120                                                        Entrance Channel at Basin Entrance
+    ## 121                                                                    Cottage Park Anchorage
+    ## 122                                                                      Cottage Park Channel
+    ## 123                                                                    Snake Island Anchorage
+    ## 124                                                                    Crystal Cove Anchorage
+    ## 125                                                        Entrance Channel off Winthrop Y.C.
+    ## 126                                                          Entrance Channel at Crystal Cove
 
 ``` r
 Sum_Org_site %>%
@@ -295,7 +497,7 @@ Sum_Org_site %>%
        y = "Mean total PCB concentration ug/g")
 ```
 
-![](PCBs_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](PCBs_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 ## Statistical tests
 
@@ -308,7 +510,7 @@ locations?
 hist(Organics$PCB_T_UGG)
 ```
 
-![](PCBs_files/figure-gfm/unnamed-chunk-5-1.png)<!-- --> The
+![](PCBs_files/figure-gfm/unnamed-chunk-2-1.png)<!-- --> The
 distribution of total PCB concentrations is highly skewed, with high
 influence outliers. It fails to meet parametric assumptions, so it
 should be analyzed with non-parametric methods. We could do
@@ -511,12 +713,12 @@ ggplot(Bathy_low_res) +
 
 ``` r
 Bathy_hi_res <- Bathy%>%
- filter(CONTOUR %in% c("-40","-80","-120","160","200","240"))
+ filter(CONTOUR %in% c("-40","-80","-120","160","200","240","280"))
 ggplot(Bathy_hi_res) +
   geom_sf(aes())
 ```
 
-![](PCBs_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](PCBs_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 ``` r
 Org_no_na <- Organics %>%
@@ -550,6 +752,17 @@ ggplot(GOM_states)+
       line_col = "grey20",
       text_family = "ArcherPro Book"))
 ```
+
+    ## Warning in layer_sf(geom = GeomSf, data = data, mapping = mapping, stat = stat,
+    ## : Ignoring unknown parameters: `width`
+
+    ## Warning: The `<scale>` argument of `guides()` cannot be `FALSE`. Use "none" instead as
+    ## of ggplot2 3.3.4.
+    ## This warning is displayed once every 8 hours.
+    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+    ## generated.
+
+    ## Warning: Removed 56 rows containing missing values (`geom_point()`).
 
 ![](PCBs_files/figure-gfm/pcb-gom-map-plot-1.png)<!-- -->
 
@@ -621,7 +834,7 @@ ggplot(GOM_states)+
 
     ## Warning: Removed 667 rows containing missing values (`geom_point()`).
 
-![](PCBs_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](PCBs_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ### Interactive map
 
