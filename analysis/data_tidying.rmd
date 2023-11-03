@@ -198,12 +198,16 @@ Visualizing missing data can help us determine which specific contaminants were 
 #dplyr::select(Organics_loc, where(is.numeric)) %>%
 #visdat::vis_cor(Organics_loc, "pearson", "pairwise.complete.obs", facet)
 
-#This shows us in which station specific textures are found
+#This shows us in which station specific organics are found
 ```
 
 ###Textures
 ``` {r missing-data-Textures}
  #visdat::vis_miss(Texture_loc)
+
+#visualizing correlations in data as a heatmap - only numeric values...
+#dplyr::select(Texture_loc, where(is.numeric)) %>%
+#visdat::vis_cor(Texture_loc, "pearson", "pairwise.complete.obs", facet)
 
 #This shows us in which station specific textures are found
 ```
