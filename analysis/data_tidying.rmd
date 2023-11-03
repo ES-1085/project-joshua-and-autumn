@@ -166,21 +166,37 @@ Visualizing missing data can help us determine which specific contaminants were 
 
 ###PCBs
 ``` {r missing-data-PCBs}
- #visdat::vis_miss(PCBs_loc)
+#Visualizing the percentage of missing data
+#visdat::vis_miss(PCBs_loc)
+
+#visualizing correlations in data as a heatmap - only numeric values...
+#dplyr::select(PCBs_loc, where(is.numeric)) %>%
+#visdat::vis_cor(PCBs_loc, "pearson", "pairwise.complete.obs", facet)
+
 
 #we should highlight the locations where there are PCBs detected
 ```
 
 ###PAHs
 ``` {r missing-data-PAHs}
- #visdat::vis_miss(PAHs_loc)
+#Visualizing the percentage of missing data
+#visdat::vis_miss(PAHs_loc)
+
+#visualizing correlations in data as a heatmap - only numeric values...
+#dplyr::select(PAHs_loc, where(is.numeric)) %>%
+#visdat::vis_cor(PAHs_loc, "pearson", "pairwise.complete.obs", facet)
 
 #we should highlight the locations where there are PAHs detected
 ```
 
 ###Organics
 ``` {r missing-data-Organics}
+#Visualizing the percentage of missing data
 # visdat::vis_miss(Organics_loc)
+
+#visualizing correlations in data as a heatmap - only numeric values...
+#dplyr::select(Organics_loc, where(is.numeric)) %>%
+#visdat::vis_cor(Organics_loc, "pearson", "pairwise.complete.obs", facet)
 
 #This shows us in which station specific textures are found
 ```
