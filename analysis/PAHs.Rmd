@@ -139,8 +139,8 @@ Sum_PAH_site
 
 ```{r pah-concentrations-in-me-rivers}
 Sum_PAH_site %>%
-  filter(site.x %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(site.x, mean_PAH)), y = mean_PAH, fill = site.x))+
+  filter(site.x %in% c("Kennebunk River", "MYSTIC RIVER", "Mystic Rvr, red nun 4", "Neponset River", "Neponset River mouth", "Portland Fore River", "Royal River", "Weymouth Back River", "York River", "Weymouth Fore River", "Weymouth Fore Rvr", "Piscataqua River N of Pierce Is.", "NORTH RIVER", "Neponset River Bridge", "Charles River")) %>%
+  ggplot(aes(x = site.x, y = mean_PAH, fill = site.x))+
   geom_bar(stat="identity", col = "black")+
   scale_x_discrete(drop=FALSE)+
   geom_errorbar(aes(ymin = mean_PAH - SE_PAH, ymax = mean_PAH + SE_PAH), width = 0.2)+
