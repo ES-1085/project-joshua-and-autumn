@@ -16,7 +16,9 @@ library(RColorBrewer)
 
 #Loading data
 ```{r load-data}
-PAHs <- read.csv(paste0("/cloud/project/data/datasets_csv/PAHs_loc.csv"), header = T)
+#PAHs <- read.csv(paste0("/cloud/project/data/datasets_csv/PAHs_loc.csv"), header = T)
+
+PAHs <- PAHs_loc
 ```
 
 #Glimpsing PAH
@@ -138,9 +140,11 @@ Sum_PAH_site
 ```
 
 ```{r pah-concentrations-in-me-rivers}
-Sum_PAH_site %>%
-  filter(site.x %in% c("Kennebunk River", "MYSTIC RIVER", "Mystic Rvr, red nun 4", "Neponset River", "Neponset River mouth", "Portland Fore River", "Royal River", "Weymouth Back River", "York River", "Weymouth Fore River", "Weymouth Fore Rvr", "Piscataqua River N of Pierce Is.", "NORTH RIVER", "Neponset River Bridge", "Charles River")) %>%
-  ggplot(aes(x = site.x, y = mean_PAH, fill = site.x))+
+Sum_PAH_site2 <- Sum_PAH_site %>% 
+  filter(site.x == c("Kennebunk River", "MYSTIC RIVER", "Mystic Rvr, red nun 4", "Neponset River", "Neponset River mouth", "Portland Fore River", "Royal River", "Weymouth Back River", "York River", "Weymouth Fore River", "Weymouth Fore Rvr", "Piscataqua River N of Pierce Is.", "NORTH RIVER", "Neponset River Bridge", "Charles River"))
+
+Sum_PAH_site2 %>%
+  ggplot(aes(x = site.x, y = mean_PAH))+
   geom_bar(stat="identity", col = "black")+
   scale_x_discrete(drop=FALSE)+
   geom_errorbar(aes(ymin = mean_PAH - SE_PAH, ymax = mean_PAH + SE_PAH), width = 0.2)+
