@@ -183,9 +183,20 @@ Visualizing missing data can help us determine which specific contaminants were 
 #dplyr::select(PCBs_loc, where(is.numeric)) %>%
 #visdat::vis_cor(PCBs_loc, "pearson", "pairwise.complete.obs", facet)
 
-
 #we should highlight the locations where there are PCBs detected
 ```
+```{r}
+ visdat::vis_dat(PCBs_loc)
+```
+
+```{r}
+naniar::gg_miss_var(PCBs_loc)
+```
+
+```{r}
+naniar::miss_var_summary(PCBs)
+```
+
 
 ###PAHs
 ``` {r missing-data-PAHs}

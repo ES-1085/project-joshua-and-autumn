@@ -15,7 +15,7 @@ library(dplyr)
 ```
 
 ```{r load-data}
-PCBs <- read.csv(paste0("/cloud/project/analysis/PCBs_loc.csv"), header = T)
+PCBs <- read.csv(paste0("/cloud/project/data/datasets_csv/PCBs_loc.csv"), header = T)
 Organics <- read.csv(paste0("/cloud/project/data/datasets_csv/Organics_loc.csv"), header = T)
 ```
 
@@ -201,7 +201,26 @@ Sum_Org_site %>%
        x = "Location",
        y = "Mean total PCB concentration ug/g")
 ```
+```{r}
+PCBs %>%
+  ggplot(aes(x = DDT_4_4_C))+
+  geom_histogram()
+```
 
+### PCBs and Sediment types
+Test for relationship between sediment types and PCBs -- think we did something like this in biostats.  Then viz with scatterplot.
+
+```{r}
+sediments <- read.csv(paste0("/cloud/project/data/datasets_csv/Texture_loc.csv"), header = T)
+```
+```{r}
+Organics_sed <- left_join(Organics_loc, sediments, by = "UNIQUE_ID")
+```
+```{r}
+Organics_sed %>%
+  ggplot(aes(x = CLAY_PCT, y = SAND_PCT))+
+  geom_point()
+```
 
 ## Statistical tests
 ### Difference between general locations

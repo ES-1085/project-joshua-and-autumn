@@ -1,0 +1,16 @@
+---
+title: "Sediments"
+author: "Joshua Harkness and Autumn Pauly"
+date: "2023-11-03"
+output: github_document
+---
+
+```{r load-data}
+sediments <- read.csv(paste0("/cloud/project/data/datasets_csv/Texture_loc.csv"), header = T)
+organics <- read.csv(paste0("/cloud/project/data/datasets_csv/Organics_loc.csv"), header = T)
+```
+
+```{r join-sediments-organics}
+
+```
+
