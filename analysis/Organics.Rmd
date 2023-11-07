@@ -102,7 +102,7 @@ This is attempting to visualize which organics are present. As shown, there is a
 Organics_station %>%
   filter(site %in% c("Boston Inner Harbor", "Central Boston Harbor", "Southeast Boston Harbor", "Northwest Boston Harbor", "Cape Ann to Cape Elizabeth")) %>%
   ggplot(aes(x = organic_detected, y = amount_detected, fill = site))+
-  geom_col(col = "black")+
+  geom_col()+
   scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
   theme_bw()+
   coord_flip()+
@@ -117,6 +117,7 @@ This is trying to visualize the various contaminants that are being found in the
 Organics_station %>%
   filter(site %in% c("Boston Inner Harbor", "Central Boston Harbor", "Southeast Boston Harbor", "Northwest Boston Harbor", "Cape Ann to Cape Elizabeth")) %>%
   ggplot(aes(x = site, y = amount_detected, fill = site))+
+  geom_col() +
   facet_wrap(.~organic_detected) +
   scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
   theme_bw()+
@@ -148,6 +149,7 @@ Sum_Organics_site
 This plot visualizes the specific organics present in Boston Inner Harbor. 
 
 As shown in the plot, Oil and Grease in sediments (in units of moles/g) has the highest concentration in the harbor, followed by Petroleum Hydrocarbons (in units of percent dry weight), and then Clostridium perfringens (in units of spores/g). 
+
 ``` {r type_of_organic-in-boston-inner-harbor, warning = FALSE}
 Organics_station %>%
   filter(site %in% c("Boston Inner Harbor")) %>%
