@@ -12,7 +12,7 @@ library(leaflet)
 ```
 
 ```{r load-data}
-Organics <- read.csv(paste0("/cloud/project/data/datasets_loc/Organics_loc.csv"), header = T)
+#Organics <- read.csv(paste0("/cloud/project/data/datasets_loc/Organics_loc.csv"), header = T)
 
 #Organics <- Organics_loc
 ```
@@ -97,8 +97,68 @@ Summary_Organics %>%
        caption = "Error bars = 1 standard error")
 ```
 
-### Specific Locations
+This is attempting to visualize which organics are present. As shown, there is a high abundance of Clostridium perfringens (in units of spores/g) found in all regions. 
+``` {r type_of_organic-in-top-four, warning = FALSE}
+Organics_station %>%
+  filter(site %in% c("Boston Inner Harbor", "Central Boston Harbor", "Southeast Boston Harbor", "Northwest Boston Harbor", "Cape Ann to Cape Elizabeth")) %>%
+  ggplot(aes(x = organic_detected, y = amount_detected, fill = site))+
+  geom_col(col = "black")+
+  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
+  theme_bw()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "Organic Concentrations in Boston Harbor Sediments",
+       x = "General location",
+       y = "Mean total Organics concentration ng/g",
+       caption = "Error bars = 1 standard error")
+```
+This is trying to visualize the various contaminants that are being found in the Boston Harbor region. 
+``` {r facet-organics}
+Organics_station %>%
+  filter(site %in% c("Boston Inner Harbor", "Central Boston Harbor", "Southeast Boston Harbor", "Northwest Boston Harbor", "Cape Ann to Cape Elizabeth")) %>%
+  ggplot(aes(x = site, y = amount_detected, fill = site))+
+  facet_wrap(.~organic_detected) +
+  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
+  theme_bw()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "Organic Concentrations in Boston Harbor Sediments",
+       x = "General location",
+       y = "Mean total Organics concentration ng/g")
+```
 
+# Boston Inner Harbor Concentrations
+This plot visualizes the specific organics present in Boston Inner Harbor. As shown in the plot, there is a high concentration of Oil and Grease in sediments (in units of moles/g), Petroleum Hydrocarbons (in units of percent dry weight), and Clostridium perfringens (in units of spores/g). 
+``` {r type_of_organic-in-boston-inner-harbor, warning = FALSE}
+Organics_station %>%
+  filter(site %in% c("Boston Inner Harbor")) %>%
+  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
+  geom_col(col = "black")+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "Organic Concentrations in Boston Inner Harbor Sediments",
+       x = "Organic Detected",
+       y = "Amount Detected (ng/g)")
+```
+# Boston Inner Harbor Concentrations
+This plot visualizes the specific organics present in Boston Inner Harbor. As shown in the plot, there is a high concentration of Oil and Grease in sediments (in units of moles/g), Petroleum Hydrocarbons (in units of percent dry weight), and Clostridium perfringens (in units of spores/g). 
+``` {r type_of_organic-in-boston-inner-harbor, warning = FALSE}
+Organics_station %>%
+  filter(site %in% c("Boston Inner Harbor")) %>%
+  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
+  geom_col(col = "black")+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "Organic Concentrations in Boston Inner Harbor Sediments",
+       x = "Organic Detected",
+       y = "Amount Detected (ng/g)")
+```
+
+
+
+
+### Specific Locations
+This is visualizing the summary of organics found at each location, including the mean, standard deviation, count, and principal square root. 
 ```{r}
 Sum_Organics_site <- Organics_station %>%
   group_by(site) %>%
