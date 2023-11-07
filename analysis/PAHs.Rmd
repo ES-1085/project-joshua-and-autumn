@@ -46,24 +46,21 @@ Joining the station data with the PAH sample taken. The dataset is pivoted so th
 
 # Plotting PAHs Detected in GOM
 ``` {r plotting-pahs-detected, warning=FALSE}
-
-#PAHs_station %>%
- # filter(pah_detected %in% c("BENZNE_C", "BENZNE_C", "NAPHTHLN_C", "BIPHENYL_C", "ACNPHTHN_C", "ACNPHTYL_C", "FLUORENE_C", "PHNANTHR_C", "ANTHRACN_C", "PYRENE_C", "FLORNTHN_C", "CHRYSENE_C", "PERYLENE_C")) %>%
-  #ggplot(aes(x = pah_detected, y = amount_detected, color = pah_detected)) +
-  #geom_col() + 
-  #theme(axis.text.x = element_text(angle = 90, hjust = 1))
-
-#I do now know why it is colored like that
-
-```
-
-``` {r plotting-names-test}
-
 PAHs_station %>%
-  ggplot(aes(x = LONGITUDE.x, y = LATITUDE.x, color = GEN_LOC_NM.x)) + 
-  geom_point()
+  filter(pah_detected %in% c("BENZNE_C", "BENZNE_C", "NAPHTHLN_C", "BIPHENYL_C", "ACNPHTHN_C", "ACNPHTYL_C", "FLUORENE_C", "PHNANTHR_C", "ANTHRACN_C", "PYRENE_C", "FLORNTHN_C", "CHRYSENE_C", "PERYLENE_C")) %>%
+  ggplot(aes(x = pah_detected, y = amount_detected, fill = pah_detected))+
+  geom_col()+
+  scale_fill_viridis_d() +
+  theme_bw()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "PAHs Detected in Gulf of Maine Sediments",
+       x = "PAH Detected",
+       y = "Amount Detected")
+```
 
 ```
+
 
 ``` {r summary-stats-PAHs}
 Summary_PAHs <- PAHs_station %>%
@@ -75,7 +72,6 @@ Summary_PAHs <- PAHs_station %>%
     SE_PAH = sd(amount_detected) / sqrt(n()))
 
 Summary_PAHs
-
 ```
 
 ``` {r pah-gen-loc}
@@ -128,6 +124,7 @@ Summary_PAHs %>%
 PAHs_station %>%
   filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR", "CENTRAL BOSTON HARBOR", "SOUTHEAST BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
   ggplot(aes(x = GEN_LOC_NM.x, y = amount_detected, fill = GEN_LOC_NM.x))+
+  geom_col() +
   facet_wrap(.~pah_detected) +
   scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
   theme_bw()+
