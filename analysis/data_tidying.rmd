@@ -166,14 +166,26 @@ Visualizing missing data can help us determine which specific contaminants were 
 
 ###PCBs
 ``` {r missing-data-PCBs}
- #visdat::vis_miss(PCBs_loc)
+ visdat::vis_miss(PCBs_loc)
 
 #we should highlight the locations where there are PCBs detected
 ```
+```{r}
+ visdat::vis_dat(PCBs_loc)
+```
+
+```{r}
+naniar::gg_miss_var(PCBs_loc)
+```
+
+```{r}
+naniar::miss_var_summary(PCBs)
+```
+
 
 ###PAHs
 ``` {r missing-data-PAHs}
- #visdat::vis_miss(PAHs_loc)
+ visdat::vis_miss(PAHs)
 
 #we should highlight the locations where there are PAHs detected
 ```
