@@ -128,7 +128,9 @@ Organics_station %>%
 ```
 
 # Boston Inner Harbor Concentrations
-This plot visualizes the specific organics present in Boston Inner Harbor. As shown in the plot, there is a high concentration of Oil and Grease in sediments (in units of moles/g), Petroleum Hydrocarbons (in units of percent dry weight), and Clostridium perfringens (in units of spores/g). 
+This plot visualizes the specific organics present in Boston Inner Harbor. 
+
+As shown in the plot, Oil and Grease in sediments (in units of moles/g) has the highest concentration in the harbor, followed by Petroleum Hydrocarbons (in units of percent dry weight), and then Clostridium perfringens (in units of spores/g). 
 ``` {r type_of_organic-in-boston-inner-harbor, warning = FALSE}
 Organics_station %>%
   filter(site %in% c("Boston Inner Harbor")) %>%
@@ -140,21 +142,67 @@ Organics_station %>%
        x = "Organic Detected",
        y = "Amount Detected (ng/g)")
 ```
-# Boston Inner Harbor Concentrations
-This plot visualizes the specific organics present in Boston Inner Harbor. As shown in the plot, there is a high concentration of Oil and Grease in sediments (in units of moles/g), Petroleum Hydrocarbons (in units of percent dry weight), and Clostridium perfringens (in units of spores/g). 
-``` {r type_of_organic-in-boston-inner-harbor, warning = FALSE}
+# Central Boston Harbor Concentrations
+This plot visualizes the specific organics present in Boston Central Harbor. As shown in the plot, there is a high concentration of Oil and Grease in sediments (in units of moles/g), Petroleum Hydrocarbons (in units of percent dry weight), and Clostridium perfringens (in units of spores/g). 
+``` {r type_of_organic-in-boston-central-harbor, warning = FALSE}
 Organics_station %>%
-  filter(site %in% c("Boston Inner Harbor")) %>%
+  filter(site %in% c("Boston Central Harbor")) %>%
   ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
   geom_col(col = "black")+
   coord_flip()+
   theme(legend.position = "none")+
-  labs(title = "Organic Concentrations in Boston Inner Harbor Sediments",
+  labs(title = "Organic Concentrations in Boston Central Harbor Sediments",
        x = "Organic Detected",
        y = "Amount Detected (ng/g)")
 ```
 
+# Southeast Boston Harbor Concentrations
+This plot visualizes the specific organics present in Southeast Boston Harbor. 
 
+As shown in the plot, Clostridium perfringens (in units of spores/g) has the highest concentration in the harbor, followed by Oil and Grease in sediments (in units of moles/g), and Petroleum Hydrocarbons (in units of percent dry weight). 
+``` {r type_of_organic-in-boston-southeast-harbor, warning = FALSE}
+Organics_station %>%
+  filter(site %in% c("Southeast Boston Harbor")) %>%
+  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
+  geom_col(col = "black")+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "Organic Concentrations in Southeast Boston Harbor Sediments",
+       x = "Organic Detected",
+       y = "Amount Detected (ng/g)")
+```
+# Northwest Boston Harbor Concentrations
+This plot visualizes the specific organics present in Northwest Boston Harbor. 
+
+As shown in the plot, Clostridium perfringens (in units of spores/g) has the highest concentration in the harbor, followed by Oil and Grease in sediments (in units of moles/g), and Petroleum Hydrocarbons (in units of percent dry weight). 
+
+``` {r type_of_organic-in-boston-northwest-harbor, warning = FALSE}
+Organics_station %>%
+  filter(site %in% c("Northwest Boston Harbor")) %>%
+  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
+  geom_col(col = "black")+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "Organic Concentrations in Northwest Boston Harbor Sediments",
+       x = "Organic Detected",
+       y = "Amount Detected (ng/g)")
+```
+# Cape Ann to Cape Elizabeth Concentrations
+This plot visualizes the specific organics present from Cape Ann to Cape Elizabeth. 
+
+As shown in the plot, Clostridium perfringens (in units of spores/g) has the highest concentration in the harbor. There are trace amounts of Petroleum Hydrocarbons (PHC) in units of moles/g.
+
+``` {r type_of_organic-in-cape-ann-to-elizabeth, warning = FALSE}
+Organics_station %>%
+  filter(site %in% c("Cape Ann to Cape Elizabeth")) %>%
+  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
+  geom_col(col = "black")+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "Organic Concentrations from Cape Ann to Cape Elizabeth",
+       x = "Organic Detected",
+       y = "Amount Detected (ng/g)")
+```
 
 
 ### Specific Locations
