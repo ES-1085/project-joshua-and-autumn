@@ -129,8 +129,6 @@ Organics_station %>%
 ```
 
 
-
-
 ### Specific Locations
 This is visualizing the summary of organics found at each location, including the mean, standard deviation, count, and principal square root. 
 ```{r}
@@ -154,7 +152,7 @@ As shown in the plot, Oil and Grease in sediments (in units of moles/g) has the 
 Organics_station %>%
   filter(site %in% c("Boston Inner Harbor")) %>%
   ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
-  geom_col(col = "black")+
+  geom_col()+
   coord_flip()+
   theme(legend.position = "none")+
   labs(title = "Organic Concentrations in Boston Inner Harbor Sediments",
@@ -163,17 +161,20 @@ Organics_station %>%
 ```
 
 ## Central Boston Harbor Concentrations
-This plot visualizes the specific organics present in Boston Central Harbor. As shown in the plot, there is a high concentration of Oil and Grease in sediments (in units of moles/g), Petroleum Hydrocarbons (in units of percent dry weight), and Clostridium perfringens (in units of spores/g). 
+This plot visualizes the specific organics present in Boston Central Harbor. 
+
+As shown in the plot, there is a high concentration of Clostridium perfringens (in units of spores/g). There are trace amounts of Polyaromatic Hydrocarbons (PAH) (in units of percent dry weight).
 ``` {r type_of_organic-in-boston-central-harbor, warning = FALSE}
 Organics_station %>%
-  filter(site %in% c("Boston Central Harbor")) %>%
+  filter(site %in% "Central Boston Harbor") %>%
   ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
-  geom_col(col = "black")+
+  geom_col()+
   coord_flip()+
   theme(legend.position = "none")+
   labs(title = "Organic Concentrations in Boston Central Harbor Sediments",
        x = "Organic Detected",
        y = "Amount Detected (ng/g)")
+
 ```
 
 ## Southeast Boston Harbor Concentrations
@@ -184,7 +185,7 @@ As shown in the plot, Clostridium perfringens (in units of spores/g) has the hig
 Organics_station %>%
   filter(site %in% c("Southeast Boston Harbor")) %>%
   ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
-  geom_col(col = "black")+
+  geom_col()+
   coord_flip()+
   theme(legend.position = "none")+
   labs(title = "Organic Concentrations in Southeast Boston Harbor Sediments",
@@ -201,7 +202,7 @@ As shown in the plot, Clostridium perfringens (in units of spores/g) has the hig
 Organics_station %>%
   filter(site %in% c("Northwest Boston Harbor")) %>%
   ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
-  geom_col(col = "black")+
+  geom_col()+
   coord_flip()+
   theme(legend.position = "none")+
   labs(title = "Organic Concentrations in Northwest Boston Harbor Sediments",
@@ -218,7 +219,7 @@ As shown in the plot, Clostridium perfringens (in units of spores/g) has the hig
 Organics_station %>%
   filter(site %in% c("Cape Ann to Cape Elizabeth")) %>%
   ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
-  geom_col(col = "black")+
+  geom_col()+
   coord_flip()+
   theme(legend.position = "none")+
   labs(title = "Organic Concentrations from Cape Ann to Cape Elizabeth",
