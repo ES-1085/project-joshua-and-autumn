@@ -16,7 +16,9 @@ library(RColorBrewer)
 
 #Loading data
 ```{r load-data}
-PAHs <- read.csv(paste0("/cloud/project/data/datasets_csv/PAHs_loc.csv"), header = T)
+#PAHs <- read.csv(paste0("/cloud/project/data/datasets_csv/PAHs_loc.csv"), header = T)
+
+PAHs <- PAHs_loc
 ```
 
 #Glimpsing PAH
@@ -35,7 +37,7 @@ PAHs_station <- PAHs_station %>%
                names_to = "pah_detected", 
                values_to = "amount_detected")
 
-PAHs_station = select(PAHs_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDING_M.x, QUAD_NAME.x, GEN_LOC_NM.x, SPECFC_LOC.x, AREA_CODE.x, SAMP_DATE1.x, TO_SMP_DT2.x, DPTH_N_COR.x, DPTH_CODE.x, COR_GRB_CD.x, site, pah_detected, amount_detected))
+PAHs_station = select(PAHs_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDING_M.x, QUAD_NAME.x, GEN_LOC_NM.x, SPECFC_LOC.x, AREA_CODE.x, SAMP_DATE1.x, TO_SMP_DT2.x, DPTH_N_COR.x, DPTH_CODE.x, COR_GRB_CD.x, site.x, pah_detected, amount_detected))
 
 glimpse(PAHs_station)
 
@@ -44,24 +46,21 @@ Joining the station data with the PAH sample taken. The dataset is pivoted so th
 
 # Plotting PAHs Detected in GOM
 ``` {r plotting-pahs-detected, warning=FALSE}
-
-#PAHs_station %>%
- # filter(pah_detected %in% c("BENZNE_C", "BENZNE_C", "NAPHTHLN_C", "BIPHENYL_C", "ACNPHTHN_C", "ACNPHTYL_C", "FLUORENE_C", "PHNANTHR_C", "ANTHRACN_C", "PYRENE_C", "FLORNTHN_C", "CHRYSENE_C", "PERYLENE_C")) %>%
-  #ggplot(aes(x = pah_detected, y = amount_detected, color = pah_detected)) +
-  #geom_col() + 
-  #theme(axis.text.x = element_text(angle = 90, hjust = 1))
-
-#I do now know why it is colored like that
-
-```
-
-``` {r plotting-names-test}
-
 PAHs_station %>%
-  ggplot(aes(x = LONGITUDE.x, y = LATITUDE.x, color = GEN_LOC_NM.x)) + 
-  geom_point()
+  filter(pah_detected %in% c("BENZNE_C", "BENZNE_C", "NAPHTHLN_C", "BIPHENYL_C", "ACNPHTHN_C", "ACNPHTYL_C", "FLUORENE_C", "PHNANTHR_C", "ANTHRACN_C", "PYRENE_C", "FLORNTHN_C", "CHRYSENE_C", "PERYLENE_C")) %>%
+  ggplot(aes(x = pah_detected, y = amount_detected, fill = pah_detected))+
+  geom_col()+
+  scale_fill_viridis_d() +
+  theme_bw()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "PAHs Detected in Gulf of Maine Sediments",
+       x = "PAH Detected",
+       y = "Amount Detected")
+```
 
 ```
+
 
 ``` {r summary-stats-PAHs}
 Summary_PAHs <- PAHs_station %>%
@@ -73,7 +72,6 @@ Summary_PAHs <- PAHs_station %>%
     SE_PAH = sd(amount_detected) / sqrt(n()))
 
 Summary_PAHs
-
 ```
 
 ``` {r pah-gen-loc}
@@ -122,6 +120,21 @@ Summary_PAHs %>%
        y = "Mean total PCB concentration ng/g",
        caption = "Error bars = 1 standard error")
 ```
+``` {r facet-by-site}
+PAHs_station %>%
+  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR", "CENTRAL BOSTON HARBOR", "SOUTHEAST BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
+  ggplot(aes(x = GEN_LOC_NM.x, y = amount_detected, fill = GEN_LOC_NM.x))+
+  geom_col() +
+  facet_wrap(.~pah_detected) +
+  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
+  theme_bw()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "PAH Concentrations in Boston Harbor Sediments",
+       x = "General location",
+       y = "Mean total PAH concentration ng/g")
+```
+
 
 ### Specific Locations
 
@@ -137,10 +150,62 @@ Sum_PAH_site <- PAHs_station %>%
 Sum_PAH_site
 ```
 
+## Boston Inner Harbor Concentrations
+This plot visualizes the specific PAHs present in Boston Inner Harbor. 
+
+As shown in the plot, [...] has the highest concentration in the harbor. 
+``` {r type_of_organic-in-BOSTON-INNER-HARBOR, warning = FALSE}
+PAHs_station %>%
+  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
+  ggplot(aes(x = pah_detected, y = amount_detected, fill = pah_detected))+
+  geom_col(col = "black")+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "PAH Concentrations in Boston Inner Harbor",
+       x = "PAH Detected",
+       y = "Amount Detected (ng/g)")
+```
+
+``` {r sum-organics-boston-inner-harbor}
+PAHs_station %>%
+  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
+  summarise(site = GEN_LOC_NM.x, 
+            pah_detected = pah_detected, 
+            sum_pah_detected = sum(amount_detected, na.rm = TRUE))
+```
+
+## Cape Ann to Cape Elizabeth Concentrations
+This plot visualizes the specific PAHs present in Boston Inner Harbor. 
+
+As shown in the plot, [...] has the highest concentration in the harbor. 
+``` {r type_of_organic-in-BOSTON-INNER-HARBOR, warning = FALSE}
+PAHs_station %>%
+  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
+  ggplot(aes(x = pah_detected, y = amount_detected, fill = pah_detected))+
+  geom_col(col = "black")+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "PAH Concentrations in Boston Inner Harbor",
+       x = "PAH Detected",
+       y = "Amount Detected (ng/g)")
+```
+
+``` {r sum-organics-boston-inner-harbor}
+PAHs_station %>%
+  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
+  summarise(site = GEN_LOC_NM.x, 
+            pah_detected = pah_detected, 
+            sum_pah_detected = sum(amount_detected, na.rm = TRUE))
+```
+
+## Summarizing by River
+
 ```{r pah-concentrations-in-me-rivers}
-Sum_PAH_site %>%
-  filter(site.x %in% c("In Piscataqua River NE of Outer Cutts Cove", "Piscataqua River N of Pierce Is.","York River", "Kennebunk River", "Portland Fore River", "Kennebec River to Bath", "Penobscot River to Bangor")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(site.x, mean_PAH)), y = mean_PAH, fill = site.x))+
+Sum_PAH_site2 <- Sum_PAH_site %>% 
+  filter(site.x == c("Kennebunk River", "MYSTIC RIVER", "Mystic Rvr, red nun 4", "Neponset River", "Neponset River mouth", "Portland Fore River", "Royal River", "Weymouth Back River", "York River", "Weymouth Fore River", "Weymouth Fore Rvr", "Piscataqua River N of Pierce Is.", "NORTH RIVER", "Neponset River Bridge", "Charles River"))
+
+Sum_PAH_site2 %>%
+  ggplot(aes(x = site.x, y = mean_PAH))+
   geom_bar(stat="identity", col = "black")+
   scale_x_discrete(drop=FALSE)+
   geom_errorbar(aes(ymin = mean_PAH - SE_PAH, ymax = mean_PAH + SE_PAH), width = 0.2)+
@@ -164,6 +229,7 @@ Does total PAH concentration differ significantly between general locations?
 ```{r}
 hist(PAHs_station$amount_detected)
 ```
+
 ```{r}
 kw1=kruskal.test(PAHs_station$amount_detected ~ PAHs_station$GEN_LOC_NM.x)
 kw1
@@ -183,6 +249,7 @@ Interpretation: Most general locations have significantly different mean total P
 ```{r load-GOM_states-shp}
 GOM_states <- st_read("/cloud/project/extra/GOM_DD.shp")
 ```
+
 ```{r load-bathy-shp}
 Bathy <- st_read("/cloud/project/extra/BATHYMGM_ARC.shp")
 ```

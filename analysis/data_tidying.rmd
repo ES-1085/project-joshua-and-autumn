@@ -15,13 +15,23 @@ library(naniar)
 
 ##Load full datasets
 ```{r load-data, warning=FALSE}
-stations_full = read_excel("/cloud/project/data/original_datasets/STAT2002.xls", sheet = 2, skip = 3)
-sediments_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
-PCBs_full = read_excel("/cloud/project/data/original_datasets/PCBP2002.xls", sheet = 2, skip = 3)
-PAHs_full = read_excel("/cloud/project/data/original_datasets/PAHS2002.xls", sheet = 2, skip = 3)
-organics_full = read_excel("/cloud/project/data/original_datasets/GENO2002.xls", sheet = 2, skip = 3)
+#stations_full = read_xls("/project/data/original_datasets/STAT2002.xls", sheet = 2, skip = 3)
+#sediments_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
+#PCBs_full = read_excel("/cloud/project/data/original_datasets/PCBP2002.xls", sheet = 2, skip = 3)
+#PAHs_full = read_excel("/cloud/project/data/original_datasets/PAHS2002.xls", sheet = 2, skip = 3)
+#organics_full = read_excel("/cloud/project/data/original_datasets/GENO2002.xls", sheet = 2, skip = 3)
 #inorganics_full = read_excel("/cloud/project/data/original_datasets/INOR2002.xls", sheet = 2, skip = 3)
-textures_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
+#textures_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
+```
+##Load full datasets for desktop r (autumn's computer) (will delete later)
+```{r load-data-desktop, warning=FALSE}
+#stations_full = read_xls("C:/Users/pauly/Documents/project-joshua-and-autumn/data/original_datasets/STAT2002.xls", sheet = 2, skip = 3)
+#sediments_full = read_excel("C:/Users/pauly/Documents/project-joshua-and-autumn/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
+#PCBs_full = read_excel("C:/Users/pauly/Documents/project-joshua-and-autumn/data/original_datasets/PCBP2002.xls", sheet = 2, skip = 3)
+#PAHs_full = read_excel("C:/Users/pauly/Documents/project-joshua-and-autumn/data/original_datasets/PAHS2002.xls", sheet = 2, skip = 3)
+#organics_full = read_excel("C:/Users/pauly/Documents/project-joshua-and-autumn/data/original_datasets/GENO2002.xls", sheet = 2, skip = 3)
+#inorganics_full = read_excel("C:/Users/pauly/Documents/project-joshua-and-autumn/data/original_datasets/INOR2002.xls", sheet = 2, skip = 3)
+#textures_full = read_excel("C:/Users/pauly/Documents/project-joshua-and-autumn/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
 ```
 Since these are all very large data files, we will select useful variables and variables we are interested in looking at to pare them down to a more manageable size.  Note that the `inorganics_full` dataframe is commented out because we are unlikely to use it in our final analysis.
 
@@ -166,7 +176,12 @@ Visualizing missing data can help us determine which specific contaminants were 
 
 ###PCBs
 ``` {r missing-data-PCBs}
- visdat::vis_miss(PCBs_loc)
+#Visualizing the percentage of missing data
+#visdat::vis_miss(PCBs_loc)
+
+#visualizing correlations in data as a heatmap - only numeric values...
+#dplyr::select(PCBs_loc, where(is.numeric)) %>%
+#visdat::vis_cor(PCBs_loc, "pearson", "pairwise.complete.obs", facet)
 
 #we should highlight the locations where there are PCBs detected
 ```
@@ -185,21 +200,35 @@ naniar::miss_var_summary(PCBs)
 
 ###PAHs
 ``` {r missing-data-PAHs}
- visdat::vis_miss(PAHs)
+#Visualizing the percentage of missing data
+#visdat::vis_miss(PAHs_loc)
+
+#visualizing correlations in data as a heatmap - only numeric values...
+#dplyr::select(PAHs_loc, where(is.numeric)) %>%
+#visdat::vis_cor(PAHs_loc, "pearson", "pairwise.complete.obs", facet)
 
 #we should highlight the locations where there are PAHs detected
 ```
 
 ###Organics
 ``` {r missing-data-Organics}
+#Visualizing the percentage of missing data
 # visdat::vis_miss(Organics_loc)
 
-#This shows us in which station specific textures are found
+#visualizing correlations in data as a heatmap - only numeric values...
+#dplyr::select(Organics_loc, where(is.numeric)) %>%
+#visdat::vis_cor(Organics_loc, "pearson", "pairwise.complete.obs", facet)
+
+#This shows us in which station specific organics are found
 ```
 
 ###Textures
 ``` {r missing-data-Textures}
  #visdat::vis_miss(Texture_loc)
+
+#visualizing correlations in data as a heatmap - only numeric values...
+#dplyr::select(Texture_loc, where(is.numeric)) %>%
+#visdat::vis_cor(Texture_loc, "pearson", "pairwise.complete.obs", facet)
 
 #This shows us in which station specific textures are found
 ```
