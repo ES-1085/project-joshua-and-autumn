@@ -13,6 +13,8 @@ library(leaflet)
 
 ```{r load-data}
 Organics <- read.csv(paste0("/cloud/project/data/datasets_loc/Organics_loc.csv"), header = T)
+
+#Organics <- Organics_loc
 ```
 
 ```{r glimpse-data, warning=FALSE}
@@ -29,7 +31,23 @@ Organics_station <- Organics_station %>%
                names_to = "organic_detected", 
                values_to = "amount_detected")
 
-Organics_station = select(Organics_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDING_M.x, STATE_NAME.x, QUAD_NAME.x, GEN_LOC_NM.x, SPECFC_LOC.x, AREA_CODE.x, SAMP_DATE1.x, TO_SMP_DT2.x, DPTH_N_COR.x, DPTH_CODE.x, COR_GRB_CD.x, organic_detected, amount_detected))
+Organics_station = select(Organics_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDING_M.x, STATE_NAME.x, QUAD_NAME.x, GEN_LOC_NM.x, SPECFC_LOC.x, AREA_CODE.x, SAMP_DATE1.x, TO_SMP_DT2.x, DPTH_N_COR.x, DPTH_CODE.x, COR_GRB_CD.x, organic_detected, amount_detected)) %>%
+  mutate(site = fct_recode(GEN_LOC_NM.x,
+                           "Rockland to north" = "North of 44; to 50M isobath",
+                           "Cape Elizabeth to Rockland" = "43.5N to 44N; to 50M isobath", 
+                           "Cape Ann to Cape Elizabeth" = "CAPE ANN to 43.5N", 
+                           "Boston Inner Harbor" = "BOSTON INNER HARBOR", 
+                           "Cape Code Bay" = "CAPE COD BAY",
+                           "Gulf of Maine (>50m Isobath)" = "GULF OF MAINE, >50M ISOBATH",
+                           "Northwest Boston Harbor" = "NORTHWEST BOSTON HARBOR",
+                           "Southeast Boston Harbor" = "SOUTHEAST BOSTON HARBOR",
+                           "Gulf of Maine (<=50m Isobath)" = "GULF OF MAINE, <=50M",
+                           "Central Boston Harbor" = "CENTRAL BOSTON HARBOR",
+                           "Inland/Rivers" = "INLAND / RIVERS",
+                           "Harbor Approaches" = "HARBOR APPROACHES",
+                           "Massachusetts Bays" = "MASS BAYS"))
+
+
 
 glimpse(Organics_station)
 
@@ -37,7 +55,7 @@ glimpse(Organics_station)
 
 ``` {r summary-stats-organics}
 Summary_Organics <- Organics_station %>%
-  group_by(GEN_LOC_NM.x) %>%
+  group_by(site) %>%
   drop_na(amount_detected) %>%
   summarise(mean_organic = mean(amount_detected),
     sd_organic = sd(amount_detected),
@@ -50,7 +68,7 @@ Summary_Organics
 
 ``` {r pah-gen-loc}
 Summary_Organics %>%
-  ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM.x, mean_organic)), y = mean_organic, fill = GEN_LOC_NM.x))+
+  ggplot(aes(x = fct_rev(fct_reorder(site, mean_organic)), y = mean_organic, fill = site))+
   geom_col(col = "black")+
   geom_errorbar(aes(ymin = mean_organic - SE_organic, ymax = mean_organic + SE_organic), width = 0.2)+
   coord_flip()+
@@ -65,8 +83,8 @@ Summary_Organics %>%
 
 ```{r pah-boston-harbor1}
 Summary_Organics %>%
-  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR", "CENTRAL BOSTON HARBOR", "SOUTHEAST BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM.x, mean_organic)), y = mean_organic, fill = GEN_LOC_NM.x))+
+  filter(site %in% c("Boston Inner Harbor", "Central Boston Harbor", "Southeast Boston Harbor", "Northwest Boston Harbor")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(site, mean_organic)), y = mean_organic, fill = site))+
   geom_col(col = "black")+
   geom_errorbar(aes(ymin = mean_organic - SE_organic, ymax = mean_organic + SE_organic), width = 0.2)+
   scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
@@ -83,7 +101,7 @@ Summary_Organics %>%
 
 ```{r}
 Sum_Organics_site <- Organics_station %>%
-  group_by(site.x) %>%
+  group_by(site) %>%
   drop_na(amount_detected) %>%
   summarise(mean_Organic = mean(amount_detected),
     sd_PAH = sd(amount_detected),
