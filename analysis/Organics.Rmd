@@ -103,7 +103,7 @@ Organics_station %>%
   filter(site %in% c("Boston Inner Harbor", "Central Boston Harbor", "Southeast Boston Harbor", "Northwest Boston Harbor", "Cape Ann to Cape Elizabeth")) %>%
   ggplot(aes(x = organic_detected, y = amount_detected, fill = site))+
   geom_col()+
-  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
+  scale_fill_viridis_d()+
   theme_bw()+
   coord_flip()+
   theme(legend.position = "none")+
