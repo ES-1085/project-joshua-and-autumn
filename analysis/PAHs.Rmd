@@ -59,9 +59,6 @@ PAHs_station %>%
        y = "Amount Detected")
 ```
 
-```
-
-
 ``` {r summary-stats-PAHs}
 Summary_PAHs <- PAHs_station %>%
   group_by(GEN_LOC_NM.x) %>%
@@ -74,7 +71,7 @@ Summary_PAHs <- PAHs_station %>%
 Summary_PAHs
 ```
 
-``` {r pah-gen-loc}
+```{r pah-gen-loc}
 Summary_PAHs %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM.x, mean_PAH)), y = mean_PAH, fill = GEN_LOC_NM.x))+
   geom_col(col = "black")+
@@ -105,7 +102,7 @@ Summary_PAHs %>%
        caption = "Error bars = 1 standard error")
 ```
 
-```{r pah-boston-harbor2}
+``` {r pah-boston-harbor2}
 Summary_PAHs %>%
   filter(GEN_LOC_NM.x %in% c("CENTRAL BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
   ggplot(aes(x = fct_reorder(GEN_LOC_NM.x, mean_PAH), y = mean_PAH, fill = GEN_LOC_NM.x))+
@@ -120,7 +117,7 @@ Summary_PAHs %>%
        y = "Mean total PCB concentration ng/g",
        caption = "Error bars = 1 standard error")
 ```
-``` {r facet-by-site}
+```{r facet-by-site}
 PAHs_station %>%
   filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR", "CENTRAL BOSTON HARBOR", "SOUTHEAST BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
   ggplot(aes(x = GEN_LOC_NM.x, y = amount_detected, fill = GEN_LOC_NM.x))+
@@ -138,7 +135,7 @@ PAHs_station %>%
 
 ### Specific Locations
 
-```{r}
+```{r sum-pah-site}
 Sum_PAH_site <- PAHs_station %>%
   group_by(site.x) %>%
   drop_na(amount_detected) %>%
@@ -158,7 +155,7 @@ As shown in the plot, [...] has the highest concentration in the harbor.
 PAHs_station %>%
   filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
   ggplot(aes(x = pah_detected, y = amount_detected, fill = pah_detected))+
-  geom_col(col = "black")+
+  geom_col()+
   coord_flip()+
   theme(legend.position = "none")+
   labs(title = "PAH Concentrations in Boston Inner Harbor",
@@ -166,7 +163,7 @@ PAHs_station %>%
        y = "Amount Detected (ng/g)")
 ```
 
-``` {r sum-organics-boston-inner-harbor}
+```{r sum-organics-boston-inner-harbor}
 PAHs_station %>%
   filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
   summarise(site = GEN_LOC_NM.x, 
@@ -178,11 +175,12 @@ PAHs_station %>%
 This plot visualizes the specific PAHs present in Boston Inner Harbor. 
 
 As shown in the plot, [...] has the highest concentration in the harbor. 
-``` {r type_of_organic-in-BOSTON-INNER-HARBOR, warning = FALSE}
+```{r type_of_organic-in-BOSTON-INNER-HARBOR, warning = FALSE}
 PAHs_station %>%
+  drop_na(amount_detected) %>%
   filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
   ggplot(aes(x = pah_detected, y = amount_detected, fill = pah_detected))+
-  geom_col(col = "black")+
+  geom_col()+
   coord_flip()+
   theme(legend.position = "none")+
   labs(title = "PAH Concentrations in Boston Inner Harbor",
@@ -200,26 +198,22 @@ PAHs_station %>%
 
 ## Summarizing by River
 
-```{r pah-concentrations-in-me-rivers}
-Sum_PAH_site2 <- Sum_PAH_site %>% 
-  filter(site.x == c("Kennebunk River", "MYSTIC RIVER", "Mystic Rvr, red nun 4", "Neponset River", "Neponset River mouth", "Portland Fore River", "Royal River", "Weymouth Back River", "York River", "Weymouth Fore River", "Weymouth Fore Rvr", "Piscataqua River N of Pierce Is.", "NORTH RIVER", "Neponset River Bridge", "Charles River"))
-
-Sum_PAH_site2 %>%
-  ggplot(aes(x = site.x, y = mean_PAH))+
-  geom_bar(stat="identity", col = "black")+
-  scale_x_discrete(drop=FALSE)+
-  geom_errorbar(aes(ymin = mean_PAH - SE_PAH, ymax = mean_PAH + SE_PAH), width = 0.2)+
-  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
+``` {r pah-concentrations-in-me-rivers}
+Sum_PAH_site %>% 
+  filter(site.x %in% c("Kennebunk River", "MYSTIC RIVER", "Mystic Rvr, red nun 4", "Neponset River", "Neponset River mouth", "Portland Fore River", "Royal River", "Weymouth Back River", "York River", "Weymouth Fore River", "Weymouth Fore Rvr", "Piscataqua River N of Pierce Is.", "NORTH RIVER", "Neponset River Bridge", "Charles River")) %>%
+  ggplot(aes(x = site.x, y = mean_PAH, fill = site.x))+
+  geom_col()+
+  scale_fill_viridis_d()  +
   theme_bw()+
   coord_flip()+
-  theme(legend.position = "none")+
   labs(title = "PAH Concentrations in Maine Rivers",
        subtitle = "Union River excluded",
-       caption = "Error bars = 1 standard error",
        x = "Location",
-       y = "Mean total PAH concentration ng/g")
+       y = "Mean total PAH concentration ng/g", 
+       fill = "Site")
+
+
 ```
-Why won't the graph only show the river areas? Why is it showing all?
 
 ## Statistical tests
 ### Difference between general locations
