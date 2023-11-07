@@ -153,6 +153,56 @@ Sum_PAH_site <- PAHs_station %>%
 Sum_PAH_site
 ```
 
+## Boston Inner Harbor Concentrations
+This plot visualizes the specific PAHs present in Boston Inner Harbor. 
+
+As shown in the plot, [...] has the highest concentration in the harbor. 
+``` {r type_of_organic-in-BOSTON-INNER-HARBOR, warning = FALSE}
+PAHs_station %>%
+  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
+  ggplot(aes(x = pah_detected, y = amount_detected, fill = pah_detected))+
+  geom_col(col = "black")+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "PAH Concentrations in Boston Inner Harbor",
+       x = "PAH Detected",
+       y = "Amount Detected (ng/g)")
+```
+
+``` {r sum-organics-boston-inner-harbor}
+PAHs_station %>%
+  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
+  summarise(site = GEN_LOC_NM.x, 
+            pah_detected = pah_detected, 
+            sum_pah_detected = sum(amount_detected, na.rm = TRUE))
+```
+
+## Cape Ann to Cape Elizabeth Concentrations
+This plot visualizes the specific PAHs present in Boston Inner Harbor. 
+
+As shown in the plot, [...] has the highest concentration in the harbor. 
+``` {r type_of_organic-in-BOSTON-INNER-HARBOR, warning = FALSE}
+PAHs_station %>%
+  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
+  ggplot(aes(x = pah_detected, y = amount_detected, fill = pah_detected))+
+  geom_col(col = "black")+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "PAH Concentrations in Boston Inner Harbor",
+       x = "PAH Detected",
+       y = "Amount Detected (ng/g)")
+```
+
+``` {r sum-organics-boston-inner-harbor}
+PAHs_station %>%
+  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
+  summarise(site = GEN_LOC_NM.x, 
+            pah_detected = pah_detected, 
+            sum_pah_detected = sum(amount_detected, na.rm = TRUE))
+```
+
+## Summarizing by River
+
 ```{r pah-concentrations-in-me-rivers}
 Sum_PAH_site2 <- Sum_PAH_site %>% 
   filter(site.x == c("Kennebunk River", "MYSTIC RIVER", "Mystic Rvr, red nun 4", "Neponset River", "Neponset River mouth", "Portland Fore River", "Royal River", "Weymouth Back River", "York River", "Weymouth Fore River", "Weymouth Fore Rvr", "Piscataqua River N of Pierce Is.", "NORTH RIVER", "Neponset River Bridge", "Charles River"))
