@@ -27,6 +27,7 @@ glimpse(PAHs)
 ```
 
 # Joining the Station Information to the PAH dataset
+Joining the station data with the PAH sample taken. The dataset is pivoted so that each observation is the PAH that was observed.
 ```{r joining-station-info, warning=FALSE}
 
 PAHs_station <- full_join(Station2002, PAHs, by = "UNIQUE_ID")
@@ -42,13 +43,14 @@ PAHs_station = select(PAHs_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDI
 glimpse(PAHs_station)
 
 ```
-Joining the station data with the PAH sample taken. The dataset is pivoted so that each observation is the PAH that was observed.
+
 
 # Plotting PAHs Detected in GOM
+As shown in the plot below, there is a high concentration of Fluoranthene, followed by Pyrene, Chrysene, and Phenanthrene. 
 ``` {r plotting-pahs-detected, warning=FALSE}
 PAHs_station %>%
   filter(pah_detected %in% c("BENZNE_C", "BENZNE_C", "NAPHTHLN_C", "BIPHENYL_C", "ACNPHTHN_C", "ACNPHTYL_C", "FLUORENE_C", "PHNANTHR_C", "ANTHRACN_C", "PYRENE_C", "FLORNTHN_C", "CHRYSENE_C", "PERYLENE_C")) %>%
-  ggplot(aes(x = pah_detected, y = amount_detected, fill = pah_detected))+
+  ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = pah_detected))+
   geom_col()+
   scale_fill_viridis_d() +
   theme_bw()+
@@ -92,7 +94,7 @@ Summary_PAHs %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM.x, mean_PAH)), y = mean_PAH, fill = GEN_LOC_NM.x))+
   geom_col(col = "black")+
   geom_errorbar(aes(ymin = mean_PAH - SE_PAH, ymax = mean_PAH + SE_PAH), width = 0.2)+
-  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
+  scale_fill_viridis_d()+
   theme_bw()+
   coord_flip()+
   theme(legend.position = "none")+
