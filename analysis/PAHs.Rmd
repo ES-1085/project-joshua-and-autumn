@@ -124,6 +124,20 @@ Summary_PAHs %>%
        y = "Mean total PCB concentration ng/g",
        caption = "Error bars = 1 standard error")
 ```
+``` {r facet-by-site}
+PAHs_station %>%
+  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR", "CENTRAL BOSTON HARBOR", "SOUTHEAST BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
+  ggplot(aes(x = GEN_LOC_NM.x, y = amount_detected, fill = GEN_LOC_NM.x))+
+  facet_wrap(.~pah_detected) +
+  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
+  theme_bw()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "PAH Concentrations in Boston Harbor Sediments",
+       x = "General location",
+       y = "Mean total PAH concentration ng/g")
+```
+
 
 ### Specific Locations
 
@@ -168,6 +182,7 @@ Does total PAH concentration differ significantly between general locations?
 ```{r}
 hist(PAHs_station$amount_detected)
 ```
+
 ```{r}
 kw1=kruskal.test(PAHs_station$amount_detected ~ PAHs_station$GEN_LOC_NM.x)
 kw1
@@ -187,6 +202,7 @@ Interpretation: Most general locations have significantly different mean total P
 ```{r load-GOM_states-shp}
 GOM_states <- st_read("/cloud/project/extra/GOM_DD.shp")
 ```
+
 ```{r load-bathy-shp}
 Bathy <- st_read("/cloud/project/extra/BATHYMGM_ARC.shp")
 ```
