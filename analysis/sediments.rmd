@@ -26,9 +26,7 @@ Organics_sed %>%
 
 ```{r}
 Organics_sed %>%
-  filter(GEN_LOC_NM.x == "CAPE COD BAY") %>%
-  ggplot(aes(x = GEN_LOC_NM.x, y = CLAY_PCT))+
-  geom_col()+
-  coord_flip()
+  ggplot(aes(x = SAND_PCT, y = PCB_T_UGG))+
+  geom_point()
 ```
 

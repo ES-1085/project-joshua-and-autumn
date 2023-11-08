@@ -69,7 +69,6 @@ This bar plot uses number of observations on its y axis, thus reflecting samplin
 ggplot(Organics, aes(x = PCB_T_UGG))+
 geom_histogram(fill = "skyblue", color = "black")
 
-ggplot(Organics)
 ```
 
 
@@ -89,7 +88,7 @@ Summary_Organics
 
 ```{r pcb-gen-loc}
 Summary_Organics %>%
-  ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = mean_PCB_T, fill = GEN_LOC_NM))+
+  ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -1,x) ), fill = GEN_LOC_NM))+
   geom_col(col = "black")+
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
   coord_flip()+
@@ -213,7 +212,7 @@ Organics %>%
 ```{r}
 Sum_Org_site %>%
   filter(site %in% c("BASS RIVER", "ESSEX RIVER", "MYSTIC RIVER", "MERRIMACK RIVER", "Weymouth Fore River", "CHELSEA RIVER", "Chelsea River", "Mill Creek", "Neponset River Bridge", "South River", "Weymouth Fore & Town River", "North & Danvers River", "Island End River")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = mean_PCB_T, fill = site))+
+  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -.7,x)), fill = site))+
   geom_bar(stat="identity", col = "black")+
   scale_x_discrete(drop=FALSE)+
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
@@ -226,6 +225,16 @@ Sum_Org_site %>%
        x = "Location",
        y = "Mean total PCB concentration ug/g")
 ```
+
+### PCB concentration by depth
+
+```{r}
+Organics %>%
+  ggplot(aes(x = SOUNDING_M, y = PCB_T_UGG))+
+  geom_point()+
+  xlim(0,50)
+```
+
 
 ### PCBs and Sediment types
 Test for relationship between sediment types and PCBs -- think we did something like this in biostats.  Then viz with scatterplot.
@@ -268,12 +277,13 @@ library(dunn.test)
 dunn=dunn.test(Organics$PCB_T_UGG,Organics$GEN_LOC_NM,method="bh")
 
 ```
-Interpretation: Most general locations have significantly different mean total PCB concentrations...
+Interpretation: Most general locations have significantly different mean total PCB concentrations.  
 
 
 
-## Map Plots
-### Static maps
+## Static map plots
+### PCBs
+
 ```{r load-GOM_states-shp}
 GOM_states <- st_read("/cloud/project/extra/GOM_DD.shp")
 ```
@@ -430,8 +440,10 @@ ggplot(GOM_states)+
       text_family = "ArcherPro Book"))
 ```
 
+### DDT
 
-### Interactive map
+
+## Interactive map
 
 ```{r create-html-labels}
 #labels <- sprintf("<strong>%s</strong><br/>%g ug/g", 
