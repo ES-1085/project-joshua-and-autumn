@@ -119,24 +119,10 @@ Summary_PAHs %>%
        y = "Mean total PCB concentration ng/g",
        caption = "Error bars = 1 standard error")
 ```
-```{r facet-by-site}
-PAHs_station %>%
-  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR", "CENTRAL BOSTON HARBOR", "SOUTHEAST BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
-  ggplot(aes(x = GEN_LOC_NM.x, y = amount_detected, fill = GEN_LOC_NM.x))+
-  geom_col() +
-  facet_wrap(.~pah_detected) +
-  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
-  theme_bw()+
-  coord_flip()+
-  theme(legend.position = "none")+
-  labs(title = "PAH Concentrations in Boston Harbor Sediments",
-       x = "General location",
-       y = "Mean total PAH concentration ng/g")
-```
 
 
 ### Specific Locations
-
+The plot below visualizes the summary of PAHs found at each location, including the mean, standard deviation, count, and principal square root.
 ```{r sum-pah-site}
 Sum_PAH_site <- PAHs_station %>%
   group_by(site.x) %>%
@@ -149,13 +135,30 @@ Sum_PAH_site <- PAHs_station %>%
 Sum_PAH_site
 ```
 
+This plot shows us the exact quantity of PAH found at each site. 
+```{r summarize-by-site}
+PAHs_station %>%
+  group_by(GEN_LOC_NM.x, pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  arrange(desc(amount_detected))
+```
+
 ## Boston Inner Harbor Concentrations
 This plot visualizes the specific PAHs present in Boston Inner Harbor. 
 
-As shown in the plot, [...] has the highest concentration in the harbor. 
-``` {r type_of_organic-in-BOSTON-INNER-HARBOR, warning = FALSE}
+As shown in the plot, CHRYSENE_C has the highest concentration in the harbor. This is followed by BZ_A_ANT_C, PYRENE_C, and FLORNTHN_C. 
+
+```{r sum-organics-boston-inner-harbor}
 PAHs_station %>%
-  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
+  group_by(GEN_LOC_NM.x, pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM.x == "BOSTON INNER HARBOR") %>%
+  arrange(desc(amount_detected))
+
+PAHs_station %>%
+  group_by(GEN_LOC_NM.x, pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM.x == "BOSTON INNER HARBOR") %>%
   ggplot(aes(x = pah_detected, y = amount_detected, fill = pah_detected))+
   geom_col()+
   coord_flip()+
@@ -163,14 +166,6 @@ PAHs_station %>%
   labs(title = "PAH Concentrations in Boston Inner Harbor",
        x = "PAH Detected",
        y = "Amount Detected (ng/g)")
-```
-
-```{r sum-organics-boston-inner-harbor}
-PAHs_station %>%
-  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
-  summarise(site = GEN_LOC_NM.x, 
-            pah_detected = pah_detected, 
-            sum_pah_detected = sum(amount_detected, na.rm = TRUE))
 ```
 
 ## Cape Ann to Cape Elizabeth Concentrations
