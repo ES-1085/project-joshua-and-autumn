@@ -68,7 +68,6 @@ This bar plot uses number of observations on its y axis, thus reflecting samplin
 ```{r}
 ggplot(Organics, aes(x = PCB_T_UGG))+
 geom_histogram(fill = "skyblue", color = "black")
-
 ```
 
 

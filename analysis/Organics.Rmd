@@ -183,6 +183,12 @@ This plot visualizes the specific organics present in Southeast Boston Harbor.
 As shown in the plot, Clostridium perfringens (in units of spores/g) has the highest concentration in the harbor, followed by Oil and Grease in sediments (in units of moles/g), and Petroleum Hydrocarbons (in units of percent dry weight). 
 ``` {r type_of_organic-in-boston-southeast-harbor, warning = FALSE}
 Organics_station %>%
+  group_by(site, organic_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(site == "Southeast Boston Harbor") %>%
+  arrange(desc(amount_detected))
+
+Organics_station %>%
   filter(site %in% c("Southeast Boston Harbor")) %>%
   ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
   geom_col()+
@@ -200,6 +206,12 @@ As shown in the plot, Clostridium perfringens (in units of spores/g) has the hig
 
 ``` {r type_of_organic-in-boston-northwest-harbor, warning = FALSE}
 Organics_station %>%
+  group_by(site, organic_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(site == "Northwest Boston Harbor") %>%
+  arrange(desc(amount_detected))
+
+Organics_station %>%
   filter(site %in% c("Northwest Boston Harbor")) %>%
   ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
   geom_col()+
@@ -216,6 +228,12 @@ This plot visualizes the specific organics present from Cape Ann to Cape Elizabe
 As shown in the plot, Clostridium perfringens (in units of spores/g) has the highest concentration in the harbor. There are trace amounts of Petroleum Hydrocarbons (PHC) in units of moles/g.
 
 ``` {r type_of_organic-in-cape-ann-to-elizabeth, warning = FALSE}
+Organics_station %>%
+  group_by(site, organic_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(site == "Cape Ann to Cape Elizabeth") %>%
+  arrange(desc(amount_detected))
+
 Organics_station %>%
   filter(site %in% c("Cape Ann to Cape Elizabeth")) %>%
   ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+

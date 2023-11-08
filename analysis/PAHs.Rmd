@@ -155,6 +155,28 @@ PAHs_station %>%
        y = "Amount Detected (ng/g)")
 ```
 
+## Central Boston Harbor Concentrations
+This plot visualizes the specific PAHs present from Central Boston Harbor.  
+As shown in the plot, Pyrene (71,710.28 ng/g) has the highest concentration in the harbor. This is followed by Fluoranthene (64,217.22 ng/g), and Phenanthrene (43304.62 ng/g). 
+``` {r sum-organics-boston-central-harbor}
+PAHs_station %>%
+  group_by(GEN_LOC_NM.x, pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM.x == "CENTRAL BOSTON HARBOR") %>%
+  arrange(desc(amount_detected))
+
+PAHs_station %>%
+  drop_na(amount_detected) %>%
+  filter(GEN_LOC_NM.x %in% c("CENTRAL BOSTON HARBOR")) %>%
+ ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = pah_detected))+
+  geom_col()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "PAH Concentrations in Central Boston Harbor",
+       x = "PAH Detected",
+       y = "Amount Detected (ng/g)")
+```
+
 ## Cape Ann to Cape Elizabeth Concentrations
 This plot visualizes the specific PAHs present from Cape Ann to Cape Elizabeth.  
 As shown in the plot, Fluoranthene (116,706.13 ng/g) has the highest concentration in the harbor. Chrysene (112,928.05 ng/g) and Pyrene	(110687.93 ng/g) are the second and third most abundant PAHs. 
@@ -175,33 +197,6 @@ PAHs_station %>%
   labs(title = "PAH Concentrations from Cape Ann to Cape Elizabeth",
        x = "PAH Detected",
        y = "Amount Detected (ng/g)")
-```
-
-``` {r sum-organics-boston-inner-harbor}
-PAHs_station %>%
-  group_by(GEN_LOC_NM.x, pah_detected) %>%
-  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  filter(GEN_LOC_NM.x == "BOSTON INNER HARBOR") %>%
-  arrange(desc(amount_detected))
-```
-
-## Summarizing by River
-
-``` {r pah-concentrations-in-me-rivers}
-Sum_PAH_site %>% 
-  filter(site.x %in% c("Kennebunk River", "MYSTIC RIVER", "Mystic Rvr, red nun 4", "Neponset River", "Neponset River mouth", "Portland Fore River", "Royal River", "Weymouth Back River", "York River", "Weymouth Fore River", "Weymouth Fore Rvr", "Piscataqua River N of Pierce Is.", "NORTH RIVER", "Neponset River Bridge", "Charles River")) %>%
-  ggplot(aes(x = site.x, y = mean_PAH, fill = site.x))+
-  geom_col()+
-  scale_fill_viridis_d()  +
-  theme_bw()+
-  coord_flip()+
-  labs(title = "PAH Concentrations in Maine Rivers",
-       subtitle = "Union River excluded",
-       x = "Location",
-       y = "Mean total PAH concentration ng/g", 
-       fill = "Site")
-
-
 ```
 
 ## Statistical tests
