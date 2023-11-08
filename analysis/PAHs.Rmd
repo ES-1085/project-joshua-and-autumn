@@ -199,25 +199,6 @@ PAHs_station %>%
        y = "Amount Detected (ng/g)")
 ```
 
-## Summarizing by River
-
-``` {r pah-concentrations-in-me-rivers}
-Sum_PAH_site %>% 
-  filter(site.x %in% c("Kennebunk River", "MYSTIC RIVER", "Mystic Rvr, red nun 4", "Neponset River", "Neponset River mouth", "Portland Fore River", "Royal River", "Weymouth Back River", "York River", "Weymouth Fore River", "Weymouth Fore Rvr", "Piscataqua River N of Pierce Is.", "NORTH RIVER", "Neponset River Bridge", "Charles River")) %>%
-  ggplot(aes(x = site.x, y = mean_PAH, fill = site.x))+
-  geom_col()+
-  scale_fill_viridis_d()  +
-  theme_bw()+
-  coord_flip()+
-  labs(title = "PAH Concentrations in Maine Rivers",
-       subtitle = "Union River excluded",
-       x = "Location",
-       y = "Mean total PAH concentration ng/g", 
-       fill = "Site")
-
-
-```
-
 ## Statistical tests
 ### Difference between general locations
 
