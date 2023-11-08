@@ -21,7 +21,7 @@ PAHs <- read.csv(paste0("/cloud/project/data/datasets_csv/PAHs_loc.csv"), header
 
 #Glimpsing PAH
 ```{r glimpse-data, warning=FALSE}
-glimpse(PAHs)
+#glimpse(PAHs)
 ```
 
 # Joining the Station Information to the PAH dataset
