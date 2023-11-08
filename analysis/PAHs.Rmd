@@ -11,13 +11,11 @@ library(sf)
 library(leaflet)
 library(ggplot2)
 library(RColorBrewer)
-
 ```
 
 #Loading data
 ```{r load-data}
 #PAHs <- read.csv(paste0("/cloud/project/data/datasets_csv/PAHs_loc.csv"), header = T)
-
 PAHs <- PAHs_loc
 ```
 
@@ -27,8 +25,8 @@ glimpse(PAHs)
 ```
 
 # Joining the Station Information to the PAH dataset
+Joining the station data with the PAH sample taken. The dataset is pivoted so that each observation is the PAH that was observed.
 ```{r joining-station-info, warning=FALSE}
-
 PAHs_station <- full_join(Station2002, PAHs, by = "UNIQUE_ID")
 
 PAHs_station <- PAHs_station %>%
@@ -40,15 +38,14 @@ PAHs_station <- PAHs_station %>%
 PAHs_station = select(PAHs_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDING_M.x, QUAD_NAME.x, GEN_LOC_NM.x, SPECFC_LOC.x, AREA_CODE.x, SAMP_DATE1.x, TO_SMP_DT2.x, DPTH_N_COR.x, DPTH_CODE.x, COR_GRB_CD.x, site.x, pah_detected, amount_detected))
 
 glimpse(PAHs_station)
-
 ```
-Joining the station data with the PAH sample taken. The dataset is pivoted so that each observation is the PAH that was observed.
 
 # Plotting PAHs Detected in GOM
+As shown in the plot below, there is a high concentration of Fluoranthene, followed by Pyrene, Chrysene, and Phenanthrene. 
 ``` {r plotting-pahs-detected, warning=FALSE}
 PAHs_station %>%
   filter(pah_detected %in% c("BENZNE_C", "BENZNE_C", "NAPHTHLN_C", "BIPHENYL_C", "ACNPHTHN_C", "ACNPHTYL_C", "FLUORENE_C", "PHNANTHR_C", "ANTHRACN_C", "PYRENE_C", "FLORNTHN_C", "CHRYSENE_C", "PERYLENE_C")) %>%
-  ggplot(aes(x = pah_detected, y = amount_detected, fill = pah_detected))+
+  ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = pah_detected))+
   geom_col()+
   scale_fill_viridis_d() +
   theme_bw()+
@@ -59,9 +56,9 @@ PAHs_station %>%
        y = "Amount Detected")
 ```
 
-```
+The table below is visualizing the mean, standard deviation, count, and principal square root values of PAH concentrations for the general locations. 
 
-
+As shown below, Mass Bays (8505) has the higest count of PAHs, followed by Northwest Boston Harbor (4243) and Gulf of Maine (>50m Isobath) (1953). This does not suggest that these locations will have the highest concentrations of PAHs, as this does not reflect the quantity of PAHs collected. Boston Inner Harbor (1843.90) has the highest mean PAH concentration, followed by Northwest Boston Harbor (610.55) and Central Boston Harbor (502.36). In addition to this, Boston Inner Harbor has the highest standard deviation (14235.68), followed by Northwest Boston Harbor (3132.97) and "43.5N to 44N; to 50M isobath" (1842.51). 
 ``` {r summary-stats-PAHs}
 Summary_PAHs <- PAHs_station %>%
   group_by(GEN_LOC_NM.x) %>%
@@ -74,7 +71,8 @@ Summary_PAHs <- PAHs_station %>%
 Summary_PAHs
 ```
 
-``` {r pah-gen-loc}
+The graph below is showing which site has the highest mean PAH concentrations in the Gulf of Maine. As shown, the site with the highest PAH concentration is Boston Inner Harbor, followed by Northwest Boston Harbor, Central Boston Harbor, and the area between 43.5N and 44N (Cape Elizabeth to Rockland, ME). 
+```{r pah-gen-loc}
 Summary_PAHs %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM.x, mean_PAH)), y = mean_PAH, fill = GEN_LOC_NM.x))+
   geom_col(col = "black")+
@@ -89,58 +87,11 @@ Summary_PAHs %>%
        caption = "Error bars = 1 standard error")
 ```
 
-```{r pah-boston-harbor1}
-Summary_PAHs %>%
-  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR", "CENTRAL BOSTON HARBOR", "SOUTHEAST BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM.x, mean_PAH)), y = mean_PAH, fill = GEN_LOC_NM.x))+
-  geom_col(col = "black")+
-  geom_errorbar(aes(ymin = mean_PAH - SE_PAH, ymax = mean_PAH + SE_PAH), width = 0.2)+
-  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
-  theme_bw()+
-  coord_flip()+
-  theme(legend.position = "none")+
-  labs(title = "PAH Concentrations in Boston Harbor Sediments",
-       x = "General location",
-       y = "Mean total PAH concentration ng/g",
-       caption = "Error bars = 1 standard error")
-```
-
-```{r pah-boston-harbor2}
-Summary_PAHs %>%
-  filter(GEN_LOC_NM.x %in% c("CENTRAL BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
-  ggplot(aes(x = fct_reorder(GEN_LOC_NM.x, mean_PAH), y = mean_PAH, fill = GEN_LOC_NM.x))+
-  geom_col(col = "black")+
-  geom_errorbar(aes(ymin = mean_PAH - SE_PAH, ymax = mean_PAH + SE_PAH), width = 0.2)+
-  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
-  theme_bw()+
-  theme(legend.position = "none")+
-  labs(title = "PAH Concentrations in Boston Harbor Sediments",
-       subtitle = "Central and Northwest Boston Harbor",
-       x = "General location",
-       y = "Mean total PCB concentration ng/g",
-       caption = "Error bars = 1 standard error")
-```
-``` {r facet-by-site}
-PAHs_station %>%
-  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR", "CENTRAL BOSTON HARBOR", "SOUTHEAST BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
-  ggplot(aes(x = GEN_LOC_NM.x, y = amount_detected, fill = GEN_LOC_NM.x))+
-  geom_col() +
-  facet_wrap(.~pah_detected) +
-  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
-  theme_bw()+
-  coord_flip()+
-  theme(legend.position = "none")+
-  labs(title = "PAH Concentrations in Boston Harbor Sediments",
-       x = "General location",
-       y = "Mean total PAH concentration ng/g")
-```
-
-
 ### Specific Locations
-
-```{r}
+The plot below visualizes the summary of PAHs found at each location, including the mean, standard deviation, count, and principal square root.
+```{r sum-pah-site}
 Sum_PAH_site <- PAHs_station %>%
-  group_by(site.x) %>%
+  group_by(GEN_LOC_NM.x) %>%
   drop_na(amount_detected) %>%
   summarise(mean_PAH = mean(amount_detected),
     sd_PAH = sd(amount_detected),
@@ -148,17 +99,33 @@ Sum_PAH_site <- PAHs_station %>%
     SE_PAH = sd(amount_detected) / sqrt(n()))
 
 Sum_PAH_site
+
+```
+
+This plot shows us the exact quantity of PAH found at each site. 
+```{r summarize-by-site}
+PAHs_station %>%
+  group_by(GEN_LOC_NM.x, pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  arrange(desc(amount_detected))
 ```
 
 ## Boston Inner Harbor Concentrations
 This plot visualizes the specific PAHs present in Boston Inner Harbor. 
-
-As shown in the plot, [...] has the highest concentration in the harbor. 
-``` {r type_of_organic-in-BOSTON-INNER-HARBOR, warning = FALSE}
+As shown in the plot, Chrysene (569,679.08 ng/g) has the highest concentration in the harbor. This is followed by Benz(a) anthracene (508889.40 ng/g), Pyrene (346679.56 ng/g), and Fluoranthene (319594.32 ng/g) 
+```{r sum-organics-boston-inner-harbor}
 PAHs_station %>%
-  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
-  ggplot(aes(x = pah_detected, y = amount_detected, fill = pah_detected))+
-  geom_col(col = "black")+
+  group_by(GEN_LOC_NM.x, pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM.x == "BOSTON INNER HARBOR") %>%
+  arrange(desc(amount_detected))
+
+PAHs_station %>%
+  group_by(GEN_LOC_NM.x, pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM.x == "BOSTON INNER HARBOR") %>%
+ ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = pah_detected))+
+  geom_col()+
   coord_flip()+
   theme(legend.position = "none")+
   labs(title = "PAH Concentrations in Boston Inner Harbor",
@@ -166,60 +133,76 @@ PAHs_station %>%
        y = "Amount Detected (ng/g)")
 ```
 
-``` {r sum-organics-boston-inner-harbor}
+## Northwest Boston Harbor Concentrations
+This plot visualizes the specific PAHs present in Northwest Boston Harbor.  
+As shown in the plot, Pyrene (315,904.49 ng/g) has the highest concentration in the harbor. This is followed by Fluoranthene (312,942.98 ng/g), Phenanthrene (219061.23 ng/g), and Chrysene (200784.37 ng/g).
+```{r type_of_organic-in-northwest-boston-harbor, warning = FALSE}
 PAHs_station %>%
-  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
-  summarise(site = GEN_LOC_NM.x, 
-            pah_detected = pah_detected, 
-            sum_pah_detected = sum(amount_detected, na.rm = TRUE))
+  group_by(GEN_LOC_NM.x, pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM.x == "NORTHWEST BOSTON HARBOR") %>%
+  arrange(desc(amount_detected))
+
+PAHs_station %>%
+  drop_na(amount_detected) %>%
+  filter(GEN_LOC_NM.x %in% c("NORTHWEST BOSTON HARBOR")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = pah_detected))+
+  geom_col()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "PAH Concentrations in Northwest Boston Harbor",
+       x = "PAH Detected",
+       y = "Amount Detected (ng/g)")
 ```
 
 ## Cape Ann to Cape Elizabeth Concentrations
-This plot visualizes the specific PAHs present in Boston Inner Harbor. 
-
-As shown in the plot, [...] has the highest concentration in the harbor. 
-``` {r type_of_organic-in-BOSTON-INNER-HARBOR, warning = FALSE}
+This plot visualizes the specific PAHs present from Cape Ann to Cape Elizabeth.  
+As shown in the plot, Fluoranthene (116,706.13 ng/g) has the highest concentration in the harbor. Chrysene (112,928.05 ng/g) and Pyrene	(110687.93 ng/g) are the second and third most abundant PAHs. 
+```{r type_of_organic-in-BOSTON-INNER-HARBOR, warning = FALSE}
 PAHs_station %>%
-  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
-  ggplot(aes(x = pah_detected, y = amount_detected, fill = pah_detected))+
-  geom_col(col = "black")+
+  group_by(GEN_LOC_NM.x, pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM.x == "43.5N to 44N; to 50M isobath") %>%
+  arrange(desc(amount_detected))
+
+PAHs_station %>%
+  drop_na(amount_detected) %>%
+  filter(GEN_LOC_NM.x %in% c("43.5N to 44N; to 50M isobath")) %>%
+ ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = pah_detected))+
+  geom_col()+
   coord_flip()+
   theme(legend.position = "none")+
-  labs(title = "PAH Concentrations in Boston Inner Harbor",
+  labs(title = "PAH Concentrations from Cape Ann to Cape Elizabeth",
        x = "PAH Detected",
        y = "Amount Detected (ng/g)")
 ```
 
 ``` {r sum-organics-boston-inner-harbor}
 PAHs_station %>%
-  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
-  summarise(site = GEN_LOC_NM.x, 
-            pah_detected = pah_detected, 
-            sum_pah_detected = sum(amount_detected, na.rm = TRUE))
+  group_by(GEN_LOC_NM.x, pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM.x == "BOSTON INNER HARBOR") %>%
+  arrange(desc(amount_detected))
 ```
 
 ## Summarizing by River
 
-```{r pah-concentrations-in-me-rivers}
-Sum_PAH_site2 <- Sum_PAH_site %>% 
-  filter(site.x == c("Kennebunk River", "MYSTIC RIVER", "Mystic Rvr, red nun 4", "Neponset River", "Neponset River mouth", "Portland Fore River", "Royal River", "Weymouth Back River", "York River", "Weymouth Fore River", "Weymouth Fore Rvr", "Piscataqua River N of Pierce Is.", "NORTH RIVER", "Neponset River Bridge", "Charles River"))
-
-Sum_PAH_site2 %>%
-  ggplot(aes(x = site.x, y = mean_PAH))+
-  geom_bar(stat="identity", col = "black")+
-  scale_x_discrete(drop=FALSE)+
-  geom_errorbar(aes(ymin = mean_PAH - SE_PAH, ymax = mean_PAH + SE_PAH), width = 0.2)+
-  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
+``` {r pah-concentrations-in-me-rivers}
+Sum_PAH_site %>% 
+  filter(site.x %in% c("Kennebunk River", "MYSTIC RIVER", "Mystic Rvr, red nun 4", "Neponset River", "Neponset River mouth", "Portland Fore River", "Royal River", "Weymouth Back River", "York River", "Weymouth Fore River", "Weymouth Fore Rvr", "Piscataqua River N of Pierce Is.", "NORTH RIVER", "Neponset River Bridge", "Charles River")) %>%
+  ggplot(aes(x = site.x, y = mean_PAH, fill = site.x))+
+  geom_col()+
+  scale_fill_viridis_d()  +
   theme_bw()+
   coord_flip()+
-  theme(legend.position = "none")+
   labs(title = "PAH Concentrations in Maine Rivers",
        subtitle = "Union River excluded",
-       caption = "Error bars = 1 standard error",
        x = "Location",
-       y = "Mean total PAH concentration ng/g")
+       y = "Mean total PAH concentration ng/g", 
+       fill = "Site")
+
+
 ```
-Why won't the graph only show the river areas? Why is it showing all?
 
 ## Statistical tests
 ### Difference between general locations
