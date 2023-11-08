@@ -11,13 +11,11 @@ library(sf)
 library(leaflet)
 library(ggplot2)
 library(RColorBrewer)
-
 ```
 
 #Loading data
 ```{r load-data}
 #PAHs <- read.csv(paste0("/cloud/project/data/datasets_csv/PAHs_loc.csv"), header = T)
-
 PAHs <- PAHs_loc
 ```
 
@@ -29,7 +27,6 @@ glimpse(PAHs)
 # Joining the Station Information to the PAH dataset
 Joining the station data with the PAH sample taken. The dataset is pivoted so that each observation is the PAH that was observed.
 ```{r joining-station-info, warning=FALSE}
-
 PAHs_station <- full_join(Station2002, PAHs, by = "UNIQUE_ID")
 
 PAHs_station <- PAHs_station %>%
@@ -41,9 +38,7 @@ PAHs_station <- PAHs_station %>%
 PAHs_station = select(PAHs_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDING_M.x, QUAD_NAME.x, GEN_LOC_NM.x, SPECFC_LOC.x, AREA_CODE.x, SAMP_DATE1.x, TO_SMP_DT2.x, DPTH_N_COR.x, DPTH_CODE.x, COR_GRB_CD.x, site.x, pah_detected, amount_detected))
 
 glimpse(PAHs_station)
-
 ```
-
 
 # Plotting PAHs Detected in GOM
 As shown in the plot below, there is a high concentration of Fluoranthene, followed by Pyrene, Chrysene, and Phenanthrene. 
@@ -61,6 +56,9 @@ PAHs_station %>%
        y = "Amount Detected")
 ```
 
+The table below is visualizing the mean, standard deviation, count, and principal square root values of PAH concentrations for the general locations. 
+
+As shown below, Mass Bays (8505) has the higest count of PAHs, followed by Northwest Boston Harbor (4243) and Gulf of Maine (>50m Isobath) (1953). This does not suggest that these locations will have the highest concentrations of PAHs, as this does not reflect the quantity of PAHs collected. Boston Inner Harbor (1843.90) has the highest mean PAH concentration, followed by Northwest Boston Harbor (610.55) and Central Boston Harbor (502.36). In addition to this, Boston Inner Harbor has the highest standard deviation (14235.68), followed by Northwest Boston Harbor (3132.97) and "43.5N to 44N; to 50M isobath" (1842.51). 
 ``` {r summary-stats-PAHs}
 Summary_PAHs <- PAHs_station %>%
   group_by(GEN_LOC_NM.x) %>%
@@ -73,6 +71,7 @@ Summary_PAHs <- PAHs_station %>%
 Summary_PAHs
 ```
 
+The graph below is showing which site has the highest mean PAH concentrations in the Gulf of Maine. As shown, the site with the highest PAH concentration is Boston Inner Harbor, followed by Northwest Boston Harbor, Central Boston Harbor, and the area between 43.5N and 44N (Cape Elizabeth to Rockland, ME). 
 ```{r pah-gen-loc}
 Summary_PAHs %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM.x, mean_PAH)), y = mean_PAH, fill = GEN_LOC_NM.x))+
@@ -133,6 +132,7 @@ Sum_PAH_site <- PAHs_station %>%
     SE_PAH = sd(amount_detected) / sqrt(n()))
 
 Sum_PAH_site
+
 ```
 
 This plot shows us the exact quantity of PAH found at each site. 
