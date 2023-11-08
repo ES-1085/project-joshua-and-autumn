@@ -25,6 +25,21 @@ glimpse(PCBs)
 glimpse(Organics)
 ```
 
+# Joining the Station Information to the PCB dataset
+Joining the station data with the PCB sample taken. The dataset is pivoted so that each observation is the PCB that was observed.
+```{r joining-station-info, warning=FALSE}
+PCBs_station <- full_join(Station2002, PCBs, by = "UNIQUE_ID")
+
+PCBs_station <- PCBs_station %>%
+  pivot_longer(cols = `PCB_52_NGG`:`LINDANE_C`, 
+               names_to = "pcbs_detected", 
+               values_to = "amount_detected")
+
+PCBs_station = select(PCBs_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDING_M.x, QUAD_NAME.x, GEN_LOC_NM.x, SPECFC_LOC.x, AREA_CODE.x, SAMP_DATE1.x, TO_SMP_DT2.x, DPTH_N_COR.x, DPTH_CODE.x, COR_GRB_CD.x, site.x, pcbs_detected, amount_detected))
+
+glimpse(PCBs_station)
+```
+
 ## Visualizations
 ### Descriptive Visualizations
 ```{r n-obs-gen-loc}
@@ -110,8 +125,7 @@ Summary_Organics %>%
 ```
 
 ### Specific Locations
-
-
+Below we are summarizing 
 ```{r sum-stats-by-site}
 Sum_Org_site <- Organics %>%
   group_by(site) %>%
@@ -124,7 +138,7 @@ Sum_Org_site <- Organics %>%
 Sum_Org_site
 ```
 
-
+Below we are identifying specific Maine rivers. 
 ```{r identify-ME-rivers}
 Organics %>%
   filter(STATE_NAME == "ME") %>%
@@ -149,10 +163,10 @@ Sum_Org_site %>%
        x = "Location",
        y = "Mean total PCB concentration ug/g")
 
-Organics %>%
-  group_by(site, pcbs_detected) %>%
+Organics_station %>%
+  group_by(site.x, organics_detected) %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  filter(site %in% c("York River", "Kennebunk River", "Portland Fore River", "Royal River", "Kennebec River to Bath", "Penobscot River To Bangor")) %>%
+  filter(site.x == c("York River",  "Kennebunk River", "Portland Fore River", "Royal River", "Kennebec River to Bath", "Penobscot River To Bangor")) %>%
   arrange(desc(amount_detected))
 ```
 Sites with only one observation or mean = 0 do not have error bars.
@@ -187,7 +201,6 @@ Organics %>%
   filter(STATE_NAME == "MA") %>%
   filter(PCB_T_UGG != "NA") %>%
   distinct(site)
-  
 ```
 
 ```{r}
@@ -205,6 +218,12 @@ Sum_Org_site %>%
        caption = "Error bars = 1 standard error",
        x = "Location",
        y = "Mean total PCB concentration ug/g")
+
+Organics %>%
+  group_by(GEN_LOC_NM, organic_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(site %in% c("BASS RIVER"|"ESSEX RIVER"|"MYSTIC RIVER"|"MERRIMACK RIVER"|"Weymouth Fore River"|"CHELSEA RIVER"|"Chelsea River"|"Mill Creek"|"Neponset River Bridge"|"South River"|"Weymouth Fore & Town River"|"North & Danvers River"|"Island End River")) %>%
+  arrange(desc(amount_detected))
 ```
 
 ### PCB concentration by depth
@@ -223,9 +242,11 @@ Test for relationship between sediment types and PCBs -- think we did something 
 ```{r load-sediment-data}
 sediments <- read.csv(paste0("/cloud/project/data/datasets_csv/Texture_loc.csv"), header = T)
 ```
+
 ```{r join-sed-org}
 Organics_sed <- left_join(Organics, sediments, by = "UNIQUE_ID")
 ```
+
 ```{r}
 Organics_sed %>%
   filter(GEN_LOC_NM.x != "NA") %>%
