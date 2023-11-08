@@ -87,44 +87,11 @@ Summary_PAHs %>%
        caption = "Error bars = 1 standard error")
 ```
 
-```{r pah-boston-harbor1}
-Summary_PAHs %>%
-  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR", "CENTRAL BOSTON HARBOR", "SOUTHEAST BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM.x, mean_PAH)), y = mean_PAH, fill = GEN_LOC_NM.x))+
-  geom_col(col = "black")+
-  geom_errorbar(aes(ymin = mean_PAH - SE_PAH, ymax = mean_PAH + SE_PAH), width = 0.2)+
-  scale_fill_viridis_d()+
-  theme_bw()+
-  coord_flip()+
-  theme(legend.position = "none")+
-  labs(title = "PAH Concentrations in Boston Harbor Sediments",
-       x = "General location",
-       y = "Mean total PAH concentration ng/g",
-       caption = "Error bars = 1 standard error")
-```
-
-``` {r pah-boston-harbor2}
-Summary_PAHs %>%
-  filter(GEN_LOC_NM.x %in% c("CENTRAL BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
-  ggplot(aes(x = fct_reorder(GEN_LOC_NM.x, mean_PAH), y = mean_PAH, fill = GEN_LOC_NM.x))+
-  geom_col(col = "black")+
-  geom_errorbar(aes(ymin = mean_PAH - SE_PAH, ymax = mean_PAH + SE_PAH), width = 0.2)+
-  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
-  theme_bw()+
-  theme(legend.position = "none")+
-  labs(title = "PAH Concentrations in Boston Harbor Sediments",
-       subtitle = "Central and Northwest Boston Harbor",
-       x = "General location",
-       y = "Mean total PCB concentration ng/g",
-       caption = "Error bars = 1 standard error")
-```
-
-
 ### Specific Locations
 The plot below visualizes the summary of PAHs found at each location, including the mean, standard deviation, count, and principal square root.
 ```{r sum-pah-site}
 Sum_PAH_site <- PAHs_station %>%
-  group_by(site.x) %>%
+  group_by(GEN_LOC_NM.x) %>%
   drop_na(amount_detected) %>%
   summarise(mean_PAH = mean(amount_detected),
     sd_PAH = sd(amount_detected),
@@ -145,9 +112,7 @@ PAHs_station %>%
 
 ## Boston Inner Harbor Concentrations
 This plot visualizes the specific PAHs present in Boston Inner Harbor. 
-
-As shown in the plot, CHRYSENE_C has the highest concentration in the harbor. This is followed by BZ_A_ANT_C, PYRENE_C, and FLORNTHN_C. 
-
+As shown in the plot, Chrysene (569,679.08 ng/g) has the highest concentration in the harbor. This is followed by Benz(a) anthracene (508889.40 ng/g), Pyrene (346679.56 ng/g), and Fluoranthene (319594.32 ng/g) 
 ```{r sum-organics-boston-inner-harbor}
 PAHs_station %>%
   group_by(GEN_LOC_NM.x, pah_detected) %>%
@@ -159,7 +124,7 @@ PAHs_station %>%
   group_by(GEN_LOC_NM.x, pah_detected) %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
   filter(GEN_LOC_NM.x == "BOSTON INNER HARBOR") %>%
-  ggplot(aes(x = pah_detected, y = amount_detected, fill = pah_detected))+
+ ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = pah_detected))+
   geom_col()+
   coord_flip()+
   theme(legend.position = "none")+
@@ -168,29 +133,56 @@ PAHs_station %>%
        y = "Amount Detected (ng/g)")
 ```
 
-## Cape Ann to Cape Elizabeth Concentrations
-This plot visualizes the specific PAHs present in Boston Inner Harbor. 
+## Northwest Boston Harbor Concentrations
+This plot visualizes the specific PAHs present in Northwest Boston Harbor.  
+As shown in the plot, Pyrene (315,904.49 ng/g) has the highest concentration in the harbor. This is followed by Fluoranthene (312,942.98 ng/g), Phenanthrene (219061.23 ng/g), and Chrysene (200784.37 ng/g).
+```{r type_of_organic-in-northwest-boston-harbor, warning = FALSE}
+PAHs_station %>%
+  group_by(GEN_LOC_NM.x, pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM.x == "NORTHWEST BOSTON HARBOR") %>%
+  arrange(desc(amount_detected))
 
-As shown in the plot, [...] has the highest concentration in the harbor. 
-```{r type_of_organic-in-BOSTON-INNER-HARBOR, warning = FALSE}
 PAHs_station %>%
   drop_na(amount_detected) %>%
-  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
-  ggplot(aes(x = pah_detected, y = amount_detected, fill = pah_detected))+
+  filter(GEN_LOC_NM.x %in% c("NORTHWEST BOSTON HARBOR")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = pah_detected))+
   geom_col()+
   coord_flip()+
   theme(legend.position = "none")+
-  labs(title = "PAH Concentrations in Boston Inner Harbor",
+  labs(title = "PAH Concentrations in Northwest Boston Harbor",
+       x = "PAH Detected",
+       y = "Amount Detected (ng/g)")
+```
+
+## Cape Ann to Cape Elizabeth Concentrations
+This plot visualizes the specific PAHs present from Cape Ann to Cape Elizabeth.  
+As shown in the plot, Fluoranthene (116,706.13 ng/g) has the highest concentration in the harbor. Chrysene (112,928.05 ng/g) and Pyrene	(110687.93 ng/g) are the second and third most abundant PAHs. 
+```{r type_of_organic-in-BOSTON-INNER-HARBOR, warning = FALSE}
+PAHs_station %>%
+  group_by(GEN_LOC_NM.x, pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM.x == "43.5N to 44N; to 50M isobath") %>%
+  arrange(desc(amount_detected))
+
+PAHs_station %>%
+  drop_na(amount_detected) %>%
+  filter(GEN_LOC_NM.x %in% c("43.5N to 44N; to 50M isobath")) %>%
+ ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = pah_detected))+
+  geom_col()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "PAH Concentrations from Cape Ann to Cape Elizabeth",
        x = "PAH Detected",
        y = "Amount Detected (ng/g)")
 ```
 
 ``` {r sum-organics-boston-inner-harbor}
 PAHs_station %>%
-  filter(GEN_LOC_NM.x %in% c("BOSTON INNER HARBOR")) %>%
-  summarise(site = GEN_LOC_NM.x, 
-            pah_detected = pah_detected, 
-            sum_pah_detected = sum(amount_detected, na.rm = TRUE))
+  group_by(GEN_LOC_NM.x, pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM.x == "BOSTON INNER HARBOR") %>%
+  arrange(desc(amount_detected))
 ```
 
 ## Summarizing by River
