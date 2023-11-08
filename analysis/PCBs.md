@@ -171,6 +171,23 @@ is a product of area extent as well as sampling intensity);
 Massachusetts Bays, Boston Harbor sites, and the MA/NH/ME coast are all
 generally heavily sampled.
 
+``` r
+ggplot(Organics, aes(x = PCB_T_UGG))+
+geom_histogram(fill = "skyblue", color = "black")
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+    ## Warning: Removed 6243 rows containing non-finite values (`stat_bin()`).
+
+![](PCBs_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+
+``` r
+ggplot(Organics)
+```
+
+![](PCBs_files/figure-gfm/unnamed-chunk-1-2.png)<!-- -->
+
 ### PCB site to site comparisons
 
 ``` r
@@ -515,7 +532,7 @@ Sum_Org_site %>%
        y = "Mean total PCB concentration ug/g")
 ```
 
-![](PCBs_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](PCBs_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 ### PCBs and Sediment types
 
@@ -540,7 +557,7 @@ Organics_sed %>%
 
     ## Warning: Removed 7108 rows containing missing values (`position_stack()`).
 
-![](PCBs_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](PCBs_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 ## Statistical tests
 
@@ -553,7 +570,7 @@ locations?
 hist(Organics$PCB_T_UGG)
 ```
 
-![](PCBs_files/figure-gfm/unnamed-chunk-3-1.png)<!-- --> The
+![](PCBs_files/figure-gfm/unnamed-chunk-4-1.png)<!-- --> The
 distribution of total PCB concentrations is highly skewed, with high
 influence outliers. It fails to meet parametric assumptions, so it
 should be analyzed with non-parametric methods. We could do
@@ -764,15 +781,10 @@ ggplot(Bathy_hi_res) +
 ![](PCBs_files/figure-gfm/plot-bathy-2.png)<!-- -->
 
 ``` r
-Org_no_na <- Organics %>%
-  drop_na(PCB_T_UGG)
-```
-
-``` r
 ggplot(GOM_states)+
   geom_sf(aes())+
   geom_sf(data = Bathy_low_res, color = "gray80", width = 1)+
-  geom_point(data = Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
+  geom_point(data = Organics, (aes(x = LONGITUDE, y = LATITUDE, color = PCB_T_UGG, alpha = 0.5)))+
   xlim(-72,-65)+
   ylim(40,45)+
   theme_bw()+
@@ -805,7 +817,48 @@ ggplot(GOM_states)+
     ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
     ## generated.
 
-    ## Warning: Removed 56 rows containing missing values (`geom_point()`).
+    ## Warning: Removed 342 rows containing missing values (`geom_point()`).
+
+![](PCBs_files/figure-gfm/map-pcbs-nas-zeros-1.png)<!-- -->
+
+``` r
+Org_no_na_no_zero <- Organics %>%
+  drop_na(PCB_T_UGG) %>%
+  filter(PCB_T_UGG != "0")
+```
+
+``` r
+ggplot(GOM_states)+
+  geom_sf(aes())+
+  geom_sf(data = Bathy_low_res, color = "gray80", width = 1)+
+  geom_point(data = Org_no_na_no_zero, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
+  xlim(-72,-65)+
+  ylim(40,45)+
+  theme_bw()+
+  labs(title = "Distribution and concentration of PCBs",
+       subtitle ="Gulf of Maine sediments",
+       x = "Longitude",
+       y = "Latitude")+
+  guides(size = guide_legend(title = "PCB ug/g"))+
+  guides(alpha = FALSE)+
+  ggspatial::annotation_scale(
+    location = "bl",
+    bar_cols = c("grey60", "white"),
+    text_family = "ArcherPro Book"
+  ) +
+  ggspatial::annotation_north_arrow(
+    location = "tr", which_north = "true",
+    pad_x = unit(0, "in"), pad_y = unit(0.2, "in"),
+    style = ggspatial::north_arrow_nautical(
+      fill = c("grey40", "white"),
+      line_col = "grey20",
+      text_family = "ArcherPro Book"))
+```
+
+    ## Warning in layer_sf(geom = GeomSf, data = data, mapping = mapping, stat = stat,
+    ## : Ignoring unknown parameters: `width`
+
+    ## Warning: Removed 38 rows containing missing values (`geom_point()`).
 
 ![](PCBs_files/figure-gfm/pcb-gom-map-plot-1.png)<!-- -->
 
@@ -813,7 +866,7 @@ ggplot(GOM_states)+
 ggplot(GOM_states)+
   geom_sf(aes())+
   geom_sf(data = Bathy_hi_res, color = "gray80", width = 1)+
-  geom_point(data=Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
+  geom_point(data=Org_no_na_no_zero, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
   xlim(-69.2,-68)+
   ylim(44,44.5)+
   theme_bw()+
@@ -840,7 +893,7 @@ ggplot(GOM_states)+
     ## Warning in layer_sf(geom = GeomSf, data = data, mapping = mapping, stat = stat,
     ## : Ignoring unknown parameters: `width`
 
-    ## Warning: Removed 1483 rows containing missing values (`geom_point()`).
+    ## Warning: Removed 1015 rows containing missing values (`geom_point()`).
 
 ![](PCBs_files/figure-gfm/MDI-area-map-1.png)<!-- -->
 
@@ -848,7 +901,7 @@ ggplot(GOM_states)+
 ggplot(GOM_states)+
   geom_sf(aes())+
   geom_sf(data = Bathy_hi_res, color = "gray80", width = 1)+
-  geom_point(data=Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
+  geom_point(data=Org_no_na_no_zero, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
   xlim(-71.2,-69.5)+
   ylim(41.8,43)+
   theme_bw()+
@@ -875,9 +928,9 @@ ggplot(GOM_states)+
     ## Warning in layer_sf(geom = GeomSf, data = data, mapping = mapping, stat = stat,
     ## : Ignoring unknown parameters: `width`
 
-    ## Warning: Removed 667 rows containing missing values (`geom_point()`).
+    ## Warning: Removed 367 rows containing missing values (`geom_point()`).
 
-![](PCBs_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](PCBs_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ### Interactive map
 

@@ -65,6 +65,13 @@ Organics %>%
 
 This bar plot uses number of observations on its y axis, thus reflecting sampling intensity by general location.  The greatest number of observations are in the Gulf of Maine below the 50m isobath (partly this is a product of area extent as well as sampling intensity); Massachusetts Bays, Boston Harbor sites, and the MA/NH/ME coast are all generally heavily sampled. 
 
+```{r}
+ggplot(Organics, aes(x = PCB_T_UGG))+
+geom_histogram(fill = "skyblue", color = "black")
+
+ggplot(Organics)
+```
+
 
 ### PCB site to site comparisons
  
@@ -304,15 +311,46 @@ ggplot(Bathy_hi_res) +
 ```
 
 
-```{r drop-na-PCB_T}
-Org_no_na <- Organics %>%
-  drop_na(PCB_T_UGG)
+
+```{r map-pcbs-nas-zeros}
+ggplot(GOM_states)+
+  geom_sf(aes())+
+  geom_sf(data = Bathy_low_res, color = "gray80", width = 1)+
+  geom_point(data = Organics, (aes(x = LONGITUDE, y = LATITUDE, color = PCB_T_UGG, alpha = 0.5)))+
+  xlim(-72,-65)+
+  ylim(40,45)+
+  theme_bw()+
+  labs(title = "Distribution and concentration of PCBs",
+       subtitle ="Gulf of Maine sediments",
+       x = "Longitude",
+       y = "Latitude")+
+  guides(size = guide_legend(title = "PCB ug/g"))+
+  guides(alpha = FALSE)+
+  ggspatial::annotation_scale(
+    location = "bl",
+    bar_cols = c("grey60", "white"),
+    text_family = "ArcherPro Book"
+  ) +
+  ggspatial::annotation_north_arrow(
+    location = "tr", which_north = "true",
+    pad_x = unit(0, "in"), pad_y = unit(0.2, "in"),
+    style = ggspatial::north_arrow_nautical(
+      fill = c("grey40", "white"),
+      line_col = "grey20",
+      text_family = "ArcherPro Book"))
 ```
+```{r drop-na-PCB_T}
+Org_no_na_no_zero <- Organics %>%
+  drop_na(PCB_T_UGG) %>%
+  filter(PCB_T_UGG != "0")
+```
+
+
 ```{r pcb-gom-map-plot}
 ggplot(GOM_states)+
   geom_sf(aes())+
   geom_sf(data = Bathy_low_res, color = "gray80", width = 1)+
-  geom_point(data = Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
+  geom_point(data = Org_no_na_no_zero, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
   xlim(-72,-65)+
   ylim(40,45)+
   theme_bw()+
@@ -340,7 +378,7 @@ ggplot(GOM_states)+
 ggplot(GOM_states)+
   geom_sf(aes())+
   geom_sf(data = Bathy_hi_res, color = "gray80", width = 1)+
-  geom_point(data=Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
+  geom_point(data=Org_no_na_no_zero, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
   xlim(-69.2,-68)+
   ylim(44,44.5)+
   theme_bw()+
@@ -368,7 +406,7 @@ ggplot(GOM_states)+
 ggplot(GOM_states)+
   geom_sf(aes())+
   geom_sf(data = Bathy_hi_res, color = "gray80", width = 1)+
-  geom_point(data=Org_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
+  geom_point(data=Org_no_na_no_zero, (aes(x = LONGITUDE, y = LATITUDE, size = PCB_T_UGG, alpha = 0.5)))+
   xlim(-71.2,-69.5)+
   ylim(41.8,43)+
   theme_bw()+
