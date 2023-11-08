@@ -15,13 +15,13 @@ library(naniar)
 
 ##Load full datasets
 ```{r load-data, warning=FALSE}
-#stations_full = read_xls("/project/data/original_datasets/STAT2002.xls", sheet = 2, skip = 3)
-#sediments_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
-#PCBs_full = read_excel("/cloud/project/data/original_datasets/PCBP2002.xls", sheet = 2, skip = 3)
-#PAHs_full = read_excel("/cloud/project/data/original_datasets/PAHS2002.xls", sheet = 2, skip = 3)
-#organics_full = read_excel("/cloud/project/data/original_datasets/GENO2002.xls", sheet = 2, skip = 3)
+stations_full = read_xls("/cloud/project/data/original_datasets/STAT2002.xls", sheet = 2, skip = 3)
+sediments_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
+PCBs_full = read_excel("/cloud/project/data/original_datasets/PCBP2002.xls", sheet = 2, skip = 3)
+PAHs_full = read_excel("/cloud/project/data/original_datasets/PAHS2002.xls", sheet = 2, skip = 3)
+organics_full = read_excel("/cloud/project/data/original_datasets/GENO2002.xls", sheet = 2, skip = 3)
 #inorganics_full = read_excel("/cloud/project/data/original_datasets/INOR2002.xls", sheet = 2, skip = 3)
-#textures_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
+textures_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
 ```
 ##Load full datasets for desktop r (autumn's computer) (will delete later)
 ```{r load-data-desktop, warning=FALSE}
@@ -92,7 +92,18 @@ Station2002 <- Station2002 %>%
                            "Chelsea River" = "Chelsea River E",
                            "Chelsea River" = "Chelsea River F",
                            "Chelsea River" = "Chelsea River G",
-                           "Chelsea River" = "Chelsea River H"))
+                           "Chelsea River" = "Chelsea River H",
+                           "Chelsea River" = "Chelsea River, Gulf Oil Fuel Off-Loading Pier",
+                           "Chelsea River" = "Chelsea River, Golf Oil Fuel Off-Loading Pier",
+                           "Mystic River" = "MYSTIC RIVER",
+                           "Mystic River" = 'Mystic River "B"',
+                           "Mystic River" = 'Mystic "A"-7830',
+                           "Mystic River" = 'Mystic "B"-7831',
+                           "Chelsea River" = 'Chelsea "A"-7828',
+                           "Chelsea River" = 'Chelsea "E"-7829',
+                           "Island End River" = "ISLAND END RIVER",
+                           "Weymouth Fore River" = "FORE RIVER"
+                           ))
 ```
 "Chelsea River A"                                                                                                    
  [60] "Chelsea River B"                                                                                                    
@@ -251,4 +262,38 @@ write_csv(Organics_loc, "/cloud/project/data/datasets_csv/Organics_loc.csv")
 #write_csv(Inorganics_loc, "/cloud/project/data/datasets_csv/Inorganics_loc.csv")
 write_csv(PAHs_loc, "/cloud/project/data/datasets_csv/PAHs_loc.csv")
 write_csv(PCBs_loc, "/cloud/project/data/datasets_csv/PCBs_loc.csv")
+```
+
+```{r}
+GOM_states <- st_read("/cloud/project/extra/GOM_DD.shp")
+```
+
+```{r load-bathy-shp}
+Bathy <- st_read("/cloud/project/extra/BATHYMGM_ARC.shp")
+```
+
+```{r}
+st_crs(Bathy)
+Bathy <- st_transform(Bathy, "+init=epsg:4269")
+```
+
+```{r}
+Bathy_low_res <- Bathy%>%
+ filter(CONTOUR %in% c("-100","-500","-1000","-2000","-3000","-4000"))
+ggplot(Bathy_low_res) +
+  geom_sf(aes())
+
+Bathy_hi_res <- Bathy%>%
+ filter(CONTOUR %in% c("-40","-80","-120","160","200","240","280"))
+ggplot(Bathy_hi_res) +
+  geom_sf(aes())
+```
+
+```{r}
+Texture_loc %>%
+  group_by(LATITUDE, LONGITUDE) %>%
+  count(LATITUDE, LONGITUDE) %>%
+  ggplot(aes(x = LONGITUDE, y = LATITUDE, size = n, color = n))+
+  geom_point()
+  
 ```

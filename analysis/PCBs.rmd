@@ -49,6 +49,24 @@ glimpse(Organics)
 #  arrange(desc(PCBs_sum_total))
 ```
 
+## Visualizations
+### Descriptive Visualizations
+```{r n-obs-gen-loc}
+Organics %>%
+  ggplot(aes(x = fct_infreq(GEN_LOC_NM), fill = fct_infreq(GEN_LOC_NM)))+
+  geom_bar(stat = "count", color = "black")+
+  coord_flip()+
+  theme_bw()+
+  theme(legend.position = "none")+
+  labs(title = "Number of observations by general location",
+       x = "General location",
+       y = "Count (n Observations)")
+```
+
+This bar plot uses number of observations on its y axis, thus reflecting sampling intensity by general location.  The greatest number of observations are in the Gulf of Maine below the 50m isobath (partly this is a product of area extent as well as sampling intensity); Massachusetts Bays, Boston Harbor sites, and the MA/NH/ME coast are all generally heavily sampled. 
+
+
+### PCB site to site comparisons
  
 ```{r calculate-sum-stats-organics}
 Summary_Organics <- Organics %>%
@@ -187,7 +205,7 @@ Organics %>%
 
 ```{r}
 Sum_Org_site %>%
-  filter(site %in% c("BASS RIVER", "ESSEX RIVER", "MYSTIC RIVER", "FORE RIVER", "CHELSEA RIVER", "Chelsea River", "Mill Creek", "Neponset River Bridge", "South River", "Weymouth Fore & Town River", "North & Danvers River")) %>%
+  filter(site %in% c("BASS RIVER", "ESSEX RIVER", "MYSTIC RIVER", "MERRIMACK RIVER", "Weymouth Fore River", "CHELSEA RIVER", "Chelsea River", "Mill Creek", "Neponset River Bridge", "South River", "Weymouth Fore & Town River", "North & Danvers River", "Island End River")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = mean_PCB_T, fill = site))+
   geom_bar(stat="identity", col = "black")+
   scale_x_discrete(drop=FALSE)+
@@ -201,25 +219,22 @@ Sum_Org_site %>%
        x = "Location",
        y = "Mean total PCB concentration ug/g")
 ```
-```{r}
-PCBs %>%
-  ggplot(aes(x = DDT_4_4_C))+
-  geom_histogram()
-```
 
 ### PCBs and Sediment types
 Test for relationship between sediment types and PCBs -- think we did something like this in biostats.  Then viz with scatterplot.
 
-```{r}
+```{r load-sediment-data}
 sediments <- read.csv(paste0("/cloud/project/data/datasets_csv/Texture_loc.csv"), header = T)
 ```
-```{r}
-Organics_sed <- left_join(Organics_loc, sediments, by = "UNIQUE_ID")
+```{r join-sed-org}
+Organics_sed <- left_join(Organics, sediments, by = "UNIQUE_ID")
 ```
 ```{r}
 Organics_sed %>%
-  ggplot(aes(x = CLAY_PCT, y = SAND_PCT))+
-  geom_point()
+  filter(GEN_LOC_NM.x != "NA") %>%
+  ggplot(aes(x = GEN_LOC_NM.x, y = SAMPLE_WT))+
+  geom_col()+
+  coord_flip()
 ```
 
 ## Statistical tests
@@ -281,8 +296,7 @@ Bathy_low_res <- Bathy%>%
  filter(CONTOUR %in% c("-100","-500","-1000","-2000","-3000","-4000"))
 ggplot(Bathy_low_res) +
   geom_sf(aes())
-```
-```{r}
+
 Bathy_hi_res <- Bathy%>%
  filter(CONTOUR %in% c("-40","-80","-120","160","200","240","280"))
 ggplot(Bathy_hi_res) +

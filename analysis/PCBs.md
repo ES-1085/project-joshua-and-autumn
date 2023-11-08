@@ -32,7 +32,7 @@ library(dplyr)
 ```
 
 ``` r
-PCBs <- read.csv(paste0("/cloud/project/analysis/PCBs_loc.csv"), header = T)
+PCBs <- read.csv(paste0("/cloud/project/data/datasets_csv/PCBs_loc.csv"), header = T)
 Organics <- read.csv(paste0("/cloud/project/data/datasets_csv/Organics_loc.csv"), header = T)
 ```
 
@@ -41,7 +41,7 @@ glimpse(PCBs)
 ```
 
     ## Rows: 7,848
-    ## Columns: 38
+    ## Columns: 39
     ## $ UNIQUE_ID  <chr> "US00001", "US00002", "US00003", "US00004", "US00005", "US0…
     ## $ LATITUDE   <dbl> 42.35972, 42.36028, 42.38500, 42.38500, 42.38500, 42.38500,…
     ## $ LONGITUDE  <dbl> -71.02861, -71.02778, -71.04611, -71.04611, -71.04611, -71.…
@@ -56,6 +56,7 @@ glimpse(PCBs)
     ## $ DPTH_N_COR <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "0"…
     ## $ DPTH_CODE  <chr> "Unknown", "Unknown", "Depth", "Depth", "Unknown", "Unknown…
     ## $ COR_GRB_CD <chr> "Grab", "Grab", "Core", "Core", "Grab", "Grab", "Grab", "Gr…
+    ## $ site       <chr> "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BI…
     ## $ PCB_52_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
     ## $ PCB101_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
     ## $ PCB118_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
@@ -144,6 +145,33 @@ glimpse(Organics)
 #  select(STATE_NAME, GEN_LOC_NM, SPECFC_LOC, PCBs_sum_total) %>%
 #  arrange(desc(PCBs_sum_total))
 ```
+
+## Visualizations
+
+### Descriptive Visualizations
+
+``` r
+Organics %>%
+  ggplot(aes(x = fct_infreq(GEN_LOC_NM), fill = fct_infreq(GEN_LOC_NM)))+
+  geom_bar(stat = "count", color = "black")+
+  coord_flip()+
+  theme_bw()+
+  theme(legend.position = "none")+
+  labs(title = "Number of observations by general location",
+       x = "General location",
+       y = "Count (n Observations)")
+```
+
+![](PCBs_files/figure-gfm/n-obs-gen-loc-1.png)<!-- -->
+
+This bar plot uses number of observations on its y axis, thus reflecting
+sampling intensity by general location. The greatest number of
+observations are in the Gulf of Maine below the 50m isobath (partly this
+is a product of area extent as well as sampling intensity);
+Massachusetts Bays, Boston Harbor sites, and the MA/NH/ME coast are all
+generally heavily sampled.
+
+### PCB site to site comparisons
 
 ``` r
 Summary_Organics <- Organics %>%
@@ -240,7 +268,7 @@ Sum_Org_site <- Organics %>%
 Sum_Org_site
 ```
 
-    ## # A tibble: 190 × 5
+    ## # A tibble: 180 × 5
     ##    site                           mean_PCB_T sd_PCB_T n_PCB_T SE_PCB_T
     ##    <chr>                               <dbl>    <dbl>   <int>    <dbl>
     ##  1 1-U.S. GypsumCo.200TerminalSt.     1.5     NA            1  NA     
@@ -253,7 +281,7 @@ Sum_Org_site
     ##  8 BOI                                0.116    0.0396       8   0.014 
     ##  9 BOSTON HARBOR                      0.0809   0.0495       4   0.0247
     ## 10 BOSTON HARBOR MARINA               0        0            2   0     
-    ## # ℹ 180 more rows
+    ## # ℹ 170 more rows
 
 ``` r
 Organics %>%
@@ -361,14 +389,14 @@ Organics %>%
     ## 6                                                                                  BASS RIVER
     ## 7                                                                               HINGAM HARBOR
     ## 8                                                                              HINGHAM HARBOR
-    ## 9                                                                                MYSTIC RIVER
+    ## 9                                                                                Mystic River
     ## 10                                                                                 SMITH COVE
     ## 11                                                                            WINTHROP HARBOR
     ## 12                                                                             WINTROP HARBOR
     ## 13                                                                      Little Mystic Channel
     ## 14                                                                          MANCHESTER HARBOR
     ## 15                                                                            SCITUATE HARBOR
-    ## 16                                                                                 FORE RIVER
+    ## 16                                                                        Weymouth Fore River
     ## 17                                                                               SALEM HARBOR
     ## 18                                                                       BOSTON HARBOR MARINA
     ## 19                                                                          GLOUCESTER HARBOR
@@ -376,113 +404,103 @@ Organics %>%
     ## 21                                                                                DUXBURY BAY
     ## 22                                                                             BEVERLY HARBOR
     ## 23                                                                    PORT NORFOLK YACHT CLUB
-    ## 24                                              Chelsea River, Golf Oil Fuel Off-Loading Pier
-    ## 25                                              Chelsea River, Gulf Oil Fuel Off-Loading Pier
-    ## 26                                                                             Dorchester Bay
-    ## 27                                                                    Rowes and Fosters Wharf
-    ## 28                                                                                 Mill Creek
-    ## 29                                                            Victory Road Park Inlet Channel
-    ## 30                                                                 Seaward of Waterfront Park
-    ## 31                                                                                 Long Wharf
-    ## 32                                                                                South River
-    ## 33                                                                            Winthrop Harbor
-    ## 34                                                          Winthrop Harbor, entrance channel
-    ## 35                                                                      North & Danvers River
-    ## 36                                                                           Mystic River "B"
-    ## 37                                                                              Chelsea River
-    ## 38                                                                          Reserve Channel B
-    ## 39                                                                       Inner Confluence "B"
-    ## 40                                                                            Mystic "A"-7830
-    ## 41                                                                            Mystic "B"-7831
-    ## 42                                                                           Chelsea "A"-7828
-    ## 43                                                                           Chelsea "E"-7829
-    ## 44                                                                           Reserve "B"-7826
-    ## 45                                                                           Reserve "D"-7827
-    ## 46                                                               FADS-Reference location-7832
-    ## 47                                                                               Gulf Oil Co.
-    ## 48                                                                               Gibb Oil ???
-    ## 49                                                                       Gibb Oil North Berth
-    ## 50                                                                       Gibb Oil South Berth
-    ## 51                                                                       ESE of Castle Island
-    ## 52                                                          btwn Deer I. & Governors I. Flats
-    ## 53                                                                                 Quincy Bay
-    ## 54                                                            Nantasket Roads W of Perry Cove
-    ## 55                                                                                   Hull Bay
-    ## 56                                                                SE of The Graves, Mass. Bay
-    ## 57                                                                          Massachusetts Bay
-    ## 58                                                                               Cape Cod Bay
-    ## 59                                                             HbrView Marina,Town Rvr Quincy
-    ## 60                                                                                  Foul Area
-    ## 61                                                            Marina Bay, Squantum Pt, Quincy
-    ## 62                                                                           ISLAND END RIVER
-    ## 63                                                                                 NUT ISLAND
-    ## 64                                                                                DEER ISLAND
-    ## 65                                                                            Cohasset Harbor
-    ## 66                                                                            Scituate Harbor
-    ## 67                                                                                        NAR
-    ## 68                                                                                        DOB
-    ## 69                                                                                        BOI
-    ## 70                                                                                        PRR
-    ## 71                                                                                        LDF
-    ## 72                                                                                        BRS
-    ## 73                                                                                        MAB
-    ## 74                                                                                       <NA>
-    ## 75                                                                                Broad Sound
-    ## 76                                                                                Salem Sound
-    ## 77                                                                            Foul area north
-    ## 78                                                                           Foul area center
-    ## 79                                                                            Foul area south
-    ## 80                                                                             Foul area east
-    ## 81                                                                             Foul area west
-    ## 82                                                                         south of Foul area
-    ## 83                                                                               Spec. Island
-    ## 84                                                                           Third Hbr Tunnel
-    ## 85                                                                            MERRIMACK RIVER
-    ## 86                                                                                        QUB
-    ## 87                                                                           Island End River
-    ## 88                                                                         Fort Point Channel
-    ## 89                                                             1-U.S. GypsumCo.200TerminalSt.
-    ## 90                                                             2-U.S. GypsumCo.200TerminalSt.
-    ## 91                                                             3-U.S. GypsumCo.200TerminalSt.
-    ## 92                                                             4-U.S. GypsumCo.200TerminalSt.
-    ## 93                                                                                       FADS
-    ## 94                                                                          JEFFRIES POINT YC
-    ## 95                                                                       MBDS Reference sites
-    ## 96                                                                        STFP outfall siting
-    ## 97                                                                                Hingham Bay
-    ## 98                                                                        Weymouth Fore River
-    ## 99                                                                            Nantasket Roads
-    ## 100                                                                             Sculpin Ledge
-    ## 101                                                                          Northwest Harbor
-    ## 102                                                                              Mystic River
-    ## 103                                                                        Charleston Channel
-    ## 104                                                                            Boston Channel
-    ## 105                                                                             Channel Mouth
-    ## 106                                                                          Reserved Channel
-    ## 107                                                                            Boston Wharves
-    ## 108                                                  South Bay area of the Fort Point Channel
-    ## 109                                                  between Spectacle Island and Long Island
-    ## 110                                                                                Town Brook
-    ## 111                                                                            Beverly Harbor
-    ## 112                                                         WINTHROP HARBOR, BELLE ISLE INLET
-    ## 113                                                                    LOGAN AIRPORT E.BOSTON
-    ## 114                                                              Logan Airport Runway End 22L
-    ## 115                                                               Logan Airport Runway End 27
-    ## 116                                                              Logan Airport Runway End 33L
-    ## 117                                                                  Winthrop Basin Anchorage
-    ## 118                                                                Wnthrop Basin Spur Channel
-    ## 119                                                    Entrance Channel Opposite Snake Island
-    ## 120                                                        Entrance Channel at Basin Entrance
-    ## 121                                                                    Cottage Park Anchorage
-    ## 122                                                                      Cottage Park Channel
-    ## 123                                                                    Snake Island Anchorage
-    ## 124                                                                    Crystal Cove Anchorage
-    ## 125                                                        Entrance Channel off Winthrop Y.C.
-    ## 126                                                          Entrance Channel at Crystal Cove
+    ## 24                                                                              Chelsea River
+    ## 25                                                                             Dorchester Bay
+    ## 26                                                                    Rowes and Fosters Wharf
+    ## 27                                                                                 Mill Creek
+    ## 28                                                            Victory Road Park Inlet Channel
+    ## 29                                                                 Seaward of Waterfront Park
+    ## 30                                                                                 Long Wharf
+    ## 31                                                                                South River
+    ## 32                                                                            Winthrop Harbor
+    ## 33                                                          Winthrop Harbor, entrance channel
+    ## 34                                                                      North & Danvers River
+    ## 35                                                                          Reserve Channel B
+    ## 36                                                                       Inner Confluence "B"
+    ## 37                                                                           Reserve "B"-7826
+    ## 38                                                                           Reserve "D"-7827
+    ## 39                                                               FADS-Reference location-7832
+    ## 40                                                                               Gulf Oil Co.
+    ## 41                                                                               Gibb Oil ???
+    ## 42                                                                       Gibb Oil North Berth
+    ## 43                                                                       Gibb Oil South Berth
+    ## 44                                                                       ESE of Castle Island
+    ## 45                                                          btwn Deer I. & Governors I. Flats
+    ## 46                                                                                 Quincy Bay
+    ## 47                                                            Nantasket Roads W of Perry Cove
+    ## 48                                                                                   Hull Bay
+    ## 49                                                                SE of The Graves, Mass. Bay
+    ## 50                                                                          Massachusetts Bay
+    ## 51                                                                               Cape Cod Bay
+    ## 52                                                             HbrView Marina,Town Rvr Quincy
+    ## 53                                                                                  Foul Area
+    ## 54                                                            Marina Bay, Squantum Pt, Quincy
+    ## 55                                                                           Island End River
+    ## 56                                                                                 NUT ISLAND
+    ## 57                                                                                DEER ISLAND
+    ## 58                                                                            Cohasset Harbor
+    ## 59                                                                            Scituate Harbor
+    ## 60                                                                                        NAR
+    ## 61                                                                                        DOB
+    ## 62                                                                                        BOI
+    ## 63                                                                                        PRR
+    ## 64                                                                                        LDF
+    ## 65                                                                                        BRS
+    ## 66                                                                                        MAB
+    ## 67                                                                                       <NA>
+    ## 68                                                                                Broad Sound
+    ## 69                                                                                Salem Sound
+    ## 70                                                                            Foul area north
+    ## 71                                                                           Foul area center
+    ## 72                                                                            Foul area south
+    ## 73                                                                             Foul area east
+    ## 74                                                                             Foul area west
+    ## 75                                                                         south of Foul area
+    ## 76                                                                               Spec. Island
+    ## 77                                                                           Third Hbr Tunnel
+    ## 78                                                                            MERRIMACK RIVER
+    ## 79                                                                                        QUB
+    ## 80                                                                         Fort Point Channel
+    ## 81                                                             1-U.S. GypsumCo.200TerminalSt.
+    ## 82                                                             2-U.S. GypsumCo.200TerminalSt.
+    ## 83                                                             3-U.S. GypsumCo.200TerminalSt.
+    ## 84                                                             4-U.S. GypsumCo.200TerminalSt.
+    ## 85                                                                                       FADS
+    ## 86                                                                          JEFFRIES POINT YC
+    ## 87                                                                       MBDS Reference sites
+    ## 88                                                                        STFP outfall siting
+    ## 89                                                                                Hingham Bay
+    ## 90                                                                            Nantasket Roads
+    ## 91                                                                              Sculpin Ledge
+    ## 92                                                                           Northwest Harbor
+    ## 93                                                                         Charleston Channel
+    ## 94                                                                             Boston Channel
+    ## 95                                                                              Channel Mouth
+    ## 96                                                                           Reserved Channel
+    ## 97                                                                             Boston Wharves
+    ## 98                                                   South Bay area of the Fort Point Channel
+    ## 99                                                   between Spectacle Island and Long Island
+    ## 100                                                                                Town Brook
+    ## 101                                                                            Beverly Harbor
+    ## 102                                                         WINTHROP HARBOR, BELLE ISLE INLET
+    ## 103                                                                    LOGAN AIRPORT E.BOSTON
+    ## 104                                                              Logan Airport Runway End 22L
+    ## 105                                                               Logan Airport Runway End 27
+    ## 106                                                              Logan Airport Runway End 33L
+    ## 107                                                                  Winthrop Basin Anchorage
+    ## 108                                                                Wnthrop Basin Spur Channel
+    ## 109                                                    Entrance Channel Opposite Snake Island
+    ## 110                                                        Entrance Channel at Basin Entrance
+    ## 111                                                                    Cottage Park Anchorage
+    ## 112                                                                      Cottage Park Channel
+    ## 113                                                                    Snake Island Anchorage
+    ## 114                                                                    Crystal Cove Anchorage
+    ## 115                                                        Entrance Channel off Winthrop Y.C.
+    ## 116                                                          Entrance Channel at Crystal Cove
 
 ``` r
 Sum_Org_site %>%
-  filter(site %in% c("BASS RIVER", "ESSEX RIVER", "MYSTIC RIVER", "FORE RIVER", "CHELSEA RIVER", "Chelsea River", "Mill Creek", "Neponset River Bridge", "South River", "Weymouth Fore & Town River", "North & Danvers River")) %>%
+  filter(site %in% c("BASS RIVER", "ESSEX RIVER", "MYSTIC RIVER", "MERRIMACK RIVER", "Weymouth Fore River", "CHELSEA RIVER", "Chelsea River", "Mill Creek", "Neponset River Bridge", "South River", "Weymouth Fore & Town River", "North & Danvers River", "Island End River")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = mean_PCB_T, fill = site))+
   geom_bar(stat="identity", col = "black")+
   scale_x_discrete(drop=FALSE)+
@@ -499,6 +517,31 @@ Sum_Org_site %>%
 
 ![](PCBs_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
+### PCBs and Sediment types
+
+Test for relationship between sediment types and PCBs – think we did
+something like this in biostats. Then viz with scatterplot.
+
+``` r
+sediments <- read.csv(paste0("/cloud/project/data/datasets_csv/Texture_loc.csv"), header = T)
+```
+
+``` r
+Organics_sed <- left_join(Organics, sediments, by = "UNIQUE_ID")
+```
+
+``` r
+Organics_sed %>%
+  filter(GEN_LOC_NM.x != "NA") %>%
+  ggplot(aes(x = GEN_LOC_NM.x, y = SAMPLE_WT))+
+  geom_col()+
+  coord_flip()
+```
+
+    ## Warning: Removed 7108 rows containing missing values (`position_stack()`).
+
+![](PCBs_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
 ## Statistical tests
 
 ### Difference between general locations
@@ -510,7 +553,7 @@ locations?
 hist(Organics$PCB_T_UGG)
 ```
 
-![](PCBs_files/figure-gfm/unnamed-chunk-2-1.png)<!-- --> The
+![](PCBs_files/figure-gfm/unnamed-chunk-3-1.png)<!-- --> The
 distribution of total PCB concentrations is highly skewed, with high
 influence outliers. It fails to meet parametric assumptions, so it
 should be analyzed with non-parametric methods. We could do
@@ -718,7 +761,7 @@ ggplot(Bathy_hi_res) +
   geom_sf(aes())
 ```
 
-![](PCBs_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](PCBs_files/figure-gfm/plot-bathy-2.png)<!-- -->
 
 ``` r
 Org_no_na <- Organics %>%

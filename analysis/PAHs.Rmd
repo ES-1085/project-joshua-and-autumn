@@ -15,8 +15,8 @@ library(RColorBrewer)
 
 #Loading data
 ```{r load-data}
-#PAHs <- read.csv(paste0("/cloud/project/data/datasets_csv/PAHs_loc.csv"), header = T)
-PAHs <- PAHs_loc
+PAHs <- read.csv(paste0("/cloud/project/data/datasets_csv/PAHs_loc.csv"), header = T)
+#PAHs <- PAHs_loc
 ```
 
 #Glimpsing PAH
