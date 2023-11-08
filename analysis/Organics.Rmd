@@ -47,8 +47,6 @@ Organics_station = select(Organics_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x
                            "Harbor Approaches" = "HARBOR APPROACHES",
                            "Massachusetts Bays" = "MASS BAYS"))
 
-
-
 glimpse(Organics_station)
 
 ```
