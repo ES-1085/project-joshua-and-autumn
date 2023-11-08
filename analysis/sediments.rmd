@@ -11,6 +11,24 @@ organics <- read.csv(paste0("/cloud/project/data/datasets_csv/Organics_loc.csv")
 ```
 
 ```{r join-sediments-organics}
+Organics_sed <- left_join(organics, sediments, by = "UNIQUE_ID")
 
+glimpse(Organics_sed)
+```
+
+
+```{r}
+Organics_sed %>%
+  ggplot(aes(x = GEN_LOC_NM.x, SAMPLE_WT))+
+  geom_col()+
+  coord_flip()
+```
+
+```{r}
+Organics_sed %>%
+  filter(GEN_LOC_NM.x == "CAPE COD BAY") %>%
+  ggplot(aes(x = GEN_LOC_NM.x, y = CLAY_PCT))+
+  geom_col()+
+  coord_flip()
 ```
 
