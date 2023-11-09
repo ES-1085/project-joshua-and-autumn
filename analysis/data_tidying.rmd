@@ -102,7 +102,16 @@ Station2002 <- Station2002 %>%
                            "Chelsea River" = 'Chelsea "A"-7828',
                            "Chelsea River" = 'Chelsea "E"-7829',
                            "Island End River" = "ISLAND END RIVER",
-                           "Weymouth Fore River" = "FORE RIVER"
+                           "Weymouth Fore River" = "FORE RIVER", 
+                           "Fore River" = "Portland Fore River", 
+                           "Fore River" = "Portland Harbor & Fore River", 
+                           "Saco River" = "Saco River & Camp Ellis Harbor", 
+                           "Kennebec River" = "Kennebec River to Bath", 
+                           "Kennebec River" =   "KENNEBEC RIVER",
+                           "Kennebec River" = "KENNEBEC RIVER,ME.", 
+                           "Penobscot River" = "PENOBSCOT RIVER", 
+                           "Penobscot River" = "MOUTH PENOBSCOT RIVER",
+                           "Penobscot River" = "Penobscot River To Bangor"
                            ))
 ```
 "Chelsea River A"                                                                                                    
