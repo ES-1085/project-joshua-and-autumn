@@ -38,7 +38,7 @@ PAHs_station <- PAHs_station %>%
                names_to = "pah_detected", 
                values_to = "amount_detected")
 
-PAHs_station = select(PAHs_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDING_M.x, QUAD_NAME.x, GEN_LOC_NM.x, SPECFC_LOC.x, AREA_CODE.x, SAMP_DATE1.x, TO_SMP_DT2.x, DPTH_N_COR.x, DPTH_CODE.x, COR_GRB_CD.x, site, pah_detected, amount_detected))
+PAHs_station = select(PAHs_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDING_M.x, QUAD_NAME.x, GEN_LOC_NM.x, SPECFC_LOC.x, AREA_CODE.x, SAMP_DATE1.x, TO_SMP_DT2.x, DPTH_N_COR.x, DPTH_CODE.x, COR_GRB_CD.x, site.x, pah_detected, amount_detected))
 
 glimpse(PAHs_station)
 ```
@@ -225,26 +225,21 @@ PAHs %>%
   filter(STATE_NAME == "ME") %>%
   distinct(site)
 ```
-Portland Fore River				
-Kennebunk River
+Fore River				
+Kennebunk River				
 Royal River
-Portland Harbor & Fore River
-Kennebec River to Bath
-Saco River & Camp Ellis Harbor
+Kennebec River
+Scarborough River
+Saco River
 Machias River
 Union River
-York River
-MOUTH PENOBSCOT RIVER				
-PENOBSCOT RIVER
-KENNEBEC RIVER				
-KENNEBEC RIVER,ME.
-Fore River
-St. George River
-Saco River
 
 ```{r bar-me-rivers-without-union}
 Sum_Org_site %>%
   filter(site %in% c("York River", "Kennebunk River", "Portland Fore River", "Royal River", "Kennebec River to Bath", "Penobscot River To Bangor")) %>%
+  
+  c("Kennebunk River", "Royal River", "Kennebec River to Bath", "Portland Harbor & Fore River", "Saco River & Camp Ellis Harbor", "Machias River", "Union River", "York River", "MOUTH PENOBSCOT RIVER", "PENOBSCOT RIVER", "KENNEBEC RIVER", "KENNEBEC RIVER,ME."< "Fore River", "St. George River", "Saco River"))
+  
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -0.01,x) ), fill = site))+
   geom_bar(stat="identity", col = "black")+
   scale_x_discrete(drop=FALSE)+
