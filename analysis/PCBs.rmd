@@ -30,16 +30,32 @@ glimpse(Organics)
 # Joining the Station Information to the PCB dataset
 Joining the station data with the PCB sample taken. The dataset is pivoted so that each observation is the PCB that was observed.
 ```{r joining-station-info, warning=FALSE}
-PCBs_station <- full_join(Station2002, PCBs, by = "UNIQUE_ID")
+#organics
+Organics_station <- full_join(Station2002, Organics, by = "UNIQUE_ID")
 
-PCBs_station <- PCBs_station %>%
-  pivot_longer(cols = `PCB_52_NGG`:`LINDANE_C`, 
-               names_to = "pcbs_detected", 
+Organics_station <- Organics_station %>%
+ pivot_longer(cols = `REPNO_ORG`:`TTBT_C`, 
+               names_to = "organic_detected", 
                values_to = "amount_detected")
 
-PCBs_station = select(PCBs_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDING_M.x, QUAD_NAME.x, GEN_LOC_NM.x, SPECFC_LOC.x, AREA_CODE.x, SAMP_DATE1.x, TO_SMP_DT2.x, DPTH_N_COR.x, DPTH_CODE.x, COR_GRB_CD.x, site.x, pcbs_detected, amount_detected))
+Organics_station = select(Organics_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDING_M.x, STATE_NAME.x, QUAD_NAME.x, GEN_LOC_NM.x, SPECFC_LOC.x, AREA_CODE.x, SAMP_DATE1.x, TO_SMP_DT2.x, DPTH_N_COR.x, DPTH_CODE.x, COR_GRB_CD.x, organic_detected, amount_detected)) %>%
+  mutate(site = fct_recode(GEN_LOC_NM.x,
+                           "Rockland to north" = "North of 44; to 50M isobath",
+                           "Cape Elizabeth to Rockland" = "43.5N to 44N; to 50M isobath", 
+                           "Cape Ann to Cape Elizabeth" = "CAPE ANN to 43.5N", 
+                           "Boston Inner Harbor" = "BOSTON INNER HARBOR", 
+                           "Cape Code Bay" = "CAPE COD BAY",
+                           "Gulf of Maine (>50m Isobath)" = "GULF OF MAINE, >50M ISOBATH",
+                           "Northwest Boston Harbor" = "NORTHWEST BOSTON HARBOR",
+                           "Southeast Boston Harbor" = "SOUTHEAST BOSTON HARBOR",
+                           "Gulf of Maine (<=50m Isobath)" = "GULF OF MAINE, <=50M",
+                           "Central Boston Harbor" = "CENTRAL BOSTON HARBOR",
+                           "Inland/Rivers" = "INLAND / RIVERS",
+                           "Harbor Approaches" = "HARBOR APPROACHES",
+                           "Massachusetts Bays" = "MASS BAYS"))
 
-#glimpse(PCBs_station)
+glimpse(Organics_station)
+
 ```
 
 ## Visualizations
@@ -66,7 +82,7 @@ geom_histogram(fill = "skyblue", color = "black")
 
 
 ### PCB site to site comparisons
-The table below is visualizing the mean, standard deviation, count, and principal square root values of PAH concentrations for the general locations.
+The table below is visualizing the mean, standard deviation, count, and principal square root values of PCB concentrations for the general locations.
 ```{r calculate-sum-stats-organics}
 Summary_Organics <- Organics %>%
   group_by(GEN_LOC_NM) %>%
@@ -126,6 +142,8 @@ Summary_Organics %>%
        y = "Mean total PCB concentration ug/g",
        caption = "Error bars = 1 standard error")
 ```
+
+
 
 ### Specific Locations
 

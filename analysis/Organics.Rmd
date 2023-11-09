@@ -15,6 +15,8 @@ library(leaflet)
 Organics <- read.csv(paste0("/cloud/project/data/datasets_loc/Organics_loc.csv"), header = T)
 
 Organics <- Organics_loc
+
+
 ```
 
 ```{r glimpse-data, warning=FALSE}
@@ -178,7 +180,7 @@ Organics_station %>%
 ## Southeast Boston Harbor Concentrations
 This plot visualizes the specific organics present in Southeast Boston Harbor. 
 
-As shown in the plot, Clostridium perfringens (in units of spores/g) has the highest concentration in the harbor, followed by Oil and Grease in sediments (in units of moles/g), and Petroleum Hydrocarbons (in units of percent dry weight). 
+As shown in the plot, Clostridium perfringens (89,223 spores/g) has the highest concentration in the harbor, followed by Oil and Grease in sediments (74,285 moles/g), and Petroleum Hydrocarbons (in units of percent dry weight). 
 ``` {r type_of_organic-in-boston-southeast-harbor, warning = FALSE}
 Organics_station %>%
   group_by(site, organic_detected) %>%
