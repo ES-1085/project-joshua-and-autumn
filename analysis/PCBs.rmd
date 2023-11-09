@@ -4,7 +4,7 @@ author: "Joshua Harkness and Autumn Pauly"
 date: "2023-10-28"
 output: github_document
 ---
-
+#Loading packages
 ```{r load-packages}
 library(tidyverse)
 library(sf)
@@ -14,11 +14,13 @@ library(RColorBrewer)
 library(dplyr)
 ```
 
+#Loading PCB and Organics Datasets
 ```{r load-data}
 PCBs <- read.csv(paste0("/cloud/project/data/datasets_csv/PCBs_loc.csv"), header = T)
 Organics <- read.csv(paste0("/cloud/project/data/datasets_csv/Organics_loc.csv"), header = T)
 ```
 
+#Reviewing PCB and Organics Datasets
 ```{r glimpse-data, warning=FALSE}
 glimpse(PCBs)
 
@@ -42,6 +44,7 @@ PCBs_station = select(PCBs_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDI
 
 ## Visualizations
 ### Descriptive Visualizations
+Visualizing the number of observations that were collected for each general location. 
 ```{r n-obs-gen-loc}
 Organics %>%
   ggplot(aes(x = fct_infreq(GEN_LOC_NM), fill = fct_infreq(GEN_LOC_NM)))+
@@ -63,7 +66,7 @@ geom_histogram(fill = "skyblue", color = "black")
 
 
 ### PCB site to site comparisons
- 
+The table below is visualizing the mean, standard deviation, count, and principal square root values of PAH concentrations for the general locations.
 ```{r calculate-sum-stats-organics}
 Summary_Organics <- Organics %>%
   group_by(GEN_LOC_NM) %>%
@@ -73,9 +76,9 @@ Summary_Organics <- Organics %>%
     n_PCB_T = n(),
     SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
 
-#Summary_Organics
+Summary_Organics
 ```
-
+The graph below is plotting the mean PCB concentration (ng/g) found at each general location with error bards accounting for one standard error. 
 ```{r pcb-gen-loc}
 Summary_Organics %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -1,x) ), fill = GEN_LOC_NM))+
@@ -91,7 +94,7 @@ Summary_Organics %>%
        caption = "Error bars = 1 standard error")
 ```
  
- 
+This graph shows the PCB concentrations in Boston Harbor, comparing all locations. 
 ```{r pcb-boston-harbor1}
 Summary_Organics %>%
   filter(GEN_LOC_NM %in% c("BOSTON INNER HARBOR", "CENTRAL BOSTON HARBOR", "SOUTHEAST BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
@@ -107,7 +110,7 @@ Summary_Organics %>%
        y = "Mean total PCB concentration ug/g",
        caption = "Error bars = 1 standard error")
 ```
- 
+This graph shows the PCB concentrations in Boston Harbor, comparing Central Boston Harbor and Northwest Boston Harbor. 
 ```{r pcb-boston-harbor2}
 Summary_Organics %>%
   filter(GEN_LOC_NM %in% c("CENTRAL BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
@@ -125,27 +128,17 @@ Summary_Organics %>%
 ```
 
 ### Specific Locations
-Below we are summarizing 
-```{r sum-stats-by-site}
-Sum_Org_site <- Organics %>%
-  group_by(site) %>%
-  drop_na(PCB_T_UGG) %>%
-  summarise(mean_PCB_T = mean(PCB_T_UGG),
-    sd_PCB_T = sd(PCB_T_UGG),
-    n_PCB_T = n(),
-    SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
 
-Sum_Org_site
-```
-
+#### Rivers
 Below we are identifying specific Maine rivers. 
 ```{r identify-ME-rivers}
 Organics %>%
   filter(STATE_NAME == "ME") %>%
   filter(PCB_T_UGG != "NA") %>%
-  distinct(site)
+  filter(SPECFC_LOC )
+  distinct(SPECFC_LOC)
 ```
-
+Below we are visualizing the mean PCBs present in Maine rivers. 
 ```{r bar-me-rivers-without-union}
 Sum_Org_site %>%
   filter(site %in% c("York River", "Kennebunk River", "Portland Fore River", "Royal River", "Kennebec River to Bath", "Penobscot River To Bangor")) %>%
