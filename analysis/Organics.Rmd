@@ -80,7 +80,7 @@ Sum_Organics %>%
 ```
 
 ```{r pah-boston-harbor1}
-Summary_Organics %>%
+Sum_Organics %>%
   filter(site %in% c("Boston Inner Harbor", "Central Boston Harbor", "Southeast Boston Harbor", "Northwest Boston Harbor")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_organic)), y = mean_organic, fill = site))+
   geom_col(col = "black")+
@@ -166,7 +166,7 @@ As shown in the plot, there is a high concentration of Clostridium perfringens (
 Organics_station %>%
   filter(site %in% "Central Boston Harbor") %>%
   ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
-  geom_col()+
+  geom_col() +
   coord_flip()+
   theme(legend.position = "none")+
   labs(title = "Organic Concentrations in Boston Central Harbor Sediments",
