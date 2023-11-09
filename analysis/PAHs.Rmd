@@ -80,6 +80,7 @@ The table below is visualizing the mean, standard deviation, count, and principa
 As shown below, Mass Bays (8505) has the higest count of PAHs, followed by Northwest Boston Harbor (4243) and Gulf of Maine (>50m Isobath) (1953). This does not suggest that these locations will have the highest concentrations of PAHs, as this does not reflect the quantity of PAHs collected. Boston Inner Harbor (1843.90) has the highest mean PAH concentration, followed by Northwest Boston Harbor (610.55) and Central Boston Harbor (502.36). In addition to this, Boston Inner Harbor has the highest standard deviation (14235.68), followed by Northwest Boston Harbor (3132.97) and "43.5N to 44N; to 50M isobath" (1842.51). 
 ``` {r summary-stats-PAHs}
 Summary_PAHs <- PAHs_station %>%
+  filter(pah_detected %in% c("BENZNE_C", "BENZNE_C", "NAPHTHLN_C", "BIPHENYL_C", "ACNPHTHN_C", "ACNPHTYL_C", "FLUORENE_C", "PHNANTHR_C", "ANTHRACN_C", "PYRENE_C", "FLORNTHN_C", "CHRYSENE_C", "PERYLENE_C")) %>%
   group_by(GEN_LOC_NM.x) %>%
   drop_na(amount_detected) %>%
   summarise(mean_PAH = mean(amount_detected),
@@ -87,8 +88,7 @@ Summary_PAHs <- PAHs_station %>%
     n_PAH = n(),
     SE_PAH = sd(amount_detected) / sqrt(n()))
 
-Summary_PAHs %>%
-  gt()
+Summary_PAHs
 ```
 
 The graph below is showing which site has the highest mean PAH concentrations in the Gulf of Maine. As shown, the site with the highest PAH concentration is Boston Inner Harbor, followed by Northwest Boston Harbor, Central Boston Harbor, and the area between 43.5N and 44N (Cape Elizabeth to Rockland, ME). 
@@ -225,25 +225,23 @@ PAHs %>%
   filter(STATE_NAME == "ME") %>%
   distinct(site)
 ```
-Fore River				
-Kennebunk River				
-Royal River
-Kennebec River
-Scarborough River
-Saco River
-Machias River
-Union River
 
+As you can see below, 
 ```{r bar-me-rivers-without-union}
-Sum_Org_site %>%
-  filter(site %in% c("York River", "Kennebunk River", "Portland Fore River", "Royal River", "Kennebec River to Bath", "Penobscot River To Bangor")) %>%
-  
-  c("Kennebunk River", "Royal River", "Kennebec River to Bath", "Portland Harbor & Fore River", "Saco River & Camp Ellis Harbor", "Machias River", "Union River", "York River", "MOUTH PENOBSCOT RIVER", "PENOBSCOT RIVER", "KENNEBEC RIVER", "KENNEBEC RIVER,ME."< "Fore River", "St. George River", "Saco River"))
-  
-  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -0.01,x) ), fill = site))+
+Rivers_Summary_PAHs <- PAHs_station %>%
+  group_by(SPECFC_LOC.x) %>%
+  drop_na(amount_detected) %>%
+  summarise(mean_PAH = mean(amount_detected),
+    sd_PAH = sd(amount_detected),
+    n_PAH = n(),
+    SE_PAH = sd(amount_detected) / sqrt(n()))
+
+Rivers_Summary_PAHs %>%
+  filter(SPECFC_LOC.x %in% c("Fore River", "Kennebunk River", "Royal River", "Kennebec River", "Scarborough River", "Saco River", "Machias River", "Union River", "Penobscot River", "Harraseeket River (Freeport Harbor)", "York River", "Hardscrabble River", "St. George River")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(SPECFC_LOC.x, mean_PAH)), y = sapply(mean_PAH, FUN=function(x) ifelse(x==0.000000e0, -0.01,x) ), fill = SPECFC_LOC.x))+
   geom_bar(stat="identity", col = "black")+
   scale_x_discrete(drop=FALSE)+
-  geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2)+
+  geom_errorbar(aes(ymin = mean_PAH - SE_PAH, ymax = mean_PAH + SE_PAH), width = 0.2)+
   scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill")+
   theme_bw()+
   coord_flip()+
@@ -253,13 +251,52 @@ Sum_Org_site %>%
        caption = "Error bars = 1 standard error",
        x = "Location",
        y = "Mean total PCB concentration ug/g")
-
-Organics_station %>%
-  group_by(site.x, organics_detected) %>%
-  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  filter(site.x == c("York River",  "Kennebunk River", "Portland Fore River", "Royal River", "Kennebec River to Bath", "Penobscot River To Bangor")) %>%
-  arrange(desc(amount_detected))
 ```
+
+## Kennebunk River Concentrations
+This plot visualizes the specific PAHs present in Kennebunk River.  
+As shown in the plot, Indeno Pyrene (1250	ng/g) has the highest concentration. This is followed by Dibenz (a,h) Anthracene (1110 ng/g), and Benzo floranthene (620 ng/g). 
+```{r type_of_pah-in-kennebunk, warning = FALSE}
+PAHs_station %>%
+  group_by(SPECFC_LOC.x, pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(SPECFC_LOC.x == "Kennebunk River") %>%
+  arrange(desc(amount_detected))
+
+PAHs_station %>%
+  drop_na(amount_detected) %>%
+  filter(SPECFC_LOC.x %in% c("Kennebunk River")) %>%
+ ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = pah_detected))+
+  geom_col()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "PAH Concentrations in Kennebunk River",
+       x = "PAH Detected",
+       y = "Amount Detected (ng/g)")
+```
+
+## York River Concentrations
+This plot visualizes the specific PAHs present in Kennebunk River.  
+As shown in the plot, Fluoranthene (150	ng/g) has the highest concentration. This is followed by Pyrene (130 ng/g) and Benzo Pyrene (84 ng/g). 
+```{r type_of_pah-in-york, warning = FALSE}
+PAHs_station %>%
+  group_by(SPECFC_LOC.x, pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(SPECFC_LOC.x == "York River") %>%
+  arrange(desc(amount_detected))
+
+PAHs_station %>%
+  drop_na(amount_detected) %>%
+  filter(SPECFC_LOC.x %in% c("York River")) %>%
+ ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = pah_detected))+
+  geom_col()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "PAH Concentrations in York River",
+       x = "PAH Detected",
+       y = "Amount Detected (ng/g)")
+```
+
 
 ## Statistical tests
 ### Difference between general locations
@@ -416,7 +453,7 @@ ggplot(GOM_states)+
 ```
 Above is the Distribution and concentration of PAHs in Boston, MA and Cape Cod Bay sediments. 
 
-```{r boston-and-ma-area-map-pah}
+```{r boston-and-ma-area-map-pahs}
 ggplot(GOM_states)+
   geom_sf(aes())+
   geom_sf(data = Bathy_hi_res, color = "gray80", width = 1)+
