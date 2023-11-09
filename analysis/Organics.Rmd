@@ -52,7 +52,7 @@ glimpse(Organics_station)
 ```
 
 ``` {r summary-stats-organics}
-Summary_Organics <- Organics_station %>%
+Sum_Organics <- Organics_station %>%
   group_by(site) %>%
   drop_na(amount_detected) %>%
   summarise(mean_organic = mean(amount_detected),
@@ -60,12 +60,12 @@ Summary_Organics <- Organics_station %>%
     n_organic = n(),
     SE_organic = sd(amount_detected) / sqrt(n()))
 
-Summary_Organics
+Sum_Organics
 
 ```
 
 ``` {r pah-gen-loc}
-Summary_Organics %>%
+Sum_Organics %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_organic)), y = mean_organic, fill = site))+
   geom_col(col = "black")+
   geom_errorbar(aes(ymin = mean_organic - SE_organic, ymax = mean_organic + SE_organic), width = 0.2)+

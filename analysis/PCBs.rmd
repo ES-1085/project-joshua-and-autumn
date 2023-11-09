@@ -37,7 +37,7 @@ PCBs_station <- PCBs_station %>%
 
 PCBs_station = select(PCBs_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDING_M.x, QUAD_NAME.x, GEN_LOC_NM.x, SPECFC_LOC.x, AREA_CODE.x, SAMP_DATE1.x, TO_SMP_DT2.x, DPTH_N_COR.x, DPTH_CODE.x, COR_GRB_CD.x, site.x, pcbs_detected, amount_detected))
 
-glimpse(PCBs_station)
+#glimpse(PCBs_station)
 ```
 
 ## Visualizations
@@ -73,7 +73,7 @@ Summary_Organics <- Organics %>%
     n_PCB_T = n(),
     SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
 
-Summary_Organics
+#Summary_Organics
 ```
 
 ```{r pcb-gen-loc}
