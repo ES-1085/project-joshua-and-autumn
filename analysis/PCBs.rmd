@@ -18,6 +18,7 @@ library(dplyr)
 ```{r load-data}
 PCBs <- read.csv(paste0("/cloud/project/data/datasets_csv/PCBs_loc.csv"), header = T)
 Organics <- read.csv(paste0("/cloud/project/data/datasets_csv/Organics_loc.csv"), header = T)
+Station2002 <- read.csv(paste0("/cloud/project/data/datasets_csv/stations_full.csv"), header = T)
 ```
 
 #Reviewing PCB and Organics Datasets
@@ -63,11 +64,11 @@ glimpse(Organics_station)
 Visualizing the number of observations that were collected for each general location. 
 ```{r n-obs-gen-loc}
 Organics %>%
-  ggplot(aes(x = fct_infreq(GEN_LOC_NM), fill = fct_infreq(GEN_LOC_NM)))+
-  geom_bar(stat = "count", color = "black")+
-  coord_flip()+
-  theme_bw()+
-  theme(legend.position = "none")+
+  ggplot(aes(x = fct_infreq(GEN_LOC_NM), fill = fct_infreq(GEN_LOC_NM))) +
+  geom_bar(stat = "count", color = "black") +
+  coord_flip() +
+  theme_bw() +
+  theme(legend.position = "none") +
   labs(title = "Number of observations by general location",
        x = "General location",
        y = "Count (n Observations)")
@@ -94,7 +95,9 @@ Summary_Organics <- Organics %>%
 
 Summary_Organics
 ```
+
 The graph below is plotting the mean PCB concentration (ng/g) found at each general location with error bards accounting for one standard error. 
+
 ```{r pcb-gen-loc}
 Summary_Organics %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -1,x) ), fill = GEN_LOC_NM))+
@@ -111,6 +114,7 @@ Summary_Organics %>%
 ```
  
 This graph shows the PCB concentrations in Boston Harbor, comparing all locations. 
+
 ```{r pcb-boston-harbor1}
 Summary_Organics %>%
   filter(GEN_LOC_NM %in% c("BOSTON INNER HARBOR", "CENTRAL BOSTON HARBOR", "SOUTHEAST BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
@@ -126,7 +130,9 @@ Summary_Organics %>%
        y = "Mean total PCB concentration ug/g",
        caption = "Error bars = 1 standard error")
 ```
+
 This graph shows the PCB concentrations in Boston Harbor, comparing Central Boston Harbor and Northwest Boston Harbor. 
+
 ```{r pcb-boston-harbor2}
 Summary_Organics %>%
   filter(GEN_LOC_NM %in% c("CENTRAL BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
@@ -149,14 +155,16 @@ Summary_Organics %>%
 
 #### Rivers
 Below we are identifying specific Maine rivers. 
+
 ```{r identify-ME-rivers}
 Organics %>%
   filter(STATE_NAME == "ME") %>%
   filter(PCB_T_UGG != "NA") %>%
-  filter(SPECFC_LOC )
   distinct(SPECFC_LOC)
 ```
-Below we are visualizing the mean PCBs present in Maine rivers. 
+
+Below we are visualizing the mean PCBs present in Maine rivers.
+
 ```{r bar-me-rivers-without-union}
 Sum_Org_site %>%
   filter(site %in% c("York River", "Kennebunk River", "Portland Fore River", "Royal River", "Kennebec River to Bath", "Penobscot River To Bangor")) %>%
@@ -173,14 +181,18 @@ Sum_Org_site %>%
        caption = "Error bars = 1 standard error",
        x = "Location",
        y = "Mean total PCB concentration ug/g")
+```
 
+Sites with only one observation or mean = 0 do not have error bars.
+
+```{r}
 Organics_station %>%
-  group_by(site.x, organics_detected) %>%
+  group_by(site, organic_detected) %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  filter(site.x == c("York River",  "Kennebunk River", "Portland Fore River", "Royal River", "Kennebec River to Bath", "Penobscot River To Bangor")) %>%
+  filter(site == c("York River",  "Kennebunk River", "Portland Fore River", "Royal River", "Kennebec River to Bath", "Penobscot River To Bangor")) %>%
   arrange(desc(amount_detected))
 ```
-Sites with only one observation or mean = 0 do not have error bars.
+
 
 ```{r bar-me-rivers-with-union}
 Sum_Org_site %>%
@@ -229,9 +241,11 @@ Sum_Org_site %>%
        caption = "Error bars = 1 standard error",
        x = "Location",
        y = "Mean total PCB concentration ug/g")
+```
 
-Organics %>%
-  group_by(GEN_LOC_NM, organic_detected) %>%
+```{r}
+Organics_station %>%
+  group_by(GEN_LOC_NM.x, organic_detected) %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
   filter(site %in% c("BASS RIVER"|"ESSEX RIVER"|"MYSTIC RIVER"|"MERRIMACK RIVER"|"Weymouth Fore River"|"CHELSEA RIVER"|"Chelsea River"|"Mill Creek"|"Neponset River Bridge"|"South River"|"Weymouth Fore & Town River"|"North & Danvers River"|"Island End River")) %>%
   arrange(desc(amount_detected))
@@ -244,26 +258,6 @@ Organics %>%
   ggplot(aes(x = SOUNDING_M, y = PCB_T_UGG))+
   geom_point()+
   xlim(0,50)
-```
-
-
-### PCBs and Sediment types
-Test for relationship between sediment types and PCBs -- think we did something like this in biostats.  Then viz with scatterplot.
-
-```{r load-sediment-data}
-sediments <- read.csv(paste0("/cloud/project/data/datasets_csv/Texture_loc.csv"), header = T)
-```
-
-```{r join-sed-org}
-Organics_sed <- left_join(Organics, sediments, by = "UNIQUE_ID")
-```
-
-```{r}
-Organics_sed %>%
-  filter(GEN_LOC_NM.x != "NA") %>%
-  ggplot(aes(x = GEN_LOC_NM.x, y = SAMPLE_WT))+
-  geom_col()+
-  coord_flip()
 ```
 
 ## Statistical tests
