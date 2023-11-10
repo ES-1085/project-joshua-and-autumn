@@ -153,9 +153,9 @@ Below we are identifying specific Maine rivers.
 Organics %>%
   filter(STATE_NAME == "ME") %>%
   filter(PCB_T_UGG != "NA") %>%
-  filter(SPECFC_LOC )
   distinct(SPECFC_LOC)
 ```
+
 Below we are visualizing the mean PCBs present in Maine rivers. 
 ```{r bar-me-rivers-without-union}
 Sum_Org_site %>%
