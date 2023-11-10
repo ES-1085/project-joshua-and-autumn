@@ -2777,11 +2777,11 @@ US02753,42.36785,-70.98648,NA,MA,NA,NORTHWEST BOSTON HARBOR,Cottage Yacht Club 1
 US02754,42.36785,-70.98648,NA,MA,NA,NORTHWEST BOSTON HARBOR,Cottage Yacht Club 1,2,5/30/1972,NA,NA,Unknown,Grab,Cottage Yacht Club 1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,MUD,NA,NA,NA,NA,NA,NA
 US03001,44.141333333333336,-68.8775,NA,ME,NA,North of 44; to 50M isobath,Southern Harbor (North Haven),15,NA,NA,NA,Unknown,Unknown,Southern Harbor (North Haven),NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03002,44.141333333333336,-68.8775,NA,ME,NA,North of 44; to 50M isobath,Southern Harbor (North Haven),15,NA,NA,NA,Unknown,Unknown,Southern Harbor (North Haven),NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03003,43.63766666666667,-70.27866666666667,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,16.2,NA,NA,NA,NA,NA,NA,NA
-US03004,43.63766666666667,-70.27866666666667,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,18.3,NA,NA,NA,NA,NA,NA,NA
-US03005,43.6385,-70.27666666666667,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,28,NA,NA,NA,NA,NA,NA,NA
-US03006,43.6385,-70.27666666666667,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,18,NA,NA,NA,NA,NA,NA,NA
-US03007,43.6385,-70.27666666666667,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,14,NA,NA,NA,NA,NA,NA,NA
+US03003,43.63766666666667,-70.27866666666667,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,16.2,NA,NA,NA,NA,NA,NA,NA
+US03004,43.63766666666667,-70.27866666666667,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,18.3,NA,NA,NA,NA,NA,NA,NA
+US03005,43.6385,-70.27666666666667,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,28,NA,NA,NA,NA,NA,NA,NA
+US03006,43.6385,-70.27666666666667,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,18,NA,NA,NA,NA,NA,NA,NA
+US03007,43.6385,-70.27666666666667,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,14,NA,NA,NA,NA,NA,NA,NA
 US03008,43.3545,-70.4735,NA,ME,NA,CAPE ANN to 43.5N,Kennebunk River,13,NA,NA,NA,Unknown,Unknown,Kennebunk River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,37.3,SAND,NA,NA,NA,NA,NA,NA
 US03009,43.351,-70.47383333333333,NA,ME,NA,CAPE ANN to 43.5N,Kennebunk River,13,NA,NA,NA,Unknown,Unknown,Kennebunk River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,22.4,NA,NA,NA,NA,NA,NA,NA
 US03010,43.3515,-70.47383333333333,NA,ME,NA,CAPE ANN to 43.5N,Kennebunk River,13,NA,NA,NA,Unknown,Unknown,Kennebunk River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8.7,NA,NA,NA,NA,NA,NA,NA
@@ -2798,15 +2798,15 @@ US03020,43.795,-70.17083333333333,NA,ME,NA,43.5N to 44N; to 50M isobath,Royal Ri
 US03021,43.795,-70.17083333333333,NA,ME,NA,43.5N to 44N; to 50M isobath,Royal River,14,NA,NA,NA,Unknown,Unknown,Royal River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,95.9,NA,NA,NA,NA,NA,NA,NA
 US03022,43.795,-70.17083333333333,NA,ME,NA,43.5N to 44N; to 50M isobath,Royal River,14,NA,NA,NA,Unknown,Unknown,Royal River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,94,NA,NA,NA,NA,NA,NA,NA
 US03023,43.795,-70.17083333333333,NA,ME,NA,43.5N to 44N; to 50M isobath,Royal River,14,NA,NA,NA,Unknown,Unknown,Royal River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,97.7,NA,NA,NA,NA,NA,NA,NA
-US03024,43.65,-70.253,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,30-60,Depth,Core,Portland Fore River,NA,NA,0.2,0.075,.013,NA,NA,0,50,NA,NA,50,SILT,NA,NA,NA,NA,NA,NA
-US03025,43.65,-70.253,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30,Depth,Core,Portland Fore River,NA,NA,0.033,0.02,0.009,NA,NA,0,10,NA,NA,90,SILT,NA,NA,NA,NA,NA,NA
-US03026,43.65,-70.253,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,30-60,Depth,Core,Portland Fore River,NA,NA,0.03,0.015,.003,NA,NA,0,7,NA,NA,93,SILT,NA,NA,NA,NA,NA,NA
-US03027,43.65,-70.253,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-10,Depth,Core,Portland Fore River,NA,NA,0.15,0.05,.01,NA,NA,0,40,NA,NA,60,SILT,NA,NA,NA,NA,NA,NA
-US03028,43.65,-70.253,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03029,43.65,-70.253,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03030,43.65,-70.253,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03031,43.65,-70.253,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03032,43.65,-70.253,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03024,43.65,-70.253,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,30-60,Depth,Core,Fore River,NA,NA,0.2,0.075,.013,NA,NA,0,50,NA,NA,50,SILT,NA,NA,NA,NA,NA,NA
+US03025,43.65,-70.253,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30,Depth,Core,Fore River,NA,NA,0.033,0.02,0.009,NA,NA,0,10,NA,NA,90,SILT,NA,NA,NA,NA,NA,NA
+US03026,43.65,-70.253,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,30-60,Depth,Core,Fore River,NA,NA,0.03,0.015,.003,NA,NA,0,7,NA,NA,93,SILT,NA,NA,NA,NA,NA,NA
+US03027,43.65,-70.253,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-10,Depth,Core,Fore River,NA,NA,0.15,0.05,.01,NA,NA,0,40,NA,NA,60,SILT,NA,NA,NA,NA,NA,NA
+US03028,43.65,-70.253,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03029,43.65,-70.253,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03030,43.65,-70.253,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03031,43.65,-70.253,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03032,43.65,-70.253,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03033,43.081,-70.75133,1,NH,NA,CAPE ANN to 43.5N,Kittery Harbor & Badgers Island (Kittery),13,NA,NA,NA,Unknown,Unknown,Kittery Harbor & Badgers Island (Kittery),NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03034,43.081,-70.75133,1,NH,NA,CAPE ANN to 43.5N,Kittery Harbor & Badgers Island (Kittery),13,NA,NA,2.5-76,Depth,Core,Kittery Harbor & Badgers Island (Kittery),NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
 US03035,43.081,-70.75133,1,NH,NA,CAPE ANN to 43.5N,Kittery Harbor & Badgers Island (Kittery),13,NA,NA,0-2.5,Surface,Core,Kittery Harbor & Badgers Island (Kittery),NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SILT,NA,NA,NA,NA,NA,NA
@@ -2817,20 +2817,20 @@ US03039,43.081,-70.75133,1,NH,NA,CAPE ANN to 43.5N,Kittery Harbor & Badgers Isla
 US03040,43.081,-70.75133,1,NH,NA,CAPE ANN to 43.5N,Kittery Harbor & Badgers Island (Kittery),13,NA,NA,46-152,Depth,Core,Kittery Harbor & Badgers Island (Kittery),NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
 US03041,NA,NA,2,ME,NA,North of 44; to 50M isobath,Jonesport Harbor - Sawyer Cove,15,NA,NA,NA,Unknown,Grab,Jonesport Harbor - Sawyer Cove,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03042,NA,NA,2,ME,NA,North of 44; to 50M isobath,Jonesport Harbor - Sawyer Cove,15,NA,NA,NA,Unknown,Grab,Jonesport Harbor - Sawyer Cove,NA,NA,0.08,0.026,.009,NA,NA,1.8,24,58,16.2,74.2,SILT,NA,NA,NA,NA,NA,NA
-US03043,43.65,-70.255,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,1.1,0.2,NA,NA,NA,4,63,NA,NA,33,SAND,NA,NA,NA,NA,NA,NA
-US03044,43.65,-70.255,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,0.072,NA,NA,NA,NA,1,24,NA,NA,75.1,NA,NA,NA,NA,NA,NA,NA
-US03045,43.65,-70.255,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,0.5,0.22,.1,NA,NA,2,73.4,NA,NA,24.6,SAND,NA,NA,NA,NA,NA,NA
-US03046,43.65,-70.255,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,6,1.1,.12,NA,NA,28,50.2,NA,NA,21.8,SAND,NA,NA,NA,NA,NA,NA
-US03047,43.65133,-70.23133,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Harbor & Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Harbor & Fore River,NA,NA,NA,NA,NA,NA,NA,0,17,NA,NA,83,SILT,NA,NA,NA,NA,NA,NA
-US03048,43.65133,-70.23133,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Harbor & Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Harbor & Fore River,NA,NA,0.32,NA,NA,NA,NA,3,42,NA,NA,55,SILT,NA,NA,NA,NA,NA,NA
-US03049,43.65133,-70.23133,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Harbor & Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Harbor & Fore River,NA,NA,NA,NA,NA,NA,NA,10,6,NA,NA,84,SILT,NA,NA,NA,NA,NA,NA
-US03050,43.65133,-70.23133,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Harbor & Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Harbor & Fore River,NA,NA,NA,NA,NA,NA,NA,3,13,NA,NA,84,SILT,NA,NA,NA,NA,NA,NA
-US03051,43.64833,-70.25667,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-61,Depth,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,1,75,NA,NA,24,SAND,NA,NA,NA,NA,NA,NA
-US03052,43.64833,-70.25667,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30,Depth,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,2,74,NA,NA,24,SAND,NA,NA,NA,NA,NA,NA
-US03053,43.64833,-70.25667,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,31,61,NA,NA,8,SAND,NA,NA,NA,NA,NA,NA
-US03054,43.64833,-70.25667,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30,Depth,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,17,63,NA,NA,20,GRAVEL,NA,NA,NA,NA,NA,NA
-US03055,43.64833,-70.25667,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30,Depth,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,2,75,NA,NA,23,SAND,NA,NA,NA,NA,NA,NA
-US03056,43.64833,-70.25667,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-61,Depth,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,5,45,NA,NA,50,SILT,NA,NA,NA,NA,NA,NA
+US03043,43.65,-70.255,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,1.1,0.2,NA,NA,NA,4,63,NA,NA,33,SAND,NA,NA,NA,NA,NA,NA
+US03044,43.65,-70.255,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,0.072,NA,NA,NA,NA,1,24,NA,NA,75.1,NA,NA,NA,NA,NA,NA,NA
+US03045,43.65,-70.255,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,0.5,0.22,.1,NA,NA,2,73.4,NA,NA,24.6,SAND,NA,NA,NA,NA,NA,NA
+US03046,43.65,-70.255,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,6,1.1,.12,NA,NA,28,50.2,NA,NA,21.8,SAND,NA,NA,NA,NA,NA,NA
+US03047,43.65133,-70.23133,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Harbor & Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,0,17,NA,NA,83,SILT,NA,NA,NA,NA,NA,NA
+US03048,43.65133,-70.23133,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Harbor & Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,0.32,NA,NA,NA,NA,3,42,NA,NA,55,SILT,NA,NA,NA,NA,NA,NA
+US03049,43.65133,-70.23133,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Harbor & Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,10,6,NA,NA,84,SILT,NA,NA,NA,NA,NA,NA
+US03050,43.65133,-70.23133,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Harbor & Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,3,13,NA,NA,84,SILT,NA,NA,NA,NA,NA,NA
+US03051,43.64833,-70.25667,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-61,Depth,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,1,75,NA,NA,24,SAND,NA,NA,NA,NA,NA,NA
+US03052,43.64833,-70.25667,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30,Depth,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,2,74,NA,NA,24,SAND,NA,NA,NA,NA,NA,NA
+US03053,43.64833,-70.25667,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,31,61,NA,NA,8,SAND,NA,NA,NA,NA,NA,NA
+US03054,43.64833,-70.25667,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30,Depth,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,17,63,NA,NA,20,GRAVEL,NA,NA,NA,NA,NA,NA
+US03055,43.64833,-70.25667,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30,Depth,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,2,75,NA,NA,23,SAND,NA,NA,NA,NA,NA,NA
+US03056,43.64833,-70.25667,2,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-61,Depth,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,5,45,NA,NA,50,SILT,NA,NA,NA,NA,NA,NA
 US03057,43.65583,-70.2,1,ME,NA,43.5N to 44N; to 50M isobath,Peaks Island,14,NA,NA,0-110,Depth,Core,Peaks Island,NA,NA,0.3,0.18,.11,NA,NA,8,73,NA,NA,14,SAND,NA,NA,NA,NA,NA,NA
 US03058,43.65583,-70.2,1,ME,NA,43.5N to 44N; to 50M isobath,Peaks Island,14,NA,NA,0-18,Depth,Core,Peaks Island,NA,NA,11,1,.2,NA,NA,37,50,NA,NA,13,SAND,NA,NA,NA,NA,NA,NA
 US03059,43.65583,-70.2,1,ME,NA,43.5N to 44N; to 50M isobath,Peaks Island,14,NA,NA,18-107,Depth,Core,Peaks Island,NA,NA,0.4,0.22,.12,NA,NA,9,76,NA,NA,15,SAND,NA,NA,NA,NA,NA,NA
@@ -2850,11 +2850,11 @@ US03072,43.753,-70.1075,NA,ME,NA,43.5N to 44N; to 50M isobath,Great Chebeague Is
 US03073,44.1025,-69.106,1,ME,NA,North of 44; to 50M isobath,Rockland Harbor,15,NA,NA,NA,Unknown,Grab,Rockland Harbor,NA,NA,8,1.5,.8,NA,NA,33,65,NA,NA,2,SAND,NA,NA,NA,NA,NA,NA
 US03074,43.44767,-70.35533,1,ME,NA,43.5N to 44N; to 50M isobath,Wood Island Harbor & Biddeford Pool,14,NA,NA,0-183,Depth,Grab,Wood Island Harbor & Biddeford Pool,NA,NA,0.6,0.24,.09,NA,NA,12,66,NA,NA,22,SAND,NA,NA,NA,NA,NA,NA
 US03075,43.44767,-70.35533,1,ME,NA,43.5N to 44N; to 50M isobath,Wood Island Harbor & Biddeford Pool,14,NA,NA,0-103,Depth,Grab,Wood Island Harbor & Biddeford Pool,NA,NA,0.3,0.13,NA,NA,NA,2,64,NA,NA,34,SAND,NA,NA,NA,NA,NA,NA
-US03076,43.91,-69.81333,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,NA,Unknown,Unknown,Kennebec River to Bath,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03077,43.91,-69.81333,NA,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,NA,Unknown,Unknown,Kennebec River to Bath,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03078,43.91,-69.81333,NA,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,NA,Unknown,Unknown,Kennebec River to Bath,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03079,43.91,-69.81333,NA,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,NA,Unknown,Unknown,Kennebec River to Bath,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03080,43.641,-70.28467,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,67,NA,NA,NA,NA,NA,NA,NA
+US03076,43.91,-69.81333,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,NA,Unknown,Unknown,Kennebec River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03077,43.91,-69.81333,NA,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,NA,Unknown,Unknown,Kennebec River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03078,43.91,-69.81333,NA,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,NA,Unknown,Unknown,Kennebec River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03079,43.91,-69.81333,NA,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,NA,Unknown,Unknown,Kennebec River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03080,43.641,-70.28467,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,67,NA,NA,NA,NA,NA,NA,NA
 US03081,44.20667,-69.06,NA,ME,NA,North of 44; to 50M isobath,Camden Harbor,15,NA,NA,NA,Unknown,Grab,Camden Harbor,NA,NA,20,3,.45,NA,NA,NA,NA,NA,NA,2,SAND,NA,NA,NA,NA,NA,NA
 US03082,43.7955,-70.16667,1,ME,YARMOUTH,43.5N to 44N; to 50M isobath,Royal River,14,NA,NA,91.44,Depth,Grab,Royal River,NA,NA,NA,NA,NA,NA,NA,0,5.7,NA,NA,94.3,SILT,NA,NA,NA,NA,NA,NA
 US03083,43.7955,-70.16667,1,ME,YARMOUTH,43.5N to 44N; to 50M isobath,Royal River,14,NA,NA,NA,Unknown,Unknown,Royal River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -2864,10 +2864,10 @@ US03086,43.7955,-70.16667,1,ME,YARMOUTH,43.5N to 44N; to 50M isobath,Royal River
 US03087,43.7955,-70.16667,1,ME,YARMOUTH,43.5N to 44N; to 50M isobath,Royal River,14,NA,NA,NA,Unknown,Unknown,Royal River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03088,43.7955,-70.16667,1,ME,YARMOUTH,43.5N to 44N; to 50M isobath,Royal River,14,NA,NA,91.44,Depth,Grab,Royal River,NA,NA,NA,NA,NA,NA,NA,0,2.3,NA,NA,97.7,SILT,NA,NA,NA,NA,NA,NA
 US03089,43.7955,-70.16667,1,ME,YARMOUTH,43.5N to 44N; to 50M isobath,Royal River,14,NA,NA,NA,Unknown,Unknown,Royal River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03090,43.642,-70.28433,1,ME,"PORTLAND, WEST, ME",43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,56,NA,NA,NA,NA,NA,NA,NA
-US03091,43.642,-70.28433,1,ME,"PORTLAND WEST, ME",43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,49,NA,NA,NA,NA,NA,NA,NA
-US03092,43.642,-70.28433,1,ME,"PORTLAND, WEST, ME",43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,39,NA,NA,NA,NA,NA,NA,NA
-US03093,43.64,-70.28333,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03090,43.642,-70.28433,1,ME,"PORTLAND, WEST, ME",43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,56,NA,NA,NA,NA,NA,NA,NA
+US03091,43.642,-70.28433,1,ME,"PORTLAND WEST, ME",43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,49,NA,NA,NA,NA,NA,NA,NA
+US03092,43.642,-70.28433,1,ME,"PORTLAND, WEST, ME",43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,39,NA,NA,NA,NA,NA,NA,NA
+US03093,43.64,-70.28333,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03094,44.19583,-68.58,NA,ME,NA,North of 44; to 50M isobath,East Side Cove,15,NA,NA,NA,Unknown,Grab,East Side Cove,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03095,44.15333,-68.66167,NA,ME,NA,North of 44; to 50M isobath,Stonington Harbor,15,NA,NA,NA,Unknown,Unknown,Stonington Harbor,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03096,44.15333,-68.66167,NA,ME,NA,North of 44; to 50M isobath,Stonington Harbor,15,NA,NA,NA,Unknown,Unknown,Stonington Harbor,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -2887,17 +2887,17 @@ US03109,43.35983,-70.47733,1,ME,KENNEBUNKPORT,CAPE ANN to 43.5N,Kennebunk River,
 US03110,43.35983,-70.47733,NA,ME,NA,CAPE ANN to 43.5N,Kennebunk River,13,NA,NA,NA,Unknown,Unknown,Kennebunk River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
 US03111,43.35983,-70.47733,NA,ME,NA,CAPE ANN to 43.5N,Kennebunk River,13,NA,NA,NA,Unknown,Unknown,Kennebunk River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
 US03112,44.10883,-69.109,1,ME,NA,North of 44; to 50M isobath,Lermond Cove,15,NA,NA,TOP 1/3 & BOTTOM 1/3,Unknown,Grab,Lermond Cove,NA,NA,30,12,0.2,NA,NA,54,43,NA,NA,3,GRAVEL,NA,NA,NA,NA,NA,NA
-US03113,43.65117,-70.24233,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,61,NA,NA,NA,NA,NA,NA,NA
-US03114,43.65117,-70.24233,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,68,NA,NA,NA,NA,NA,NA,NA
+US03113,43.65117,-70.24233,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,61,NA,NA,NA,NA,NA,NA,NA
+US03114,43.65117,-70.24233,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,68,NA,NA,NA,NA,NA,NA,NA
 US03115,44.29583,-68.30167,NA,ME,NA,North of 44; to 50M isobath,Northeast Harbor,15,NA,NA,NA,Unknown,Grab,Northeast Harbor,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03116,43.64,-70.28333,NA,ME,PORTLAND WEST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,56,NA,NA,NA,NA,NA,NA,NA
-US03117,43.64,-70.28333,NA,ME,PORTLAND WEST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,52,NA,NA,NA,NA,NA,NA,NA
-US03118,43.64,-70.28333,NA,ME,PORTLAND WEST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,57,NA,NA,NA,NA,NA,NA,NA
-US03119,43.65117,-70.24333,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03116,43.64,-70.28333,NA,ME,PORTLAND WEST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,56,NA,NA,NA,NA,NA,NA,NA
+US03117,43.64,-70.28333,NA,ME,PORTLAND WEST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,52,NA,NA,NA,NA,NA,NA,NA
+US03118,43.64,-70.28333,NA,ME,PORTLAND WEST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,57,NA,NA,NA,NA,NA,NA,NA
+US03119,43.65117,-70.24333,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03120,43.795,-70.17083,2,ME,NA,43.5N to 44N; to 50M isobath,Royal River,14,NA,NA,NA,Unknown,Unknown,Royal River,NA,NA,0.1,NA,<0.07,NA,NA,0,41,NA,NA,59,SILT,NA,NA,NA,NA,NA,NA
 US03121,43.795,-70.17083,2,ME,NA,43.5N to 44N; to 50M isobath,Royal River,14,NA,NA,NA,Unknown,Unknown,Royal River,NA,NA,2,0.5,0.15,NA,NA,14,67,NA,NA,19,SAND,NA,NA,NA,NA,NA,NA
 US03122,43.795,-70.17083,2,ME,NA,43.5N to 44N; to 50M isobath,Royal River,14,NA,NA,NA,Unknown,Unknown,Royal River,NA,NA,NA,NA,<0.07,NA,NA,0,15,NA,NA,85,CLAY,NA,NA,NA,NA,NA,NA
-US03123,43.64,-70.28333,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03123,43.64,-70.28333,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03124,44.39417,-68.2025,1,ME,BAR HARBOR,North of 44; to 50M isobath,Bar Harbor,15,NA,NA,NA,Unknown,Unknown,Bar Harbor,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03125,44.39417,-68.2025,1,ME,BAR HARBOR,North of 44; to 50M isobath,Bar Harbor,15,NA,NA,NA,Unknown,Unknown,Bar Harbor,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03126,44.39417,-68.2025,NA,ME,BAR HARBOR,North of 44; to 50M isobath,Bar Harbor,15,NA,NA,NA,Unknown,Unknown,Bar Harbor,NA,NA,0.64,NA,NA,NA,NA,35,64.8,NA,NA,0.2,SAND,NA,NA,NA,NA,NA,NA
@@ -2935,38 +2935,38 @@ US03157,43.0845,-70.74333,1,ME,PORTSMOUTH,CAPE ANN to 43.5N,Portsmouth Naval Shi
 US03158,43.0845,-70.74333,1,ME,PORTSMOUTH,CAPE ANN to 43.5N,Portsmouth Naval Shipyard (Kittery),13,NA,NA,SURFACE,Surface (COE),Grab,Portsmouth Naval Shipyard (Kittery),NA,NA,NA,NA,NA,NA,NA,69.21,22.15,7.44,1.2,8.64,GRAVEL,NA,NA,NA,NA,NA,NA
 US03159,43.0845,-70.74333,1,ME,PORTSMOUTH,CAPE ANN to 43.5N,Portsmouth Naval Shipyard (Kittery),13,NA,NA,SURFACE,Surface (COE),Grab,Portsmouth Naval Shipyard (Kittery),NA,NA,NA,NA,NA,NA,NA,31.08,59.15,8.81,0.97,9.78,SAND,NA,NA,NA,NA,NA,NA
 US03160,43.0845,-70.74333,1,ME,PORTSMOUTH,CAPE ANN to 43.5N,Portsmouth Naval Shipyard (Kittery),13,NA,NA,SURFACE,Surface (COE),Grab,Portsmouth Naval Shipyard (Kittery),NA,NA,NA,NA,NA,NA,NA,1.76,58.69,19.01,20.53,39.54,SAND,NA,NA,NA,NA,NA,NA
-US03161,43.64633,-70.249,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03162,43.64633,-70.249,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03163,43.64633,-70.249,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03164,43.64633,-70.249,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03165,43.64633,-70.249,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03166,43.64633,-70.249,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03167,43.64633,-70.249,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03168,43.64633,-70.249,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03169,43.65067,-70.253,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03161,43.64633,-70.249,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03162,43.64633,-70.249,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03163,43.64633,-70.249,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03164,43.64633,-70.249,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03165,43.64633,-70.249,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03166,43.64633,-70.249,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03167,43.64633,-70.249,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03168,43.64633,-70.249,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03169,43.65067,-70.253,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03170,43.753,-70.1075,NA,ME,NA,43.5N to 44N; to 50M isobath,Great Chebeague Island,14,NA,NA,NA,Unknown,Grab,Great Chebeague Island,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03171,43.753,-70.1075,NA,ME,NA,43.5N to 44N; to 50M isobath,Great Chebeague Island,14,NA,NA,NA,Unknown,Grab,Great Chebeague Island,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03172,43.641,-70.26333,1,ME,PORTLAND WEST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-60:96,Depth,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,1,29,NA,NA,70,SILT,NA,NA,NA,NA,NA,NA
-US03173,43.641,-70.26333,1,ME,PORTLAND WEST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-60-96,Depth,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,1,52,NA,NA,47,SAND,NA,NA,NA,NA,NA,NA
-US03174,43.641,-70.26333,1,ME,PORTLAND WEST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-60.96,Depth,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,1,31,NA,NA,68,SILT,NA,NA,NA,NA,NA,NA
-US03175,43.641,-70.26333,1,ME,PORTLAND WEST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-60.96,Depth,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03176,43.641,-70.26333,1,ME,PORTLAND WEST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-123.92,Depth,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,1,43,NA,NA,56,SILT,NA,NA,NA,NA,NA,NA
-US03177,43.6525,-70.25067,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03178,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,45.72-58.42,Depth,Core,Portland Fore River,NA,NA,0.3,0.035,0.012,NA,NA,9,25,55,11,66,SILT,NA,NA,NA,NA,NA,NA
-US03179,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,68.58-83.82,Depth,Core,Portland Fore River,NA,NA,0.2,0.06,0.013,NA,NA,1,45,42,12,54,SILT,NA,NA,NA,NA,NA,NA
-US03180,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,33.02-45.72,Depth,Core,Portland Fore River,NA,NA,0.04,0.016,0.006,NA,NA,0,10,66,24,90,SILT,NA,NA,NA,NA,NA,NA
-US03181,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,53.34-68.58,Depth,Core,Portland Fore River,NA,NA,0.6,0.25,0.035,NA,NA,2,63,29,6,35,SAND,NA,NA,NA,NA,NA,NA
-US03182,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,20.32-33.02,Depth,Core,Portland Fore River,NA,NA,0.1,0.03,0.008,NA,NA,4,24,60,12,72,SILT,NA,NA,NA,NA,NA,NA
-US03183,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,38.1-53.34,Depth,Core,Portland Fore River,NA,NA,0.8,0.25,0.035,NA,NA,3,64,25,8,33,NA,NA,NA,NA,NA,NA,NA
-US03184,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,7.62-20.32,Depth,Core,Portland Fore River,NA,NA,0.07,0.026,0.008,NA,NA,7,18,61,14,75,SILT,NA,NA,NA,NA,NA,NA
-US03185,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,22.86-38.1,Depth,Core,Portland Fore River,NA,NA,0.15,0.047,0.013,NA,NA,1,34,56,9,65,SILT,NA,NA,NA,NA,NA,NA
-US03186,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-7.62,Surface,Core,Portland Fore River,NA,NA,0.065,0.026,0.009,NA,NA,1,21,66,12,78,SILT,NA,NA,NA,NA,NA,NA
-US03187,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,7.62-22.86,Depth,Core,Portland Fore River,NA,NA,0.045,0.018,0.007,NA,NA,0,7,76,17,93,NA,NA,NA,NA,NA,NA,NA
-US03188,43.65167,-70.24167,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Harbor & Fore River,14,NA,NA,NA,Unknown,Grab,Portland Harbor & Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03189,43.65467,-70.23,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Harbor & Fore River,14,NA,NA,NA,Unknown,Grab,Portland Harbor & Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03190,43.6545,-70.24933,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03191,43.63967,-70.276,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03192,43.65017,-70.244,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03172,43.641,-70.26333,1,ME,PORTLAND WEST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-60:96,Depth,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,1,29,NA,NA,70,SILT,NA,NA,NA,NA,NA,NA
+US03173,43.641,-70.26333,1,ME,PORTLAND WEST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-60-96,Depth,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,1,52,NA,NA,47,SAND,NA,NA,NA,NA,NA,NA
+US03174,43.641,-70.26333,1,ME,PORTLAND WEST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-60.96,Depth,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,1,31,NA,NA,68,SILT,NA,NA,NA,NA,NA,NA
+US03175,43.641,-70.26333,1,ME,PORTLAND WEST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-60.96,Depth,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03176,43.641,-70.26333,1,ME,PORTLAND WEST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-123.92,Depth,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,1,43,NA,NA,56,SILT,NA,NA,NA,NA,NA,NA
+US03177,43.6525,-70.25067,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03178,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,45.72-58.42,Depth,Core,Fore River,NA,NA,0.3,0.035,0.012,NA,NA,9,25,55,11,66,SILT,NA,NA,NA,NA,NA,NA
+US03179,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,68.58-83.82,Depth,Core,Fore River,NA,NA,0.2,0.06,0.013,NA,NA,1,45,42,12,54,SILT,NA,NA,NA,NA,NA,NA
+US03180,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,33.02-45.72,Depth,Core,Fore River,NA,NA,0.04,0.016,0.006,NA,NA,0,10,66,24,90,SILT,NA,NA,NA,NA,NA,NA
+US03181,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,53.34-68.58,Depth,Core,Fore River,NA,NA,0.6,0.25,0.035,NA,NA,2,63,29,6,35,SAND,NA,NA,NA,NA,NA,NA
+US03182,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,20.32-33.02,Depth,Core,Fore River,NA,NA,0.1,0.03,0.008,NA,NA,4,24,60,12,72,SILT,NA,NA,NA,NA,NA,NA
+US03183,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,38.1-53.34,Depth,Core,Fore River,NA,NA,0.8,0.25,0.035,NA,NA,3,64,25,8,33,NA,NA,NA,NA,NA,NA,NA
+US03184,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,7.62-20.32,Depth,Core,Fore River,NA,NA,0.07,0.026,0.008,NA,NA,7,18,61,14,75,SILT,NA,NA,NA,NA,NA,NA
+US03185,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,22.86-38.1,Depth,Core,Fore River,NA,NA,0.15,0.047,0.013,NA,NA,1,34,56,9,65,SILT,NA,NA,NA,NA,NA,NA
+US03186,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-7.62,Surface,Core,Fore River,NA,NA,0.065,0.026,0.009,NA,NA,1,21,66,12,78,SILT,NA,NA,NA,NA,NA,NA
+US03187,43.6605,-70.24433,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,7.62-22.86,Depth,Core,Fore River,NA,NA,0.045,0.018,0.007,NA,NA,0,7,76,17,93,NA,NA,NA,NA,NA,NA,NA
+US03188,43.65167,-70.24167,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Harbor & Fore River,14,NA,NA,NA,Unknown,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03189,43.65467,-70.23,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Harbor & Fore River,14,NA,NA,NA,Unknown,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03190,43.6545,-70.24933,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03191,43.63967,-70.276,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03192,43.65017,-70.244,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03193,44.45217,-68.90667,1,ME,NA,North of 44; to 50M isobath,Mack Point,15,NA,NA,NA,Unknown,Unknown,Mack Point,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03194,44.45217,-68.90667,1,ME,NA,North of 44; to 50M isobath,Mack Point,15,NA,NA,NA,Unknown,Unknown,Mack Point,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03195,44.45217,-68.90667,NA,ME,NA,North of 44; to 50M isobath,Mack Point,15,NA,NA,NA,Unknown,Unknown,Mack Point,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -2979,62 +2979,62 @@ US03201,44.10333,-69.103,NA,ME,NA,North of 44; to 50M isobath,Rockland Harbor,15
 US03202,44.25833,-68.94,NA,ME,NA,North of 44; to 50M isobath,Gilkey Harbor,15,NA,NA,NA,Unknown,Grab,Gilkey Harbor,NA,NA,0.017,0.0035,NA,NA,NA,NA,NA,NA,NA,NA,SILT,NA,NA,NA,NA,NA,NA
 US03203,43.08167,-70.76467,NA,NH,NA,CAPE ANN to 43.5N,Mill Pond Cove (Portsmouth),13,NA,NA,NA,Unknown,Grab,Mill Pond Cove (Portsmouth),NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03204,44.1105,-69.104,NA,ME,NA,North of 44; to 50M isobath,Lermond Cove,15,NA,NA,NA,Unknown,Unknown,Lermond Cove,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03205,43.65533,-70.24967,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03206,43.64867,-70.25467,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03207,43.64867,-70.25467,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03208,43.65383,-70.25,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03209,43.65383,-70.25,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03205,43.65533,-70.24967,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03206,43.64867,-70.25467,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03207,43.64867,-70.25467,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03208,43.65383,-70.25,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03209,43.65383,-70.25,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Unknown,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03210,44.45217,-68.90667,NA,ME,NA,North of 44; to 50M isobath,Mack Point,15,NA,NA,NA,Unknown,Unknown,Mack Point,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
 US03211,44.45217,-68.90667,NA,ME,NA,North of 44; to 50M isobath,Mack Point,15,NA,NA,NA,Unknown,Unknown,Mack Point,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
 US03212,44.45217,-68.90667,NA,ME,NA,North of 44; to 50M isobath,Mack Point,15,NA,NA,NA,Unknown,Unknown,Mack Point,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03213,44.102,-69.1055,NA,ME,NA,North of 44; to 50M isobath,Rockland Harbor,15,NA,NA,NA,Unknown,Grab,Rockland Harbor,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03214,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BOTTOM,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03215,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03216,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03217,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.48,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03218,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,91.44-121.92,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03219,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,457.2-487.68,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
-US03220,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,609.6-640.08,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
-US03221,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.48,Depth,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03222,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.48,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03223,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,30.48-60.96,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03224,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,60.96-91.44,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03225,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,304.8-335.28,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03226,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.4,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03227,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BOTTOM,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03228,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03229,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03230,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.48,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
-US03231,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,152.4-182.88,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03232,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BOTTOM,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03233,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03234,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FIBROUS MATERIAL,NA,NA,NA,NA,NA,NA
-US03235,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.48,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03236,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BOTTOM,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03237,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
-US03238,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
-US03239,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.48,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03240,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BOTTOM,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03241,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03242,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
-US03243,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BOTTOM,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03244,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03245,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
-US03246,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.48,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03247,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03248,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03249,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03250,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,30.48-60.96,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
-US03251,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,60.96-91.44,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03252,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
-US03253,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BOTTOM,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03254,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03255,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03256,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.48,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03257,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BOTTOM,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03258,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03259,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03260,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,152.40-182.88,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
+US03214,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BOTTOM,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03215,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03216,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03217,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.48,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03218,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,91.44-121.92,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03219,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,457.2-487.68,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
+US03220,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,609.6-640.08,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
+US03221,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.48,Depth,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03222,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.48,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03223,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,30.48-60.96,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03224,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,60.96-91.44,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03225,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,304.8-335.28,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03226,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.4,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03227,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BOTTOM,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03228,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03229,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03230,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.48,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
+US03231,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,152.4-182.88,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03232,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BOTTOM,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03233,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03234,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FIBROUS MATERIAL,NA,NA,NA,NA,NA,NA
+US03235,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.48,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03236,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BOTTOM,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03237,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
+US03238,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
+US03239,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.48,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03240,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BOTTOM,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03241,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03242,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
+US03243,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BOTTOM,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03244,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03245,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
+US03246,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.48,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03247,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03248,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03249,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03250,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,30.48-60.96,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
+US03251,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,60.96-91.44,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03252,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,NA,Unknown,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
+US03253,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BOTTOM,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03254,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03255,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03256,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-30.48,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03257,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BOTTOM,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03258,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,MID,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03259,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,SURFACE,Surface,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03260,43.65983,-70.244,1,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,152.40-182.88,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
 US03261,44.10333,-69.103,NA,ME,NA,North of 44; to 50M isobath,Rockland Harbor,15,NA,NA,NA,Unknown,Unknown,Rockland Harbor,NA,NA,40,6,1.0,NA,NA,NA,NA,NA,NA,0.7,GRAVEL,NA,NA,NA,NA,NA,NA
 US03262,44.10333,-69.103,NA,ME,NA,North of 44; to 50M isobath,Rockland Harbor,15,NA,NA,NA,Unknown,Unknown,Rockland Harbor,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03263,44.4525,-68.93333,NA,ME,NA,North of 44; to 50M isobath,Searsport Harbor,15,NA,NA,NA,Unknown,Unknown,Searsport Harbor,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,30.5,NA,NA,NA,NA,NA,NA,NA
@@ -3088,34 +3088,34 @@ US03310,44.153365094444446,-68.67044666111111,1,ME,NA,North of 44; to 50M isobat
 US03311,44.15325435,-68.6692803888889,1,ME,NA,North of 44; to 50M isobath,Stonington Harbor,15,NA,NA,30-35.7,Depth,Core,Stonington Harbor,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03312,44.15325435,-68.6692803888889,1,ME,NA,North of 44; to 50M isobath,Stonington Harbor,15,NA,NA,0.0-32.0,Depth,Core,Stonington Harbor,NA,NA,0.041,0.023,0.0060,NA,2.63,0,8.5,NA,NA,91.5,CLAY,NA,NA,NA,NA,NA,NA
 US03313,44.15325435,-68.6692803888889,1,ME,NA,North of 44; to 50M isobath,Stonington Harbor,15,NA,NA,0.0-5.2,Surface,Core,Stonington Harbor,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03314,43.46184444,-70.36143055555554,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,0.81,0.68,0.50,NA,2.62,0,100,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
-US03315,43.45759444,-70.31443055555555,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,4.3,1.9,0.7,NA,2.66,21,77.1,NA,NA,1.9,SAND,NA,NA,NA,NA,NA,NA
-US03316,43.45160833,-70.33966944444444,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,0.61,0.48,0.38,NA,2.63,0,97.5,NA,NA,2.5,SAND,NA,NA,NA,NA,NA,NA
-US03317,43.46168333,-70.39054722222222,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,0.98,0.66,0.50,NA,2.63,0,99.5,NA,NA,0.5,SAND,NA,NA,NA,NA,NA,NA
-US03318,43.46194167,-70.38227499999999,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,1.2,0.8,0.60,NA,2.65,0,99.4,NA,NA,0.6,SAND,NA,NA,NA,NA,NA,NA
-US03319,43.46165278,-70.37483888888889,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,1.2,0.8,0.60,NA,2.65,0,99.6,NA,NA,0.4,SAND,NA,NA,NA,NA,NA,NA
-US03320,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,1.4,0.9,0.67,NA,2.614,0,99.9,NA,NA,0.1,SAND,NA,NA,NA,NA,NA,NA
-US03321,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,1.3,0.6,0.3,NA,2.619,0,98.1,NA,NA,1.9,SAND,NA,NA,NA,NA,NA,NA
-US03322,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,0.68,0.41,0.3,NA,2.66,0,99.1,NA,NA,0.9,SAND,NA,NA,NA,NA,NA,NA
-US03323,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,0.51,0.33,0.28,NA,2.65,0,99.4,NA,NA,0.6,SAND,NA,NA,NA,NA,NA,NA
-US03324,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,1.3,0.85,0.6,NA,2.61,NA,NA,NA,NA,0.2,SAND,NA,NA,NA,NA,NA,NA
-US03325,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,9.5,0.4,0.2,NA,NA,36,52.1,NA,NA,11.9,SAND,NA,NA,NA,NA,NA,NA
-US03326,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,1.8,1.1,0.77,NA,2.579,0,98.8,NA,NA,1.2,SAND,NA,NA,NA,NA,NA,NA
-US03327,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,0.55,0.41,0.32,NA,2.654,0,99.7,NA,NA,0.3,SAND,NA,NA,NA,NA,NA,NA
-US03328,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,0.9,0.68,0.49,NA,2.648,0,99.9,NA,NA,0.1,SAND,NA,NA,NA,NA,NA,NA
-US03329,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,NA,Unknown,Unknown,Saco River & Camp Ellis Harbor,NA,NA,0.8,0.8,0.7,NA,NA,0,100,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
-US03330,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,NA,Unknown,Unknown,Saco River & Camp Ellis Harbor,NA,NA,1,0.8,0.7,NA,NA,0,100,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
-US03331,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,NA,Unknown,Unknown,Saco River & Camp Ellis Harbor,NA,NA,1.6,1,0.8,NA,NA,4,96,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
-US03332,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,NA,Unknown,Unknown,Saco River & Camp Ellis Harbor,NA,NA,0.9,0.7,0.6,NA,NA,0,100,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
-US03333,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,NA,Unknown,Unknown,Saco River & Camp Ellis Harbor,NA,NA,0.58,0.4,0.3,NA,NA,0,100,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
-US03334,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,NA,Unknown,Unknown,Saco River & Camp Ellis Harbor,NA,NA,0.82,0.55,0.38,NA,NA,0,100,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
-US03335,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,0.27,0.21,0.22,NA,NA,0,99,NA,NA,1,SAND,NA,NA,NA,NA,NA,NA
-US03336,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,0-70.1,Depth,Grab,Saco River & Camp Ellis Harbor,NA,NA,0.75,0.49,0.40,NA,NA,0,100,NA,NA,0.1,SAND,NA,NA,NA,NA,NA,NA
-US03337,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,1.2,0.8,0.68,NA,NA,0,100,NA,NA,0.1,SAND,NA,NA,NA,NA,NA,NA
-US03338,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River & Camp Ellis Harbor,NA,NA,1,0.85,0.7,NA,NA,0,100,NA,NA,0.1,SAND,NA,NA,NA,NA,NA,NA
-US03339,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,0-28.96,Depth,Grab,Saco River & Camp Ellis Harbor,NA,NA,0.95,0.6,0.4,NA,NA,5,95,NA,NA,0.1,SAND,NA,NA,NA,NA,NA,NA
-US03340,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,0-48.77,Depth,Grab,Saco River & Camp Ellis Harbor,NA,NA,1,0.6,0.42,NA,NA,0,99,NA,NA,0.1,SAND,NA,NA,NA,NA,NA,NA
-US03341,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,0-25.30,Depth,Grab,Saco River & Camp Ellis Harbor,NA,NA,2.5,0.9,0.35,NA,NA,15,77,8,0,8,SAND,NA,NA,NA,NA,NA,NA
+US03314,43.46184444,-70.36143055555554,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,0.81,0.68,0.50,NA,2.62,0,100,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
+US03315,43.45759444,-70.31443055555555,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,4.3,1.9,0.7,NA,2.66,21,77.1,NA,NA,1.9,SAND,NA,NA,NA,NA,NA,NA
+US03316,43.45160833,-70.33966944444444,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,0.61,0.48,0.38,NA,2.63,0,97.5,NA,NA,2.5,SAND,NA,NA,NA,NA,NA,NA
+US03317,43.46168333,-70.39054722222222,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,0.98,0.66,0.50,NA,2.63,0,99.5,NA,NA,0.5,SAND,NA,NA,NA,NA,NA,NA
+US03318,43.46194167,-70.38227499999999,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,1.2,0.8,0.60,NA,2.65,0,99.4,NA,NA,0.6,SAND,NA,NA,NA,NA,NA,NA
+US03319,43.46165278,-70.37483888888889,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,1.2,0.8,0.60,NA,2.65,0,99.6,NA,NA,0.4,SAND,NA,NA,NA,NA,NA,NA
+US03320,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,1.4,0.9,0.67,NA,2.614,0,99.9,NA,NA,0.1,SAND,NA,NA,NA,NA,NA,NA
+US03321,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,1.3,0.6,0.3,NA,2.619,0,98.1,NA,NA,1.9,SAND,NA,NA,NA,NA,NA,NA
+US03322,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,0.68,0.41,0.3,NA,2.66,0,99.1,NA,NA,0.9,SAND,NA,NA,NA,NA,NA,NA
+US03323,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,0.51,0.33,0.28,NA,2.65,0,99.4,NA,NA,0.6,SAND,NA,NA,NA,NA,NA,NA
+US03324,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,1.3,0.85,0.6,NA,2.61,NA,NA,NA,NA,0.2,SAND,NA,NA,NA,NA,NA,NA
+US03325,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,9.5,0.4,0.2,NA,NA,36,52.1,NA,NA,11.9,SAND,NA,NA,NA,NA,NA,NA
+US03326,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,1.8,1.1,0.77,NA,2.579,0,98.8,NA,NA,1.2,SAND,NA,NA,NA,NA,NA,NA
+US03327,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,0.55,0.41,0.32,NA,2.654,0,99.7,NA,NA,0.3,SAND,NA,NA,NA,NA,NA,NA
+US03328,43.46133,-70.38067,NA,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,0.9,0.68,0.49,NA,2.648,0,99.9,NA,NA,0.1,SAND,NA,NA,NA,NA,NA,NA
+US03329,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,NA,Unknown,Unknown,Saco River,NA,NA,0.8,0.8,0.7,NA,NA,0,100,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
+US03330,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,NA,Unknown,Unknown,Saco River,NA,NA,1,0.8,0.7,NA,NA,0,100,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
+US03331,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,NA,Unknown,Unknown,Saco River,NA,NA,1.6,1,0.8,NA,NA,4,96,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
+US03332,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,NA,Unknown,Unknown,Saco River,NA,NA,0.9,0.7,0.6,NA,NA,0,100,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
+US03333,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,NA,Unknown,Unknown,Saco River,NA,NA,0.58,0.4,0.3,NA,NA,0,100,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
+US03334,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,NA,Unknown,Unknown,Saco River,NA,NA,0.82,0.55,0.38,NA,NA,0,100,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
+US03335,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,0.27,0.21,0.22,NA,NA,0,99,NA,NA,1,SAND,NA,NA,NA,NA,NA,NA
+US03336,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,0-70.1,Depth,Grab,Saco River,NA,NA,0.75,0.49,0.40,NA,NA,0,100,NA,NA,0.1,SAND,NA,NA,NA,NA,NA,NA
+US03337,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,1.2,0.8,0.68,NA,NA,0,100,NA,NA,0.1,SAND,NA,NA,NA,NA,NA,NA
+US03338,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,SURFACE,Surface,Grab,Saco River,NA,NA,1,0.85,0.7,NA,NA,0,100,NA,NA,0.1,SAND,NA,NA,NA,NA,NA,NA
+US03339,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,0-28.96,Depth,Grab,Saco River,NA,NA,0.95,0.6,0.4,NA,NA,5,95,NA,NA,0.1,SAND,NA,NA,NA,NA,NA,NA
+US03340,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,0-48.77,Depth,Grab,Saco River,NA,NA,1,0.6,0.42,NA,NA,0,99,NA,NA,0.1,SAND,NA,NA,NA,NA,NA,NA
+US03341,43.46133,-70.38067,1,ME,NA,43.5N to 44N; to 50M isobath,Saco River & Camp Ellis Harbor,14,NA,NA,0-25.30,Depth,Grab,Saco River,NA,NA,2.5,0.9,0.35,NA,NA,15,77,8,0,8,SAND,NA,NA,NA,NA,NA,NA
 US03342,43.445,-70.36,1,ME,NA,43.5N to 44N; to 50M isobath,Wood Island Harbor & Biddeford Pool,14,NA,NA,NA,Unknown,Unknown,Wood Island Harbor & Biddeford Pool,NA,NA,0.1,0.07,0.0452,NA,2.66,0,47.8,40.1,12.1,52.2,SILT,NA,NA,NA,NA,NA,NA
 US03343,43.445,-70.36,1,ME,NA,43.5N to 44N; to 50M isobath,Wood Island Harbor & Biddeford Pool,14,NA,NA,NA,Unknown,Unknown,Wood Island Harbor & Biddeford Pool,NA,NA,0.5,0.37,0.2812,NA,2.7,2.6,97.1,NA,NA,0.3,SAND,NA,NA,NA,NA,NA,NA
 US03344,43.445,-70.36,1,ME,NA,43.5N to 44N; to 50M isobath,Wood Island Harbor & Biddeford Pool,14,NA,NA,NA,Unknown,Unknown,Wood Island Harbor & Biddeford Pool,NA,NA,0.09,0.07,.0484,NA,2.68,4.1,40.5,45.5,9.8,55.3,SILT,NA,NA,NA,NA,NA,NA
@@ -3349,9 +3349,9 @@ US03571,44.71583,-67.47,NA,ME,NA,North of 44; to 50M isobath,Machias River,15,NA
 US03572,44.71583,-67.47,NA,ME,NA,North of 44; to 50M isobath,Machias River,15,NA,NA,36.58,Depth,Core,Machias River,NA,NA,NA,NA,NA,NA,2.61,NA,NA,NA,NA,NA,SILT,NA,NA,NA,NA,NA,NA
 US03573,44.71583,-67.47,NA,ME,NA,North of 44; to 50M isobath,Machias River,15,NA,NA,36.58,Depth,Core,Machias River,NA,NA,NA,NA,NA,NA,2.52,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03574,44.71583,-67.47,NA,ME,NA,North of 44; to 50M isobath,Machias River,15,NA,NA,60.96,Depth,Core,Machias River,NA,NA,NA,NA,NA,NA,2.52,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03575,43.64633,-70.249,1,ME,PORTLAND EAST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BELOW 30.48,Depth,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,0,13.9,NA,NA,86.1,SILT,NA,NA,NA,NA,NA,NA
-US03576,43.64633,-70.249,1,ME,PORTLAND EAST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BELOW 30.48,Depth,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,0,4.1,NA,NA,95.9,SILT,NA,NA,NA,NA,NA,NA
-US03577,43.64633,-70.249,1,ME,PORTLAND EAST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BELOW 30.48,Depth,Grab,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,0,10.1,NA,NA,89.9,SILT,NA,NA,NA,NA,NA,NA
+US03575,43.64633,-70.249,1,ME,PORTLAND EAST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BELOW 30.48,Depth,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,0,13.9,NA,NA,86.1,SILT,NA,NA,NA,NA,NA,NA
+US03576,43.64633,-70.249,1,ME,PORTLAND EAST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BELOW 30.48,Depth,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,0,4.1,NA,NA,95.9,SILT,NA,NA,NA,NA,NA,NA
+US03577,43.64633,-70.249,1,ME,PORTLAND EAST,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,BELOW 30.48,Depth,Grab,Fore River,NA,NA,NA,NA,NA,NA,NA,0,10.1,NA,NA,89.9,SILT,NA,NA,NA,NA,NA,NA
 US03578,44.42883,-68.99917,NA,ME,NA,North of 44; to 50M isobath,Belfast Harbor,15,NA,NA,SURFACE,Surface,Grab,Belfast Harbor,NA,NA,0.022,0.0094,0.0012,NA,2.374,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03579,44.42883,-68.99917,NA,ME,NA,North of 44; to 50M isobath,Belfast Harbor,15,NA,NA,SURFACE,Surface,Grab,Belfast Harbor,NA,NA,0.022,0.007,0.0015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03580,44.42883,-68.99917,NA,ME,NA,North of 44; to 50M isobath,Belfast Harbor,15,NA,NA,SURFACE,Surface,Grab,Belfast Harbor,NA,NA,0.028,0.0068,0.0013,NA,2.552,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
@@ -3359,16 +3359,16 @@ US03581,44.42883,-68.99917,NA,ME,NA,North of 44; to 50M isobath,Belfast Harbor,1
 US03582,44.42883,-68.99917,NA,ME,NA,North of 44; to 50M isobath,Belfast Harbor,15,NA,NA,SURFACE,Surface,Grab,Belfast Harbor,NA,NA,0.0235,0.0077,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03583,44.42883,-68.99917,NA,ME,NA,North of 44; to 50M isobath,Belfast Harbor,15,NA,NA,SURFACE,Surface,Grab,Belfast Harbor,NA,NA,NA,0.066,0.004,NA,2.664,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03584,44.42883,-68.99917,NA,ME,NA,North of 44; to 50M isobath,Belfast Harbor,15,NA,NA,SURFACE,Surface,Grab,Belfast Harbor,NA,NA,0.058,0.023,0.0034,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03585,43.642,-70.28433,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-9.1,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03586,43.642,-70.28433,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,91.44-106.68,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03587,43.642,-70.28433,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0.-9.1,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03588,43.642,-70.28433,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,91.44-106.68,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03589,43.642,-70.28433,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-9.1,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03590,43.642,-70.28433,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,106.68-121.92,Depth,Core,Portland Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
-US03591,43.90667,-69.8135,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,40.6,Depth,Grab,Kennebec River to Bath,NA,NA,NA,NA,NA,NA,NA,0,72.9,NA,NA,27.1,SAND,NA,NA,NA,NA,NA,NA
-US03592,43.90667,-69.8135,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,40.6,Depth,Grab,Kennebec River to Bath,NA,NA,NA,NA,NA,NA,NA,6,43.8,NA,NA,50.2,SILT,NA,NA,NA,NA,NA,NA
-US03593,43.90667,-69.8135,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,40.6,Depth,Grab,Kennebec River to Bath,NA,NA,NA,NA,NA,NA,NA,2,60.7,NA,NA,37.3,SAND,NA,NA,NA,NA,NA,NA
-US03594,43.90667,-69.8135,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,40.6,Depth,Grab,Kennebec River to Bath,NA,NA,NA,NA,NA,NA,NA,1,25.5,NA,NA,73.5,SILT,NA,NA,NA,NA,NA,NA
+US03585,43.642,-70.28433,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-9.1,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03586,43.642,-70.28433,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,91.44-106.68,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03587,43.642,-70.28433,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0.-9.1,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03588,43.642,-70.28433,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,91.44-106.68,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03589,43.642,-70.28433,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,0-9.1,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03590,43.642,-70.28433,NA,ME,NA,43.5N to 44N; to 50M isobath,Portland Fore River,14,NA,NA,106.68-121.92,Depth,Core,Fore River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,CLAY,NA,NA,NA,NA,NA,NA
+US03591,43.90667,-69.8135,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,40.6,Depth,Grab,Kennebec River,NA,NA,NA,NA,NA,NA,NA,0,72.9,NA,NA,27.1,SAND,NA,NA,NA,NA,NA,NA
+US03592,43.90667,-69.8135,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,40.6,Depth,Grab,Kennebec River,NA,NA,NA,NA,NA,NA,NA,6,43.8,NA,NA,50.2,SILT,NA,NA,NA,NA,NA,NA
+US03593,43.90667,-69.8135,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,40.6,Depth,Grab,Kennebec River,NA,NA,NA,NA,NA,NA,NA,2,60.7,NA,NA,37.3,SAND,NA,NA,NA,NA,NA,NA
+US03594,43.90667,-69.8135,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,40.6,Depth,Grab,Kennebec River,NA,NA,NA,NA,NA,NA,NA,1,25.5,NA,NA,73.5,SILT,NA,NA,NA,NA,NA,NA
 US03595,44.44083,-68.89167,2,ME,NA,North of 44; to 50M isobath,Sears Island Terminal,15,NA,NA,SURFACE,Surface,Grab,Sears Island Terminal,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,92,NA,NA,NA,NA,NA,NA,NA
 US03596,44.44083,-68.89167,2,ME,NA,North of 44; to 50M isobath,Sears Island Terminal,15,NA,NA,SURFACE,Surface,Grab,Sears Island Terminal,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,93,NA,NA,NA,NA,NA,NA,NA
 US03597,44.44083,-68.89167,2,ME,NA,North of 44; to 50M isobath,Sears Island Terminal,15,NA,NA,SURFACE,Surface,Grab,Sears Island Terminal,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,77,NA,NA,NA,NA,NA,NA,NA
@@ -3464,27 +3464,27 @@ US03686,42.89667,-70.82417,NA,NH,NA,CAPE ANN to 43.5N,Hampton Harbor & Tributari
 US03687,44.40417,-68.98,1,ME,NA,North of 44; to 50M isobath,Corea Harbor,15,NA,NA,NA,Unknown,Unknown,Corea Harbor,NA,NA,NA,0.019,NA,NA,NA,NA,NA,NA,NA,68.6,SILT,NA,NA,NA,NA,NA,NA
 US03688,44.40417,-68.98,1,ME,NA,North of 44; to 50M isobath,Corea Harbor,15,NA,NA,NA,Unknown,Unknown,Corea Harbor,NA,NA,NA,0.27,NA,NA,NA,NA,NA,NA,NA,29.1,SAND,NA,NA,NA,NA,NA,NA
 US03689,44.40417,-68.98,1,ME,NA,North of 44; to 50M isobath,Corea Harbor,15,NA,NA,NA,Unknown,Unknown,Corea Harbor,NA,NA,NA,0.395,NA,NA,NA,NA,NA,NA,NA,3.5,SAND,NA,NA,NA,NA,NA,NA
-US03690,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.43,0.38,0.28,NA,2.656,0,99,NA,NA,1,SAND,NA,NA,NA,NA,NA,NA
-US03691,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.53,0.43,0.38,NA,2.673,0,100,NA,NA,1,SAND,NA,NA,NA,NA,NA,NA
-US03692,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.55,0.49,0.42,NA,2.663,1,99,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
-US03693,43.733333333333334,-69.77,2,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.66,0.5,0.37,NA,2.68,0,99,NA,NA,1,SAND,NA,NA,NA,NA,NA,NA
-US03694,43.733333333333334,-69.77,2,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.86,0.65,0.51,NA,2.69,0,99,NA,NA,1,NA,NA,NA,NA,NA,NA,NA
-US03695,43.733333333333334,-69.77,2,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.82,0.56,0.35,NA,2.69,9,90,NA,1,1,SAND,NA,NA,NA,NA,NA,NA
-US03696,43.733333333333334,-69.77,2,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.24,0.2,.15,NA,2.7,0,99,NA,NA,1,SAND,NA,NA,NA,NA,NA,NA
-US03697,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.74,0.59,0.4576,NA,NA,2.2,97.1,NA,NA,0.7,SAND,NA,NA,NA,NA,NA,NA
-US03698,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.71,0.56,0.4276,NA,NA,0.6,98.6,NA,NA,0.8,SAND,NA,NA,NA,NA,NA,NA
-US03699,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.63,0.51,0.3965,NA,NA,0,99.2,NA,NA,0.8,SAND,NA,NA,NA,NA,NA,NA
-US03700,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.69,0.5,0.3565,NA,NA,3.9,95.2,NA,NA,0.9,SAND,NA,NA,NA,NA,NA,NA
-US03701,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.6,0.366,0.3424,NA,NA,0.6,98.7,NA,NA,0.8,SAND,NA,NA,NA,NA,NA,NA
-US03702,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.59,0.44,0.3251,NA,NA,0.8,98.3,NA,NA,0.9,SAND,NA,NA,NA,NA,NA,NA
-US03703,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.8,0.59,0.4360,NA,NA,0,100,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
-US03704,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.62,0.46,0.3296,NA,NA,0,100,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
-US03705,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.77,0.59,0.4477,NA,2.68,0,99.2,NA,NA,0.8,SAND,NA,NA,NA,NA,NA,NA
-US03706,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.6,0.42,0.2904,NA,NA,0,99.2,NA,NA,0.8,SAND,NA,NA,NA,NA,NA,NA
-US03707,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.69,0.46,0.3133,NA,NA,0,96.6,NA,NA,3.4,SAND,NA,NA,NA,NA,NA,NA
-US03708,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.65,0.53,0.4285,NA,2.69,0,99.8,NA,NA,0.2,SAND,NA,NA,NA,NA,NA,NA
-US03709,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.42,0.33,0.2667,NA,NA,0,99.8,NA,NA,0.2,SAND,NA,NA,NA,NA,NA,NA
-US03710,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River to Bath,NA,NA,0.45,0.33,0.2573,NA,2.69,0,99.6,NA,NA,0.4,SAND,NA,NA,NA,NA,NA,NA
+US03690,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.43,0.38,0.28,NA,2.656,0,99,NA,NA,1,SAND,NA,NA,NA,NA,NA,NA
+US03691,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.53,0.43,0.38,NA,2.673,0,100,NA,NA,1,SAND,NA,NA,NA,NA,NA,NA
+US03692,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.55,0.49,0.42,NA,2.663,1,99,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
+US03693,43.733333333333334,-69.77,2,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.66,0.5,0.37,NA,2.68,0,99,NA,NA,1,SAND,NA,NA,NA,NA,NA,NA
+US03694,43.733333333333334,-69.77,2,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.86,0.65,0.51,NA,2.69,0,99,NA,NA,1,NA,NA,NA,NA,NA,NA,NA
+US03695,43.733333333333334,-69.77,2,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.82,0.56,0.35,NA,2.69,9,90,NA,1,1,SAND,NA,NA,NA,NA,NA,NA
+US03696,43.733333333333334,-69.77,2,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.24,0.2,.15,NA,2.7,0,99,NA,NA,1,SAND,NA,NA,NA,NA,NA,NA
+US03697,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.74,0.59,0.4576,NA,NA,2.2,97.1,NA,NA,0.7,SAND,NA,NA,NA,NA,NA,NA
+US03698,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.71,0.56,0.4276,NA,NA,0.6,98.6,NA,NA,0.8,SAND,NA,NA,NA,NA,NA,NA
+US03699,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.63,0.51,0.3965,NA,NA,0,99.2,NA,NA,0.8,SAND,NA,NA,NA,NA,NA,NA
+US03700,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.69,0.5,0.3565,NA,NA,3.9,95.2,NA,NA,0.9,SAND,NA,NA,NA,NA,NA,NA
+US03701,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.6,0.366,0.3424,NA,NA,0.6,98.7,NA,NA,0.8,SAND,NA,NA,NA,NA,NA,NA
+US03702,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.59,0.44,0.3251,NA,NA,0.8,98.3,NA,NA,0.9,SAND,NA,NA,NA,NA,NA,NA
+US03703,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.8,0.59,0.4360,NA,NA,0,100,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
+US03704,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.62,0.46,0.3296,NA,NA,0,100,NA,NA,0,SAND,NA,NA,NA,NA,NA,NA
+US03705,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.77,0.59,0.4477,NA,2.68,0,99.2,NA,NA,0.8,SAND,NA,NA,NA,NA,NA,NA
+US03706,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.6,0.42,0.2904,NA,NA,0,99.2,NA,NA,0.8,SAND,NA,NA,NA,NA,NA,NA
+US03707,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.69,0.46,0.3133,NA,NA,0,96.6,NA,NA,3.4,SAND,NA,NA,NA,NA,NA,NA
+US03708,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.65,0.53,0.4285,NA,2.69,0,99.8,NA,NA,0.2,SAND,NA,NA,NA,NA,NA,NA
+US03709,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.42,0.33,0.2667,NA,NA,0,99.8,NA,NA,0.2,SAND,NA,NA,NA,NA,NA,NA
+US03710,43.733333333333334,-69.77,1,ME,NA,43.5N to 44N; to 50M isobath,Kennebec River to Bath,14,NA,NA,SURFACE,Surface,Grab,Kennebec River,NA,NA,0.45,0.33,0.2573,NA,2.69,0,99.6,NA,NA,0.4,SAND,NA,NA,NA,NA,NA,NA
 US03711,43.2360862,-70.5908778361111,1,ME,NA,CAPE ANN to 43.5N,Perkins Cove (Josias River),13,NA,NA,SURFACE,Surface,Grab,Perkins Cove (Josias River),NA,NA,17.5,1.25,0.390,NA,2.69,38,57,NA,NA,5.2,SAND,NA,NA,NA,NA,NA,NA
 US03712,43.23555467222222,-70.58993605277777,1,ME,NA,CAPE ANN to 43.5N,Perkins Cove (Josias River),13,NA,NA,30.5-35.7,Depth,Core,Perkins Cove (Josias River),NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
 US03713,43.23555467222222,-70.58993605277777,1,ME,NA,CAPE ANN to 43.5N,Perkins Cove (Josias River),13,NA,NA,0.0-61.0,Depth,Core,Perkins Cove (Josias River),NA,NA,0.199,0.17,0.140,NA,2.66,2,94,NA,NA,4.8,SAND,NA,NA,NA,NA,NA,NA
@@ -3495,14 +3495,14 @@ US03717,43.23672536666667,-70.59238325,1,ME,NA,CAPE ANN to 43.5N,Perkins Cove (J
 US03718,43.23661212777778,-70.59332057499999,1,ME,NA,CAPE ANN to 43.5N,Perkins Cove (Josias River),13,NA,NA,30.5-35.7,Depth,Core,Perkins Cove (Josias River),NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
 US03719,43.23661212777778,-70.59332057499999,1,ME,NA,CAPE ANN to 43.5N,Perkins Cove (Josias River),13,NA,NA,0.0-64,Depth,Core,Perkins Cove (Josias River),NA,NA,0.041,0.028,0.0061,NA,2.6,0,12,NA,NA,88.8,SILT,NA,NA,NA,NA,NA,NA
 US03720,43.23661212777778,-70.59332057499999,1,ME,NA,CAPE ANN to 43.5N,Perkins Cove (Josias River),13,NA,NA,0.0-5.2,Surface,Core,Perkins Cove (Josias River),NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SILT,NA,NA,NA,NA,NA,NA
-US03721,44.8,-68.77333,1,ME,NA,North of 44; to 50M isobath,Penobscot River To Bangor,15,NA,NA,SURFACE,Surface,Grab,Penobscot River To Bangor,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03722,44.8,-68.77333,1,ME,NA,North of 44; to 50M isobath,Penobscot River To Bangor,15,NA,NA,SURFACE,Surface,Grab,Penobscot River To Bangor,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-US03723,44.8,-68.77333,1,ME,NA,North of 44; to 50M isobath,Penobscot River To Bangor,15,NA,NA,SURFACE,Surface,Grab,Penobscot River To Bangor,NA,NA,0.11,0.085,0.062,NA,2.62,0,70,NA,NA,30,SAND,NA,NA,NA,NA,NA,NA
-US03724,44.8,-68.77333,1,ME,NA,North of 44; to 50M isobath,Penobscot River To Bangor,15,NA,NA,SURFACE,Surface,Grab,Penobscot River To Bangor,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAWDUST,NA,NA,NA,NA,NA,NA
-US03725,44.8,-68.77333,1,ME,NA,North of 44; to 50M isobath,Penobscot River To Bangor,15,NA,NA,SURFACE,Surface,Grab,Penobscot River To Bangor,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAWDUST,NA,NA,NA,NA,NA,NA
-US03726,44.8,-68.77333,1,ME,NA,North of 44; to 50M isobath,Penobscot River To Bangor,15,NA,NA,SURFACE,Surface,Grab,Penobscot River To Bangor,NA,NA,0.09,0.06,0.035,NA,2.43,0,37,NA,NA,63,SILT,NA,NA,NA,NA,NA,NA
-US03727,44.8,-68.77333,2,ME,NA,North of 44; to 50M isobath,Penobscot River To Bangor,15,NA,NA,30-36,Depth,Grab,Penobscot River To Bangor,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,87,NA,NA,NA,NA,NA,NA,NA
-US03728,44.8,-68.77333,2,ME,NA,North of 44; to 50M isobath,Penobscot River To Bangor,15,NA,NA,SURFACE,Surface,Grab,Penobscot River To Bangor,NA,NA,0.032,0.018,0.0050,NA,NA,0,13,NA,NA,87,SILT,NA,NA,NA,NA,NA,NA
+US03721,44.8,-68.77333,1,ME,NA,North of 44; to 50M isobath,Penobscot River To Bangor,15,NA,NA,SURFACE,Surface,Grab,Penobscot River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03722,44.8,-68.77333,1,ME,NA,North of 44; to 50M isobath,Penobscot River To Bangor,15,NA,NA,SURFACE,Surface,Grab,Penobscot River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+US03723,44.8,-68.77333,1,ME,NA,North of 44; to 50M isobath,Penobscot River To Bangor,15,NA,NA,SURFACE,Surface,Grab,Penobscot River,NA,NA,0.11,0.085,0.062,NA,2.62,0,70,NA,NA,30,SAND,NA,NA,NA,NA,NA,NA
+US03724,44.8,-68.77333,1,ME,NA,North of 44; to 50M isobath,Penobscot River To Bangor,15,NA,NA,SURFACE,Surface,Grab,Penobscot River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAWDUST,NA,NA,NA,NA,NA,NA
+US03725,44.8,-68.77333,1,ME,NA,North of 44; to 50M isobath,Penobscot River To Bangor,15,NA,NA,SURFACE,Surface,Grab,Penobscot River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAWDUST,NA,NA,NA,NA,NA,NA
+US03726,44.8,-68.77333,1,ME,NA,North of 44; to 50M isobath,Penobscot River To Bangor,15,NA,NA,SURFACE,Surface,Grab,Penobscot River,NA,NA,0.09,0.06,0.035,NA,2.43,0,37,NA,NA,63,SILT,NA,NA,NA,NA,NA,NA
+US03727,44.8,-68.77333,2,ME,NA,North of 44; to 50M isobath,Penobscot River To Bangor,15,NA,NA,30-36,Depth,Grab,Penobscot River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,87,NA,NA,NA,NA,NA,NA,NA
+US03728,44.8,-68.77333,2,ME,NA,North of 44; to 50M isobath,Penobscot River To Bangor,15,NA,NA,SURFACE,Surface,Grab,Penobscot River,NA,NA,0.032,0.018,0.0050,NA,NA,0,13,NA,NA,87,SILT,NA,NA,NA,NA,NA,NA
 US03729,43.352,-70.47533333333334,1,ME,NA,CAPE ANN to 43.5N,Kennebunk River,13,NA,NA,SURFACE,Surface,Grab,Kennebunk River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,SAND,NA,NA,NA,NA,NA,NA
 US03730,43.35203066388889,-70.47585264444444,1,ME,NA,CAPE ANN to 43.5N,Kennebunk River,13,NA,NA,22-24,Depth,Core,Kennebunk River,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 US03731,43.35203066388889,-70.47585264444444,1,ME,NA,CAPE ANN to 43.5N,Kennebunk River,13,NA,NA,0-47,Depth,Core,Kennebunk River,NA,NA,0.15,0.088,0.0260,NA,2.59,0,59,NA,NA,41,SILT,NA,NA,NA,NA,NA,NA
@@ -6789,16 +6789,16 @@ US07223,44.1495,-68.7245,32,ME,NA,North of 44; to 50M isobath,"W.OF STONINGTON,M
 US07224,44.302,-68.7805,41,ME,NA,North of 44; to 50M isobath,"PENOBSCOT BAY,MAINE",15,7/10/1964,NA,NA,Unknown,Grab,"PENOBSCOT BAY,MAINE",NA,NA,NA,NA,NA,NA,NA,0,3,41.2,55.8,97,SILTY CLAY,NA,8.54,9.21,3.4,0.24,-0.58
 US07225,44.16667,-68.99133,61,ME,NA,North of 44; to 50M isobath,"SE PENOBSCOT BAY,ME.",15,7/10/1964,NA,NA,Unknown,Grab,"SE PENOBSCOT BAY,ME.",NA,NA,NA,NA,NA,NA,NA,0,1,42.3,56.7,99,SILTY CLAY,NA,8.72,9.47,3.62,0.26,-0.62
 US07226,44.40133,-68.94467,18,ME,NA,North of 44; to 50M isobath,"N.PENOBSCOT BAY,ME.",15,7/10/1964,NA,NA,Unknown,Grab,"N.PENOBSCOT BAY,ME.",NA,NA,NA,NA,NA,NA,NA,0,0.4,38.5,61.6,100.1,SILTY CLAY,NA,8.91,9.45,2.88,0.22,-0.68
-US07227,44.47783,-68.79533,18,ME,NA,North of 44; to 50M isobath,MOUTH PENOBSCOT RIVER,15,7/11/1964,NA,NA,Unknown,Grab,MOUTH PENOBSCOT RIVER,NA,NA,NA,NA,NA,NA,NA,0,21.5,49.1,29.4,78.5,SAN SIL CLY,NA,5.19,6.86,3.71,0.57,0.31
-US07228,44.6,-68.82167,9,ME,NA,North of 44; to 50M isobath,PENOBSCOT RIVER,15,7/11/1964,NA,NA,Unknown,Grab,PENOBSCOT RIVER,NA,NA,NA,NA,NA,NA,NA,14.2,59.1,22.4,4.4,26.8,NA,NA,2.86,2.29,3.34,-0.17,0.72
-US07229,44.64117,-68.83583,10,ME,NA,North of 44; to 50M isobath,PENOBSCOT RIVER,15,7/11/1964,NA,NA,Unknown,Grab,PENOBSCOT RIVER,NA,NA,NA,NA,NA,NA,NA,0,51,24.2,24.8,49,SAN SIL CLY,NA,3.74,5.41,4.64,0.51,-0.03
+US07227,44.47783,-68.79533,18,ME,NA,North of 44; to 50M isobath,MOUTH PENOBSCOT RIVER,15,7/11/1964,NA,NA,Unknown,Grab,Penobscot River,NA,NA,NA,NA,NA,NA,NA,0,21.5,49.1,29.4,78.5,SAN SIL CLY,NA,5.19,6.86,3.71,0.57,0.31
+US07228,44.6,-68.82167,9,ME,NA,North of 44; to 50M isobath,PENOBSCOT RIVER,15,7/11/1964,NA,NA,Unknown,Grab,Penobscot River,NA,NA,NA,NA,NA,NA,NA,14.2,59.1,22.4,4.4,26.8,NA,NA,2.86,2.29,3.34,-0.17,0.72
+US07229,44.64117,-68.83583,10,ME,NA,North of 44; to 50M isobath,PENOBSCOT RIVER,15,7/11/1964,NA,NA,Unknown,Grab,Penobscot River,NA,NA,NA,NA,NA,NA,NA,0,51,24.2,24.8,49,SAN SIL CLY,NA,3.74,5.41,4.64,0.51,-0.03
 US07230,44.27417,-68.6345,16,ME,NA,North of 44; to 50M isobath,"OFF BENJAMIN RIVER,ME",15,7/12/1964,NA,NA,Unknown,Grab,"OFF BENJAMIN RIVER,ME",NA,NA,NA,NA,NA,NA,NA,0,8,41.8,50.2,92,SILTY CLAY,NA,8.02,8.48,3.45,0.17,-0.72
 US07231,43.96667,-69.175,8,ME,NA,North of 44; to 50M isobath,"OFF TENANTS HARBOR,ME",15,7/13/1964,NA,NA,Unknown,Grab,"OFF TENANTS HARBOR,ME",NA,NA,NA,NA,NA,NA,NA,24.8,51.1,13,11,24,NA,NA,2.15,2.22,4.7,0.32,0.53
 US07232,43.945,-69.418,13,ME,NA,North of 44; to 50M isobath,"MUSCONGUS BAY,MAINE",15,7/13/1964,NA,NA,Unknown,Grab,"MUSCONGUS BAY,MAINE",NA,NA,NA,NA,NA,NA,NA,0,6,37.5,56.5,94,SILTY CLAY,NA,8.62,8.94,3.31,0.08,-0.71
 US07233,43.80667,-69.69833,55,ME,NA,43.5N to 44N; to 50M isobath,MOUTH SHEEPSCOT RIVER,14,7/13/1964,NA,NA,Unknown,Grab,MOUTH SHEEPSCOT RIVER,NA,NA,NA,NA,NA,NA,NA,0,17,36.9,46.1,83,SILTY CLAY,NA,7.52,8.2,4,0.26,-0.81
-US07234,43.94333,-69.808,20,ME,NA,43.5N to 44N; to 50M isobath,KENNEBEC RIVER,14,7/14/1964,NA,NA,Unknown,Grab,KENNEBEC RIVER,NA,NA,NA,NA,NA,NA,NA,0,100,0,0,0,SAND,NA,1.05,1.14,0.81,0.25,0.09
-US07235,44.0195,-69.82033,7,ME,NA,43.5N to 44N; to 50M isobath,"KENNEBEC RIVER,ME.",14,7/14/1964,NA,NA,Unknown,Grab,"KENNEBEC RIVER,ME.",NA,NA,NA,NA,NA,NA,NA,0,100,0,0,0,SAND,NA,0.96,1.03,0.64,0.22,-0.21
-US07236,43.75967,-69.78583,13,ME,NA,43.5N to 44N; to 50M isobath,"KENNEBEC RIVER,ME.",14,7/15/1964,NA,NA,Unknown,Grab,"KENNEBEC RIVER,ME.",NA,NA,NA,NA,NA,NA,NA,0,100,0,0,0,SAND,NA,1.52,1.56,0.39,0.5,2.63
+US07234,43.94333,-69.808,20,ME,NA,43.5N to 44N; to 50M isobath,KENNEBEC RIVER,14,7/14/1964,NA,NA,Unknown,Grab,Kennebec River,NA,NA,NA,NA,NA,NA,NA,0,100,0,0,0,SAND,NA,1.05,1.14,0.81,0.25,0.09
+US07235,44.0195,-69.82033,7,ME,NA,43.5N to 44N; to 50M isobath,"KENNEBEC RIVER,ME.",14,7/14/1964,NA,NA,Unknown,Grab,Kennebec River,NA,NA,NA,NA,NA,NA,NA,0,100,0,0,0,SAND,NA,0.96,1.03,0.64,0.22,-0.21
+US07236,43.75967,-69.78583,13,ME,NA,43.5N to 44N; to 50M isobath,"KENNEBEC RIVER,ME.",14,7/15/1964,NA,NA,Unknown,Grab,Kennebec River,NA,NA,NA,NA,NA,NA,NA,0,100,0,0,0,SAND,NA,1.52,1.56,0.39,0.5,2.63
 US07237,43.76,-69.87383,15,ME,NA,43.5N to 44N; to 50M isobath,"CASCO BAY,MAINE",14,7/15/1964,NA,NA,Unknown,Grab,"CASCO BAY,MAINE",NA,NA,NA,NA,NA,NA,NA,0,23.4,58.3,18.3,76.6,SANDY SILT,NA,4.64,5.64,2.79,0.69,1.2
 US07238,43.7845,-70.02717,18,ME,NA,43.5N to 44N; to 50M isobath,"CASCO BAY,MAINE",14,7/15/1964,NA,NA,Unknown,Grab,"CASCO BAY,MAINE",NA,NA,NA,NA,NA,NA,NA,0,9.5,49.4,41.1,90.5,CLAYEY SILT,NA,7,7.83,3.65,0.37,-0.35
 US07239,43.70533,-70.17617,18,ME,NA,43.5N to 44N; to 50M isobath,"W.CASCO BAY,MAINE",14,7/15/1964,NA,NA,Unknown,Grab,"W.CASCO BAY,MAINE",NA,NA,NA,NA,NA,NA,NA,0,19.5,45.3,35.2,80.5,CLAYEY SILT,NA,6.15,7.18,3.59,0.39,-0.39

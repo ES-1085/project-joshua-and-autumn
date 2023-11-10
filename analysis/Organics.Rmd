@@ -15,6 +15,8 @@ library(leaflet)
 Organics <- read.csv(paste0("/cloud/project/data/datasets_loc/Organics_loc.csv"), header = T)
 
 Organics <- Organics_loc
+
+
 ```
 
 ```{r glimpse-data, warning=FALSE}
@@ -47,14 +49,12 @@ Organics_station = select(Organics_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x
                            "Harbor Approaches" = "HARBOR APPROACHES",
                            "Massachusetts Bays" = "MASS BAYS"))
 
-
-
 glimpse(Organics_station)
 
 ```
 
 ``` {r summary-stats-organics}
-Summary_Organics <- Organics_station %>%
+Sum_Organics <- Organics_station %>%
   group_by(site) %>%
   drop_na(amount_detected) %>%
   summarise(mean_organic = mean(amount_detected),
@@ -62,12 +62,12 @@ Summary_Organics <- Organics_station %>%
     n_organic = n(),
     SE_organic = sd(amount_detected) / sqrt(n()))
 
-Summary_Organics
+Sum_Organics
 
 ```
 
 ``` {r pah-gen-loc}
-Summary_Organics %>%
+Sum_Organics %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_organic)), y = mean_organic, fill = site))+
   geom_col(col = "black")+
   geom_errorbar(aes(ymin = mean_organic - SE_organic, ymax = mean_organic + SE_organic), width = 0.2)+
@@ -82,7 +82,7 @@ Summary_Organics %>%
 ```
 
 ```{r pah-boston-harbor1}
-Summary_Organics %>%
+Sum_Organics %>%
   filter(site %in% c("Boston Inner Harbor", "Central Boston Harbor", "Southeast Boston Harbor", "Northwest Boston Harbor")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_organic)), y = mean_organic, fill = site))+
   geom_col(col = "black")+
@@ -168,7 +168,7 @@ As shown in the plot, there is a high concentration of Clostridium perfringens (
 Organics_station %>%
   filter(site %in% "Central Boston Harbor") %>%
   ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
-  geom_col()+
+  geom_col() +
   coord_flip()+
   theme(legend.position = "none")+
   labs(title = "Organic Concentrations in Boston Central Harbor Sediments",
@@ -180,7 +180,7 @@ Organics_station %>%
 ## Southeast Boston Harbor Concentrations
 This plot visualizes the specific organics present in Southeast Boston Harbor. 
 
-As shown in the plot, Clostridium perfringens (in units of spores/g) has the highest concentration in the harbor, followed by Oil and Grease in sediments (in units of moles/g), and Petroleum Hydrocarbons (in units of percent dry weight). 
+As shown in the plot, Clostridium perfringens (89,223 spores/g) has the highest concentration in the harbor, followed by Oil and Grease in sediments (74,285 moles/g), and Petroleum Hydrocarbons (in units of percent dry weight). 
 ``` {r type_of_organic-in-boston-southeast-harbor, warning = FALSE}
 Organics_station %>%
   group_by(site, organic_detected) %>%
