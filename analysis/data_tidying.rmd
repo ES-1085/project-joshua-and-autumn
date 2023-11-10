@@ -16,50 +16,29 @@ library(naniar)
 ##Load full datasets
 ```{r load-data, warning=FALSE}
 stations_full = read_xls("/cloud/project/data/original_datasets/STAT2002.xls", sheet = 2, skip = 3)
-sediments_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
+#sediments_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
 PCBs_full = read_excel("/cloud/project/data/original_datasets/PCBP2002.xls", sheet = 2, skip = 3)
 PAHs_full = read_excel("/cloud/project/data/original_datasets/PAHS2002.xls", sheet = 2, skip = 3)
 organics_full = read_excel("/cloud/project/data/original_datasets/GENO2002.xls", sheet = 2, skip = 3)
 #inorganics_full = read_excel("/cloud/project/data/original_datasets/INOR2002.xls", sheet = 2, skip = 3)
-textures_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
+#textures_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
 ```
-##Load full datasets for desktop r (autumn's computer) (will delete later)
-```{r load-data-desktop, warning=FALSE}
-#stations_full = read_xls("C:/Users/pauly/Documents/project-joshua-and-autumn/data/original_datasets/STAT2002.xls", sheet = 2, skip = 3)
-#sediments_full = read_excel("C:/Users/pauly/Documents/project-joshua-and-autumn/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
-#PCBs_full = read_excel("C:/Users/pauly/Documents/project-joshua-and-autumn/data/original_datasets/PCBP2002.xls", sheet = 2, skip = 3)
-#PAHs_full = read_excel("C:/Users/pauly/Documents/project-joshua-and-autumn/data/original_datasets/PAHS2002.xls", sheet = 2, skip = 3)
-#organics_full = read_excel("C:/Users/pauly/Documents/project-joshua-and-autumn/data/original_datasets/GENO2002.xls", sheet = 2, skip = 3)
-#inorganics_full = read_excel("C:/Users/pauly/Documents/project-joshua-and-autumn/data/original_datasets/INOR2002.xls", sheet = 2, skip = 3)
-#textures_full = read_excel("C:/Users/pauly/Documents/project-joshua-and-autumn/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
-```
-Since these are all very large data files, we will select useful variables and variables we are interested in looking at to pare them down to a more manageable size.  Note that the `inorganics_full` dataframe is commented out because we are unlikely to use it in our final analysis.
+
+Since these are all very large data files, we will select useful variables and variables we are interested in looking at to pare them down to a more manageable size.  Note that the `inorganics_full` data frame is commented out because we are unlikely to use it in our final analysis.
 
 #Selecting variables 
 ###PCBs
 ```{r select-var-PCBs}
 PCBs2002 = select(PCBs_full, c(UNIQUE_ID, PCB_52_NGG, PCB101_NGG, PCB118_NGG, PCB128_NGG, PCB138_NGG, PCB153_NGG, PCB180_NGG, PCB206_NGG, PCB209_NGG, DDT_4_4_C, DDT_2_4_C, DDE_4_4_C, DDD_4_4_C, ENDRIN_C, ENDR_ALD_C, ALDRIN_C, DIELDRN_C, CLRDNE_T_C, MIREX_C, METHOXYCLC, BHC_A_C, BHC_B_C, BHC_D_C, LINDANE_C))
 ```
-Creates PCBs2002 dataframe.  These are variables of interest, principally contaminant concentration with assigned unique IDs that can be associated to unique IDs in the other dataframes.
+
+Creates PCBs2002 data frame.  These are variables of interest, principally contaminant concentration with assigned unique IDs that can be associated to unique IDs in the other data frames.
 
 ###Stations
 ```{r select-var-STATs}
 Station2002 = select(stations_full, c(UNIQUE_ID, LATITUDE, LONGITUDE, SOUNDING_M, STATE_NAME, QUAD_NAME, GEN_LOC_NM, SPECFC_LOC, AREA_CODE, SAMP_DATE1, TO_SMP_DT2, DPTH_N_COR, DPTH_CODE, COR_GRB_CD))
 ```
-Creates Stations2002 dataframe.  These are unique IDs, coordinates (Lat/Lon in decimal degrees), depth sounding (meters), state name, USGS quad name, general and specific location names, area code, sampling date, resampling date, and information on sediment collection
-
-###Textures
-```{r select-var-TXTR}
-Texture2002 = select(textures_full, c(UNIQUE_ID, SAMPLE_WT, SAMP_UNITS, Q1_MM, Q2_MED_MM, Q3_MM, GRN_SI_PCT, SPECIFIC_G, GRAVEL_PCT, SAND_PCT, SILT_PCT, CLAY_PCT, FINES_SIL, SED_CLASS, CLASSIF_S, MEDIAN, MEAN, STDEV_SORT, SKEWNESS, KURTOSIS))
-```
-Creates Textures2002 dataframe.  These are sediment characters.  We are mostly interested in comparing grain size, percent composition of sediment (sand, gravel, clay, silt).  There is also general information about samples, and some statistics to describe the distribution of sediment characters.
-
-###Inorganics
-```{r select-var-INORG}
-#Not going to use this for the time being... will determine if we need these variables in the future. 
-#Inorganics2002 = select(inorganics_full, c(UNIQUE_ID, REPL_NO, TOT_REPL, AG_UG_G, AL_UG_G, AS_UG_G, AS_UG_G, AU_UG_G, B_UG_G, BA_UG_G, BE_UG_G, CA_UG_G, CD_UG_G, CL_UG_G, CO_UG_G, CR_UG_G, CU_UG_G, FE_UG_G, HG_UG_G, K_UG_G, LI_UG_G, MG_UG_G, MN_UG_G, MO_UG_G, NA_UG_G, NI_UG_G, P_UG_G, PB_UG_G, RA_UG_G, SB_UG_G, SE_UG_G, SI_UG_G, SN_UG_G, TI_UG_G, TL_UG_G, TH_UG_G, U_UG_G, V_UG_G, ZN_UG_G, C_INOR_PCT, C_ORG_PCT, C_TOT_PCT, VOLAT_PCT, HYDROG_PCT, NITROG_PCT, NH3_MOL_KG, NO3_MOL_KG, O2_MOL_KG, SO2_MOL_KG, SO3_MOL_KG, SO4_MOL_KG, AVS_MOL_G, COD_UG_G, CEC_MOL_KG, SURF_M2_G, TOTSAMP_G, TSOL_WTPCT, WATER_WPCT, R_MOHMS, SP_C_MOHMS, SALIN_PPT, ALK_MEQ_KG, PH, TOTR_MR_HR, ALPHA_PC_G, BETA_PC_G, BULK_RAD_Q))
-```
-Creates Inorganics2002 dataframe with selected variables.  This code chunk is commented out as we are unlikely to use the inorganics dataframe in our analysis. 
+Creates Stations2002 data frame.  These are unique IDs, coordinates (Lat/Lon in decimal degrees), depth sounding (meters), state name, USGS quad name, general and specific location names, area code, sampling date, resampling date, and information on sediment collection
 
 ###Organics
 ```{r select-var-ORG}
@@ -73,12 +52,10 @@ PAHs2002 = select(PAHs_full, c("UNIQUE ID", BENZNE_C, "2BZTPN_C", "2BZTPN_T_C", 
 
 colnames(PAHs2002)[1] ="UNIQUE_ID"
 ```
-Creates PAHs2002 dataframe with selected variables of interest.  These are principally contaminat concentrations with unique IDs associated with other data frames.
+Creates PAHs2002 dataframe with selected variables of interest.  These are principally contaminate concentrations with unique IDs associated with other data frames.
 
-# Recode/combine categories
+## Recode/combine categories
 ### Stations
-
-
 ```{r combine-loc-categories}
 Station2002 <- Station2002 %>%
   mutate(site = fct_recode(SPECFC_LOC,
@@ -123,11 +100,32 @@ Station2002 <- Station2002 %>%
  [65] "Chelsea River G"                                                                                                    
  [66] "Chelsea River H"
 
-#Joining Dataframes
-###Associates location information with texture and contaminant data by sample unique ID
-```{r join-data-frames}
-  Texture_loc <- full_join(Station2002, Texture2002, by = "UNIQUE_ID")
+```{r}
+Station2002 <- Station2002 %>%
+mutate(GEN_LOC_NM = fct_recode(GEN_LOC_NM,
+                           "Rockland to north" = "North of 44; to 50M isobath",
+                           "Cape Elizabeth to Rockland" = "43.5N to 44N; to 50M isobath", 
+                           "Cape Ann to Cape Elizabeth" = "CAPE ANN to 43.5N", 
+                           "Boston Inner Harbor" = "BOSTON INNER HARBOR", 
+                           "Cape Code Bay" = "CAPE COD BAY",
+                           "Gulf of Maine (>50m Isobath)" = "GULF OF MAINE, >50M ISOBATH",
+                           "Northwest Boston Harbor" = "NORTHWEST BOSTON HARBOR",
+                           "Southeast Boston Harbor" = "SOUTHEAST BOSTON HARBOR",
+                           "Gulf of Maine (<=50m Isobath)" = "GULF OF MAINE, <=50M",
+                           "Central Boston Harbor" = "CENTRAL BOSTON HARBOR",
+                           "Inland/Rivers" = "INLAND / RIVERS",
+                           "Harbor Approaches" = "HARBOR APPROACHES",
+                           "Massachusetts Bays" = "MASS BAYS"))
+```
 
+```{r}
+Station2002 %>%
+  select(GEN_LOC_NM, site)
+```
+
+## Joining Dataframes
+###Associates location information and contaminant data by sample unique ID. 
+```{r join-data-frames}
   PCBs_loc <- full_join(Station2002, PCBs2002, by = "UNIQUE_ID")
   
   PAHs_loc <- full_join(Station2002, PAHs2002, by = "UNIQUE_ID")
@@ -135,66 +133,19 @@ Station2002 <- Station2002 %>%
   Organics_loc <- full_join(Station2002, Organics2002, by = "UNIQUE_ID")
 ```
 
-###Associates location and sediment character information with contaminant data by sample unique ID
-```{r join-data-frames-with-textures}
-
-  #PCBs_loc_with_texture <- full_join(Texture_loc, PCBs2002, by = "UNIQUE_ID")
-  
-  #PAHs_loc_with_texture <- full_join(Texture_loc, PAHs2002, by = "UNIQUE_ID")
-  
-  #Organics_loc_with_texture <- full_join(Texture_loc, Organics2002, by = "UNIQUE_ID")
-
-#This will allow us to see if there are specific textures/sediments that attract certain PCBs, PAHs, and Organics.
-
-```
-
 ###Recode special character value in PAHs$CHRYSENE_C as numeric.
 ``` {r converting-PAHs-as.numeric}
-
   PAHs_loc <- PAHs_loc %>%
     mutate(CHRYSENE_C = recode(CHRYSENE_C, ">" = "NA")) 
 
   PAHs_loc %>%
     transform(PAHs_loc, CHRYSENE_C = as.numeric(CHRYSENE_C))
-
 ```
-
-# Pivoting data
-### From wide to long
-```{r pivot-pcbs-longer}
- 
-#PCBs
-#  pcbs_pivot_longer <- PCBs_loc %>%
-#  pivot_longer(cols = `PCB_52_NGG`:`LINDANE_C`, 
-#               names_to = "pcb_detected", 
-#               values_to = "amount_detected")
-#PAHs
-#pahs_pivot_longer <- PAHs_loc %>%
-#  mutate(CHRYSENE_C = as.numeric(CHRYSENE_C)) %>%
-#  pivot_longer(cols = `BENZNE_C`:`B_GHI_PYLC`, 
-#               names_to = "pah_detected", 
-#               values_to = "amount_detected")
-#  pahs_pivot_longer <- pahs_pivot_longer %>%
-#    mutate(amount_detected_with_na = ifelse(is.na(amount_detected), 0, amount_detected))
- 
-#Organics
-#  organics_pivot_longer <- Organics_loc %>%
-#  pivot_longer(cols = `REPNO_ORG`:`TTBT_C`, 
-#               names_to = "organic_detected", 
-#               values_to = "amount_detected")
-
-
-  
-#View(pcbs_pivot_longer)
-   
-```
-
-This code chunk is commented out as it is too taxing on RAM currently.
 
 # Visualizing Missing Data
 Visualizing missing data can help us determine which specific contaminants were actually detected, and should then be analyzed, as there are a lot of missing values within each dataset.
 
-###PCBs
+###Missing PCB Data
 ``` {r missing-data-PCBs}
 #Visualizing the percentage of missing data
 #visdat::vis_miss(PCBs_loc)
@@ -205,6 +156,7 @@ Visualizing missing data can help us determine which specific contaminants were 
 
 #we should highlight the locations where there are PCBs detected
 ```
+
 ```{r}
  visdat::vis_dat(PCBs_loc)
 ```
@@ -214,11 +166,11 @@ naniar::gg_miss_var(PCBs_loc)
 ```
 
 ```{r}
-naniar::miss_var_summary(PCBs)
+naniar::miss_var_summary(PCBs_loc)
 ```
 
 
-###PAHs
+###Missing PAH Data
 ``` {r missing-data-PAHs}
 #Visualizing the percentage of missing data
 #visdat::vis_miss(PAHs_loc)
@@ -230,7 +182,7 @@ naniar::miss_var_summary(PCBs)
 #we should highlight the locations where there are PAHs detected
 ```
 
-###Organics
+###Missing Organics Data
 ``` {r missing-data-Organics}
 #Visualizing the percentage of missing data
 # visdat::vis_miss(Organics_loc)
@@ -242,67 +194,20 @@ naniar::miss_var_summary(PCBs)
 #This shows us in which station specific organics are found
 ```
 
-###Textures
-``` {r missing-data-Textures}
- #visdat::vis_miss(Texture_loc)
-
-#visualizing correlations in data as a heatmap - only numeric values...
-#dplyr::select(Texture_loc, where(is.numeric)) %>%
-#visdat::vis_cor(Texture_loc, "pearson", "pairwise.complete.obs", facet)
-
-#This shows us in which station specific textures are found
-```
-
 # Loading full datasets as CSVs
 ``` {r saving-full-data-into-csv-files}
-write_csv(organics_full, "/cloud/project/data/datasets_csv/organics_full.csv")
-write_csv(PAHs_full, "/cloud/project/data/datasets_csv/PAHs_full.csv")
-write_csv(PCBs_full, "/cloud/project/data/datasets_csv/PCBs_full.csv")
-write_csv(sediments_full, "/cloud/project/data/datasets_csv/sediments_full.csv")
-write_csv(stations_full, "/cloud/project/data/datasets_csv/stations_full.csv")
-write_csv(textures_full, "/cloud/project/data/datasets_csv/textures_full.csv")
-#write_csv(inorganics_full, "/cloud/project/data/datasets_csv/inorganics_full.csv")
+#write_csv(organics_full, "/cloud/project/data/datasets_csv/organics_full.csv")
+#write_csv(PAHs_full, "/cloud/project/data/datasets_csv/PAHs_full.csv")
+#write_csv(PCBs_full, "/cloud/project/data/datasets_csv/PCBs_full.csv")
+#write_csv(stations_full, "/cloud/project/data/datasets_csv/stations_full.csv")
 ```
+# JH -- do we need to write full .csv files?  These are the same as the excel files, just diff format
 
-# Loading loc datasets as CSVs
+# Write loc datasets as CSVs
 ``` {r saving-data_loc-into-csv-files}
-write_csv(Texture_loc, "/cloud/project/data/datasets_csv/Texture_loc.csv")
 write_csv(Organics_loc, "/cloud/project/data/datasets_csv/Organics_loc.csv")
-#write_csv(Inorganics_loc, "/cloud/project/data/datasets_csv/Inorganics_loc.csv")
 write_csv(PAHs_loc, "/cloud/project/data/datasets_csv/PAHs_loc.csv")
 write_csv(PCBs_loc, "/cloud/project/data/datasets_csv/PCBs_loc.csv")
 ```
 
-```{r}
-GOM_states <- st_read("/cloud/project/extra/GOM_DD.shp")
-```
-
-```{r load-bathy-shp}
-Bathy <- st_read("/cloud/project/extra/BATHYMGM_ARC.shp")
-```
-
-```{r}
-st_crs(Bathy)
-Bathy <- st_transform(Bathy, "+init=epsg:4269")
-```
-
-```{r}
-Bathy_low_res <- Bathy%>%
- filter(CONTOUR %in% c("-100","-500","-1000","-2000","-3000","-4000"))
-ggplot(Bathy_low_res) +
-  geom_sf(aes())
-
-Bathy_hi_res <- Bathy%>%
- filter(CONTOUR %in% c("-40","-80","-120","160","200","240","280"))
-ggplot(Bathy_hi_res) +
-  geom_sf(aes())
-```
-
-```{r}
-Texture_loc %>%
-  group_by(LATITUDE, LONGITUDE) %>%
-  count(LATITUDE, LONGITUDE) %>%
-  ggplot(aes(x = LONGITUDE, y = LATITUDE, size = n, color = n))+
-  geom_point()
-  
-```
+# JH -- we do not need to load .shp files here; we still have to load them separately whenever we use them.

@@ -4,7 +4,7 @@ author: "Joshua Harkness and Autumn Pauly"
 date: "2023-10-28"
 output: github_document
 ---
-#Loading packages
+### Loading packages
 ```{r load-packages}
 library(tidyverse)
 library(sf)
@@ -14,21 +14,23 @@ library(RColorBrewer)
 library(dplyr)
 ```
 
-#Loading PCB and Organics Datasets
+### Loading PCB and Organics Datasets
 ```{r load-data}
 PCBs <- read.csv(paste0("/cloud/project/data/datasets_csv/PCBs_loc.csv"), header = T)
 Organics <- read.csv(paste0("/cloud/project/data/datasets_csv/Organics_loc.csv"), header = T)
 ```
+If we aren't going to be using the PCB dataset then we should remove this. 
 
-#Reviewing PCB and Organics Datasets
+JH -- we do use the PCB dataset in this .rmd.
+
 ```{r glimpse-data, warning=FALSE}
 glimpse(PCBs)
 
 glimpse(Organics)
 ```
 
-# Pivot Organics longer
-Already joined stations with organics (loaded "Organics_loc.csv" above), so just need to pivot.
+### Pivot Organics longer
+JH -- the organics dataset has already been joined with the stations dataset (loaded "Organics_loc.csv" above), so the data now needs to be pivoted into R format.
 
 ```{r joining-station-info, warning=FALSE}
 Organics_long <- Organics %>%
@@ -36,44 +38,31 @@ Organics_long <- Organics %>%
                names_to = "organic_detected", 
                values_to = "amount_detected")
 
-Organics_long = select(Organics_long, c(UNIQUE_ID, LATITUDE, LONGITUDE, SOUNDING_M, STATE_NAME, QUAD_NAME, GEN_LOC_NM, SPECFC_LOC, AREA_CODE, SAMP_DATE1, TO_SMP_DT2, DPTH_N_COR, DPTH_CODE, COR_GRB_CD, organic_detected, amount_detected)) %>%
-  mutate(site = fct_recode(GEN_LOC_NM,
-                           "Rockland to north" = "North of 44; to 50M isobath",
-                           "Cape Elizabeth to Rockland" = "43.5N to 44N; to 50M isobath", 
-                           "Cape Ann to Cape Elizabeth" = "CAPE ANN to 43.5N", 
-                           "Boston Inner Harbor" = "BOSTON INNER HARBOR", 
-                           "Cape Code Bay" = "CAPE COD BAY",
-                           "Gulf of Maine (>50m Isobath)" = "GULF OF MAINE, >50M ISOBATH",
-                           "Northwest Boston Harbor" = "NORTHWEST BOSTON HARBOR",
-                           "Southeast Boston Harbor" = "SOUTHEAST BOSTON HARBOR",
-                           "Gulf of Maine (<=50m Isobath)" = "GULF OF MAINE, <=50M",
-                           "Central Boston Harbor" = "CENTRAL BOSTON HARBOR",
-                           "Inland/Rivers" = "INLAND / RIVERS",
-                           "Harbor Approaches" = "HARBOR APPROACHES",
-                           "Massachusetts Bays" = "MASS BAYS"))
+Organics_long = select(Organics_long, c(UNIQUE_ID, LATITUDE, LONGITUDE, SOUNDING_M, STATE_NAME, QUAD_NAME, GEN_LOC_NM, SPECFC_LOC, AREA_CODE, SAMP_DATE1, TO_SMP_DT2, DPTH_N_COR, DPTH_CODE, COR_GRB_CD, organic_detected, amount_detected))
 
 glimpse(Organics_long)
-
 ```
 
 
 
 ## Visualizations
 ### Descriptive Visualizations
-Visualizing the number of observations that were collected for each general location. 
+First, we will be visualizing the number of observations that were collected for each general location. 
+
 ```{r n-obs-gen-loc}
 Organics %>%
   ggplot(aes(x = fct_infreq(GEN_LOC_NM), fill = fct_infreq(GEN_LOC_NM)))+
   geom_bar(stat = "count", color = "black")+
   coord_flip()+
-  theme_bw()+
+  theme_minimal()+
+  scale_fill_viridis_d()+
   theme(legend.position = "none")+
   labs(title = "Number of observations by general location",
-       x = "General location",
+       subtitle = "for PCB contaminents",
+       x = "General Location",
        y = "Count (n Observations)")
 ```
-
-This bar plot uses number of observations on its y axis, thus reflecting sampling intensity by general location.  The greatest number of observations are in the Gulf of Maine below the 50m isobath (partly this is a product of area extent as well as sampling intensity); Massachusetts Bays, Boston Harbor sites, and the MA/NH/ME coast are all generally heavily sampled. 
+This bar plot uses number of observations on its y axis, thus reflecting sampling intensity by general location.  The greatest number of observations are in the Gulf of Maine below the 50m isobath (partly this is a product of area extent as well as sampling intensity); Massachusetts Bays, Boston Harbor sites, and the MA/NH/ME coast are all generally heavily sampled.
 
 ```{r}
 ggplot(Organics, aes(x = PCB_T_UGG))+
@@ -95,6 +84,8 @@ Summary_Organics <- Organics %>%
 Summary_Organics
 ```
 The graph below is plotting the mean PCB concentration (ng/g) found at each general location with error bards accounting for one standard error. 
+
+As we can see, [include interpretation below].
 ```{r pcb-gen-loc}
 Summary_Organics %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -1,x) ), fill = GEN_LOC_NM))+
@@ -104,13 +95,14 @@ Summary_Organics %>%
   scale_fill_viridis_d()+
   theme_bw()+
   theme(legend.position = "none")+
-  labs(title = "PCB Concentrations in Gulf of Maine Sediments",
+  labs(title = "Mean PCB Concentrations in Gulf of Maine Sediments",
        x = "General location",
        y = "Mean total PCB concentration ug/g",
        caption = "Error bars = 1 standard error")
 ```
  
 This graph shows the PCB concentrations in Boston Harbor, comparing all locations. 
+
 ```{r pcb-boston-harbor1}
 Summary_Organics %>%
   filter(GEN_LOC_NM %in% c("BOSTON INNER HARBOR", "CENTRAL BOSTON HARBOR", "SOUTHEAST BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
@@ -126,7 +118,9 @@ Summary_Organics %>%
        y = "Mean total PCB concentration ug/g",
        caption = "Error bars = 1 standard error")
 ```
-This graph shows the PCB concentrations in Boston Harbor, comparing Central Boston Harbor and Northwest Boston Harbor. 
+
+This graph shows the PCB concentrations in Boston Harbor, comparing Central Boston Harbor and Northwest Boston Harbor.
+
 ```{r pcb-boston-harbor2}
 Summary_Organics %>%
   filter(GEN_LOC_NM %in% c("CENTRAL BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
@@ -144,10 +138,10 @@ Summary_Organics %>%
 ```
 
 
-
 ### Specific Locations
-
 #### Rivers
+As stated in our project proposal, we were interested in visualizing contaminents in Maine Rivers as well as harbors and bays.
+
 Below we are identifying specific Maine rivers. 
 
 ```{r identify-ME-rivers}
