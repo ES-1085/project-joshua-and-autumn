@@ -23,6 +23,7 @@ organics_full = read_excel("/cloud/project/data/original_datasets/GENO2002.xls",
 #inorganics_full = read_excel("/cloud/project/data/original_datasets/INOR2002.xls", sheet = 2, skip = 3)
 textures_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
 ```
+
 ##Load full datasets for desktop r (autumn's computer) (will delete later)
 ```{r load-data-desktop, warning=FALSE}
 #stations_full = read_xls("C:/Users/pauly/Documents/project-joshua-and-autumn/data/original_datasets/STAT2002.xls", sheet = 2, skip = 3)
@@ -41,6 +42,7 @@ Since these are all very large data files, we will select useful variables and v
 PCBs2002 = select(PCBs_full, c(UNIQUE_ID, PCB_52_NGG, PCB101_NGG, PCB118_NGG, PCB128_NGG, PCB138_NGG, PCB153_NGG, PCB180_NGG, PCB206_NGG, PCB209_NGG, DDT_4_4_C, DDT_2_4_C, DDE_4_4_C, DDD_4_4_C, ENDRIN_C, ENDR_ALD_C, ALDRIN_C, DIELDRN_C, CLRDNE_T_C, MIREX_C, METHOXYCLC, BHC_A_C, BHC_B_C, BHC_D_C, LINDANE_C))
 ```
 Creates PCBs2002 dataframe.  These are variables of interest, principally contaminant concentration with assigned unique IDs that can be associated to unique IDs in the other dataframes.
+#should we remove the PCBs that we aren't seeing? 
 
 ###Stations
 ```{r select-var-STATs}
@@ -73,7 +75,7 @@ PAHs2002 = select(PAHs_full, c("UNIQUE ID", BENZNE_C, "2BZTPN_C", "2BZTPN_T_C", 
 
 colnames(PAHs2002)[1] ="UNIQUE_ID"
 ```
-Creates PAHs2002 dataframe with selected variables of interest.  These are principally contaminat concentrations with unique IDs associated with other data frames.
+Creates PAHs2002 dataframe with selected variables of interest.  These are principally contaminate concentrations with unique IDs associated with other data frames.
 
 # Recode/combine categories
 ### Stations
