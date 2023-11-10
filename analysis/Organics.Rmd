@@ -5,13 +5,15 @@ date: "2023-10-28"
 output: github_document
 ---
 
-```{r load-packages}
+#Loading packages
+```{r load-packages-organics}
 library(tidyverse)
 library(sf)
 library(leaflet)
 ```
 
-```{r load-data}
+#Loading data
+```{r load-data-organics}
 Organics <- read.csv(paste0("/cloud/project/data/datasets_loc/Organics_loc.csv"), header = T)
 
 Organics <- Organics_loc
@@ -19,11 +21,12 @@ Organics <- Organics_loc
 
 ```
 
+#Glimpsing initial data
 ```{r glimpse-data, warning=FALSE}
 glimpse(Organics)
 ```
 
-# Joining the Station Information to the Organics dataset
+#Joining the Station Information to the Organics dataset
 ```{r joining-station-info-organics, warning=FALSE}
 
 Organics_station <- full_join(Station2002, Organics, by = "UNIQUE_ID")
