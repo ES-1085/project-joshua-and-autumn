@@ -69,7 +69,7 @@ Sum_Organics
 
 ``` {r pah-gen-loc}
 Sum_Organics %>%
-  ggplot(aes(x = fct_rev(fct_reorder(site, mean_organic)), y = mean_organic, fill = site))+
+  ggplot(aes(x = fct_rev(fct_reorder(site, mean_organic)), y = sapply(mean_organic, FUN=function(x) ifelse(x==0.000000e0, -1,x)) , fill = site))+
   geom_col(col = "black")+
   geom_errorbar(aes(ymin = mean_organic - SE_organic, ymax = mean_organic + SE_organic), width = 0.2)+
   coord_flip()+

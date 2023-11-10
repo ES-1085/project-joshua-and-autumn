@@ -41,6 +41,12 @@ Organics_long = select(Organics_long, c(UNIQUE_ID, LATITUDE, LONGITUDE, SOUNDING
 glimpse(Organics_long)
 ```
 
+# AP - Placing this here for the time being
+```{r filter-organics-no-nas-no-zeros}
+Organics_long_no_na_no_zero <- Organics_long %>%
+  drop_na(amount_detected) %>%
+  filter(amount_detected != "0")
+```
 
 
 ## Visualizations
@@ -70,6 +76,9 @@ geom_histogram(fill = "skyblue", color = "black")
 
 ### PCB site to site comparisons
 The table below is visualizing the mean, standard deviation, count, and principal square root values of PCB concentrations for the general locations.
+
+[insert interpretation here]
+
 ```{r calculate-sum-stats-organics}
 Summary_Organics <- Organics %>%
   group_by(GEN_LOC_NM) %>%
@@ -81,9 +90,8 @@ Summary_Organics <- Organics %>%
 
 Summary_Organics
 ```
-The graph below is plotting the mean PCB concentration (ng/g) found at each general location with error bards accounting for one standard error. 
+The graph below is plotting the mean PCB concentration (ng/g) found at each general location with error bards accounting for one standard error. As we can see, [include interpretation below].
 
-As we can see, [include interpretation below].
 ```{r pcb-gen-loc}
 Summary_Organics %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -1,x) ), fill = GEN_LOC_NM)) +
@@ -103,7 +111,7 @@ This graph shows the PCB concentrations in Boston Harbor, comparing all location
 
 ```{r pcb-boston-harbor1}
 Summary_Organics %>%
-  filter(GEN_LOC_NM %in% c("BOSTON INNER HARBOR", "CENTRAL BOSTON HARBOR", "SOUTHEAST BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
+  filter(GEN_LOC_NM %in% c("Boston Inner Harbor", "Central Boston Harbor", "Southeast Boston Harbor", "Northwest Boston Harbor")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = mean_PCB_T, fill = GEN_LOC_NM)) +
   geom_col(col = "black") +
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
@@ -121,7 +129,7 @@ This graph shows the PCB concentrations in Boston Harbor, comparing Central Bost
 
 ```{r pcb-boston-harbor2}
 Summary_Organics %>%
-  filter(GEN_LOC_NM %in% c("CENTRAL BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
+  filter(GEN_LOC_NM %in% c("Central Boston Harbor", "Northwest Boston Harbor")) %>%
   ggplot(aes(x = fct_reorder(GEN_LOC_NM, mean_PCB_T), y = mean_PCB_T, fill = GEN_LOC_NM)) +
   geom_col(col = "black") +
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
@@ -135,10 +143,152 @@ Summary_Organics %>%
        caption = "Error bars = 1 standard error")
 ```
 
+This graph compares the locations with the highest concentrations of PCBs.
+
+```{r pcb-highest-concentrations}
+Summary_Organics %>%
+  filter(GEN_LOC_NM %in% c("Boston Inner Harbor", "Cape Ann to Cape Elizabeth", "Southeast Boston Harbor", "Cape Elizabeth to Rockland", "Rockland to north")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = mean_PCB_T, fill = GEN_LOC_NM)) +
+  geom_col() +
+  geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
+  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill") +
+  theme_minimal() +
+  scale_fill_viridis_d()+
+  coord_flip() +
+  theme(legend.position = "none") +
+  labs(title = "Locations with the highest PCB Concentrations",
+       x = "General location",
+       y = "Mean total PCB concentration ug/g",
+       caption = "Error bars = 1 standard error")
+```
+
+###Visualizing Specific PCB Concentrations
+## Boston Inner Harbor Concentrations
+This plot visualizes the specific organics present in Boston Inner Harbor. 
+
+As shown in the plot, Oil and Grease in sediments (173,938.40 moles/g) has the highest concentration in the harbor, followed by Petroleum Hydrocarbons (134,266.0 percent dry weight), and then Clostridium perfringens (99,230.00 spores/g). 
+
+``` {r type_of_organic-in-boston-inner-harbor, warning = FALSE}
+Organics_long_no_na_no_zero %>%
+  group_by(GEN_LOC_NM, organic_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM == "Boston Inner Harbor") %>%
+  arrange(desc(amount_detected))
+
+Organics_long_no_na_no_zero %>%
+  filter(GEN_LOC_NM %in% c("Boston Inner Harbor")) %>%
+  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
+  geom_col()+
+  theme_minimal()+
+  scale_fill_viridis_d()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "Organic Concentrations in Boston Inner Harbor Sediments",
+       x = "Organic Detected",
+       y = "Amount Detected (ng/g)")
+```
+
+## Cape Ann to Cape Elizabeth Concentrations
+This plot visualizes the specific organics present in Cape Ann to Cape Elizabeth. 
+
+As shown in the plot, Clostridium perfringens (724,143.53 spores/g) is PCB with the highest concentration.
+
+``` {r type_of_organic-in-cape-ann-to-elizabeth, warning = FALSE}
+Organics_long_no_na_no_zero %>%
+  group_by(GEN_LOC_NM, organic_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM == "Cape Ann to Cape Elizabeth") %>%
+  arrange(desc(amount_detected))
+
+Organics_long_no_na_no_zero %>%
+  filter(GEN_LOC_NM %in% c("Cape Ann to Cape Elizabeth")) %>%
+  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
+  geom_col()+
+  theme_minimal()+
+  scale_fill_viridis_d()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "Organic Concentrations in Cape Ann to Cape Elizabeth Sediments",
+       x = "Organic Detected",
+       y = "Amount Detected (ng/g)")
+```
+
+## Southeast Boston Harbor Concentrations
+This plot visualizes the specific organics present in Southeast Boston Harbor. 
+
+As shown in the plot, Clostridium perfringens (89,223 spores/g) has the highest concentration in the harbor, followed by Oil and Grease in sediments (74,285 moles/g), and Petroleum Hydrocarbons (in units of percent dry weight). 
+
+``` {r type_of_organic-in-boston-southeast-harbor, warning = FALSE}
+Organics_long_no_na_no_zero %>%
+  group_by(GEN_LOC_NM, organic_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM == "Southeast Boston Harbor") %>%
+  arrange(desc(amount_detected))
+
+Organics_long_no_na_no_zero %>%
+  filter(GEN_LOC_NM %in% c("Southeast Boston Harbor")) %>%
+  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
+  geom_col()+
+  theme_minimal()+
+  scale_fill_viridis_d()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "Organic Concentrations in Southeast Boston Harbor Sediments",
+       x = "Organic Detected",
+       y = "Amount Detected (ng/g)")
+```
+
+## Cape Elizabeth to Rockland Concentrations
+This plot visualizes the specific organics present from Cape Elizabeth to Rockland. 
+As shown in the plot, DDD compounds (9,901.23 ng/g) is PCB with the highest concentration followed by PCBs (802.64 ng/g).
+
+``` {r type_of_organic-from-cape-elizabeth-to-rockland, warning = FALSE}
+Organics_long_no_na_no_zero %>%
+  group_by(GEN_LOC_NM, organic_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM == "Cape Elizabeth to Rockland") %>%
+  arrange(desc(amount_detected))
+
+Organics_long_no_na_no_zero %>%
+  filter(GEN_LOC_NM %in% c("Cape Elizabeth to Rockland")) %>%
+  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
+  geom_col()+
+  theme_minimal()+
+  scale_fill_viridis_d()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "Organic Concentrations in Cape Elizabeth to Rockland Sediments",
+       x = "Organic Detected",
+       y = "Amount Detected (ng/g)")
+```
+
+## Rockland to North Concentrations
+This plot visualizes the specific organics present from Rockland, ME to any area northward. 
+As shown in the plot, DDD compounds (1,303.10 ng/g) is PCB with the highest concentration followed by PCBs (354.77 ng/g). 
+
+``` {r type_of_organic-in-rockalnd-to-N, warning = FALSE}
+Organics_long_no_na_no_zero %>%
+  group_by(GEN_LOC_NM, organic_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM == "Rockland to north") %>%
+  arrange(desc(amount_detected))
+
+Organics_long_no_na_no_zero %>%
+  filter(GEN_LOC_NM %in% c("Rockland to north")) %>%
+  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
+  geom_col()+
+  theme_minimal()+
+  scale_fill_viridis_d()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "Organic Concentrations in Rockland to North Sediments",
+       x = "Organic Detected",
+       y = "Amount Detected (ng/g)")
+```
 
 ### Specific Locations
 #### Rivers
-As stated in our project proposal, we were interested in visualizing contaminents in Maine Rivers as well as harbors and bays.
+As stated in our project proposal, we were interested in visualizing contaminants in Maine Rivers as well as harbors and bays.
 
 Below we are identifying specific Maine rivers. 
 
@@ -170,7 +320,8 @@ Sum_Org_site %>%
   scale_x_discrete(drop=FALSE) +
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
   scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill") +
-  theme_bw() +
+  theme_minimal() +
+  scale_fill_viridis_d() +
   coord_flip() +
   theme(legend.position = "none") +
   labs(title = "PCB Concentrations in Maine Rivers",
