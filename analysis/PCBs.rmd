@@ -19,10 +19,8 @@ library(dplyr)
 PCBs <- read.csv(paste0("/cloud/project/data/datasets_csv/PCBs_loc.csv"), header = T)
 Organics <- read.csv(paste0("/cloud/project/data/datasets_csv/Organics_loc.csv"), header = T)
 ```
-If we aren't going to be using the PCB dataset then we should remove this. 
 
-JH -- we do use the PCB dataset in this .rmd.
-
+### Glimpsing the PCB and Organics Datasets
 ```{r glimpse-data, warning = FALSE}
 glimpse(PCBs)
 
