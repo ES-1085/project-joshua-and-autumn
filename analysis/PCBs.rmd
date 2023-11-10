@@ -322,10 +322,17 @@ ggplot(Bathy_hi_res) +
 
 
 ```{r map-pcbs-nas-zeros}
-ggplot(GOM_states)+
-  geom_sf(aes())+
+
+Organics <- Organics %>%
+  mutate(missing = case_when(is.na(PCB_T_UGG) == TRUE ~ "missing",
+                             TRUE ~ "not missing"),
+         size = case_when(is.na(PCB_T_UGG) == TRUE ~ 0.1,
+                             TRUE ~ 0.3))
+
+ggplot(GOM_states) +
+  geom_sf(aes()) +
   geom_sf(data = Bathy_low_res, color = "gray80", width = 1)+
-  geom_point(data = Organics, (aes(x = LONGITUDE, y = LATITUDE, color = PCB_T_UGG, alpha = 0.5)))+
+  geom_point(data = Organics, aes(x = LONGITUDE, y = LATITUDE, color = PCB_T_UGG, shape = missing, size = missing), alpha = 0.5) +
   xlim(-72,-65)+
   ylim(40,45)+
   theme_bw()+
@@ -445,20 +452,25 @@ ggplot(GOM_states)+
 ## Interactive map
 
 ```{r create-html-labels}
-#labels <- sprintf("<strong>%s</strong><br/>%g ug/g", 
-#                  Org_no_na$SPECFC_LOC, Org_no_na$PCB_T_UGG) %>%
-#  lapply(htmltools::HTML)
+Org_no_na_no_zero <- Org_no_na_no_zero %>%
+  drop_na(SOUNDING_M) %>%
+  filter(SOUNDING_M != "0")
+  
+labels <- sprintf("<strong>%s</strong><br/>%g ug/g</strong><br/>%g Depth M",
+                  Org_no_na_no_zero$SPECFC_LOC, Org_no_na_no_zero$PCB_T_UGG, Org_no_na_no_zero$SOUNDING_M) %>%
+  lapply(htmltools::HTML)
 
-#head(labels, 1)
+head(labels, 1)
 ```
 
 ```{r leaflet-map-pcb}
-#leaflet(data = Org_no_na) %>%
-#  addProviderTiles(providers$Esri.WorldTopoMap) %>%
-#  setView(lng = -68.5, 
-#          lat = 43.5, 
-#          zoom = 6) %>%
-#  addCircleMarkers(lng = ~LONGITUDE, lat = ~LATITUDE, popup = c(~SPECFC_LOC, ~PCB_T_UGG), label = labels)
+leaflet(data = Org_no_na_no_zero) %>%
+  addProviderTiles(providers$Esri.WorldTopoMap) %>%
+  setView(lng = -68.5, 
+          lat = 43.5, 
+          zoom = 6) %>%
+  addCircleMarkers(lng = ~LONGITUDE, lat = ~LATITUDE, popup = c(~SPECFC_LOC, ~PCB_T_UGG), label = labels) %>%
+  
 ```
 
 Note that the two above code chunks are commented out as .rmd will not knit to github document with html functions.  Uncomment to run and change output type to `html_document` to knit.
