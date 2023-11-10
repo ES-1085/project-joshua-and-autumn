@@ -51,7 +51,7 @@ colnames(PAHs2002)[1] ="UNIQUE_ID"
 ```
 Creates PAHs2002 dataframe with selected variables of interest.  These are principally contaminate concentrations with unique IDs associated with other data frames.
 
-# Recode/combine categories
+## Recode/combine categories
 ### Stations
 ```{r combine-loc-categories}
 Station2002 <- Station2002 %>%
@@ -97,7 +97,30 @@ Station2002 <- Station2002 %>%
  [65] "Chelsea River G"                                                                                                    
  [66] "Chelsea River H"
 
-#Joining Dataframes
+```{r}
+Station2002 <- Station2002 %>%
+mutate(GEN_LOC_NM = fct_recode(GEN_LOC_NM,
+                           "Rockland to north" = "North of 44; to 50M isobath",
+                           "Cape Elizabeth to Rockland" = "43.5N to 44N; to 50M isobath", 
+                           "Cape Ann to Cape Elizabeth" = "CAPE ANN to 43.5N", 
+                           "Boston Inner Harbor" = "BOSTON INNER HARBOR", 
+                           "Cape Code Bay" = "CAPE COD BAY",
+                           "Gulf of Maine (>50m Isobath)" = "GULF OF MAINE, >50M ISOBATH",
+                           "Northwest Boston Harbor" = "NORTHWEST BOSTON HARBOR",
+                           "Southeast Boston Harbor" = "SOUTHEAST BOSTON HARBOR",
+                           "Gulf of Maine (<=50m Isobath)" = "GULF OF MAINE, <=50M",
+                           "Central Boston Harbor" = "CENTRAL BOSTON HARBOR",
+                           "Inland/Rivers" = "INLAND / RIVERS",
+                           "Harbor Approaches" = "HARBOR APPROACHES",
+                           "Massachusetts Bays" = "MASS BAYS"))
+```
+
+```{r}
+Station2002 %>%
+  select(GEN_LOC_NM, site)
+```
+
+## Joining Dataframes
 ###Associates location information and contaminant data by sample unique ID. 
 ```{r join-data-frames}
   PCBs_loc <- full_join(Station2002, PCBs2002, by = "UNIQUE_ID")
@@ -140,7 +163,7 @@ naniar::gg_miss_var(PCBs_loc)
 ```
 
 ```{r}
-naniar::miss_var_summary(PCBs)
+naniar::miss_var_summary(PCBs_loc)
 ```
 
 
@@ -170,50 +193,18 @@ naniar::miss_var_summary(PCBs)
 
 # Loading full datasets as CSVs
 ``` {r saving-full-data-into-csv-files}
-write_csv(organics_full, "/cloud/project/data/datasets_csv/organics_full.csv")
-write_csv(PAHs_full, "/cloud/project/data/datasets_csv/PAHs_full.csv")
-write_csv(PCBs_full, "/cloud/project/data/datasets_csv/PCBs_full.csv")
-write_csv(stations_full, "/cloud/project/data/datasets_csv/stations_full.csv")
+#write_csv(organics_full, "/cloud/project/data/datasets_csv/organics_full.csv")
+#write_csv(PAHs_full, "/cloud/project/data/datasets_csv/PAHs_full.csv")
+#write_csv(PCBs_full, "/cloud/project/data/datasets_csv/PCBs_full.csv")
+#write_csv(stations_full, "/cloud/project/data/datasets_csv/stations_full.csv")
 ```
+# JH -- do we need to write full .csv files?  These are the same as the excel files, just diff format
 
-# Loading loc datasets as CSVs
+# Write loc datasets as CSVs
 ``` {r saving-data_loc-into-csv-files}
 write_csv(Organics_loc, "/cloud/project/data/datasets_csv/Organics_loc.csv")
 write_csv(PAHs_loc, "/cloud/project/data/datasets_csv/PAHs_loc.csv")
 write_csv(PCBs_loc, "/cloud/project/data/datasets_csv/PCBs_loc.csv")
 ```
 
-# Loading files for maps (retitle this, this is just a placeholder title)
-```{r}
-GOM_states <- st_read("/cloud/project/extra/GOM_DD.shp")
-```
-
-```{r load-bathy-shp}
-Bathy <- st_read("/cloud/project/extra/BATHYMGM_ARC.shp")
-```
-
-```{r}
-st_crs(Bathy)
-Bathy <- st_transform(Bathy, "+init=epsg:4269")
-```
-
-```{r}
-Bathy_low_res <- Bathy%>%
- filter(CONTOUR %in% c("-100","-500","-1000","-2000","-3000","-4000"))
-ggplot(Bathy_low_res) +
-  geom_sf(aes())
-
-Bathy_hi_res <- Bathy%>%
- filter(CONTOUR %in% c("-40","-80","-120","160","200","240","280"))
-ggplot(Bathy_hi_res) +
-  geom_sf(aes())
-```
-
-```{r}
-Texture_loc %>%
-  group_by(LATITUDE, LONGITUDE) %>%
-  count(LATITUDE, LONGITUDE) %>%
-  ggplot(aes(x = LONGITUDE, y = LATITUDE, size = n, color = n))+
-  geom_point()
-  
-```
+# JH -- we do not need to load .shp files here; we still have to load them separately whenever we use them.
