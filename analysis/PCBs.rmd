@@ -56,6 +56,8 @@ glimpse(Organics_long)
 
 ```
 
+
+
 ## Visualizations
 ### Descriptive Visualizations
 Visualizing the number of observations that were collected for each general location. 
