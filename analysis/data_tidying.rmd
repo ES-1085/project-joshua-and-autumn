@@ -34,6 +34,7 @@ organics_full = read_excel("/cloud/project/data/original_datasets/GENO2002.xls",
 #inorganics_full = read_excel("C:/Users/pauly/Documents/project-joshua-and-autumn/data/original_datasets/INOR2002.xls", sheet = 2, skip = 3)
 #textures_full = read_excel("C:/Users/pauly/Documents/project-joshua-and-autumn/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
 ```
+
 Since these are all very large data files, we will select useful variables and variables we are interested in looking at to pare them down to a more manageable size.  Note that the `inorganics_full` dataframe is commented out because we are unlikely to use it in our final analysis.
 
 #Selecting variables 
@@ -41,8 +42,8 @@ Since these are all very large data files, we will select useful variables and v
 ```{r select-var-PCBs}
 PCBs2002 = select(PCBs_full, c(UNIQUE_ID, PCB_52_NGG, PCB101_NGG, PCB118_NGG, PCB128_NGG, PCB138_NGG, PCB153_NGG, PCB180_NGG, PCB206_NGG, PCB209_NGG, DDT_4_4_C, DDT_2_4_C, DDE_4_4_C, DDD_4_4_C, ENDRIN_C, ENDR_ALD_C, ALDRIN_C, DIELDRN_C, CLRDNE_T_C, MIREX_C, METHOXYCLC, BHC_A_C, BHC_B_C, BHC_D_C, LINDANE_C))
 ```
+
 Creates PCBs2002 dataframe.  These are variables of interest, principally contaminant concentration with assigned unique IDs that can be associated to unique IDs in the other dataframes.
-#should we remove the PCBs that we aren't seeing? 
 
 ###Stations
 ```{r select-var-STATs}
@@ -248,6 +249,7 @@ write_csv(PAHs_loc, "/cloud/project/data/datasets_csv/PAHs_loc.csv")
 write_csv(PCBs_loc, "/cloud/project/data/datasets_csv/PCBs_loc.csv")
 ```
 
+# Loading files for maps (retitle this, this is just a placeholder title)
 ```{r}
 GOM_states <- st_read("/cloud/project/extra/GOM_DD.shp")
 ```
