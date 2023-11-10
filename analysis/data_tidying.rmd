@@ -122,19 +122,6 @@ Station2002 <- Station2002 %>%
   Organics_loc <- full_join(Station2002, Organics2002, by = "UNIQUE_ID")
 ```
 
-###Associates location and sediment character information with contaminant data by sample unique ID
-```{r join-data-frames-with-textures}
-
-  #PCBs_loc_with_texture <- full_join(Texture_loc, PCBs2002, by = "UNIQUE_ID")
-  
-  #PAHs_loc_with_texture <- full_join(Texture_loc, PAHs2002, by = "UNIQUE_ID")
-  
-  #Organics_loc_with_texture <- full_join(Texture_loc, Organics2002, by = "UNIQUE_ID")
-
-#This will allow us to see if there are specific textures/sediments that attract certain PCBs, PAHs, and Organics.
-
-```
-
 ###Recode special character value in PAHs$CHRYSENE_C as numeric.
 ``` {r converting-PAHs-as.numeric}
 
