@@ -112,51 +112,17 @@ Station2002 <- Station2002 %>%
 
 ###Recode special character value in PAHs$CHRYSENE_C as numeric.
 ``` {r converting-PAHs-as.numeric}
-
   PAHs_loc <- PAHs_loc %>%
     mutate(CHRYSENE_C = recode(CHRYSENE_C, ">" = "NA")) 
 
   PAHs_loc %>%
     transform(PAHs_loc, CHRYSENE_C = as.numeric(CHRYSENE_C))
-
 ```
-
-# Pivoting data
-### From wide to long
-```{r pivot-pcbs-longer}
- 
-#PCBs
-#  pcbs_pivot_longer <- PCBs_loc %>%
-#  pivot_longer(cols = `PCB_52_NGG`:`LINDANE_C`, 
-#               names_to = "pcb_detected", 
-#               values_to = "amount_detected")
-#PAHs
-#pahs_pivot_longer <- PAHs_loc %>%
-#  mutate(CHRYSENE_C = as.numeric(CHRYSENE_C)) %>%
-#  pivot_longer(cols = `BENZNE_C`:`B_GHI_PYLC`, 
-#               names_to = "pah_detected", 
-#               values_to = "amount_detected")
-#  pahs_pivot_longer <- pahs_pivot_longer %>%
-#    mutate(amount_detected_with_na = ifelse(is.na(amount_detected), 0, amount_detected))
- 
-#Organics
-#  organics_pivot_longer <- Organics_loc %>%
-#  pivot_longer(cols = `REPNO_ORG`:`TTBT_C`, 
-#               names_to = "organic_detected", 
-#               values_to = "amount_detected")
-
-
-  
-#View(pcbs_pivot_longer)
-   
-```
-
-This code chunk is commented out as it is too taxing on RAM currently.
 
 # Visualizing Missing Data
 Visualizing missing data can help us determine which specific contaminants were actually detected, and should then be analyzed, as there are a lot of missing values within each dataset.
 
-###PCBs
+###Missing PCB Data
 ``` {r missing-data-PCBs}
 #Visualizing the percentage of missing data
 #visdat::vis_miss(PCBs_loc)
@@ -181,7 +147,7 @@ naniar::miss_var_summary(PCBs)
 ```
 
 
-###PAHs
+###Missing PAH Data
 ``` {r missing-data-PAHs}
 #Visualizing the percentage of missing data
 #visdat::vis_miss(PAHs_loc)
@@ -193,7 +159,7 @@ naniar::miss_var_summary(PCBs)
 #we should highlight the locations where there are PAHs detected
 ```
 
-###Organics
+###Missing Organics Data
 ``` {r missing-data-Organics}
 #Visualizing the percentage of missing data
 # visdat::vis_miss(Organics_loc)
@@ -205,33 +171,17 @@ naniar::miss_var_summary(PCBs)
 #This shows us in which station specific organics are found
 ```
 
-###Textures
-``` {r missing-data-Textures}
- #visdat::vis_miss(Texture_loc)
-
-#visualizing correlations in data as a heatmap - only numeric values...
-#dplyr::select(Texture_loc, where(is.numeric)) %>%
-#visdat::vis_cor(Texture_loc, "pearson", "pairwise.complete.obs", facet)
-
-#This shows us in which station specific textures are found
-```
-
 # Loading full datasets as CSVs
 ``` {r saving-full-data-into-csv-files}
 write_csv(organics_full, "/cloud/project/data/datasets_csv/organics_full.csv")
 write_csv(PAHs_full, "/cloud/project/data/datasets_csv/PAHs_full.csv")
 write_csv(PCBs_full, "/cloud/project/data/datasets_csv/PCBs_full.csv")
-write_csv(sediments_full, "/cloud/project/data/datasets_csv/sediments_full.csv")
 write_csv(stations_full, "/cloud/project/data/datasets_csv/stations_full.csv")
-write_csv(textures_full, "/cloud/project/data/datasets_csv/textures_full.csv")
-#write_csv(inorganics_full, "/cloud/project/data/datasets_csv/inorganics_full.csv")
 ```
 
 # Loading loc datasets as CSVs
 ``` {r saving-data_loc-into-csv-files}
-write_csv(Texture_loc, "/cloud/project/data/datasets_csv/Texture_loc.csv")
 write_csv(Organics_loc, "/cloud/project/data/datasets_csv/Organics_loc.csv")
-#write_csv(Inorganics_loc, "/cloud/project/data/datasets_csv/Inorganics_loc.csv")
 write_csv(PAHs_loc, "/cloud/project/data/datasets_csv/PAHs_loc.csv")
 write_csv(PCBs_loc, "/cloud/project/data/datasets_csv/PCBs_loc.csv")
 ```
