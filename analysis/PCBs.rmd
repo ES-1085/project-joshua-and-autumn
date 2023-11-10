@@ -460,19 +460,19 @@ ggplot(GOM_states)+
 ## Interactive map
 
 ```{r create-html-labels}
-Org_no_na_no_zero <- Org_no_na_no_zero %>%
-  drop_na(SOUNDING_M) %>%
-  filter(SOUNDING_M != "0")
+Organics_station <- Organics_station %>%
+  drop_na(SOUNDING_M.x) %>%
+  filter(SOUNDING_M.x != "0")
   
 labels <- sprintf("<strong>%s</strong><br/>%g ug/g</strong><br/>%g Depth M",
-                  Org_no_na_no_zero$SPECFC_LOC, Org_no_na_no_zero$PCB_T_UGG, Org_no_na_no_zero$SOUNDING_M) %>%
+                  Organics_station$SPECFC_LOC.x, Organics_station$organic_detected, Organics_station$amount_detected, Organics_station$SOUNDING_M.x) %>%
   lapply(htmltools::HTML)
 
 head(labels, 1)
 ```
 
 ```{r leaflet-map-pcb}
-leaflet(data = Org_no_na_no_zero) %>%
+leaflet(data = Organics_station) %>%
   addProviderTiles(providers$Esri.WorldTopoMap) %>%
   setView(lng = -68.5, 
           lat = 43.5, 
