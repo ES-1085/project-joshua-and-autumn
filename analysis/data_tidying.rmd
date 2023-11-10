@@ -16,12 +16,9 @@ library(naniar)
 ##Load full datasets
 ```{r load-data, warning=FALSE}
 stations_full = read_xls("/cloud/project/data/original_datasets/STAT2002.xls", sheet = 2, skip = 3)
-#sediments_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
 PCBs_full = read_excel("/cloud/project/data/original_datasets/PCBP2002.xls", sheet = 2, skip = 3)
 PAHs_full = read_excel("/cloud/project/data/original_datasets/PAHS2002.xls", sheet = 2, skip = 3)
 organics_full = read_excel("/cloud/project/data/original_datasets/GENO2002.xls", sheet = 2, skip = 3)
-#inorganics_full = read_excel("/cloud/project/data/original_datasets/INOR2002.xls", sheet = 2, skip = 3)
-#textures_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
 ```
 
 Since these are all very large data files, we will select useful variables and variables we are interested in looking at to pare them down to a more manageable size.  Note that the `inorganics_full` data frame is commented out because we are unlikely to use it in our final analysis.
