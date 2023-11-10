@@ -661,20 +661,28 @@ ggplot(GOM_states) +
 
 ## Interactive map
 
+```{r create-organics-long-with-no-nas-no-zeros}
+Organics_long_no_na_no_zero <- Organics_long %>%
+  drop_na(amount_detected) %>%
+  filter(amount_detected != "0") %>%
+  drop_na(SOUNDING_M) %>%
+  filter(SOUNDING_M != "0")
+```
+
 ```{r create-html-labels}
-#labels <- sprintf("<strong>%s</strong><br/>%g ug/g</strong><br/>%g Depth M",
-#                  Organics_station$SPECFC_LOC.x, Organics_station$organic_detected, #Organics_station$amount_detected, Organics_station$SOUNDING_M.x) %>%
+#labels <- sprintf("<strong>%s</strong><br/>%s: %g ug/g</strong><br/>",
+#                  Organics_long$SPECFC_LOC, Organics_long$organic_detected, #Organics_long$amount_detected) %>%
 #  lapply(htmltools::HTML)
 #head(labels, 1)
 ```
 
 ```{r leaflet-map-pcb}
-#leaflet(data = Organics_station) %>%
+#leaflet(data = Organics_long_no_na_no_zero) %>%
 #  addProviderTiles(providers$Esri.WorldTopoMap) %>%
 #  setView(lng = -68.5, 
 #          lat = 43.5, 
 #          zoom = 6) %>%
-#  addCircleMarkers(lng = ~LONGITUDE, lat = ~LATITUDE, popup = c(~SPECFC_LOC, ~PCB_T_UGG), label = labels)
+#  addCircleMarkers(lng = ~LONGITUDE, lat = ~LATITUDE, popup = c(~amount_detected), label = labels)
 ```
 
 Note that the two above code chunks are commented out as .rmd will not knit to github document with html functions.  Uncomment to run and change output type to `html_document` to knit.
