@@ -14,11 +14,9 @@ library(leaflet)
 
 #Loading data
 ```{r load-data-organics}
-Organics <- read.csv(paste0("/cloud/project/data/datasets_loc/Organics_loc.csv"), header = T)
+Organics <- read.csv(paste0("/cloud/project/data/datasets_csv/Organics_loc.csv"), header = T)
 
 Organics <- Organics_loc
-
-
 ```
 
 #Glimpsing initial data
