@@ -11,7 +11,7 @@ This document is an analysis of distributions and concentrations of PCB and Orga
 ### Loading packages
 These are the packages that will be used for analysis. 
 
-```{r load-packages}
+```{r load-packages, results='hide'}
 library(tidyverse)
 library(sf)
 library(leaflet)
