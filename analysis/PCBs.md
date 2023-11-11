@@ -9158,11 +9158,15 @@ Sum_Org_site %>%
 
 ![](PCBs_files/figure-gfm/bar-pcb-mass-rivers-1.png)<!-- -->
 
-## Statistical tests
+# PCB Statistical Tests
 
-## Static map plots
+# Static Map Plots
 
-### PCBs
+### Loading Map Data
+
+Bathymetry data is in projected coordinate system (NAD83), other data is
+geodetic (NAD83). Wasn’t able to add this layer to map plot – need to
+change projection.
 
 ``` r
 GOM_states <- st_read("/cloud/project/extra/GOM_DD.shp")
@@ -9187,9 +9191,7 @@ Bathy <- st_read("/cloud/project/extra/BATHYMGM_ARC.shp")
     ## Bounding box:  xmin: 174878.8 ymin: 577731.9 xmax: 923912.7 ymax: 1311467
     ## Projected CRS: NAD83 / Massachusetts Mainland
 
-Bathymetry data is in projected coordinate system (NAD83), other data is
-geodetic (NAD83). Wasn’t able to add this layer to map plot – need to
-change projection.
+Now the Bathy shapefile is in geodetic NAD83 format.
 
 ``` r
 st_crs(Bathy)
@@ -9247,7 +9249,8 @@ Bathy <- st_transform(Bathy, "+init=epsg:4269")
     ## Warning in CPL_crs_from_input(x): GDAL Message 1: +init=epsg:XXXX syntax is
     ## deprecated. It might return a CRS with a non-EPSG compliant axis order.
 
-Now the Bathy shapefile is in geodetic NAD83 format.
+This identifies the depths that the bathymetry layer is being displayed
+by.
 
 ``` r
 unique(Bathy$CONTOUR)
@@ -9256,6 +9259,10 @@ unique(Bathy$CONTOUR)
     ##  [1]    -5   -40   -15   -20   -10     0   -50   -30   -70   -60  -100   -90
     ## [13]   -80  -120  -220  -200  -160  -180  -140  -240  -300  -280  -260  -500
     ## [25]  -400 -2000 -1000 -3000 -4000
+
+### Mapping PCBs to the Gulf of Maine
+
+This is the basic bathymetry map that will be used in the static maps.
 
 ``` r
 Bathy_low_res <- Bathy%>%
@@ -9273,7 +9280,9 @@ ggplot(Bathy_hi_res) +
   geom_sf(aes())
 ```
 
-![](PCBs_files/figure-gfm/plot-bathy-2.png)<!-- -->
+![](PCBs_files/figure-gfm/plot-bathy-2.png)<!-- --> Using this
+bathymetry layer, the distribution and concentration of PCBs can be
+mapped.
 
 ``` r
 ggplot(GOM_states) +
@@ -9322,6 +9331,12 @@ Org_no_na_no_zero <- Organics %>%
   filter(PCB_T_UGG != "0")
 ```
 
+This map is mapping the dataset that has no `NA` values or values that
+are less than or equal to `0`. The map significantly changes as these
+values are dropped. This visualizes where PCBs have been measured in the
+Gulf of Maine. (AP - I am not confident about this interpretation, feel
+free to change!)
+
 ``` r
 ggplot(GOM_states) +
   geom_sf(aes()) +
@@ -9357,6 +9372,11 @@ ggplot(GOM_states) +
 
 ![](PCBs_files/figure-gfm/map-pcb-gom-1.png)<!-- -->
 
+### Mapping PCBs to the Mount Desert Island Area
+
+This map is displaying the distribution and concentration of PCBs in
+sediments within the MDI and Penobscot Bay region.
+
 ``` r
 ggplot(GOM_states) +
   geom_sf(aes()) +
@@ -9391,6 +9411,11 @@ ggplot(GOM_states) +
     ## Warning: Removed 1015 rows containing missing values (`geom_point()`).
 
 ![](PCBs_files/figure-gfm/map-pcb-mdi-area-1.png)<!-- -->
+
+### Mapping PCBs to Massachusetts and Cape Cod Bays
+
+These maps are displaying the distribution and concentration of PCBs in
+sediments within the Massachusetts and Cape Cod Bays.
 
 ``` r
 ggplot(GOM_states) +
@@ -9432,6 +9457,11 @@ Organics_long_no_na_no_zero <- Organics_long %>%
   drop_na(amount_detected) %>%
   filter(amount_detected != "0")
 ```
+
+### Mapping Specific PCBs to Gulf of Maine
+
+This map is displaying which specific PCB has been detected in Gulf of
+Maine sediments.
 
 ``` r
 ggplot(GOM_states) +
