@@ -59,6 +59,8 @@ glimpse(PCBs_long)
 ```
 
 ### Pesticides
+Here we are creating a dataset that only contains the pesticides that were measured. 
+
 ```{r create-pesticides-df-combine-pest-categories}
 pesticides <- PCBs_long %>%
   mutate(pcb = fct_recode(pcb,
@@ -74,7 +76,6 @@ glimpse(pesticides)
 
 ## Visualizations
 ### Descriptive Visualizations
-First, we will be visualizing the number of observations that were collected for each general location. 
 
 ```{r n-obs-gen-loc}
 Organics %>%
@@ -95,12 +96,13 @@ This bar plot uses number of observations on its y axis, thus reflecting samplin
 ggplot(Organics, aes(x = PCB_T_UGG)) +
 geom_histogram(fill = "skyblue", color = "black")
 ```
-
+AP - What is this graph showing us? Do we need it? 
 
 ### PCB site to site comparisons
 The table below is visualizing the mean, standard deviation, count, and principal square root values of PCB concentrations for the general locations.
 
-[insert interpretation here]
+Boston Inner Harbor has the highest mean PCB concentration (average of 44.21 ng/g per observation), followed by Cape Ann to Cape Elizabeth (average of 26.90 ng/g per observation) and Southeast Boston Harbor (average of 18.35 ng/g per observation). Boston Inner Harbor (284.81) and Cape Ann to Cape Elizabeth (227.34) have the highest standard deviations, suggesting that, though they are the locations with the highest average PCB concentrations, the counts per observation vary greatly. The ranges of both locations is 3,000 ng/g to 0 ng/g, which is a wide range of values. 
+
 
 ```{r calculate-sum-stats-organics}
 Summary_Organics <- Organics %>%
@@ -109,7 +111,8 @@ Summary_Organics <- Organics %>%
   summarise(mean_PCB_T = mean(PCB_T_UGG),
     sd_PCB_T = sd(PCB_T_UGG),
     n_PCB_T = n(),
-    SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
+    SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()), 
+    range_PCB_T = range(PCB_T_UGG))
 
 Summary_Organics
 ```
@@ -339,7 +342,6 @@ Sum_all_pcb_rock_n %>%
 ### Specific Locations
 #### Rivers
 As stated in our project proposal, we were interested in visualizing contaminants in Maine Rivers as well as harbors and bays.
-
 
 ```{r calculate-sum-organics-by-site}
 Sum_Org_site <- Organics %>%
