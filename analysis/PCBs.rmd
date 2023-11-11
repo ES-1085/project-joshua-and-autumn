@@ -4,7 +4,13 @@ author: "Joshua Harkness and Autumn Pauly"
 date: "2023-10-28"
 output: github_document
 ---
+### Introduction
+This document is an analysis of distributions and concentrations of PCB and Organic contaminants that were reported in a publication by the U.S. Geological Survey on contaminated sediments in the Gulf of Maine. 
+
+
 ### Loading packages
+These are the packages that will be used for analysis. 
+
 ```{r load-packages}
 library(tidyverse)
 library(sf)
@@ -15,12 +21,16 @@ library(dplyr)
 ```
 
 ### Loading PCB and Organics Datasets
+This loads the datasets from .csv files and reads them into the environment. 
+
 ```{r load-data}
 PCBs <- read.csv(paste0("/cloud/project/data/datasets_csv/PCBs_loc.csv"), header = T)
 Organics <- read.csv(paste0("/cloud/project/data/datasets_csv/Organics_loc.csv"), header = T)
 ```
 
 ### Glimpsing the PCB and Organics Datasets
+These data sets are quite large and contain a lot of information. Pivoting will need to be done to restructure this into a format that will be easier to interpret. 
+
 ```{r glimpse-data, warning = FALSE}
 glimpse(PCBs)
 
@@ -41,14 +51,16 @@ Organics_long = select(Organics_long, c(UNIQUE_ID, LATITUDE, LONGITUDE, SOUNDING
 glimpse(Organics_long)
 ```
 
-# AP - Placing this here for the time being
+### AP - Placing this here for the time being
 ```{r filter-organics-no-nas-no-zeros-duplicate}
 Organics_long_no_na_no_zero <- Organics_long %>%
   drop_na(amount_detected) %>%
   filter(amount_detected != "0")
 ```
 
-### Pivot PCBs longer
+### Pivoting PCBs into a Longer Format
+This function creates two columns to properly contain the values of PCBs measured during these surveys - the `pcb` column contains the type of PCB that was measured and the `amount_detected` column contains the values for each measurement. 
+
 ```{r pcbs-pivot-long}
 PCBs_long <- PCBs %>%
   pivot_longer(cols = `PCB_52_NGG`:`LINDANE_C`, 
@@ -58,8 +70,8 @@ PCBs_long <- PCBs %>%
 glimpse(PCBs_long)
 ```
 
-### Pesticides
-This is creating a dataset that only contains the pesticides that were measured. 
+### Creating Pesticides Data Set
+This is creating a data set that only contains the pesticides that were measured. 
 
 ```{r create-pesticides-df-combine-pest-categories}
 pesticides <- PCBs_long %>%
@@ -74,10 +86,9 @@ pesticides <- PCBs_long %>%
 glimpse(pesticides)
 ```
 
-## Visualizations
+## Data Visualizations
 ### Descriptive Visualizations
-
-This bar plot uses number of observations on its y axis, thus reflecting sampling intensity by general location.  The greatest number of observations are in the Gulf of Maine below the 50m isobath (partly this is a product of area extent as well as sampling intensity); Massachusetts Bays, Boston Harbor sites, and the MA/NH/ME coast are all generally heavily sampled.
+First, the number of observations collected at each location will be visualized. This bar plot uses number of observations on its y axis, thus reflecting sampling intensity by general location.  The greatest number of observations are in the Gulf of Maine below the 50m isobath (partly this is a product of area extent as well as sampling intensity); Massachusetts Bays, Boston Harbor sites, and the MA/NH/ME coast are all generally heavily sampled.
 
 ```{r n-obs-gen-loc}
 Organics %>%
@@ -87,8 +98,8 @@ Organics %>%
   theme_minimal() +
   scale_fill_viridis_d() +
   theme(legend.position = "none") +
-  labs(title = "Number of observations by general location",
-       subtitle = "for PCB contaminents",
+  labs(title = "Number of Observations by General Location",
+       subtitle = "for PCB Contaminents",
        x = "General Location",
        y = "Count (n Observations)")
 ```
@@ -102,9 +113,10 @@ geom_histogram(fill = "skyblue", color = "black")
 
 
 ### PCB Site to Site Comparisons
+#### General PCB Summary Statistics
 The table below is visualizing the mean, standard deviation, count, and principal square root values of PCB concentrations for the general locations.
 
-Boston Inner Harbor has the highest mean PCB concentration (average of 44.21 ng/g per observation), followed by Cape Ann to Cape Elizabeth (average of 26.90 ng/g per observation) and Southeast Boston Harbor (average of 18.35 ng/g per observation). Boston Inner Harbor (284.81) and Cape Ann to Cape Elizabeth (227.34) have the highest standard deviations, suggesting that, though they are the locations with the highest average PCB concentrations, the counts per observation vary greatly. The ranges of both locations is 3,000 ng/g to 0 ng/g, which is a wide range of values. 
+Boston Inner Harbor has the highest mean PCB concentration (average of 44.21 ng/g per observation), followed by Cape Ann to Cape Elizabeth (average of 26.90 ng/g per observation) and Southeast Boston Harbor (average of 18.35 ng/g per observation). Boston Inner Harbor (average standard deviation of 284.81) and Cape Ann to Cape Elizabeth (average standard deviation of 227.34) have the highest standard deviations, suggesting that, though they are the locations with the highest average PCB concentrations, the counts per observation vary greatly. The ranges of both locations is 3,000 ng/g to 0 ng/g, which is a wide range of values. 
 
 ```{r calculate-sum-stats-organics}
 Summary_Organics <- Organics %>%
@@ -134,7 +146,8 @@ Summary_Organics %>%
        y = "Mean total PCB concentration ug/g",
        caption = "Error bars = 1 standard error")
 ```
- 
+
+#### PCB Summary Statistics of Boston Harbor
 This graph shows the PCB concentrations in Boston Harbor, comparing all locations. 
 
 ```{r pcb-boston-harbor1}
@@ -171,7 +184,9 @@ Summary_Organics %>%
        caption = "Error bars = 1 standard error")
 ```
 
-This graph compares the locations with the highest concentrations of PCBs.
+##Visualizing Specific PCB Concentrations
+### PCB Summary Statistics of Locations With Highest Concentrations
+This graph identifies the locations with the highest concentrations of PCBs.
 
 ```{r pcb-highest-concentrations}
 Summary_Organics %>%
@@ -190,8 +205,7 @@ Summary_Organics %>%
        caption = "Error bars = 1 standard error")
 ```
 
-###Visualizing Specific PCB Concentrations
-## Boston Inner Harbor Concentrations
+#### Boston Inner Harbor Concentrations
 This plot visualizes the specific organics present in Boston Inner Harbor. 
 
 As shown in the plot, Oil and Grease in sediments (173,938.40 moles/g) has the highest concentration in the harbor, followed by Petroleum Hydrocarbons (134,266.0 percent dry weight), and then Clostridium perfringens (99,230.00 spores/g). 
@@ -216,7 +230,7 @@ Organics_long_no_na_no_zero %>%
        y = "Amount Detected (ng/g)")
 ```
 
-## Cape Ann to Cape Elizabeth Concentrations
+#### Cape Ann to Cape Elizabeth Concentrations
 This plot visualizes the specific organics present in Cape Ann to Cape Elizabeth. 
 
 As shown in the plot, Clostridium perfringens (724,143.53 spores/g) is PCB with the highest concentration.
@@ -241,7 +255,7 @@ Organics_long_no_na_no_zero %>%
        y = "Amount Detected (ng/g)")
 ```
 
-## Southeast Boston Harbor Concentrations
+#### Southeast Boston Harbor Concentrations
 This plot visualizes the specific organics present in Southeast Boston Harbor. 
 
 As shown in the plot, Clostridium perfringens (89,223 spores/g) has the highest concentration in the harbor, followed by Oil and Grease in sediments (74,285 moles/g), and Petroleum Hydrocarbons (in units of percent dry weight). 
@@ -266,7 +280,7 @@ Organics_long_no_na_no_zero %>%
        y = "Amount Detected (ng/g)")
 ```
 
-## Cape Elizabeth to Rockland Concentrations
+#### Cape Elizabeth to Rockland Concentrations
 This plot visualizes the specific organics present from Cape Elizabeth to Rockland. 
 As shown in the plot, DDD compounds (9,901.23 ng/g) is PCB with the highest concentration followed by PCBs (802.64 ng/g).
 
@@ -290,7 +304,7 @@ Organics_long_no_na_no_zero %>%
        y = "Amount Detected (ng/g)")
 ```
 
-## Rockland to North Concentrations
+#### Rockland to North Concentrations
 This plot visualizes the specific organics present from Rockland, ME to any area northward. 
 As shown in the plot, DDD compounds (1,303.10 ng/g) is PCB with the highest concentration followed by PCBs (354.77 ng/g). 
 

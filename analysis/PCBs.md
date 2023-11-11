@@ -209,8 +209,8 @@ glimpse(PCBs_long)
 
 ### Pesticides
 
-Here we are creating a dataset that only contains the pesticides that
-were measured.
+This is creating a dataset that only contains the pesticides that were
+measured.
 
 ``` r
 pesticides <- PCBs_long %>%
@@ -249,6 +249,13 @@ glimpse(pesticides)
 
 ### Descriptive Visualizations
 
+This bar plot uses number of observations on its y axis, thus reflecting
+sampling intensity by general location. The greatest number of
+observations are in the Gulf of Maine below the 50m isobath (partly this
+is a product of area extent as well as sampling intensity);
+Massachusetts Bays, Boston Harbor sites, and the MA/NH/ME coast are all
+generally heavily sampled.
+
 ``` r
 Organics %>%
   ggplot(aes(x = fct_infreq(GEN_LOC_NM), fill = fct_infreq(GEN_LOC_NM))) +
@@ -263,12 +270,9 @@ Organics %>%
        y = "Count (n Observations)")
 ```
 
-![](PCBs_files/figure-gfm/n-obs-gen-loc-1.png)<!-- --> This bar plot
-uses number of observations on its y axis, thus reflecting sampling
-intensity by general location. The greatest number of observations are
-in the Gulf of Maine below the 50m isobath (partly this is a product of
-area extent as well as sampling intensity); Massachusetts Bays, Boston
-Harbor sites, and the MA/NH/ME coast are all generally heavily sampled.
+![](PCBs_files/figure-gfm/n-obs-gen-loc-1.png)<!-- -->
+
+AP - What is this graph showing us? Do we need it?
 
 ``` r
 ggplot(Organics, aes(x = PCB_T_UGG)) +
@@ -279,10 +283,9 @@ geom_histogram(fill = "skyblue", color = "black")
 
     ## Warning: Removed 6243 rows containing non-finite values (`stat_bin()`).
 
-![](PCBs_files/figure-gfm/hist-pcb-total-1.png)<!-- --> AP - What is
-this graph showing us? Do we need it?
+![](PCBs_files/figure-gfm/hist-pcb-total-1.png)<!-- -->
 
-### PCB site to site comparisons
+### PCB Site to Site Comparisons
 
 The table below is visualizing the mean, standard deviation, count, and
 principal square root values of PCB concentrations for the general
@@ -302,30 +305,16 @@ a wide range of values.
 Summary_Organics <- Organics %>%
   group_by(GEN_LOC_NM) %>%
   drop_na(PCB_T_UGG) %>%
-  summarise(mean_PCB_T = mean(PCB_T_UGG),
+  reframe(mean_PCB_T = mean(PCB_T_UGG),
     sd_PCB_T = sd(PCB_T_UGG), 
     range_PCB_T = range(PCB_T_UGG),
     n_PCB_T = n(),
     SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
-```
 
-    ## Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
-    ## dplyr 1.1.0.
-    ## ℹ Please use `reframe()` instead.
-    ## ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
-    ##   always returns an ungrouped data frame and adjust accordingly.
-    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-    ## generated.
-
-    ## `summarise()` has grouped output by 'GEN_LOC_NM'. You can override using the
-    ## `.groups` argument.
-
-``` r
 Summary_Organics
 ```
 
     ## # A tibble: 24 × 6
-    ## # Groups:   GEN_LOC_NM [12]
     ##    GEN_LOC_NM                 mean_PCB_T sd_PCB_T range_PCB_T n_PCB_T SE_PCB_T
     ##    <chr>                           <dbl>    <dbl>       <dbl>   <int>    <dbl>
     ##  1 Boston Inner Harbor           44.2    285.          0          119 26.1    
