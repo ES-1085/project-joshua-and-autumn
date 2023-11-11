@@ -401,9 +401,12 @@ Summary_Organics %>%
 
 ![](PCBs_files/figure-gfm/pcb-boston-harbor2-1.png)<!-- -->
 
-\##Visualizing Specific PCB Concentrations \### PCB Summary Statistics
-of Locations With Highest Concentrations This graph identifies the
-locations with the highest concentrations of PCBs.
+## Visualizing Specific PCB Concentrations
+
+### PCB Summary Statistics of Locations With Highest Concentrations
+
+This graph identifies the locations with the highest concentrations of
+PCBs.
 
 ``` r
 Summary_Organics %>%
