@@ -42,7 +42,7 @@ glimpse(Organics_long)
 ```
 
 # AP - Placing this here for the time being
-```{r filter-organics-no-nas-no-zeros}
+```{r filter-organics-no-nas-no-zeros-duplicate}
 Organics_long_no_na_no_zero <- Organics_long %>%
   drop_na(amount_detected) %>%
   filter(amount_detected != "0")
@@ -103,20 +103,19 @@ The table below is visualizing the mean, standard deviation, count, and principa
 
 Boston Inner Harbor has the highest mean PCB concentration (average of 44.21 ng/g per observation), followed by Cape Ann to Cape Elizabeth (average of 26.90 ng/g per observation) and Southeast Boston Harbor (average of 18.35 ng/g per observation). Boston Inner Harbor (284.81) and Cape Ann to Cape Elizabeth (227.34) have the highest standard deviations, suggesting that, though they are the locations with the highest average PCB concentrations, the counts per observation vary greatly. The ranges of both locations is 3,000 ng/g to 0 ng/g, which is a wide range of values. 
 
-
 ```{r calculate-sum-stats-organics}
 Summary_Organics <- Organics %>%
   group_by(GEN_LOC_NM) %>%
   drop_na(PCB_T_UGG) %>%
   summarise(mean_PCB_T = mean(PCB_T_UGG),
-    sd_PCB_T = sd(PCB_T_UGG),
+    sd_PCB_T = sd(PCB_T_UGG), 
+    range_PCB_T = range(PCB_T_UGG),
     n_PCB_T = n(),
-    SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()), 
-    range_PCB_T = range(PCB_T_UGG))
+    SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
 
 Summary_Organics
 ```
-The graph below is plotting the mean PCB concentration (ng/g) found at each general location with error bards accounting for one standard error. As we can see, [include interpretation below].
+The graph below is plotting the mean PCB concentration (ng/g) found at each general location with error bards accounting for one standard error. As was reflected upon above, Boston Inner Harbor, Cape Ann to Cape Elizabeth, and Southeast Boston Harbor have the highest concentrations of PCBs.
 
 ```{r pcb-gen-loc}
 Summary_Organics %>%

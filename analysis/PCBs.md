@@ -40,10 +40,7 @@ PCBs <- read.csv(paste0("/cloud/project/data/datasets_csv/PCBs_loc.csv"), header
 Organics <- read.csv(paste0("/cloud/project/data/datasets_csv/Organics_loc.csv"), header = T)
 ```
 
-If we aren’t going to be using the PCB dataset then we should remove
-this.
-
-JH – we do use the PCB dataset in this .rmd.
+### Glimpsing the PCB and Organics Datasets
 
 ``` r
 glimpse(PCBs)
@@ -133,6 +130,8 @@ glimpse(Organics)
     ## $ TBT_C      <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
     ## $ TTBT_C     <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
 
+## Data Transformation
+
 ### Pivot Organics longer
 
 JH – the organics dataset has already been joined with the stations
@@ -169,12 +168,86 @@ glimpse(Organics_long)
     ## $ organic_detected <chr> "REPNO_ORG", "TOTREP_ORG", "TVS_EP_PCT", "O_G_PCT", "…
     ## $ amount_detected  <dbl> 1.00, 1.00, NA, 0.05, NA, NA, NA, NA, NA, NA, NA, NA,…
 
+# AP - Placing this here for the time being
+
+``` r
+Organics_long_no_na_no_zero <- Organics_long %>%
+  drop_na(amount_detected) %>%
+  filter(amount_detected != "0")
+```
+
+### Pivot PCBs longer
+
+``` r
+PCBs_long <- PCBs %>%
+  pivot_longer(cols = `PCB_52_NGG`:`LINDANE_C`, 
+               names_to = "pcb", 
+               values_to = "amount_detected")
+
+glimpse(PCBs_long)
+```
+
+    ## Rows: 188,352
+    ## Columns: 17
+    ## $ UNIQUE_ID       <chr> "US00001", "US00001", "US00001", "US00001", "US00001",…
+    ## $ LATITUDE        <dbl> 42.35972, 42.35972, 42.35972, 42.35972, 42.35972, 42.3…
+    ## $ LONGITUDE       <dbl> -71.02861, -71.02861, -71.02861, -71.02861, -71.02861,…
+    ## $ SOUNDING_M      <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+    ## $ STATE_NAME      <chr> "MA", "MA", "MA", "MA", "MA", "MA", "MA", "MA", "MA", …
+    ## $ QUAD_NAME       <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+    ## $ GEN_LOC_NM      <chr> "Boston Inner Harbor", "Boston Inner Harbor", "Boston …
+    ## $ SPECFC_LOC      <chr> "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH"…
+    ## $ AREA_CODE       <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+    ## $ SAMP_DATE1      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+    ## $ TO_SMP_DT2      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+    ## $ DPTH_N_COR      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+    ## $ DPTH_CODE       <chr> "Unknown", "Unknown", "Unknown", "Unknown", "Unknown",…
+    ## $ COR_GRB_CD      <chr> "Grab", "Grab", "Grab", "Grab", "Grab", "Grab", "Grab"…
+    ## $ site            <chr> "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH"…
+    ## $ pcb             <chr> "PCB_52_NGG", "PCB101_NGG", "PCB118_NGG", "PCB128_NGG"…
+    ## $ amount_detected <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+
+### Pesticides
+
+Here we are creating a dataset that only contains the pesticides that
+were measured.
+
+``` r
+pesticides <- PCBs_long %>%
+  mutate(pcb = fct_recode(pcb,
+                          "DDT_C" = "DDT_2_4_C",
+                          "DDT_C" = "DDT_4_4_C",
+                          "BHC_C" = "BHC_A_C",
+                          "BHC_C" = "BHC_B_C",
+                          "BHC_C" = "BHC_D_C")) %>%
+  filter(pcb %in% c("DDT_C", "DDE_4_4_C", "DDD_4_4_C", "ENDRIN_C", "ENDR_ALD_C", "ALDRIN_C", "DIELDRN_C", "CLRDNE_T_C", "MIREX_C", "METHOXYCLC", "BHC_C", "LINDANE_C"))
+
+glimpse(pesticides)
+```
+
+    ## Rows: 117,720
+    ## Columns: 17
+    ## $ UNIQUE_ID       <chr> "US00001", "US00001", "US00001", "US00001", "US00001",…
+    ## $ LATITUDE        <dbl> 42.35972, 42.35972, 42.35972, 42.35972, 42.35972, 42.3…
+    ## $ LONGITUDE       <dbl> -71.02861, -71.02861, -71.02861, -71.02861, -71.02861,…
+    ## $ SOUNDING_M      <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+    ## $ STATE_NAME      <chr> "MA", "MA", "MA", "MA", "MA", "MA", "MA", "MA", "MA", …
+    ## $ QUAD_NAME       <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+    ## $ GEN_LOC_NM      <chr> "Boston Inner Harbor", "Boston Inner Harbor", "Boston …
+    ## $ SPECFC_LOC      <chr> "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH"…
+    ## $ AREA_CODE       <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+    ## $ SAMP_DATE1      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+    ## $ TO_SMP_DT2      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+    ## $ DPTH_N_COR      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+    ## $ DPTH_CODE       <chr> "Unknown", "Unknown", "Unknown", "Unknown", "Unknown",…
+    ## $ COR_GRB_CD      <chr> "Grab", "Grab", "Grab", "Grab", "Grab", "Grab", "Grab"…
+    ## $ site            <chr> "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH"…
+    ## $ pcb             <fct> DDT_C, DDT_C, DDE_4_4_C, DDD_4_4_C, ENDRIN_C, ENDR_ALD…
+    ## $ amount_detected <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+
 ## Visualizations
 
 ### Descriptive Visualizations
-
-First, we will be visualizing the number of observations that were
-collected for each general location.
 
 ``` r
 Organics %>%
@@ -206,7 +279,8 @@ geom_histogram(fill = "skyblue", color = "black")
 
     ## Warning: Removed 6243 rows containing non-finite values (`stat_bin()`).
 
-![](PCBs_files/figure-gfm/hist-pcb-total-1.png)<!-- -->
+![](PCBs_files/figure-gfm/hist-pcb-total-1.png)<!-- --> AP - What is
+this graph showing us? Do we need it?
 
 ### PCB site to site comparisons
 
@@ -214,39 +288,63 @@ The table below is visualizing the mean, standard deviation, count, and
 principal square root values of PCB concentrations for the general
 locations.
 
+Boston Inner Harbor has the highest mean PCB concentration (average of
+44.21 ng/g per observation), followed by Cape Ann to Cape Elizabeth
+(average of 26.90 ng/g per observation) and Southeast Boston Harbor
+(average of 18.35 ng/g per observation). Boston Inner Harbor (284.81)
+and Cape Ann to Cape Elizabeth (227.34) have the highest standard
+deviations, suggesting that, though they are the locations with the
+highest average PCB concentrations, the counts per observation vary
+greatly. The ranges of both locations is 3,000 ng/g to 0 ng/g, which is
+a wide range of values.
+
 ``` r
 Summary_Organics <- Organics %>%
   group_by(GEN_LOC_NM) %>%
   drop_na(PCB_T_UGG) %>%
   summarise(mean_PCB_T = mean(PCB_T_UGG),
-    sd_PCB_T = sd(PCB_T_UGG),
+    sd_PCB_T = sd(PCB_T_UGG), 
+    range_PCB_T = range(PCB_T_UGG),
     n_PCB_T = n(),
     SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
+```
 
+    ## Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
+    ## dplyr 1.1.0.
+    ## ℹ Please use `reframe()` instead.
+    ## ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
+    ##   always returns an ungrouped data frame and adjust accordingly.
+    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+    ## generated.
+
+    ## `summarise()` has grouped output by 'GEN_LOC_NM'. You can override using the
+    ## `.groups` argument.
+
+``` r
 Summary_Organics
 ```
 
-    ## # A tibble: 12 × 5
-    ##    GEN_LOC_NM                   mean_PCB_T sd_PCB_T n_PCB_T SE_PCB_T
-    ##    <chr>                             <dbl>    <dbl>   <int>    <dbl>
-    ##  1 Boston Inner Harbor             44.2    285.         119 26.1    
-    ##  2 Cape Ann to Cape Elizabeth      26.9    227.         190 16.5    
-    ##  3 Cape Code Bay                    0.0113   0.0137      34  0.00235
-    ##  4 Cape Elizabeth to Rockland       4.29    25.3        187  1.85   
-    ##  5 Central Boston Harbor            0.416    0.274       41  0.0427 
-    ##  6 Gulf of Maine (>50m Isobath)     0.0257   0.0326     150  0.00266
-    ##  7 Harbor Approaches                0.251    0.207       24  0.0422 
-    ##  8 Inland/Rivers                    0.0685   0.235       51  0.0329 
-    ##  9 Massachusetts Bays               0.0712   0.293      407  0.0145 
-    ## 10 Northwest Boston Harbor          0.320    0.763      220  0.0514 
-    ## 11 Rockland to north                2.37    22.7        150  1.86   
-    ## 12 Southeast Boston Harbor         18.4     73.2         33 12.7
+    ## # A tibble: 24 × 6
+    ## # Groups:   GEN_LOC_NM [12]
+    ##    GEN_LOC_NM                 mean_PCB_T sd_PCB_T range_PCB_T n_PCB_T SE_PCB_T
+    ##    <chr>                           <dbl>    <dbl>       <dbl>   <int>    <dbl>
+    ##  1 Boston Inner Harbor           44.2    285.          0          119 26.1    
+    ##  2 Boston Inner Harbor           44.2    285.       3000          119 26.1    
+    ##  3 Cape Ann to Cape Elizabeth    26.9    227.          0          190 16.5    
+    ##  4 Cape Ann to Cape Elizabeth    26.9    227.       3000          190 16.5    
+    ##  5 Cape Code Bay                  0.0113   0.0137      0           34  0.00235
+    ##  6 Cape Code Bay                  0.0113   0.0137      0.0377      34  0.00235
+    ##  7 Cape Elizabeth to Rockland     4.29    25.3         0          187  1.85   
+    ##  8 Cape Elizabeth to Rockland     4.29    25.3       200          187  1.85   
+    ##  9 Central Boston Harbor          0.416    0.274       0.072       41  0.0427 
+    ## 10 Central Boston Harbor          0.416    0.274       0.84        41  0.0427 
+    ## # ℹ 14 more rows
 
 The graph below is plotting the mean PCB concentration (ng/g) found at
 each general location with error bards accounting for one standard
-error.
-
-As we can see, \[include interpretation below\].
+error. As was reflected upon above, Boston Inner Harbor, Cape Ann to
+Cape Elizabeth, and Southeast Boston Harbor have the highest
+concentrations of PCBs.
 
 ``` r
 Summary_Organics %>%
@@ -270,7 +368,7 @@ locations.
 
 ``` r
 Summary_Organics %>%
-  filter(GEN_LOC_NM %in% c("BOSTON INNER HARBOR", "CENTRAL BOSTON HARBOR", "SOUTHEAST BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
+  filter(GEN_LOC_NM %in% c("Boston Inner Harbor", "Central Boston Harbor", "Southeast Boston Harbor", "Northwest Boston Harbor")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = mean_PCB_T, fill = GEN_LOC_NM)) +
   geom_col(col = "black") +
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
@@ -291,7 +389,7 @@ Central Boston Harbor and Northwest Boston Harbor.
 
 ``` r
 Summary_Organics %>%
-  filter(GEN_LOC_NM %in% c("CENTRAL BOSTON HARBOR", "NORTHWEST BOSTON HARBOR")) %>%
+  filter(GEN_LOC_NM %in% c("Central Boston Harbor", "Northwest Boston Harbor")) %>%
   ggplot(aes(x = fct_reorder(GEN_LOC_NM, mean_PCB_T), y = mean_PCB_T, fill = GEN_LOC_NM)) +
   geom_col(col = "black") +
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
@@ -307,55 +405,337 @@ Summary_Organics %>%
 
 ![](PCBs_files/figure-gfm/pcb-boston-harbor2-1.png)<!-- -->
 
+This graph compares the locations with the highest concentrations of
+PCBs.
+
+``` r
+Summary_Organics %>%
+  filter(GEN_LOC_NM %in% c("Boston Inner Harbor", "Cape Ann to Cape Elizabeth", "Southeast Boston Harbor", "Cape Elizabeth to Rockland", "Rockland to north")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = mean_PCB_T, fill = GEN_LOC_NM)) +
+  geom_col() +
+  geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
+  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill") +
+  theme_minimal() +
+  scale_fill_viridis_d()+
+  coord_flip() +
+  theme(legend.position = "none") +
+  labs(title = "Locations with the highest PCB Concentrations",
+       x = "General location",
+       y = "Mean total PCB concentration ug/g",
+       caption = "Error bars = 1 standard error")
+```
+
+    ## Scale for fill is already present.
+    ## Adding another scale for fill, which will replace the existing scale.
+
+![](PCBs_files/figure-gfm/pcb-highest-concentrations-1.png)<!-- -->
+
+\###Visualizing Specific PCB Concentrations \## Boston Inner Harbor
+Concentrations This plot visualizes the specific organics present in
+Boston Inner Harbor.
+
+As shown in the plot, Oil and Grease in sediments (173,938.40 moles/g)
+has the highest concentration in the harbor, followed by Petroleum
+Hydrocarbons (134,266.0 percent dry weight), and then Clostridium
+perfringens (99,230.00 spores/g).
+
+``` r
+Organics_long_no_na_no_zero %>%
+  group_by(GEN_LOC_NM, organic_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM == "Boston Inner Harbor") %>%
+  arrange(desc(amount_detected))
+```
+
+    ## `summarise()` has grouped output by 'GEN_LOC_NM'. You can override using the
+    ## `.groups` argument.
+
+    ## # A tibble: 17 × 3
+    ## # Groups:   GEN_LOC_NM [1]
+    ##    GEN_LOC_NM          organic_detected amount_detected
+    ##    <chr>               <chr>                      <dbl>
+    ##  1 Boston Inner Harbor O_G_UGG                173938.  
+    ##  2 Boston Inner Harbor PHCTOT_UGG             134266   
+    ##  3 Boston Inner Harbor CLOST_SP_G              99230   
+    ##  4 Boston Inner Harbor PCB_T_UGG                5261.  
+    ##  5 Boston Inner Harbor PAHTOT_UGG               1599.  
+    ##  6 Boston Inner Harbor TBT_C                    1340.  
+    ##  7 Boston Inner Harbor DDT_T_NGG                 902.  
+    ##  8 Boston Inner Harbor TVS_EP_PCT                560.  
+    ##  9 Boston Inner Harbor DBT_C                     284.  
+    ## 10 Boston Inner Harbor REPNO_ORG                  97   
+    ## 11 Boston Inner Harbor TOTREP_ORG                 93   
+    ## 12 Boston Inner Harbor MBT_C                      79.4 
+    ## 13 Boston Inner Harbor PAHTOT_PCT                 41.4 
+    ## 14 Boston Inner Harbor O_G_PCT                    21.6 
+    ## 15 Boston Inner Harbor TTBT_C                      5.08
+    ## 16 Boston Inner Harbor LIPIDS_NGG                  3   
+    ## 17 Boston Inner Harbor PHCTOT_PCT                  0.88
+
+``` r
+Organics_long_no_na_no_zero %>%
+  filter(GEN_LOC_NM %in% c("Boston Inner Harbor")) %>%
+  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
+  geom_col()+
+  theme_minimal()+
+  scale_fill_viridis_d()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "Organic Concentrations in Boston Inner Harbor Sediments",
+       x = "Organic Detected",
+       y = "Amount Detected (ng/g)")
+```
+
+![](PCBs_files/figure-gfm/type_of_organic-in-boston-inner-harbor-1.png)<!-- -->
+
+## Cape Ann to Cape Elizabeth Concentrations
+
+This plot visualizes the specific organics present in Cape Ann to Cape
+Elizabeth.
+
+As shown in the plot, Clostridium perfringens (724,143.53 spores/g) is
+PCB with the highest concentration.
+
+``` r
+Organics_long_no_na_no_zero %>%
+  group_by(GEN_LOC_NM, organic_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM == "Cape Ann to Cape Elizabeth") %>%
+  arrange(desc(amount_detected))
+```
+
+    ## `summarise()` has grouped output by 'GEN_LOC_NM'. You can override using the
+    ## `.groups` argument.
+
+    ## # A tibble: 9 × 3
+    ## # Groups:   GEN_LOC_NM [1]
+    ##   GEN_LOC_NM                 organic_detected amount_detected
+    ##   <chr>                      <chr>                      <dbl>
+    ## 1 Cape Ann to Cape Elizabeth CLOST_SP_G               724144.
+    ## 2 Cape Ann to Cape Elizabeth PCB_T_UGG                  5112.
+    ## 3 Cape Ann to Cape Elizabeth PAHTOT_UGG                 1011.
+    ## 4 Cape Ann to Cape Elizabeth DDT_T_NGG                   480.
+    ## 5 Cape Ann to Cape Elizabeth O_G_UGG                     383 
+    ## 6 Cape Ann to Cape Elizabeth TOTREP_ORG                   98 
+    ## 7 Cape Ann to Cape Elizabeth REPNO_ORG                    91 
+    ## 8 Cape Ann to Cape Elizabeth PEST_UG_G                    84 
+    ## 9 Cape Ann to Cape Elizabeth TVS_EP_PCT                   14
+
+``` r
+Organics_long_no_na_no_zero %>%
+  filter(GEN_LOC_NM %in% c("Cape Ann to Cape Elizabeth")) %>%
+  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
+  geom_col()+
+  theme_minimal()+
+  scale_fill_viridis_d()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "Organic Concentrations in Cape Ann to Cape Elizabeth Sediments",
+       x = "Organic Detected",
+       y = "Amount Detected (ng/g)")
+```
+
+![](PCBs_files/figure-gfm/type_of_organic-in-cape-ann-to-elizabeth-1.png)<!-- -->
+
+## Southeast Boston Harbor Concentrations
+
+This plot visualizes the specific organics present in Southeast Boston
+Harbor.
+
+As shown in the plot, Clostridium perfringens (89,223 spores/g) has the
+highest concentration in the harbor, followed by Oil and Grease in
+sediments (74,285 moles/g), and Petroleum Hydrocarbons (in units of
+percent dry weight).
+
+``` r
+Organics_long_no_na_no_zero %>%
+  group_by(GEN_LOC_NM, organic_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM == "Southeast Boston Harbor") %>%
+  arrange(desc(amount_detected))
+```
+
+    ## `summarise()` has grouped output by 'GEN_LOC_NM'. You can override using the
+    ## `.groups` argument.
+
+    ## # A tibble: 17 × 3
+    ## # Groups:   GEN_LOC_NM [1]
+    ##    GEN_LOC_NM              organic_detected amount_detected
+    ##    <chr>                   <chr>                      <dbl>
+    ##  1 Southeast Boston Harbor CLOST_SP_G             89223    
+    ##  2 Southeast Boston Harbor O_G_UGG                74285    
+    ##  3 Southeast Boston Harbor PHCTOT_UGG             12025    
+    ##  4 Southeast Boston Harbor PCB_T_UGG                606.   
+    ##  5 Southeast Boston Harbor TVS_EP_PCT               425.   
+    ##  6 Southeast Boston Harbor PAHTOT_UGG                96.6  
+    ##  7 Southeast Boston Harbor TBT_C                     56.7  
+    ##  8 Southeast Boston Harbor REPNO_ORG                 40    
+    ##  9 Southeast Boston Harbor TOTREP_ORG                35    
+    ## 10 Southeast Boston Harbor DDT_T_NGG                 34.4  
+    ## 11 Southeast Boston Harbor DBT_C                     17    
+    ## 12 Southeast Boston Harbor PAHTOT_PCT                16.6  
+    ## 13 Southeast Boston Harbor O_G_PCT                   11.2  
+    ## 14 Southeast Boston Harbor MBT_C                      6    
+    ## 15 Southeast Boston Harbor TTBT_C                     0.6  
+    ## 16 Southeast Boston Harbor DDE_T_NGG                  0.057
+    ## 17 Southeast Boston Harbor DDD_T_NGG                  0.047
+
+``` r
+Organics_long_no_na_no_zero %>%
+  filter(GEN_LOC_NM %in% c("Southeast Boston Harbor")) %>%
+  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
+  geom_col()+
+  theme_minimal()+
+  scale_fill_viridis_d()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "Organic Concentrations in Southeast Boston Harbor Sediments",
+       x = "Organic Detected",
+       y = "Amount Detected (ng/g)")
+```
+
+![](PCBs_files/figure-gfm/type_of_organic-in-boston-southeast-harbor-1.png)<!-- -->
+
+## Cape Elizabeth to Rockland Concentrations
+
+This plot visualizes the specific organics present from Cape Elizabeth
+to Rockland. As shown in the plot, DDD compounds (9,901.23 ng/g) is PCB
+with the highest concentration followed by PCBs (802.64 ng/g).
+
+``` r
+Organics_long_no_na_no_zero %>%
+  group_by(GEN_LOC_NM, organic_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM == "Cape Elizabeth to Rockland") %>%
+  arrange(desc(amount_detected))
+```
+
+    ## `summarise()` has grouped output by 'GEN_LOC_NM'. You can override using the
+    ## `.groups` argument.
+
+    ## # A tibble: 2 × 3
+    ## # Groups:   GEN_LOC_NM [1]
+    ##   GEN_LOC_NM                 organic_detected amount_detected
+    ##   <chr>                      <chr>                      <dbl>
+    ## 1 Cape Elizabeth to Rockland DDT_T_NGG                  9901.
+    ## 2 Cape Elizabeth to Rockland PCB_T_UGG                   803.
+
+``` r
+Organics_long_no_na_no_zero %>%
+  filter(GEN_LOC_NM %in% c("Cape Elizabeth to Rockland")) %>%
+  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
+  geom_col()+
+  theme_minimal()+
+  scale_fill_viridis_d()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "Organic Concentrations in Cape Elizabeth to Rockland Sediments",
+       x = "Organic Detected",
+       y = "Amount Detected (ng/g)")
+```
+
+![](PCBs_files/figure-gfm/type_of_organic-from-cape-elizabeth-to-rockland-1.png)<!-- -->
+
+## Rockland to North Concentrations
+
+This plot visualizes the specific organics present from Rockland, ME to
+any area northward. As shown in the plot, DDD compounds (1,303.10 ng/g)
+is PCB with the highest concentration followed by PCBs (354.77 ng/g).
+
+``` r
+Organics_long_no_na_no_zero %>%
+  group_by(GEN_LOC_NM, organic_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM == "Rockland to north") %>%
+  arrange(desc(amount_detected))
+```
+
+    ## `summarise()` has grouped output by 'GEN_LOC_NM'. You can override using the
+    ## `.groups` argument.
+
+    ## # A tibble: 2 × 3
+    ## # Groups:   GEN_LOC_NM [1]
+    ##   GEN_LOC_NM        organic_detected amount_detected
+    ##   <chr>             <chr>                      <dbl>
+    ## 1 Rockland to north DDT_T_NGG                  1303.
+    ## 2 Rockland to north PCB_T_UGG                   355.
+
+``` r
+Organics_long_no_na_no_zero %>%
+  filter(GEN_LOC_NM %in% c("Rockland to north")) %>%
+  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
+  geom_col()+
+  theme_minimal()+
+  scale_fill_viridis_d()+
+  coord_flip()+
+  theme(legend.position = "none")+
+  labs(title = "Organic Concentrations in Rockland to North Sediments",
+       x = "Organic Detected",
+       y = "Amount Detected (ng/g)")
+```
+
+![](PCBs_files/figure-gfm/type_of_organic-in-rockalnd-to-N-1.png)<!-- -->
+
+``` r
+Sum_all_pcb_rock_n <- PCBs_long %>%
+  group_by(pcb, site) %>%
+  filter(GEN_LOC_NM == "Rockland to north") %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  drop_na(amount_detected) %>%
+  summarise(mean = mean(amount_detected),
+    sd = sd(amount_detected),
+    n = n(),
+    SE = sd(amount_detected) / sqrt(n()))
+```
+
+    ## `summarise()` has grouped output by 'pcb'. You can override using the `.groups`
+    ## argument.
+
+``` r
+Sum_all_pcb_rock_n
+```
+
+    ## # A tibble: 24 × 5
+    ##    pcb          mean     sd     n     SE
+    ##    <chr>       <dbl>  <dbl> <int>  <dbl>
+    ##  1 ALDRIN_C   0.244   1.43     60 0.185 
+    ##  2 BHC_A_C    0       0        60 0     
+    ##  3 BHC_B_C    0       0        60 0     
+    ##  4 BHC_D_C    1.67   12.9      60 1.67  
+    ##  5 CLRDNE_T_C 0       0        60 0     
+    ##  6 DDD_4_4_C  0.173   1.34     60 0.173 
+    ##  7 DDE_4_4_C  0.163   0.763    60 0.0985
+    ##  8 DDT_2_4_C  0.0392  0.259    60 0.0335
+    ##  9 DDT_4_4_C  0.138   1.00     60 0.130 
+    ## 10 DIELDRN_C  0.0728  0.414    60 0.0534
+    ## # ℹ 14 more rows
+
+``` r
+Sum_all_pcb_rock_n %>%
+  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = mean, fill = pcb)) +
+  geom_col(color = "black") +
+   geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
+  coord_flip() +
+  theme_classic() +
+  scale_fill_brewer(type = "qual", palette = 5, direction = 1, aesthetics = "fill") +
+  theme(legend.position = "none") +
+  labs(title = "PCB and Pesticide Concentrations in Sediments",
+       subtitle = "Rockland, ME, and points north",
+       x = "PCB/Pesticide Detected",
+       y = "Amount Detected (ng/g)")
+```
+
+    ## Warning in RColorBrewer::brewer.pal(n, pal): n too large, allowed maximum for palette Pastel2 is 8
+    ## Returning the palette you asked for with that many colors
+
+![](PCBs_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
 ### Specific Locations
 
 #### Rivers
 
 As stated in our project proposal, we were interested in visualizing
-contaminents in Maine Rivers as well as harbors and bays.
-
-Below we are identifying specific Maine rivers.
-
-``` r
-Organics %>%
-  filter(STATE_NAME == "ME") %>%
-  filter(PCB_T_UGG != "NA") %>%
-  distinct(SPECFC_LOC)
-```
-
-    ##                                                 SPECFC_LOC
-    ## 1                            Southern Harbor (North Haven)
-    ## 2                                      Portland Fore River
-    ## 3                                              Royal River
-    ## 4                             Portland Harbor & Fore River
-    ## 5                                        Stonington Harbor
-    ## 6                                          Kennebunk River
-    ## 7                                             Lermond Cove
-    ## 8                                               Bar Harbor
-    ## 9                                          Rockport Harbor
-    ## 10                                          Castine Harbor
-    ## 11                     Portsmouth Naval Shipyard (Kittery)
-    ## 12                                              Mack Point
-    ## 13                                             York Harbor
-    ## 14                                           Camden Harbor
-    ## 15                                            Wells Harbor
-    ## 16                            Portland Back Cove & Channel
-    ## 17                                  Kennebec River to Bath
-    ## 18                                   Sears Island Terminal
-    ## 19                                             Union River
-    ## 20                               Penobscot River To Bangor
-    ## 21                          Jonesport Harbor - Sawyer Cove
-    ## 22                                  Isle Au Haut Thorofare
-    ## 23                     Beals Harbor (Barneys Cove - Beals)
-    ## 24                                             Bass Harbor
-    ## 25                                          Tenants Harbor
-    ## 26 Back Channel Near N. shore of entrance to Barters Creek
-    ## 27             West of Jamaica Is. in Back Channel of PNSY
-    ## 28          Back Channel E side of back gate entr. to PNSY
-    ## 29                                              York River
-    ## 30                                               Casco Bay
-    ## 31                                           Penobscot Bay
-    ## 32                                         Portland Harbor
+contaminants in Maine Rivers as well as harbors and bays.
 
 ``` r
 Sum_Org_site <- Organics %>%
@@ -367,16 +747,63 @@ Sum_Org_site <- Organics %>%
     SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
 ```
 
+Below we are identifying specific Maine rivers to use in our analysis.
+
+``` r
+Organics %>%
+  filter(STATE_NAME == "ME") %>%
+  filter(PCB_T_UGG != "NA") %>%
+  distinct(site)
+```
+
+    ##                                                       site
+    ## 1                            Southern Harbor (North Haven)
+    ## 2                                               Fore River
+    ## 3                                              Royal River
+    ## 4                                        Stonington Harbor
+    ## 5                                          Kennebunk River
+    ## 6                                             Lermond Cove
+    ## 7                                               Bar Harbor
+    ## 8                                          Rockport Harbor
+    ## 9                                           Castine Harbor
+    ## 10                     Portsmouth Naval Shipyard (Kittery)
+    ## 11                                              Mack Point
+    ## 12                                             York Harbor
+    ## 13                                           Camden Harbor
+    ## 14                                            Wells Harbor
+    ## 15                            Portland Back Cove & Channel
+    ## 16                                          Kennebec River
+    ## 17                                   Sears Island Terminal
+    ## 18                                             Union River
+    ## 19                                         Penobscot River
+    ## 20                          Jonesport Harbor - Sawyer Cove
+    ## 21                                  Isle Au Haut Thorofare
+    ## 22                     Beals Harbor (Barneys Cove - Beals)
+    ## 23                                             Bass Harbor
+    ## 24                                          Tenants Harbor
+    ## 25 Back Channel Near N. shore of entrance to Barters Creek
+    ## 26             West of Jamaica Is. in Back Channel of PNSY
+    ## 27          Back Channel E side of back gate entr. to PNSY
+    ## 28                                              York River
+    ## 29                                               Casco Bay
+    ## 30                                           Penobscot Bay
+    ## 31                                         Portland Harbor
+
 Below we are visualizing the mean PCBs present in Maine rivers.
 
 ``` r
 Sum_Org_site %>%
-  filter(site %in% c("York River", "Kennebunk River", "Portland Fore River", "Royal River", "Kennebec River to Bath", "Penobscot River To Bangor")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -0.01,x) ), fill = site)) +
+  filter(site %in% c("York River", "Kennebunk River", "Fore River", "Royal River", "Kennebec River", "Penobscot River", "Saco River")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -0.2,x) ), fill = fct_rev(fct_reorder(site, mean_PCB_T)))) +
   geom_bar(stat="identity", col = "black") +
   scale_x_discrete(drop=FALSE) +
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
-  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill") +
+  scale_fill_manual(values = c("Kennebec River" = "skyblue",
+                               "Penobscot River" = "skyblue",
+                               "Royal River" = "green4",
+                               "York River" = "darkgoldenrod4",
+                               "Kennebunk River" = "firebrick",
+                               "Fore River" = "peachpuff")) +
   theme_bw() +
   coord_flip() +
   theme(legend.position = "none") +
@@ -392,17 +819,17 @@ Sites with only one observation or mean = 0 do not have error bars.
 
 ``` r
 Sum_Org_site %>%
-  filter(site %in% c("York River", "Kennebunk River", "Portland Fore River", "Royal River", "Kennebec River to Bath", "Penobscot River To Bangor", "Union River")) %>%
+  filter(site %in% c("York River", "Kennebunk River", "Fore River", "Royal River", "Kennebec River", "Penobscot River", "Saco River", "Union River")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -2,x)), fill = site)) +
   geom_col(col = "black") +
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
-  scale_fill_manual(values = c("Kennebec River to Bath" = "skyblue",
-                               "Penobstoc River to Bangor" = "skyblue",
+  scale_fill_manual(values = c("Kennebec River" = "skyblue",
+                               "Penobscot River" = "skyblue",
                                "Royal River" = "gray50",
                                "York River" = "gray50",
                                "Kennebunk River" = "gray50",
-                               "Portland Fore River" = "gray50",
-                               "Union River" = "chocolate1")) +
+                               "Fore River" = "peachpuff",
+                               "Union River" = "mediumorchid")) +
   theme_bw() +
   coord_flip() +
   theme(legend.position = "none") +
@@ -9119,70 +9546,6 @@ ggplot(GOM_states) +
 
 ![](PCBs_files/figure-gfm/map-all-organics-gom-1.png)<!-- -->
 
-### Pesticides
-
-``` r
-PCBs_long <- PCBs %>%
-  pivot_longer(cols = `PCB_52_NGG`:`LINDANE_C`, 
-               names_to = "pcb", 
-               values_to = "amount_detected")
-
-glimpse(PCBs_long)
-```
-
-    ## Rows: 188,352
-    ## Columns: 17
-    ## $ UNIQUE_ID       <chr> "US00001", "US00001", "US00001", "US00001", "US00001",…
-    ## $ LATITUDE        <dbl> 42.35972, 42.35972, 42.35972, 42.35972, 42.35972, 42.3…
-    ## $ LONGITUDE       <dbl> -71.02861, -71.02861, -71.02861, -71.02861, -71.02861,…
-    ## $ SOUNDING_M      <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-    ## $ STATE_NAME      <chr> "MA", "MA", "MA", "MA", "MA", "MA", "MA", "MA", "MA", …
-    ## $ QUAD_NAME       <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-    ## $ GEN_LOC_NM      <chr> "Boston Inner Harbor", "Boston Inner Harbor", "Boston …
-    ## $ SPECFC_LOC      <chr> "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH"…
-    ## $ AREA_CODE       <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-    ## $ SAMP_DATE1      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-    ## $ TO_SMP_DT2      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-    ## $ DPTH_N_COR      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-    ## $ DPTH_CODE       <chr> "Unknown", "Unknown", "Unknown", "Unknown", "Unknown",…
-    ## $ COR_GRB_CD      <chr> "Grab", "Grab", "Grab", "Grab", "Grab", "Grab", "Grab"…
-    ## $ site            <chr> "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH"…
-    ## $ pcb             <chr> "PCB_52_NGG", "PCB101_NGG", "PCB118_NGG", "PCB128_NGG"…
-    ## $ amount_detected <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-
-``` r
-pesticides <- PCBs_long %>%
-  mutate(pcb = fct_recode(pcb,
-                          "DDT_C" = "DDT_2_4_C",
-                          "DDT_C" = "DDT_4_4_C",
-                          "BHC_C" = "BHC_A_C",
-                          "BHC_C" = "BHC_B_C",
-                          "BHC_C" = "BHC_D_C")) %>%
-  filter(pcb %in% c("DDT_C", "DDE_4_4_C", "DDD_4_4_C", "ENDRIN_C", "ENDR_ALD_C", "ALDRIN_C", "DIELDRN_C", "CLRDNE_T_C", "MIREX_C", "METHOXYCLC", "BHC_C", "LINDANE_C"))
-
-glimpse(pesticides)
-```
-
-    ## Rows: 117,720
-    ## Columns: 17
-    ## $ UNIQUE_ID       <chr> "US00001", "US00001", "US00001", "US00001", "US00001",…
-    ## $ LATITUDE        <dbl> 42.35972, 42.35972, 42.35972, 42.35972, 42.35972, 42.3…
-    ## $ LONGITUDE       <dbl> -71.02861, -71.02861, -71.02861, -71.02861, -71.02861,…
-    ## $ SOUNDING_M      <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-    ## $ STATE_NAME      <chr> "MA", "MA", "MA", "MA", "MA", "MA", "MA", "MA", "MA", …
-    ## $ QUAD_NAME       <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-    ## $ GEN_LOC_NM      <chr> "Boston Inner Harbor", "Boston Inner Harbor", "Boston …
-    ## $ SPECFC_LOC      <chr> "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH"…
-    ## $ AREA_CODE       <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-    ## $ SAMP_DATE1      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-    ## $ TO_SMP_DT2      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-    ## $ DPTH_N_COR      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-    ## $ DPTH_CODE       <chr> "Unknown", "Unknown", "Unknown", "Unknown", "Unknown",…
-    ## $ COR_GRB_CD      <chr> "Grab", "Grab", "Grab", "Grab", "Grab", "Grab", "Grab"…
-    ## $ site            <chr> "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH"…
-    ## $ pcb             <fct> DDT_C, DDT_C, DDE_4_4_C, DDD_4_4_C, ENDRIN_C, ENDR_ALD…
-    ## $ amount_detected <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-
 ``` r
 ggplot(GOM_states) +
   geom_sf(aes()) +
@@ -9244,19 +9607,27 @@ ggplot(GOM_states) +
 ## Interactive map
 
 ``` r
-#labels <- sprintf("<strong>%s</strong><br/>%g ug/g</strong><br/>%g Depth M",
-#                  Organics_station$SPECFC_LOC.x, Organics_station$organic_detected, #Organics_station$amount_detected, Organics_station$SOUNDING_M.x) %>%
+Organics_long_no_na_no_zero <- Organics_long %>%
+  drop_na(amount_detected) %>%
+  filter(amount_detected != "0") %>%
+  drop_na(SOUNDING_M) %>%
+  filter(SOUNDING_M != "0")
+```
+
+``` r
+#labels <- sprintf("<strong>%s</strong><br/>%s: %g ug/g</strong><br/>",
+#                  Organics_long$SPECFC_LOC, Organics_long$organic_detected, #Organics_long$amount_detected) %>%
 #  lapply(htmltools::HTML)
 #head(labels, 1)
 ```
 
 ``` r
-#leaflet(data = Organics_station) %>%
+#leaflet(data = Organics_long_no_na_no_zero) %>%
 #  addProviderTiles(providers$Esri.WorldTopoMap) %>%
 #  setView(lng = -68.5, 
 #          lat = 43.5, 
 #          zoom = 6) %>%
-#  addCircleMarkers(lng = ~LONGITUDE, lat = ~LATITUDE, popup = c(~SPECFC_LOC, ~PCB_T_UGG), label = labels)
+#  addCircleMarkers(lng = ~LONGITUDE, lat = ~LATITUDE, popup = c(~amount_detected), label = labels)
 ```
 
 Note that the two above code chunks are commented out as .rmd will not
