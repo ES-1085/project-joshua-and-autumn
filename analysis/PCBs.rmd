@@ -7,7 +7,6 @@ output: github_document
 ### Introduction
 This document is an analysis of distributions and concentrations of PCB and Organic contaminants that were reported in a publication by the U.S. Geological Survey on contaminated sediments in the Gulf of Maine. 
 
-
 ### Loading packages
 These are the packages that will be used for analysis. 
 
