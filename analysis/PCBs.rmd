@@ -336,14 +336,18 @@ Organics %>%
 Below we are visualizing the mean PCBs present in Maine rivers. 
 ```{r bar-pcb-me-rivers-without-union}
 Sum_Org_site %>%
-  filter(site %in% c("York River", "Kennebunk River", "Fore River", "Royal River", "Kennebec River", "Penobscot River")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -0.01,x) ), fill = site)) +
+  filter(site %in% c("York River", "Kennebunk River", "Fore River", "Royal River", "Kennebec River", "Penobscot River", "Saco River")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -0.2,x) ), fill = fct_rev(fct_reorder(site, mean_PCB_T)))) +
   geom_bar(stat="identity", col = "black") +
   scale_x_discrete(drop=FALSE) +
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
-  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill") +
-  theme_minimal() +
-  scale_fill_viridis_d() +
+  scale_fill_manual(values = c("Kennebec River" = "skyblue",
+                               "Penobscot River" = "skyblue",
+                               "Royal River" = "green4",
+                               "York River" = "darkgoldenrod4",
+                               "Kennebunk River" = "firebrick",
+                               "Fore River" = "peachpuff")) +
+  theme_bw() +
   coord_flip() +
   theme(legend.position = "none") +
   labs(title = "PCB Concentrations in Maine Rivers",
@@ -356,17 +360,17 @@ Sites with only one observation or mean = 0 do not have error bars.
 
 ```{r bar-pcb-me-rivers-with-union}
 Sum_Org_site %>%
-  filter(site %in% c("York River", "Kennebunk River", "Portland Fore River", "Royal River", "Kennebec River to Bath", "Penobscot River To Bangor", "Union River")) %>%
+  filter(site %in% c("York River", "Kennebunk River", "Fore River", "Royal River", "Kennebec River", "Penobscot River", "Saco River", "Union River")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -2,x)), fill = site)) +
   geom_col(col = "black") +
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
-  scale_fill_manual(values = c("Kennebec River to Bath" = "skyblue",
-                               "Penobstoc River to Bangor" = "skyblue",
+  scale_fill_manual(values = c("Kennebec River" = "skyblue",
+                               "Penobscot River" = "skyblue",
                                "Royal River" = "gray50",
                                "York River" = "gray50",
                                "Kennebunk River" = "gray50",
-                               "Portland Fore River" = "gray50",
-                               "Union River" = "chocolate1")) +
+                               "Fore River" = "peachpuff",
+                               "Union River" = "mediumorchid")) +
   theme_bw() +
   coord_flip() +
   theme(legend.position = "none") +
