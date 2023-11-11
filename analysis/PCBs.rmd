@@ -59,7 +59,7 @@ glimpse(PCBs_long)
 ```
 
 ### Pesticides
-Here we are creating a dataset that only contains the pesticides that were measured. 
+This is creating a dataset that only contains the pesticides that were measured. 
 
 ```{r create-pesticides-df-combine-pest-categories}
 pesticides <- PCBs_long %>%
@@ -77,6 +77,8 @@ glimpse(pesticides)
 ## Visualizations
 ### Descriptive Visualizations
 
+This bar plot uses number of observations on its y axis, thus reflecting sampling intensity by general location.  The greatest number of observations are in the Gulf of Maine below the 50m isobath (partly this is a product of area extent as well as sampling intensity); Massachusetts Bays, Boston Harbor sites, and the MA/NH/ME coast are all generally heavily sampled.
+
 ```{r n-obs-gen-loc}
 Organics %>%
   ggplot(aes(x = fct_infreq(GEN_LOC_NM), fill = fct_infreq(GEN_LOC_NM))) +
@@ -90,15 +92,16 @@ Organics %>%
        x = "General Location",
        y = "Count (n Observations)")
 ```
-This bar plot uses number of observations on its y axis, thus reflecting sampling intensity by general location.  The greatest number of observations are in the Gulf of Maine below the 50m isobath (partly this is a product of area extent as well as sampling intensity); Massachusetts Bays, Boston Harbor sites, and the MA/NH/ME coast are all generally heavily sampled.
+
+AP - What is this graph showing us? Do we need it? 
 
 ```{r hist-pcb-total}
 ggplot(Organics, aes(x = PCB_T_UGG)) +
 geom_histogram(fill = "skyblue", color = "black")
 ```
-AP - What is this graph showing us? Do we need it? 
 
-### PCB site to site comparisons
+
+### PCB Site to Site Comparisons
 The table below is visualizing the mean, standard deviation, count, and principal square root values of PCB concentrations for the general locations.
 
 Boston Inner Harbor has the highest mean PCB concentration (average of 44.21 ng/g per observation), followed by Cape Ann to Cape Elizabeth (average of 26.90 ng/g per observation) and Southeast Boston Harbor (average of 18.35 ng/g per observation). Boston Inner Harbor (284.81) and Cape Ann to Cape Elizabeth (227.34) have the highest standard deviations, suggesting that, though they are the locations with the highest average PCB concentrations, the counts per observation vary greatly. The ranges of both locations is 3,000 ng/g to 0 ng/g, which is a wide range of values. 
@@ -107,7 +110,7 @@ Boston Inner Harbor has the highest mean PCB concentration (average of 44.21 ng/
 Summary_Organics <- Organics %>%
   group_by(GEN_LOC_NM) %>%
   drop_na(PCB_T_UGG) %>%
-  summarise(mean_PCB_T = mean(PCB_T_UGG),
+  reframe(mean_PCB_T = mean(PCB_T_UGG),
     sd_PCB_T = sd(PCB_T_UGG), 
     range_PCB_T = range(PCB_T_UGG),
     n_PCB_T = n(),
