@@ -403,7 +403,7 @@ Summary_Organics %>%
 
 ## Visualizing Specific PCB Concentrations
 
-### PCB Summary Statistics of Locations With Highest Concentrations
+### PCB Summary Statistics of Harbors With Highest Concentrations
 
 This graph identifies the locations with the highest concentrations of
 PCBs.
@@ -433,23 +433,10 @@ Summary_Organics %>%
 #### Boston Inner Harbor Concentrations
 
 This plot visualizes the specific organics present in Boston Inner
-Harbor.
-
-As shown in the plot, Oil and Grease in sediments (173,938.40 moles/g)
-has the highest concentration in the harbor, followed by Petroleum
+Harbor. Oil and Grease (173,938.40 moles/g) has the highest
+concentration in sediments in the harbor, followed by Petroleum
 Hydrocarbons (134,266.0 percent dry weight), and then Clostridium
 perfringens (99,230.00 spores/g).
-
-``` r
-Organics_long_no_na_no_zero %>%
-  group_by(GEN_LOC_NM, organic_detected) %>%
-  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  filter(GEN_LOC_NM == "Boston Inner Harbor") %>%
-  arrange(desc(amount_detected))
-```
-
-    ## `summarise()` has grouped output by 'GEN_LOC_NM'. You can override using the
-    ## `.groups` argument.
 
     ## # A tibble: 17 × 3
     ## # Groups:   GEN_LOC_NM [1]
@@ -487,26 +474,13 @@ Organics_long_no_na_no_zero %>%
        y = "Amount Detected (ng/g)")
 ```
 
-![](PCBs_files/figure-gfm/type_of_organic-in-boston-inner-harbor-1.png)<!-- -->
+![](PCBs_files/figure-gfm/type_of_organic-in-boston-inner-harbor-graph-1.png)<!-- -->
 
 #### Cape Ann to Cape Elizabeth Concentrations
 
 This plot visualizes the specific organics present in Cape Ann to Cape
-Elizabeth.
-
-As shown in the plot, Clostridium perfringens (724,143.53 spores/g) is
-PCB with the highest concentration.
-
-``` r
-Organics_long_no_na_no_zero %>%
-  group_by(GEN_LOC_NM, organic_detected) %>%
-  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  filter(GEN_LOC_NM == "Cape Ann to Cape Elizabeth") %>%
-  arrange(desc(amount_detected))
-```
-
-    ## `summarise()` has grouped output by 'GEN_LOC_NM'. You can override using the
-    ## `.groups` argument.
+Elizabeth. Clostridium perfringens (724,143.53 spores/g) is PCB with the
+highest concentration.
 
     ## # A tibble: 9 × 3
     ## # Groups:   GEN_LOC_NM [1]
@@ -536,28 +510,15 @@ Organics_long_no_na_no_zero %>%
        y = "Amount Detected (ng/g)")
 ```
 
-![](PCBs_files/figure-gfm/type_of_organic-in-cape-ann-to-elizabeth-1.png)<!-- -->
+![](PCBs_files/figure-gfm/type_of_organic-in-cape-ann-to-elizabeth-graph-1.png)<!-- -->
 
 #### Southeast Boston Harbor Concentrations
 
 This plot visualizes the specific organics present in Southeast Boston
-Harbor.
-
-As shown in the plot, Clostridium perfringens (89,223 spores/g) has the
-highest concentration in the harbor, followed by Oil and Grease in
-sediments (74,285 moles/g), and Petroleum Hydrocarbons (in units of
-percent dry weight).
-
-``` r
-Organics_long_no_na_no_zero %>%
-  group_by(GEN_LOC_NM, organic_detected) %>%
-  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  filter(GEN_LOC_NM == "Southeast Boston Harbor") %>%
-  arrange(desc(amount_detected))
-```
-
-    ## `summarise()` has grouped output by 'GEN_LOC_NM'. You can override using the
-    ## `.groups` argument.
+Harbor. Clostridium perfringens (89,223 spores/g) has the highest
+concentration in the harbor, followed by Oil and Grease in sediments
+(74,285 moles/g), and Petroleum Hydrocarbons (in units of percent dry
+weight).
 
     ## # A tibble: 17 × 3
     ## # Groups:   GEN_LOC_NM [1]
@@ -595,24 +556,13 @@ Organics_long_no_na_no_zero %>%
        y = "Amount Detected (ng/g)")
 ```
 
-![](PCBs_files/figure-gfm/type_of_organic-in-boston-southeast-harbor-1.png)<!-- -->
+![](PCBs_files/figure-gfm/type_of_organic-in-boston-southeast-harbor-graph-1.png)<!-- -->
 
 #### Cape Elizabeth to Rockland Concentrations
 
 This plot visualizes the specific organics present from Cape Elizabeth
-to Rockland. As shown in the plot, DDD compounds (9,901.23 ng/g) is PCB
-with the highest concentration followed by PCBs (802.64 ng/g).
-
-``` r
-Organics_long_no_na_no_zero %>%
-  group_by(GEN_LOC_NM, organic_detected) %>%
-  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  filter(GEN_LOC_NM == "Cape Elizabeth to Rockland") %>%
-  arrange(desc(amount_detected))
-```
-
-    ## `summarise()` has grouped output by 'GEN_LOC_NM'. You can override using the
-    ## `.groups` argument.
+to Rockland. DDD compounds (9,901.23 ng/g) is PCB with the highest
+concentration followed by PCBs (802.64 ng/g).
 
     ## # A tibble: 2 × 3
     ## # Groups:   GEN_LOC_NM [1]
@@ -635,24 +585,13 @@ Organics_long_no_na_no_zero %>%
        y = "Amount Detected (ng/g)")
 ```
 
-![](PCBs_files/figure-gfm/type_of_organic-from-cape-elizabeth-to-rockland-1.png)<!-- -->
+![](PCBs_files/figure-gfm/type_of_organic-from-cape-elizabeth-to-rockland-graph-1.png)<!-- -->
 
 #### Rockland to North Concentrations
 
 This plot visualizes the specific organics present from Rockland, ME to
 any area northward. As shown in the plot, DDD compounds (1,303.10 ng/g)
 is PCB with the highest concentration followed by PCBs (354.77 ng/g).
-
-``` r
-Organics_long_no_na_no_zero %>%
-  group_by(GEN_LOC_NM, organic_detected) %>%
-  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  filter(GEN_LOC_NM == "Rockland to north") %>%
-  arrange(desc(amount_detected))
-```
-
-    ## `summarise()` has grouped output by 'GEN_LOC_NM'. You can override using the
-    ## `.groups` argument.
 
     ## # A tibble: 2 × 3
     ## # Groups:   GEN_LOC_NM [1]
@@ -675,26 +614,9 @@ Organics_long_no_na_no_zero %>%
        y = "Amount Detected (ng/g)")
 ```
 
-![](PCBs_files/figure-gfm/type_of_organic-in-rockalnd-to-N-1.png)<!-- -->
+![](PCBs_files/figure-gfm/type_of_organic-in-rockalnd-to-N-graph-1.png)<!-- -->
 
-``` r
-Sum_all_pcb_rock_n <- PCBs_long %>%
-  group_by(pcb, site) %>%
-  filter(GEN_LOC_NM == "Rockland to north") %>%
-  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  drop_na(amount_detected) %>%
-  summarise(mean = mean(amount_detected),
-    sd = sd(amount_detected),
-    n = n(),
-    SE = sd(amount_detected) / sqrt(n()))
-```
-
-    ## `summarise()` has grouped output by 'pcb'. You can override using the `.groups`
-    ## argument.
-
-``` r
-Sum_all_pcb_rock_n
-```
+### PCB and Pesticide Concentrations in Sediments
 
     ## # A tibble: 24 × 5
     ##    pcb          mean     sd     n     SE
@@ -726,17 +648,15 @@ Sum_all_pcb_rock_n %>%
        y = "Amount Detected (ng/g)")
 ```
 
-    ## Warning in RColorBrewer::brewer.pal(n, pal): n too large, allowed maximum for palette Pastel2 is 8
-    ## Returning the palette you asked for with that many colors
+![](PCBs_files/figure-gfm/pcb-pesticide-concentration-sediments-graph-1.png)<!-- -->
 
-![](PCBs_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
-
-### Specific Locations
-
-#### Rivers
+### PCB Summary Statistics of Rivers With Highest Concentrations
 
 As stated in our project proposal, we were interested in visualizing
-contaminants in Maine Rivers as well as harbors and bays.
+contaminants in Maine Rivers as well as harbors and bays. The table
+below is visualizing the mean, standard deviation, count, and principal
+square root values of PCB concentrations for the general river
+locations.
 
 ``` r
 Sum_Org_site <- Organics %>%
@@ -816,6 +736,7 @@ Sum_Org_site %>%
 ```
 
 ![](PCBs_files/figure-gfm/bar-pcb-me-rivers-without-union-1.png)<!-- -->
+
 Sites with only one observation or mean = 0 do not have error bars.
 
 ``` r
