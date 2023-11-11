@@ -27,23 +27,21 @@ glimpse(PAHs)
 # Joining the Station Information to the PAH dataset
 Joining the station data with the PAH sample taken. The dataset is pivoted so that each observation is the PAH that was observed.
 ```{r joining-station-info, warning=FALSE}
-PAHs_station <- full_join(Station2002, PAHs, by = "UNIQUE_ID")
-
-PAHs_station <- PAHs_station %>%
+PAHs <- PAHs %>%
   mutate(CHRYSENE_C = as.numeric(CHRYSENE_C)) %>%
   pivot_longer(cols = `BENZNE_C`:`B_GHI_PYLC`, 
                names_to = "pah_detected", 
                values_to = "amount_detected")
 
-PAHs_station = select(PAHs_station, c(UNIQUE_ID, LATITUDE.x, LONGITUDE.x, SOUNDING_M.x, QUAD_NAME.x, GEN_LOC_NM.x, SPECFC_LOC.x, AREA_CODE.x, SAMP_DATE1.x, TO_SMP_DT2.x, DPTH_N_COR.x, DPTH_CODE.x, COR_GRB_CD.x, site.x, pah_detected, amount_detected))
+PAHs = select(PAHs, c(UNIQUE_ID, LATITUDE, LONGITUDE, SOUNDING_M, QUAD_NAME, GEN_LOC_NM, SPECFC_LOC, AREA_CODE, SAMP_DATE1, TO_SMP_DT2, DPTH_N_COR, DPTH_CODE, COR_GRB_CD, site, pah_detected, amount_detected))
 
-glimpse(PAHs_station)
+glimpse(PAHs)
 ```
 
 # Plotting PAHs Detected in GOM
 As shown in the plot below, there is a high concentration of Fluoranthene, followed by Pyrene, Chrysene, and Phenanthrene. 
 ``` {r plotting-pahs-detected, warning=FALSE}
-PAHs_station %>%
+PAHs %>%
   filter(pah_detected %in% c("BENZNE_C", "BENZNE_C", "NAPHTHLN_C", "BIPHENYL_C", "ACNPHTHN_C", "ACNPHTYL_C", "FLUORENE_C", "PHNANTHR_C", "ANTHRACN_C", "PYRENE_C", "FLORNTHN_C", "CHRYSENE_C", "PERYLENE_C")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = pah_detected))+
   geom_col()+
@@ -60,8 +58,8 @@ The table below is visualizing the mean, standard deviation, count, and principa
 
 As shown below, Mass Bays (8505) has the higest count of PAHs, followed by Northwest Boston Harbor (4243) and Gulf of Maine (>50m Isobath) (1953). This does not suggest that these locations will have the highest concentrations of PAHs, as this does not reflect the quantity of PAHs collected. Boston Inner Harbor (1843.90) has the highest mean PAH concentration, followed by Northwest Boston Harbor (610.55) and Central Boston Harbor (502.36). In addition to this, Boston Inner Harbor has the highest standard deviation (14235.68), followed by Northwest Boston Harbor (3132.97) and "43.5N to 44N; to 50M isobath" (1842.51). 
 ``` {r summary-stats-PAHs}
-Summary_PAHs <- PAHs_station %>%
-  group_by(GEN_LOC_NM.x) %>%
+Summary_PAHs <- PAHs %>%
+  group_by(GEN_LOC_NM) %>%
   drop_na(amount_detected) %>%
   summarise(mean_PAH = mean(amount_detected),
     sd_PAH = sd(amount_detected),
@@ -74,7 +72,7 @@ Summary_PAHs
 The graph below is showing which site has the highest mean PAH concentrations in the Gulf of Maine. As shown, the site with the highest PAH concentration is Boston Inner Harbor, followed by Northwest Boston Harbor, Central Boston Harbor, and the area between 43.5N and 44N (Cape Elizabeth to Rockland, ME). 
 ```{r pah-gen-loc}
 Summary_PAHs %>%
-  ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM.x, mean_PAH)), y = mean_PAH, fill = GEN_LOC_NM.x))+
+  ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PAH)), y = mean_PAH, fill = GEN_LOC_NM))+
   geom_col(col = "black")+
   geom_errorbar(aes(ymin = mean_PAH - SE_PAH, ymax = mean_PAH + SE_PAH), width = 0.2)+
   coord_flip()+
@@ -90,8 +88,8 @@ Summary_PAHs %>%
 ### Specific Locations
 The plot below visualizes the summary of PAHs found at each location, including the mean, standard deviation, count, and principal square root.
 ```{r sum-pah-site}
-Sum_PAH_site <- PAHs_station %>%
-  group_by(GEN_LOC_NM.x) %>%
+Sum_PAH_site <- PAHs %>%
+  group_by(GEN_LOC_NM) %>%
   drop_na(amount_detected) %>%
   summarise(mean_PAH = mean(amount_detected),
     sd_PAH = sd(amount_detected),
@@ -105,8 +103,8 @@ Sum_PAH_site
 
 This plot shows us the exact quantity of PAH found at each site. 
 ```{r summarize-by-site}
-PAHs_station %>%
-  group_by(GEN_LOC_NM.x, pah_detected) %>%
+PAHs %>%
+  group_by(GEN_LOC_NM, pah_detected) %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
   arrange(desc(amount_detected))
 ```
@@ -115,16 +113,16 @@ PAHs_station %>%
 This plot visualizes the specific PAHs present in Boston Inner Harbor. 
 As shown in the plot, Chrysene (569,679.08 ng/g) has the highest concentration in the harbor. This is followed by Benz(a) anthracene (508889.40 ng/g), Pyrene (346679.56 ng/g), and Fluoranthene (319594.32 ng/g) 
 ```{r sum-organics-boston-inner-harbor}
-PAHs_station %>%
-  group_by(GEN_LOC_NM.x, pah_detected) %>%
+PAHs %>%
+  group_by(GEN_LOC_NM, pah_detected) %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  filter(GEN_LOC_NM.x == "BOSTON INNER HARBOR") %>%
+  filter(GEN_LOC_NM == "BOSTON INNER HARBOR") %>%
   arrange(desc(amount_detected))
 
-PAHs_station %>%
-  group_by(GEN_LOC_NM.x, pah_detected) %>%
+PAHs %>%
+  group_by(GEN_LOC_NM, pah_detected) %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  filter(GEN_LOC_NM.x == "BOSTON INNER HARBOR") %>%
+  filter(GEN_LOC_NM == "BOSTON INNER HARBOR") %>%
  ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = pah_detected))+
   geom_col()+
   coord_flip()+
@@ -139,15 +137,15 @@ PAHs_station %>%
 This plot visualizes the specific PAHs present in Northwest Boston Harbor.  
 As shown in the plot, Pyrene (315,904.49 ng/g) has the highest concentration in the harbor. This is followed by Fluoranthene (312,942.98 ng/g), Phenanthrene (219061.23 ng/g), and Chrysene (200784.37 ng/g).
 ```{r type_of_organic-in-northwest-boston-harbor, warning = FALSE}
-PAHs_station %>%
-  group_by(GEN_LOC_NM.x, pah_detected) %>%
+PAHs %>%
+  group_by(GEN_LOC_NM, pah_detected) %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  filter(GEN_LOC_NM.x == "NORTHWEST BOSTON HARBOR") %>%
+  filter(GEN_LOC_NM == "NORTHWEST BOSTON HARBOR") %>%
   arrange(desc(amount_detected))
 
-PAHs_station %>%
+PAHs %>%
   drop_na(amount_detected) %>%
-  filter(GEN_LOC_NM.x %in% c("NORTHWEST BOSTON HARBOR")) %>%
+  filter(GEN_LOC_NM %in% c("NORTHWEST BOSTON HARBOR")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = pah_detected))+
   geom_col()+
   coord_flip()+
@@ -161,15 +159,15 @@ PAHs_station %>%
 This plot visualizes the specific PAHs present from Central Boston Harbor.  
 As shown in the plot, Pyrene (71,710.28 ng/g) has the highest concentration in the harbor. This is followed by Fluoranthene (64,217.22 ng/g), and Phenanthrene (43304.62 ng/g). 
 ``` {r sum-organics-boston-central-harbor}
-PAHs_station %>%
-  group_by(GEN_LOC_NM.x, pah_detected) %>%
+PAHs %>%
+  group_by(GEN_LOC_NM, pah_detected) %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  filter(GEN_LOC_NM.x == "CENTRAL BOSTON HARBOR") %>%
+  filter(GEN_LOC_NM == "CENTRAL BOSTON HARBOR") %>%
   arrange(desc(amount_detected))
 
-PAHs_station %>%
+PAHs %>%
   drop_na(amount_detected) %>%
-  filter(GEN_LOC_NM.x %in% c("CENTRAL BOSTON HARBOR")) %>%
+  filter(GEN_LOC_NM %in% c("CENTRAL BOSTON HARBOR")) %>%
  ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = pah_detected))+
   geom_col()+
   coord_flip()+
@@ -183,15 +181,15 @@ PAHs_station %>%
 This plot visualizes the specific PAHs present from Cape Ann to Cape Elizabeth.  
 As shown in the plot, Fluoranthene (116,706.13 ng/g) has the highest concentration in the harbor. Chrysene (112,928.05 ng/g) and Pyrene	(110687.93 ng/g) are the second and third most abundant PAHs. 
 ```{r type_of_organic-in-BOSTON-INNER-HARBOR, warning = FALSE}
-PAHs_station %>%
-  group_by(GEN_LOC_NM.x, pah_detected) %>%
+PAHs %>%
+  group_by(GEN_LOC_NM, pah_detected) %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  filter(GEN_LOC_NM.x == "43.5N to 44N; to 50M isobath") %>%
+  filter(GEN_LOC_NM == "43.5N to 44N; to 50M isobath") %>%
   arrange(desc(amount_detected))
 
-PAHs_station %>%
+PAHs %>%
   drop_na(amount_detected) %>%
-  filter(GEN_LOC_NM.x %in% c("43.5N to 44N; to 50M isobath")) %>%
+  filter(GEN_LOC_NM %in% c("43.5N to 44N; to 50M isobath")) %>%
  ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = pah_detected))+
   geom_col()+
   coord_flip()+
@@ -207,19 +205,19 @@ PAHs_station %>%
 Does total PAH concentration differ significantly between general locations?
 
 ```{r}
-hist(PAHs_station$amount_detected)
+hist(PAHs$amount_detected)
 ```
 
 ```{r}
-kw1=kruskal.test(PAHs_station$amount_detected ~ PAHs_station$GEN_LOC_NM.x)
+kw1=kruskal.test(PAHs$amount_detected ~ PAHs$GEN_LOC_NM)
 kw1
 ```
 This shows that it is significant. We will now run a Dunn post-hoc test to identify any significance between locations.
 ```{r}
 #install.packages("dunn.test")
-library(dunn.test)
+#library(dunn.test)
 
-dunn=dunn.test(PAHs_station$amount_detected,Organics$GEN_LOC_NM.x,method="bh")
+#dunn=dunn.test(PAHs$amount_detected,Organics$GEN_LOC_NM,method="bh")
 
 ```
 Interpretation: Most general locations have significantly different mean total PAH concentrations.
@@ -260,7 +258,7 @@ ggplot(Bathy_hi_res) +
 ```
 
 ```{r drop-na-pah}
-PAH_no_na <- PAHs_station %>%
+PAH_no_na <- PAHs %>%
   drop_na(amount_detected)
 
 PAH_no_na_specific_pah <- PAH_no_na %>%
@@ -273,7 +271,7 @@ PAH_no_na_specific_pah <- PAH_no_na %>%
 ggplot(GOM_states)+
   geom_sf(aes())+
   geom_sf(data = Bathy_low_res, color = "gray80", width = 1)+
-  geom_point(data = PAH_no_na, (aes(x = LONGITUDE.x, y = LATITUDE.x, size = amount_detected, alpha = 0.5)))+
+  geom_point(data = PAH_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = amount_detected, alpha = 0.5)))+
   xlim(-72,-65)+
   ylim(40,45)+
   theme_bw()+
@@ -302,7 +300,7 @@ Above is the Distribution and concentration of PAHs in the Gulf of Maine sedimen
 ggplot(GOM_states)+
   geom_sf(aes())+
   geom_sf(data = Bathy_hi_res, color = "gray80", width = 1)+
-  geom_point(data=PAH_no_na, (aes(x = LONGITUDE.x, y = LATITUDE.x, size = amount_detected, alpha = 0.5)))+
+  geom_point(data=PAH_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = amount_detected, alpha = 0.5)))+
   xlim(-69.2,-68)+
   ylim(44,44.5)+
   theme_bw()+
@@ -331,7 +329,7 @@ Above is the Distribution and concentration of PAHs in MDI and Penobscot Bay sed
 ggplot(GOM_states)+
   geom_sf(aes())+
   geom_sf(data = Bathy_hi_res, color = "gray80", width = 1)+
-  geom_point(data=PAH_no_na, (aes(x = LONGITUDE.x, y = LATITUDE.x, size = amount_detected, alpha = 0.5)))+
+  geom_point(data=PAH_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = amount_detected, alpha = 0.5)))+
   xlim(-71.2,-69.5)+
   ylim(41.8,43)+
   theme_bw()+
@@ -356,11 +354,11 @@ ggplot(GOM_states)+
 ```
 Above is the Distribution and concentration of PAHs in Boston, MA and Cape Cod Bay sediments. 
 
-```{r boston-and-ma-area-map-pah}
+```{r boston-and-ma-area-map-pah-colored}
 ggplot(GOM_states)+
   geom_sf(aes())+
   geom_sf(data = Bathy_hi_res, color = "gray80", width = 1)+
-  geom_point(data=PAH_no_na_specific_pah, (aes(x = LONGITUDE.x, y = LATITUDE.x, size = amount_detected, color = pah_detected, alpha = 0.5)))+
+  geom_point(data=PAH_no_na_specific_pah, (aes(x = LONGITUDE, y = LATITUDE, size = amount_detected, color = pah_detected, alpha = 0.5)))+
   xlim(-71.2,-69.5)+
   ylim(41.8,43)+
   theme_bw()+
@@ -389,7 +387,7 @@ Above is the same graph, but now we are coloring the points by the specific pah 
 
 ```{r create-html-labels-pah}
 #labels <- sprintf("<strong>%s</strong><br/>%g ng/g", 
-#                 PAH_no_na$SPECFC_LOC.x, PAH_no_na$amount_detected) %>%
+#                 PAH_no_na$SPECFC_LOC, PAH_no_na$amount_detected) %>%
 # lapply(htmltools::HTML)
 #
 #head(labels, 1)
@@ -401,7 +399,7 @@ Above is the same graph, but now we are coloring the points by the specific pah 
   #setView(lng = -68.5, 
     #      lat = 43.5, 
      #     zoom = 6) %>%
-  #addCircleMarkers(lng = ~LONGITUDE.x, lat = ~LATITUDE.x, popup = c(~SPECFC_LOC.x, ~amount_detected), label = labels)
+  #addCircleMarkers(lng = ~LONGITUDE, lat = ~LATITUDE, popup = c(~SPECFC_LOC, ~amount_detected), label = labels)
 ```
 
 Note that the two above code chunks are commented out as .rmd will not knit to github document with html functions.  Uncomment to run and change output type to `html_document` to knit.
