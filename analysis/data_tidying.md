@@ -36,12 +36,9 @@ library(naniar)
 
 ``` r
 stations_full = read_xls("/cloud/project/data/original_datasets/STAT2002.xls", sheet = 2, skip = 3)
-#sediments_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
 PCBs_full = read_excel("/cloud/project/data/original_datasets/PCBP2002.xls", sheet = 2, skip = 3)
 PAHs_full = read_excel("/cloud/project/data/original_datasets/PAHS2002.xls", sheet = 2, skip = 3)
 organics_full = read_excel("/cloud/project/data/original_datasets/GENO2002.xls", sheet = 2, skip = 3)
-#inorganics_full = read_excel("/cloud/project/data/original_datasets/INOR2002.xls", sheet = 2, skip = 3)
-#textures_full = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
 ```
 
 Since these are all very large data files, we will select useful
@@ -144,7 +141,7 @@ Station2002 <- Station2002 %>%
 
 ``` r
 Station2002 <- Station2002 %>%
-mutate(site = fct_recode(GEN_LOC_NM,
+mutate(GEN_LOC_NM = fct_recode(GEN_LOC_NM,
                            "Rockland to north" = "North of 44; to 50M isobath",
                            "Cape Elizabeth to Rockland" = "43.5N to 44N; to 50M isobath", 
                            "Cape Ann to Cape Elizabeth" = "CAPE ANN to 43.5N", 
@@ -162,26 +159,23 @@ mutate(site = fct_recode(GEN_LOC_NM,
 
 ``` r
 Station2002 %>%
-  distinct(site)
+  select(GEN_LOC_NM, site)
 ```
 
-    ## # A tibble: 14 × 1
-    ##    site                         
-    ##    <fct>                        
-    ##  1 Boston Inner Harbor          
-    ##  2 Northwest Boston Harbor      
-    ##  3 Central Boston Harbor        
-    ##  4 Massachusetts Bays           
-    ##  5 Cape Code Bay                
-    ##  6 Southeast Boston Harbor      
-    ##  7 Inland/Rivers                
-    ##  8 Cape Ann to Cape Elizabeth   
-    ##  9 Gulf of Maine (>50m Isobath) 
-    ## 10 Gulf of Maine (<=50m Isobath)
-    ## 11 Harbor Approaches            
-    ## 12 Rockland to north            
-    ## 13 Cape Elizabeth to Rockland   
-    ## 14 Intertidal Alantic Canada
+    ## # A tibble: 7,847 × 2
+    ##    GEN_LOC_NM              site 
+    ##    <fct>                   <fct>
+    ##  1 Boston Inner Harbor     BIH  
+    ##  2 Boston Inner Harbor     BIH  
+    ##  3 Boston Inner Harbor     BIH  
+    ##  4 Boston Inner Harbor     BIH  
+    ##  5 Boston Inner Harbor     BIH  
+    ##  6 Boston Inner Harbor     BIH  
+    ##  7 Boston Inner Harbor     BIH  
+    ##  8 Boston Inner Harbor     BIH  
+    ##  9 Boston Inner Harbor     BIH  
+    ## 10 Northwest Boston Harbor OOP  
+    ## # ℹ 7,837 more rows
 
 ## Joining Dataframes
 
@@ -1003,800 +997,800 @@ unique ID.
     ## 791   US00928 42.32222 -70.97417         NA         MA         <NA>
     ## 792   US00929 42.32222 -70.97417         NA         MA         <NA>
     ## 793   US00930 42.32222 -70.97417         NA         MA         <NA>
-    ##                      GEN_LOC_NM
-    ## 1           BOSTON INNER HARBOR
-    ## 2           BOSTON INNER HARBOR
-    ## 3           BOSTON INNER HARBOR
-    ## 4           BOSTON INNER HARBOR
-    ## 5           BOSTON INNER HARBOR
-    ## 6           BOSTON INNER HARBOR
-    ## 7           BOSTON INNER HARBOR
-    ## 8           BOSTON INNER HARBOR
-    ## 9           BOSTON INNER HARBOR
-    ## 10      NORTHWEST BOSTON HARBOR
-    ## 11      NORTHWEST BOSTON HARBOR
-    ## 12          BOSTON INNER HARBOR
-    ## 13          BOSTON INNER HARBOR
-    ## 14          BOSTON INNER HARBOR
-    ## 15          BOSTON INNER HARBOR
-    ## 16          BOSTON INNER HARBOR
-    ## 17          BOSTON INNER HARBOR
-    ## 18          BOSTON INNER HARBOR
-    ## 19          BOSTON INNER HARBOR
-    ## 20          BOSTON INNER HARBOR
-    ## 21        CENTRAL BOSTON HARBOR
-    ## 22        CENTRAL BOSTON HARBOR
-    ## 23                    MASS BAYS
-    ## 24                    MASS BAYS
-    ## 25                    MASS BAYS
-    ## 26                    MASS BAYS
-    ## 27                    MASS BAYS
-    ## 28                    MASS BAYS
-    ## 29                    MASS BAYS
-    ## 30                    MASS BAYS
-    ## 31                    MASS BAYS
-    ## 32                    MASS BAYS
-    ## 33                    MASS BAYS
-    ## 34                    MASS BAYS
-    ## 35                    MASS BAYS
-    ## 36                    MASS BAYS
-    ## 37                    MASS BAYS
-    ## 38                    MASS BAYS
-    ## 39                    MASS BAYS
-    ## 40                    MASS BAYS
-    ## 41                    MASS BAYS
-    ## 42                    MASS BAYS
-    ## 43                    MASS BAYS
-    ## 44                    MASS BAYS
-    ## 45                    MASS BAYS
-    ## 46                    MASS BAYS
-    ## 47                    MASS BAYS
-    ## 48                    MASS BAYS
-    ## 49                    MASS BAYS
-    ## 50                    MASS BAYS
-    ## 51                    MASS BAYS
-    ## 52          BOSTON INNER HARBOR
-    ## 53          BOSTON INNER HARBOR
-    ## 54          BOSTON INNER HARBOR
-    ## 55          BOSTON INNER HARBOR
-    ## 56          BOSTON INNER HARBOR
-    ## 57      NORTHWEST BOSTON HARBOR
-    ## 58      NORTHWEST BOSTON HARBOR
-    ## 59      NORTHWEST BOSTON HARBOR
-    ## 60      NORTHWEST BOSTON HARBOR
-    ## 61      NORTHWEST BOSTON HARBOR
-    ## 62          BOSTON INNER HARBOR
-    ## 63          BOSTON INNER HARBOR
-    ## 64      NORTHWEST BOSTON HARBOR
-    ## 65      NORTHWEST BOSTON HARBOR
-    ## 66      NORTHWEST BOSTON HARBOR
-    ## 67                 CAPE COD BAY
-    ## 68                 CAPE COD BAY
-    ## 69                 CAPE COD BAY
-    ## 70                 CAPE COD BAY
-    ## 71                 CAPE COD BAY
-    ## 72                 CAPE COD BAY
-    ## 73                 CAPE COD BAY
-    ## 74                 CAPE COD BAY
-    ## 75                 CAPE COD BAY
-    ## 76                 CAPE COD BAY
-    ## 77                 CAPE COD BAY
-    ## 78                 CAPE COD BAY
-    ## 79                 CAPE COD BAY
-    ## 80                 CAPE COD BAY
-    ## 81                    MASS BAYS
-    ## 82                    MASS BAYS
-    ## 83                    MASS BAYS
-    ## 84      SOUTHEAST BOSTON HARBOR
-    ## 85      SOUTHEAST BOSTON HARBOR
-    ## 86      SOUTHEAST BOSTON HARBOR
-    ## 87                    MASS BAYS
-    ## 88                    MASS BAYS
-    ## 89              INLAND / RIVERS
-    ## 90              INLAND / RIVERS
-    ## 91              INLAND / RIVERS
-    ## 92          BOSTON INNER HARBOR
-    ## 93          BOSTON INNER HARBOR
-    ## 94          BOSTON INNER HARBOR
-    ## 95          BOSTON INNER HARBOR
-    ## 96                    MASS BAYS
-    ## 97                    MASS BAYS
-    ## 98                    MASS BAYS
-    ## 99                    MASS BAYS
-    ## 100                   MASS BAYS
-    ## 101                   MASS BAYS
-    ## 102                   MASS BAYS
-    ## 103                   MASS BAYS
-    ## 104                   MASS BAYS
-    ## 105                   MASS BAYS
-    ## 106     NORTHWEST BOSTON HARBOR
-    ## 107     NORTHWEST BOSTON HARBOR
-    ## 108     NORTHWEST BOSTON HARBOR
-    ## 109     NORTHWEST BOSTON HARBOR
-    ## 110     NORTHWEST BOSTON HARBOR
-    ## 111     NORTHWEST BOSTON HARBOR
-    ## 112     NORTHWEST BOSTON HARBOR
-    ## 113     NORTHWEST BOSTON HARBOR
-    ## 114     NORTHWEST BOSTON HARBOR
-    ## 115     NORTHWEST BOSTON HARBOR
-    ## 116     NORTHWEST BOSTON HARBOR
-    ## 117     NORTHWEST BOSTON HARBOR
-    ## 118     NORTHWEST BOSTON HARBOR
-    ## 119     NORTHWEST BOSTON HARBOR
-    ## 120     NORTHWEST BOSTON HARBOR
-    ## 121     NORTHWEST BOSTON HARBOR
-    ## 122     NORTHWEST BOSTON HARBOR
-    ## 123     NORTHWEST BOSTON HARBOR
-    ## 124     NORTHWEST BOSTON HARBOR
-    ## 125     NORTHWEST BOSTON HARBOR
-    ## 126     NORTHWEST BOSTON HARBOR
-    ## 127     NORTHWEST BOSTON HARBOR
-    ## 128     NORTHWEST BOSTON HARBOR
-    ## 129     NORTHWEST BOSTON HARBOR
-    ## 130     NORTHWEST BOSTON HARBOR
-    ## 131         BOSTON INNER HARBOR
-    ## 132                   MASS BAYS
-    ## 133                   MASS BAYS
-    ## 134                   MASS BAYS
-    ## 135                   MASS BAYS
-    ## 136                   MASS BAYS
-    ## 137                   MASS BAYS
-    ## 138                   MASS BAYS
-    ## 139                   MASS BAYS
-    ## 140                   MASS BAYS
-    ## 141     SOUTHEAST BOSTON HARBOR
-    ## 142                   MASS BAYS
-    ## 143     NORTHWEST BOSTON HARBOR
-    ## 144     NORTHWEST BOSTON HARBOR
-    ## 145         BOSTON INNER HARBOR
-    ## 146         BOSTON INNER HARBOR
-    ## 147         BOSTON INNER HARBOR
-    ## 148                   MASS BAYS
-    ## 149                   MASS BAYS
-    ## 150                   MASS BAYS
-    ## 151                   MASS BAYS
-    ## 152                   MASS BAYS
-    ## 153                   MASS BAYS
-    ## 154     NORTHWEST BOSTON HARBOR
-    ## 155     NORTHWEST BOSTON HARBOR
-    ## 156     NORTHWEST BOSTON HARBOR
-    ## 157     NORTHWEST BOSTON HARBOR
-    ## 158                CAPE COD BAY
-    ## 159     NORTHWEST BOSTON HARBOR
-    ## 160     NORTHWEST BOSTON HARBOR
-    ## 161     NORTHWEST BOSTON HARBOR
-    ## 162     NORTHWEST BOSTON HARBOR
-    ## 163     NORTHWEST BOSTON HARBOR
-    ## 164     NORTHWEST BOSTON HARBOR
-    ## 165     NORTHWEST BOSTON HARBOR
-    ## 166     NORTHWEST BOSTON HARBOR
-    ## 167     NORTHWEST BOSTON HARBOR
-    ## 168     NORTHWEST BOSTON HARBOR
-    ## 169     NORTHWEST BOSTON HARBOR
-    ## 170     NORTHWEST BOSTON HARBOR
-    ## 171     NORTHWEST BOSTON HARBOR
-    ## 172     NORTHWEST BOSTON HARBOR
-    ## 173                   MASS BAYS
-    ## 174         BOSTON INNER HARBOR
-    ## 175         BOSTON INNER HARBOR
-    ## 176         BOSTON INNER HARBOR
-    ## 177     NORTHWEST BOSTON HARBOR
-    ## 178     NORTHWEST BOSTON HARBOR
-    ## 179     NORTHWEST BOSTON HARBOR
-    ## 180     NORTHWEST BOSTON HARBOR
-    ## 181                   MASS BAYS
-    ## 182                   MASS BAYS
-    ## 183                   MASS BAYS
-    ## 184                   MASS BAYS
-    ## 185                   MASS BAYS
-    ## 186         BOSTON INNER HARBOR
-    ## 187         BOSTON INNER HARBOR
-    ## 188         BOSTON INNER HARBOR
-    ## 189         BOSTON INNER HARBOR
-    ## 190         BOSTON INNER HARBOR
-    ## 191           CAPE ANN to 43.5N
-    ## 192     NORTHWEST BOSTON HARBOR
-    ## 193     NORTHWEST BOSTON HARBOR
-    ## 194     NORTHWEST BOSTON HARBOR
-    ## 195     NORTHWEST BOSTON HARBOR
-    ## 196     NORTHWEST BOSTON HARBOR
-    ## 197         BOSTON INNER HARBOR
-    ## 198         BOSTON INNER HARBOR
-    ## 199         BOSTON INNER HARBOR
-    ## 200                CAPE COD BAY
-    ## 201                CAPE COD BAY
-    ## 202             INLAND / RIVERS
-    ## 203             INLAND / RIVERS
-    ## 204             INLAND / RIVERS
-    ## 205             INLAND / RIVERS
-    ## 206             INLAND / RIVERS
-    ## 207             INLAND / RIVERS
-    ## 208             INLAND / RIVERS
-    ## 209             INLAND / RIVERS
-    ## 210             INLAND / RIVERS
-    ## 211             INLAND / RIVERS
-    ## 212             INLAND / RIVERS
-    ## 213             INLAND / RIVERS
-    ## 214             INLAND / RIVERS
-    ## 215             INLAND / RIVERS
-    ## 216             INLAND / RIVERS
-    ## 217             INLAND / RIVERS
-    ## 218             INLAND / RIVERS
-    ## 219             INLAND / RIVERS
-    ## 220             INLAND / RIVERS
-    ## 221             INLAND / RIVERS
-    ## 222             INLAND / RIVERS
-    ## 223             INLAND / RIVERS
-    ## 224             INLAND / RIVERS
-    ## 225             INLAND / RIVERS
-    ## 226             INLAND / RIVERS
-    ## 227             INLAND / RIVERS
-    ## 228             INLAND / RIVERS
-    ## 229             INLAND / RIVERS
-    ## 230             INLAND / RIVERS
-    ## 231             INLAND / RIVERS
-    ## 232             INLAND / RIVERS
-    ## 233             INLAND / RIVERS
-    ## 234             INLAND / RIVERS
-    ## 235             INLAND / RIVERS
-    ## 236             INLAND / RIVERS
-    ## 237             INLAND / RIVERS
-    ## 238             INLAND / RIVERS
-    ## 239     NORTHWEST BOSTON HARBOR
-    ## 240     NORTHWEST BOSTON HARBOR
-    ## 241     NORTHWEST BOSTON HARBOR
-    ## 242     NORTHWEST BOSTON HARBOR
-    ## 243     NORTHWEST BOSTON HARBOR
-    ## 244     NORTHWEST BOSTON HARBOR
-    ## 245     NORTHWEST BOSTON HARBOR
-    ## 246     NORTHWEST BOSTON HARBOR
-    ## 247     NORTHWEST BOSTON HARBOR
-    ## 248     NORTHWEST BOSTON HARBOR
-    ## 249     NORTHWEST BOSTON HARBOR
-    ## 250     NORTHWEST BOSTON HARBOR
-    ## 251     NORTHWEST BOSTON HARBOR
-    ## 252     NORTHWEST BOSTON HARBOR
-    ## 253         BOSTON INNER HARBOR
-    ## 254         BOSTON INNER HARBOR
-    ## 255         BOSTON INNER HARBOR
-    ## 256         BOSTON INNER HARBOR
-    ## 257         BOSTON INNER HARBOR
-    ## 258         BOSTON INNER HARBOR
-    ## 259         BOSTON INNER HARBOR
-    ## 260         BOSTON INNER HARBOR
-    ## 261         BOSTON INNER HARBOR
-    ## 262         BOSTON INNER HARBOR
-    ## 263         BOSTON INNER HARBOR
-    ## 264         BOSTON INNER HARBOR
-    ## 265         BOSTON INNER HARBOR
-    ## 266         BOSTON INNER HARBOR
-    ## 267         BOSTON INNER HARBOR
-    ## 268         BOSTON INNER HARBOR
-    ## 269         BOSTON INNER HARBOR
-    ## 270         BOSTON INNER HARBOR
-    ## 271         BOSTON INNER HARBOR
-    ## 272         BOSTON INNER HARBOR
-    ## 273         BOSTON INNER HARBOR
-    ## 274         BOSTON INNER HARBOR
-    ## 275         BOSTON INNER HARBOR
-    ## 276         BOSTON INNER HARBOR
-    ## 277         BOSTON INNER HARBOR
-    ## 278         BOSTON INNER HARBOR
-    ## 279         BOSTON INNER HARBOR
-    ## 280         BOSTON INNER HARBOR
-    ## 281         BOSTON INNER HARBOR
-    ## 282     NORTHWEST BOSTON HARBOR
-    ## 283     NORTHWEST BOSTON HARBOR
-    ## 284     NORTHWEST BOSTON HARBOR
-    ## 285     NORTHWEST BOSTON HARBOR
-    ## 286     NORTHWEST BOSTON HARBOR
-    ## 287     NORTHWEST BOSTON HARBOR
-    ## 288     NORTHWEST BOSTON HARBOR
-    ## 289     NORTHWEST BOSTON HARBOR
-    ## 290     NORTHWEST BOSTON HARBOR
-    ## 291             INLAND / RIVERS
-    ## 292             INLAND / RIVERS
-    ## 293     SOUTHEAST BOSTON HARBOR
-    ## 294     SOUTHEAST BOSTON HARBOR
-    ## 295     SOUTHEAST BOSTON HARBOR
-    ## 296     SOUTHEAST BOSTON HARBOR
-    ## 297     SOUTHEAST BOSTON HARBOR
-    ## 298         BOSTON INNER HARBOR
-    ## 299     SOUTHEAST BOSTON HARBOR
-    ## 300     SOUTHEAST BOSTON HARBOR
-    ## 301     SOUTHEAST BOSTON HARBOR
-    ## 302     SOUTHEAST BOSTON HARBOR
-    ## 303     SOUTHEAST BOSTON HARBOR
-    ## 304     SOUTHEAST BOSTON HARBOR
-    ## 305     SOUTHEAST BOSTON HARBOR
-    ## 306     SOUTHEAST BOSTON HARBOR
-    ## 307     SOUTHEAST BOSTON HARBOR
-    ## 308     SOUTHEAST BOSTON HARBOR
-    ## 309     NORTHWEST BOSTON HARBOR
-    ## 310     NORTHWEST BOSTON HARBOR
-    ## 311     NORTHWEST BOSTON HARBOR
-    ## 312     NORTHWEST BOSTON HARBOR
-    ## 313     NORTHWEST BOSTON HARBOR
-    ## 314     NORTHWEST BOSTON HARBOR
-    ## 315     NORTHWEST BOSTON HARBOR
-    ## 316     NORTHWEST BOSTON HARBOR
-    ## 317     NORTHWEST BOSTON HARBOR
-    ## 318     NORTHWEST BOSTON HARBOR
-    ## 319     NORTHWEST BOSTON HARBOR
-    ## 320     NORTHWEST BOSTON HARBOR
-    ## 321     NORTHWEST BOSTON HARBOR
-    ## 322             INLAND / RIVERS
-    ## 323             INLAND / RIVERS
-    ## 324             INLAND / RIVERS
-    ## 325             INLAND / RIVERS
-    ## 326             INLAND / RIVERS
-    ## 327             INLAND / RIVERS
-    ## 328             INLAND / RIVERS
-    ## 329             INLAND / RIVERS
-    ## 330             INLAND / RIVERS
-    ## 331             INLAND / RIVERS
-    ## 332             INLAND / RIVERS
-    ## 333             INLAND / RIVERS
-    ## 334             INLAND / RIVERS
-    ## 335             INLAND / RIVERS
-    ## 336             INLAND / RIVERS
-    ## 337             INLAND / RIVERS
-    ## 338             INLAND / RIVERS
-    ## 339             INLAND / RIVERS
-    ## 340             INLAND / RIVERS
-    ## 341         BOSTON INNER HARBOR
-    ## 342             INLAND / RIVERS
-    ## 343             INLAND / RIVERS
-    ## 344         BOSTON INNER HARBOR
-    ## 345         BOSTON INNER HARBOR
-    ## 346         BOSTON INNER HARBOR
-    ## 347         BOSTON INNER HARBOR
-    ## 348         BOSTON INNER HARBOR
-    ## 349         BOSTON INNER HARBOR
-    ## 350         BOSTON INNER HARBOR
-    ## 351         BOSTON INNER HARBOR
-    ## 352         BOSTON INNER HARBOR
-    ## 353         BOSTON INNER HARBOR
-    ## 354         BOSTON INNER HARBOR
-    ## 355         BOSTON INNER HARBOR
-    ## 356         BOSTON INNER HARBOR
-    ## 357         BOSTON INNER HARBOR
-    ## 358         BOSTON INNER HARBOR
-    ## 359         BOSTON INNER HARBOR
-    ## 360         BOSTON INNER HARBOR
-    ## 361         BOSTON INNER HARBOR
-    ## 362         BOSTON INNER HARBOR
-    ## 363         BOSTON INNER HARBOR
-    ## 364         BOSTON INNER HARBOR
-    ## 365         BOSTON INNER HARBOR
-    ## 366         BOSTON INNER HARBOR
-    ## 367         BOSTON INNER HARBOR
-    ## 368         BOSTON INNER HARBOR
-    ## 369         BOSTON INNER HARBOR
-    ## 370     NORTHWEST BOSTON HARBOR
-    ## 371         BOSTON INNER HARBOR
-    ## 372         BOSTON INNER HARBOR
-    ## 373         BOSTON INNER HARBOR
-    ## 374         BOSTON INNER HARBOR
-    ## 375         BOSTON INNER HARBOR
-    ## 376         BOSTON INNER HARBOR
-    ## 377         BOSTON INNER HARBOR
-    ## 378         BOSTON INNER HARBOR
-    ## 379         BOSTON INNER HARBOR
-    ## 380         BOSTON INNER HARBOR
-    ## 381         BOSTON INNER HARBOR
-    ## 382         BOSTON INNER HARBOR
-    ## 383         BOSTON INNER HARBOR
-    ## 384         BOSTON INNER HARBOR
-    ## 385         BOSTON INNER HARBOR
-    ## 386                   MASS BAYS
-    ## 387                CAPE COD BAY
-    ## 388                CAPE COD BAY
-    ## 389                   MASS BAYS
-    ## 390 GULF OF MAINE, >50M ISOBATH
-    ## 391 GULF OF MAINE, >50M ISOBATH
-    ## 392                   MASS BAYS
-    ## 393 GULF OF MAINE, >50M ISOBATH
-    ## 394 GULF OF MAINE, >50M ISOBATH
-    ## 395                   MASS BAYS
-    ## 396                   MASS BAYS
-    ## 397                   MASS BAYS
-    ## 398                   MASS BAYS
-    ## 399                   MASS BAYS
-    ## 400                   MASS BAYS
-    ## 401 GULF OF MAINE, >50M ISOBATH
-    ## 402 GULF OF MAINE, >50M ISOBATH
-    ## 403 GULF OF MAINE, >50M ISOBATH
-    ## 404 GULF OF MAINE, >50M ISOBATH
-    ## 405 GULF OF MAINE, >50M ISOBATH
-    ## 406 GULF OF MAINE, >50M ISOBATH
-    ## 407 GULF OF MAINE, >50M ISOBATH
-    ## 408 GULF OF MAINE, >50M ISOBATH
-    ## 409 GULF OF MAINE, >50M ISOBATH
-    ## 410 GULF OF MAINE, >50M ISOBATH
-    ## 411 GULF OF MAINE, >50M ISOBATH
-    ## 412 GULF OF MAINE, >50M ISOBATH
-    ## 413 GULF OF MAINE, >50M ISOBATH
-    ## 414 GULF OF MAINE, >50M ISOBATH
-    ## 415 GULF OF MAINE, >50M ISOBATH
-    ## 416 GULF OF MAINE, >50M ISOBATH
-    ## 417        GULF OF MAINE, <=50M
-    ## 418        GULF OF MAINE, <=50M
-    ## 419        GULF OF MAINE, <=50M
-    ## 420        GULF OF MAINE, <=50M
-    ## 421 GULF OF MAINE, >50M ISOBATH
-    ## 422 GULF OF MAINE, >50M ISOBATH
-    ## 423 GULF OF MAINE, >50M ISOBATH
-    ## 424 GULF OF MAINE, >50M ISOBATH
-    ## 425 GULF OF MAINE, >50M ISOBATH
-    ## 426 GULF OF MAINE, >50M ISOBATH
-    ## 427 GULF OF MAINE, >50M ISOBATH
-    ## 428 GULF OF MAINE, >50M ISOBATH
-    ## 429 GULF OF MAINE, >50M ISOBATH
-    ## 430 GULF OF MAINE, >50M ISOBATH
-    ## 431        GULF OF MAINE, <=50M
-    ## 432        GULF OF MAINE, <=50M
-    ## 433 GULF OF MAINE, >50M ISOBATH
-    ## 434 GULF OF MAINE, >50M ISOBATH
-    ## 435 GULF OF MAINE, >50M ISOBATH
-    ## 436 GULF OF MAINE, >50M ISOBATH
-    ## 437 GULF OF MAINE, >50M ISOBATH
-    ## 438 GULF OF MAINE, >50M ISOBATH
-    ## 439        GULF OF MAINE, <=50M
-    ## 440 GULF OF MAINE, >50M ISOBATH
-    ## 441 GULF OF MAINE, >50M ISOBATH
-    ## 442 GULF OF MAINE, >50M ISOBATH
-    ## 443 GULF OF MAINE, >50M ISOBATH
-    ## 444 GULF OF MAINE, >50M ISOBATH
-    ## 445 GULF OF MAINE, >50M ISOBATH
-    ## 446 GULF OF MAINE, >50M ISOBATH
-    ## 447 GULF OF MAINE, >50M ISOBATH
-    ## 448 GULF OF MAINE, >50M ISOBATH
-    ## 449     NORTHWEST BOSTON HARBOR
-    ## 450     NORTHWEST BOSTON HARBOR
-    ## 451       CENTRAL BOSTON HARBOR
-    ## 452       CENTRAL BOSTON HARBOR
-    ## 453     SOUTHEAST BOSTON HARBOR
-    ## 454                   MASS BAYS
-    ## 455                   MASS BAYS
-    ## 456                   MASS BAYS
-    ## 457 GULF OF MAINE, >50M ISOBATH
-    ## 458 GULF OF MAINE, >50M ISOBATH
-    ## 459                   MASS BAYS
-    ## 460 GULF OF MAINE, >50M ISOBATH
-    ## 461 GULF OF MAINE, >50M ISOBATH
-    ## 462                   MASS BAYS
-    ## 463                   MASS BAYS
-    ## 464                   MASS BAYS
-    ## 465                   MASS BAYS
-    ## 466                   MASS BAYS
-    ## 467                   MASS BAYS
-    ## 468                CAPE COD BAY
-    ## 469                CAPE COD BAY
-    ## 470     NORTHWEST BOSTON HARBOR
-    ## 471     NORTHWEST BOSTON HARBOR
-    ## 472     NORTHWEST BOSTON HARBOR
-    ## 473     NORTHWEST BOSTON HARBOR
-    ## 474     NORTHWEST BOSTON HARBOR
-    ## 475     NORTHWEST BOSTON HARBOR
-    ## 476     NORTHWEST BOSTON HARBOR
-    ## 477     NORTHWEST BOSTON HARBOR
-    ## 478     NORTHWEST BOSTON HARBOR
-    ## 479     NORTHWEST BOSTON HARBOR
-    ## 480     NORTHWEST BOSTON HARBOR
-    ## 481     NORTHWEST BOSTON HARBOR
-    ## 482           HARBOR APPROACHES
-    ## 483       CENTRAL BOSTON HARBOR
-    ## 484       CENTRAL BOSTON HARBOR
-    ## 485       CENTRAL BOSTON HARBOR
-    ## 486       CENTRAL BOSTON HARBOR
-    ## 487       CENTRAL BOSTON HARBOR
-    ## 488       CENTRAL BOSTON HARBOR
-    ## 489       CENTRAL BOSTON HARBOR
-    ## 490       CENTRAL BOSTON HARBOR
-    ## 491       CENTRAL BOSTON HARBOR
-    ## 492       CENTRAL BOSTON HARBOR
-    ## 493       CENTRAL BOSTON HARBOR
-    ## 494       CENTRAL BOSTON HARBOR
-    ## 495     SOUTHEAST BOSTON HARBOR
-    ## 496     SOUTHEAST BOSTON HARBOR
-    ## 497     SOUTHEAST BOSTON HARBOR
-    ## 498     SOUTHEAST BOSTON HARBOR
-    ## 499     SOUTHEAST BOSTON HARBOR
-    ## 500     SOUTHEAST BOSTON HARBOR
-    ## 501                   MASS BAYS
-    ## 502                   MASS BAYS
-    ## 503                   MASS BAYS
-    ## 504                   MASS BAYS
-    ## 505                   MASS BAYS
-    ## 506                   MASS BAYS
-    ## 507                   MASS BAYS
-    ## 508                   MASS BAYS
-    ## 509                   MASS BAYS
-    ## 510                   MASS BAYS
-    ## 511                   MASS BAYS
-    ## 512                   MASS BAYS
-    ## 513                   MASS BAYS
-    ## 514 GULF OF MAINE, >50M ISOBATH
-    ## 515 GULF OF MAINE, >50M ISOBATH
-    ## 516 GULF OF MAINE, >50M ISOBATH
-    ## 517 GULF OF MAINE, >50M ISOBATH
-    ## 518 GULF OF MAINE, >50M ISOBATH
-    ## 519 GULF OF MAINE, >50M ISOBATH
-    ## 520 GULF OF MAINE, >50M ISOBATH
-    ## 521 GULF OF MAINE, >50M ISOBATH
-    ## 522 GULF OF MAINE, >50M ISOBATH
-    ## 523 GULF OF MAINE, >50M ISOBATH
-    ## 524 GULF OF MAINE, >50M ISOBATH
-    ## 525 GULF OF MAINE, >50M ISOBATH
-    ## 526                   MASS BAYS
-    ## 527                   MASS BAYS
-    ## 528                   MASS BAYS
-    ## 529                   MASS BAYS
-    ## 530                   MASS BAYS
-    ## 531                   MASS BAYS
-    ## 532 GULF OF MAINE, >50M ISOBATH
-    ## 533 GULF OF MAINE, >50M ISOBATH
-    ## 534 GULF OF MAINE, >50M ISOBATH
-    ## 535 GULF OF MAINE, >50M ISOBATH
-    ## 536 GULF OF MAINE, >50M ISOBATH
-    ## 537 GULF OF MAINE, >50M ISOBATH
-    ## 538 GULF OF MAINE, >50M ISOBATH
-    ## 539 GULF OF MAINE, >50M ISOBATH
-    ## 540 GULF OF MAINE, >50M ISOBATH
-    ## 541 GULF OF MAINE, >50M ISOBATH
-    ## 542 GULF OF MAINE, >50M ISOBATH
-    ## 543 GULF OF MAINE, >50M ISOBATH
-    ## 544                   MASS BAYS
-    ## 545                   MASS BAYS
-    ## 546                   MASS BAYS
-    ## 547                   MASS BAYS
-    ## 548                   MASS BAYS
-    ## 549                   MASS BAYS
-    ## 550                   MASS BAYS
-    ## 551                   MASS BAYS
-    ## 552                   MASS BAYS
-    ## 553                   MASS BAYS
-    ## 554                   MASS BAYS
-    ## 555                   MASS BAYS
-    ## 556                   MASS BAYS
-    ## 557                   MASS BAYS
-    ## 558                   MASS BAYS
-    ## 559                   MASS BAYS
-    ## 560                   MASS BAYS
-    ## 561                   MASS BAYS
-    ## 562                   MASS BAYS
-    ## 563                   MASS BAYS
-    ## 564                   MASS BAYS
-    ## 565                   MASS BAYS
-    ## 566                   MASS BAYS
-    ## 567                   MASS BAYS
-    ## 568                   MASS BAYS
-    ## 569                   MASS BAYS
-    ## 570                   MASS BAYS
-    ## 571                   MASS BAYS
-    ## 572                   MASS BAYS
-    ## 573                   MASS BAYS
-    ## 574                   MASS BAYS
-    ## 575                   MASS BAYS
-    ## 576                   MASS BAYS
-    ## 577                   MASS BAYS
-    ## 578                   MASS BAYS
-    ## 579                   MASS BAYS
-    ## 580                   MASS BAYS
-    ## 581                   MASS BAYS
-    ## 582                   MASS BAYS
-    ## 583                   MASS BAYS
-    ## 584                CAPE COD BAY
-    ## 585                CAPE COD BAY
-    ## 586                CAPE COD BAY
-    ## 587                CAPE COD BAY
-    ## 588                CAPE COD BAY
-    ## 589                CAPE COD BAY
-    ## 590                CAPE COD BAY
-    ## 591                CAPE COD BAY
-    ## 592                CAPE COD BAY
-    ## 593                CAPE COD BAY
-    ## 594                CAPE COD BAY
-    ## 595                CAPE COD BAY
-    ## 596 GULF OF MAINE, >50M ISOBATH
-    ## 597 GULF OF MAINE, >50M ISOBATH
-    ## 598 GULF OF MAINE, >50M ISOBATH
-    ## 599 GULF OF MAINE, >50M ISOBATH
-    ## 600 GULF OF MAINE, >50M ISOBATH
-    ## 601 GULF OF MAINE, >50M ISOBATH
-    ## 602 GULF OF MAINE, >50M ISOBATH
-    ## 603 GULF OF MAINE, >50M ISOBATH
-    ## 604 GULF OF MAINE, >50M ISOBATH
-    ## 605 GULF OF MAINE, >50M ISOBATH
-    ## 606 GULF OF MAINE, >50M ISOBATH
-    ## 607 GULF OF MAINE, >50M ISOBATH
-    ## 608 GULF OF MAINE, >50M ISOBATH
-    ## 609 GULF OF MAINE, >50M ISOBATH
-    ## 610 GULF OF MAINE, >50M ISOBATH
-    ## 611 GULF OF MAINE, >50M ISOBATH
-    ## 612 GULF OF MAINE, >50M ISOBATH
-    ## 613 GULF OF MAINE, >50M ISOBATH
-    ## 614 GULF OF MAINE, >50M ISOBATH
-    ## 615 GULF OF MAINE, >50M ISOBATH
-    ## 616                   MASS BAYS
-    ## 617                   MASS BAYS
-    ## 618                   MASS BAYS
-    ## 619                   MASS BAYS
-    ## 620                   MASS BAYS
-    ## 621                   MASS BAYS
-    ## 622                   MASS BAYS
-    ## 623                   MASS BAYS
-    ## 624                   MASS BAYS
-    ## 625                   MASS BAYS
-    ## 626                   MASS BAYS
-    ## 627                   MASS BAYS
-    ## 628                   MASS BAYS
-    ## 629                   MASS BAYS
-    ## 630                   MASS BAYS
-    ## 631                   MASS BAYS
-    ## 632                   MASS BAYS
-    ## 633                   MASS BAYS
-    ## 634                   MASS BAYS
-    ## 635                   MASS BAYS
-    ## 636                   MASS BAYS
-    ## 637                   MASS BAYS
-    ## 638                   MASS BAYS
-    ## 639                   MASS BAYS
-    ## 640                   MASS BAYS
-    ## 641                   MASS BAYS
-    ## 642     NORTHWEST BOSTON HARBOR
-    ## 643     NORTHWEST BOSTON HARBOR
-    ## 644     NORTHWEST BOSTON HARBOR
-    ## 645     NORTHWEST BOSTON HARBOR
-    ## 646     NORTHWEST BOSTON HARBOR
-    ## 647     NORTHWEST BOSTON HARBOR
-    ## 648     NORTHWEST BOSTON HARBOR
-    ## 649     NORTHWEST BOSTON HARBOR
-    ## 650     NORTHWEST BOSTON HARBOR
-    ## 651     SOUTHEAST BOSTON HARBOR
-    ## 652     SOUTHEAST BOSTON HARBOR
-    ## 653     SOUTHEAST BOSTON HARBOR
-    ## 654       CENTRAL BOSTON HARBOR
-    ## 655       CENTRAL BOSTON HARBOR
-    ## 656       CENTRAL BOSTON HARBOR
-    ## 657         BOSTON INNER HARBOR
-    ## 658         BOSTON INNER HARBOR
-    ## 659         BOSTON INNER HARBOR
-    ## 660         BOSTON INNER HARBOR
-    ## 661         BOSTON INNER HARBOR
-    ## 662         BOSTON INNER HARBOR
-    ## 663         BOSTON INNER HARBOR
-    ## 664         BOSTON INNER HARBOR
-    ## 665         BOSTON INNER HARBOR
-    ## 666         BOSTON INNER HARBOR
-    ## 667         BOSTON INNER HARBOR
-    ## 668     NORTHWEST BOSTON HARBOR
-    ## 669     NORTHWEST BOSTON HARBOR
-    ## 670     NORTHWEST BOSTON HARBOR
-    ## 671     NORTHWEST BOSTON HARBOR
-    ## 672     NORTHWEST BOSTON HARBOR
-    ## 673     NORTHWEST BOSTON HARBOR
-    ## 674     NORTHWEST BOSTON HARBOR
-    ## 675     NORTHWEST BOSTON HARBOR
-    ## 676     NORTHWEST BOSTON HARBOR
-    ## 677     NORTHWEST BOSTON HARBOR
-    ## 678     NORTHWEST BOSTON HARBOR
-    ## 679     NORTHWEST BOSTON HARBOR
-    ## 680     NORTHWEST BOSTON HARBOR
-    ## 681     NORTHWEST BOSTON HARBOR
-    ## 682     NORTHWEST BOSTON HARBOR
-    ## 683     NORTHWEST BOSTON HARBOR
-    ## 684     NORTHWEST BOSTON HARBOR
-    ## 685     NORTHWEST BOSTON HARBOR
-    ## 686     NORTHWEST BOSTON HARBOR
-    ## 687     NORTHWEST BOSTON HARBOR
-    ## 688     NORTHWEST BOSTON HARBOR
-    ## 689     NORTHWEST BOSTON HARBOR
-    ## 690     NORTHWEST BOSTON HARBOR
-    ## 691     NORTHWEST BOSTON HARBOR
-    ## 692     NORTHWEST BOSTON HARBOR
-    ## 693     NORTHWEST BOSTON HARBOR
-    ## 694     NORTHWEST BOSTON HARBOR
-    ## 695     NORTHWEST BOSTON HARBOR
-    ## 696     NORTHWEST BOSTON HARBOR
-    ## 697     NORTHWEST BOSTON HARBOR
-    ## 698     NORTHWEST BOSTON HARBOR
-    ## 699     NORTHWEST BOSTON HARBOR
-    ## 700     NORTHWEST BOSTON HARBOR
-    ## 701     NORTHWEST BOSTON HARBOR
-    ## 702     NORTHWEST BOSTON HARBOR
-    ## 703     NORTHWEST BOSTON HARBOR
-    ## 704     NORTHWEST BOSTON HARBOR
-    ## 705     NORTHWEST BOSTON HARBOR
-    ## 706     NORTHWEST BOSTON HARBOR
-    ## 707     NORTHWEST BOSTON HARBOR
-    ## 708     NORTHWEST BOSTON HARBOR
-    ## 709     NORTHWEST BOSTON HARBOR
-    ## 710     NORTHWEST BOSTON HARBOR
-    ## 711     NORTHWEST BOSTON HARBOR
-    ## 712     NORTHWEST BOSTON HARBOR
-    ## 713     NORTHWEST BOSTON HARBOR
-    ## 714     NORTHWEST BOSTON HARBOR
-    ## 715     NORTHWEST BOSTON HARBOR
-    ## 716     NORTHWEST BOSTON HARBOR
-    ## 717                   MASS BAYS
-    ## 718                   MASS BAYS
-    ## 719                   MASS BAYS
-    ## 720                   MASS BAYS
-    ## 721                   MASS BAYS
-    ## 722                   MASS BAYS
-    ## 723                   MASS BAYS
-    ## 724                   MASS BAYS
-    ## 725                   MASS BAYS
-    ## 726         BOSTON INNER HARBOR
-    ## 727     NORTHWEST BOSTON HARBOR
-    ## 728     NORTHWEST BOSTON HARBOR
-    ## 729     SOUTHEAST BOSTON HARBOR
-    ## 730     SOUTHEAST BOSTON HARBOR
-    ## 731       CENTRAL BOSTON HARBOR
-    ## 732       CENTRAL BOSTON HARBOR
-    ## 733       CENTRAL BOSTON HARBOR
-    ## 734         BOSTON INNER HARBOR
-    ## 735         BOSTON INNER HARBOR
-    ## 736     NORTHWEST BOSTON HARBOR
-    ## 737     NORTHWEST BOSTON HARBOR
-    ## 738     NORTHWEST BOSTON HARBOR
-    ## 739       CENTRAL BOSTON HARBOR
-    ## 740       CENTRAL BOSTON HARBOR
-    ## 741       CENTRAL BOSTON HARBOR
-    ## 742     SOUTHEAST BOSTON HARBOR
-    ## 743                   MASS BAYS
-    ## 744       CENTRAL BOSTON HARBOR
-    ## 745                   MASS BAYS
-    ## 746                   MASS BAYS
-    ## 747                   MASS BAYS
-    ## 748           HARBOR APPROACHES
-    ## 749     NORTHWEST BOSTON HARBOR
-    ## 750     NORTHWEST BOSTON HARBOR
-    ## 751     NORTHWEST BOSTON HARBOR
-    ## 752     NORTHWEST BOSTON HARBOR
-    ## 753         BOSTON INNER HARBOR
-    ## 754         BOSTON INNER HARBOR
-    ## 755         BOSTON INNER HARBOR
-    ## 756         BOSTON INNER HARBOR
-    ## 757         BOSTON INNER HARBOR
-    ## 758         BOSTON INNER HARBOR
-    ## 759         BOSTON INNER HARBOR
-    ## 760         BOSTON INNER HARBOR
-    ## 761         BOSTON INNER HARBOR
-    ## 762         BOSTON INNER HARBOR
-    ## 763         BOSTON INNER HARBOR
-    ## 764         BOSTON INNER HARBOR
-    ## 765         BOSTON INNER HARBOR
-    ## 766         BOSTON INNER HARBOR
-    ## 767     NORTHWEST BOSTON HARBOR
-    ## 768     NORTHWEST BOSTON HARBOR
-    ## 769     NORTHWEST BOSTON HARBOR
-    ## 770     NORTHWEST BOSTON HARBOR
-    ## 771     NORTHWEST BOSTON HARBOR
-    ## 772     NORTHWEST BOSTON HARBOR
-    ## 773     NORTHWEST BOSTON HARBOR
-    ## 774     NORTHWEST BOSTON HARBOR
-    ## 775     NORTHWEST BOSTON HARBOR
-    ## 776     NORTHWEST BOSTON HARBOR
-    ## 777     NORTHWEST BOSTON HARBOR
-    ## 778     NORTHWEST BOSTON HARBOR
-    ## 779     NORTHWEST BOSTON HARBOR
-    ## 780     NORTHWEST BOSTON HARBOR
-    ## 781     NORTHWEST BOSTON HARBOR
-    ## 782     NORTHWEST BOSTON HARBOR
-    ## 783     NORTHWEST BOSTON HARBOR
-    ## 784     NORTHWEST BOSTON HARBOR
-    ## 785     NORTHWEST BOSTON HARBOR
-    ## 786     NORTHWEST BOSTON HARBOR
-    ## 787     NORTHWEST BOSTON HARBOR
-    ## 788     NORTHWEST BOSTON HARBOR
-    ## 789     NORTHWEST BOSTON HARBOR
-    ## 790     NORTHWEST BOSTON HARBOR
-    ## 791     NORTHWEST BOSTON HARBOR
-    ## 792     NORTHWEST BOSTON HARBOR
-    ## 793     NORTHWEST BOSTON HARBOR
+    ##                        GEN_LOC_NM
+    ## 1             Boston Inner Harbor
+    ## 2             Boston Inner Harbor
+    ## 3             Boston Inner Harbor
+    ## 4             Boston Inner Harbor
+    ## 5             Boston Inner Harbor
+    ## 6             Boston Inner Harbor
+    ## 7             Boston Inner Harbor
+    ## 8             Boston Inner Harbor
+    ## 9             Boston Inner Harbor
+    ## 10        Northwest Boston Harbor
+    ## 11        Northwest Boston Harbor
+    ## 12            Boston Inner Harbor
+    ## 13            Boston Inner Harbor
+    ## 14            Boston Inner Harbor
+    ## 15            Boston Inner Harbor
+    ## 16            Boston Inner Harbor
+    ## 17            Boston Inner Harbor
+    ## 18            Boston Inner Harbor
+    ## 19            Boston Inner Harbor
+    ## 20            Boston Inner Harbor
+    ## 21          Central Boston Harbor
+    ## 22          Central Boston Harbor
+    ## 23             Massachusetts Bays
+    ## 24             Massachusetts Bays
+    ## 25             Massachusetts Bays
+    ## 26             Massachusetts Bays
+    ## 27             Massachusetts Bays
+    ## 28             Massachusetts Bays
+    ## 29             Massachusetts Bays
+    ## 30             Massachusetts Bays
+    ## 31             Massachusetts Bays
+    ## 32             Massachusetts Bays
+    ## 33             Massachusetts Bays
+    ## 34             Massachusetts Bays
+    ## 35             Massachusetts Bays
+    ## 36             Massachusetts Bays
+    ## 37             Massachusetts Bays
+    ## 38             Massachusetts Bays
+    ## 39             Massachusetts Bays
+    ## 40             Massachusetts Bays
+    ## 41             Massachusetts Bays
+    ## 42             Massachusetts Bays
+    ## 43             Massachusetts Bays
+    ## 44             Massachusetts Bays
+    ## 45             Massachusetts Bays
+    ## 46             Massachusetts Bays
+    ## 47             Massachusetts Bays
+    ## 48             Massachusetts Bays
+    ## 49             Massachusetts Bays
+    ## 50             Massachusetts Bays
+    ## 51             Massachusetts Bays
+    ## 52            Boston Inner Harbor
+    ## 53            Boston Inner Harbor
+    ## 54            Boston Inner Harbor
+    ## 55            Boston Inner Harbor
+    ## 56            Boston Inner Harbor
+    ## 57        Northwest Boston Harbor
+    ## 58        Northwest Boston Harbor
+    ## 59        Northwest Boston Harbor
+    ## 60        Northwest Boston Harbor
+    ## 61        Northwest Boston Harbor
+    ## 62            Boston Inner Harbor
+    ## 63            Boston Inner Harbor
+    ## 64        Northwest Boston Harbor
+    ## 65        Northwest Boston Harbor
+    ## 66        Northwest Boston Harbor
+    ## 67                  Cape Code Bay
+    ## 68                  Cape Code Bay
+    ## 69                  Cape Code Bay
+    ## 70                  Cape Code Bay
+    ## 71                  Cape Code Bay
+    ## 72                  Cape Code Bay
+    ## 73                  Cape Code Bay
+    ## 74                  Cape Code Bay
+    ## 75                  Cape Code Bay
+    ## 76                  Cape Code Bay
+    ## 77                  Cape Code Bay
+    ## 78                  Cape Code Bay
+    ## 79                  Cape Code Bay
+    ## 80                  Cape Code Bay
+    ## 81             Massachusetts Bays
+    ## 82             Massachusetts Bays
+    ## 83             Massachusetts Bays
+    ## 84        Southeast Boston Harbor
+    ## 85        Southeast Boston Harbor
+    ## 86        Southeast Boston Harbor
+    ## 87             Massachusetts Bays
+    ## 88             Massachusetts Bays
+    ## 89                  Inland/Rivers
+    ## 90                  Inland/Rivers
+    ## 91                  Inland/Rivers
+    ## 92            Boston Inner Harbor
+    ## 93            Boston Inner Harbor
+    ## 94            Boston Inner Harbor
+    ## 95            Boston Inner Harbor
+    ## 96             Massachusetts Bays
+    ## 97             Massachusetts Bays
+    ## 98             Massachusetts Bays
+    ## 99             Massachusetts Bays
+    ## 100            Massachusetts Bays
+    ## 101            Massachusetts Bays
+    ## 102            Massachusetts Bays
+    ## 103            Massachusetts Bays
+    ## 104            Massachusetts Bays
+    ## 105            Massachusetts Bays
+    ## 106       Northwest Boston Harbor
+    ## 107       Northwest Boston Harbor
+    ## 108       Northwest Boston Harbor
+    ## 109       Northwest Boston Harbor
+    ## 110       Northwest Boston Harbor
+    ## 111       Northwest Boston Harbor
+    ## 112       Northwest Boston Harbor
+    ## 113       Northwest Boston Harbor
+    ## 114       Northwest Boston Harbor
+    ## 115       Northwest Boston Harbor
+    ## 116       Northwest Boston Harbor
+    ## 117       Northwest Boston Harbor
+    ## 118       Northwest Boston Harbor
+    ## 119       Northwest Boston Harbor
+    ## 120       Northwest Boston Harbor
+    ## 121       Northwest Boston Harbor
+    ## 122       Northwest Boston Harbor
+    ## 123       Northwest Boston Harbor
+    ## 124       Northwest Boston Harbor
+    ## 125       Northwest Boston Harbor
+    ## 126       Northwest Boston Harbor
+    ## 127       Northwest Boston Harbor
+    ## 128       Northwest Boston Harbor
+    ## 129       Northwest Boston Harbor
+    ## 130       Northwest Boston Harbor
+    ## 131           Boston Inner Harbor
+    ## 132            Massachusetts Bays
+    ## 133            Massachusetts Bays
+    ## 134            Massachusetts Bays
+    ## 135            Massachusetts Bays
+    ## 136            Massachusetts Bays
+    ## 137            Massachusetts Bays
+    ## 138            Massachusetts Bays
+    ## 139            Massachusetts Bays
+    ## 140            Massachusetts Bays
+    ## 141       Southeast Boston Harbor
+    ## 142            Massachusetts Bays
+    ## 143       Northwest Boston Harbor
+    ## 144       Northwest Boston Harbor
+    ## 145           Boston Inner Harbor
+    ## 146           Boston Inner Harbor
+    ## 147           Boston Inner Harbor
+    ## 148            Massachusetts Bays
+    ## 149            Massachusetts Bays
+    ## 150            Massachusetts Bays
+    ## 151            Massachusetts Bays
+    ## 152            Massachusetts Bays
+    ## 153            Massachusetts Bays
+    ## 154       Northwest Boston Harbor
+    ## 155       Northwest Boston Harbor
+    ## 156       Northwest Boston Harbor
+    ## 157       Northwest Boston Harbor
+    ## 158                 Cape Code Bay
+    ## 159       Northwest Boston Harbor
+    ## 160       Northwest Boston Harbor
+    ## 161       Northwest Boston Harbor
+    ## 162       Northwest Boston Harbor
+    ## 163       Northwest Boston Harbor
+    ## 164       Northwest Boston Harbor
+    ## 165       Northwest Boston Harbor
+    ## 166       Northwest Boston Harbor
+    ## 167       Northwest Boston Harbor
+    ## 168       Northwest Boston Harbor
+    ## 169       Northwest Boston Harbor
+    ## 170       Northwest Boston Harbor
+    ## 171       Northwest Boston Harbor
+    ## 172       Northwest Boston Harbor
+    ## 173            Massachusetts Bays
+    ## 174           Boston Inner Harbor
+    ## 175           Boston Inner Harbor
+    ## 176           Boston Inner Harbor
+    ## 177       Northwest Boston Harbor
+    ## 178       Northwest Boston Harbor
+    ## 179       Northwest Boston Harbor
+    ## 180       Northwest Boston Harbor
+    ## 181            Massachusetts Bays
+    ## 182            Massachusetts Bays
+    ## 183            Massachusetts Bays
+    ## 184            Massachusetts Bays
+    ## 185            Massachusetts Bays
+    ## 186           Boston Inner Harbor
+    ## 187           Boston Inner Harbor
+    ## 188           Boston Inner Harbor
+    ## 189           Boston Inner Harbor
+    ## 190           Boston Inner Harbor
+    ## 191    Cape Ann to Cape Elizabeth
+    ## 192       Northwest Boston Harbor
+    ## 193       Northwest Boston Harbor
+    ## 194       Northwest Boston Harbor
+    ## 195       Northwest Boston Harbor
+    ## 196       Northwest Boston Harbor
+    ## 197           Boston Inner Harbor
+    ## 198           Boston Inner Harbor
+    ## 199           Boston Inner Harbor
+    ## 200                 Cape Code Bay
+    ## 201                 Cape Code Bay
+    ## 202                 Inland/Rivers
+    ## 203                 Inland/Rivers
+    ## 204                 Inland/Rivers
+    ## 205                 Inland/Rivers
+    ## 206                 Inland/Rivers
+    ## 207                 Inland/Rivers
+    ## 208                 Inland/Rivers
+    ## 209                 Inland/Rivers
+    ## 210                 Inland/Rivers
+    ## 211                 Inland/Rivers
+    ## 212                 Inland/Rivers
+    ## 213                 Inland/Rivers
+    ## 214                 Inland/Rivers
+    ## 215                 Inland/Rivers
+    ## 216                 Inland/Rivers
+    ## 217                 Inland/Rivers
+    ## 218                 Inland/Rivers
+    ## 219                 Inland/Rivers
+    ## 220                 Inland/Rivers
+    ## 221                 Inland/Rivers
+    ## 222                 Inland/Rivers
+    ## 223                 Inland/Rivers
+    ## 224                 Inland/Rivers
+    ## 225                 Inland/Rivers
+    ## 226                 Inland/Rivers
+    ## 227                 Inland/Rivers
+    ## 228                 Inland/Rivers
+    ## 229                 Inland/Rivers
+    ## 230                 Inland/Rivers
+    ## 231                 Inland/Rivers
+    ## 232                 Inland/Rivers
+    ## 233                 Inland/Rivers
+    ## 234                 Inland/Rivers
+    ## 235                 Inland/Rivers
+    ## 236                 Inland/Rivers
+    ## 237                 Inland/Rivers
+    ## 238                 Inland/Rivers
+    ## 239       Northwest Boston Harbor
+    ## 240       Northwest Boston Harbor
+    ## 241       Northwest Boston Harbor
+    ## 242       Northwest Boston Harbor
+    ## 243       Northwest Boston Harbor
+    ## 244       Northwest Boston Harbor
+    ## 245       Northwest Boston Harbor
+    ## 246       Northwest Boston Harbor
+    ## 247       Northwest Boston Harbor
+    ## 248       Northwest Boston Harbor
+    ## 249       Northwest Boston Harbor
+    ## 250       Northwest Boston Harbor
+    ## 251       Northwest Boston Harbor
+    ## 252       Northwest Boston Harbor
+    ## 253           Boston Inner Harbor
+    ## 254           Boston Inner Harbor
+    ## 255           Boston Inner Harbor
+    ## 256           Boston Inner Harbor
+    ## 257           Boston Inner Harbor
+    ## 258           Boston Inner Harbor
+    ## 259           Boston Inner Harbor
+    ## 260           Boston Inner Harbor
+    ## 261           Boston Inner Harbor
+    ## 262           Boston Inner Harbor
+    ## 263           Boston Inner Harbor
+    ## 264           Boston Inner Harbor
+    ## 265           Boston Inner Harbor
+    ## 266           Boston Inner Harbor
+    ## 267           Boston Inner Harbor
+    ## 268           Boston Inner Harbor
+    ## 269           Boston Inner Harbor
+    ## 270           Boston Inner Harbor
+    ## 271           Boston Inner Harbor
+    ## 272           Boston Inner Harbor
+    ## 273           Boston Inner Harbor
+    ## 274           Boston Inner Harbor
+    ## 275           Boston Inner Harbor
+    ## 276           Boston Inner Harbor
+    ## 277           Boston Inner Harbor
+    ## 278           Boston Inner Harbor
+    ## 279           Boston Inner Harbor
+    ## 280           Boston Inner Harbor
+    ## 281           Boston Inner Harbor
+    ## 282       Northwest Boston Harbor
+    ## 283       Northwest Boston Harbor
+    ## 284       Northwest Boston Harbor
+    ## 285       Northwest Boston Harbor
+    ## 286       Northwest Boston Harbor
+    ## 287       Northwest Boston Harbor
+    ## 288       Northwest Boston Harbor
+    ## 289       Northwest Boston Harbor
+    ## 290       Northwest Boston Harbor
+    ## 291                 Inland/Rivers
+    ## 292                 Inland/Rivers
+    ## 293       Southeast Boston Harbor
+    ## 294       Southeast Boston Harbor
+    ## 295       Southeast Boston Harbor
+    ## 296       Southeast Boston Harbor
+    ## 297       Southeast Boston Harbor
+    ## 298           Boston Inner Harbor
+    ## 299       Southeast Boston Harbor
+    ## 300       Southeast Boston Harbor
+    ## 301       Southeast Boston Harbor
+    ## 302       Southeast Boston Harbor
+    ## 303       Southeast Boston Harbor
+    ## 304       Southeast Boston Harbor
+    ## 305       Southeast Boston Harbor
+    ## 306       Southeast Boston Harbor
+    ## 307       Southeast Boston Harbor
+    ## 308       Southeast Boston Harbor
+    ## 309       Northwest Boston Harbor
+    ## 310       Northwest Boston Harbor
+    ## 311       Northwest Boston Harbor
+    ## 312       Northwest Boston Harbor
+    ## 313       Northwest Boston Harbor
+    ## 314       Northwest Boston Harbor
+    ## 315       Northwest Boston Harbor
+    ## 316       Northwest Boston Harbor
+    ## 317       Northwest Boston Harbor
+    ## 318       Northwest Boston Harbor
+    ## 319       Northwest Boston Harbor
+    ## 320       Northwest Boston Harbor
+    ## 321       Northwest Boston Harbor
+    ## 322                 Inland/Rivers
+    ## 323                 Inland/Rivers
+    ## 324                 Inland/Rivers
+    ## 325                 Inland/Rivers
+    ## 326                 Inland/Rivers
+    ## 327                 Inland/Rivers
+    ## 328                 Inland/Rivers
+    ## 329                 Inland/Rivers
+    ## 330                 Inland/Rivers
+    ## 331                 Inland/Rivers
+    ## 332                 Inland/Rivers
+    ## 333                 Inland/Rivers
+    ## 334                 Inland/Rivers
+    ## 335                 Inland/Rivers
+    ## 336                 Inland/Rivers
+    ## 337                 Inland/Rivers
+    ## 338                 Inland/Rivers
+    ## 339                 Inland/Rivers
+    ## 340                 Inland/Rivers
+    ## 341           Boston Inner Harbor
+    ## 342                 Inland/Rivers
+    ## 343                 Inland/Rivers
+    ## 344           Boston Inner Harbor
+    ## 345           Boston Inner Harbor
+    ## 346           Boston Inner Harbor
+    ## 347           Boston Inner Harbor
+    ## 348           Boston Inner Harbor
+    ## 349           Boston Inner Harbor
+    ## 350           Boston Inner Harbor
+    ## 351           Boston Inner Harbor
+    ## 352           Boston Inner Harbor
+    ## 353           Boston Inner Harbor
+    ## 354           Boston Inner Harbor
+    ## 355           Boston Inner Harbor
+    ## 356           Boston Inner Harbor
+    ## 357           Boston Inner Harbor
+    ## 358           Boston Inner Harbor
+    ## 359           Boston Inner Harbor
+    ## 360           Boston Inner Harbor
+    ## 361           Boston Inner Harbor
+    ## 362           Boston Inner Harbor
+    ## 363           Boston Inner Harbor
+    ## 364           Boston Inner Harbor
+    ## 365           Boston Inner Harbor
+    ## 366           Boston Inner Harbor
+    ## 367           Boston Inner Harbor
+    ## 368           Boston Inner Harbor
+    ## 369           Boston Inner Harbor
+    ## 370       Northwest Boston Harbor
+    ## 371           Boston Inner Harbor
+    ## 372           Boston Inner Harbor
+    ## 373           Boston Inner Harbor
+    ## 374           Boston Inner Harbor
+    ## 375           Boston Inner Harbor
+    ## 376           Boston Inner Harbor
+    ## 377           Boston Inner Harbor
+    ## 378           Boston Inner Harbor
+    ## 379           Boston Inner Harbor
+    ## 380           Boston Inner Harbor
+    ## 381           Boston Inner Harbor
+    ## 382           Boston Inner Harbor
+    ## 383           Boston Inner Harbor
+    ## 384           Boston Inner Harbor
+    ## 385           Boston Inner Harbor
+    ## 386            Massachusetts Bays
+    ## 387                 Cape Code Bay
+    ## 388                 Cape Code Bay
+    ## 389            Massachusetts Bays
+    ## 390  Gulf of Maine (>50m Isobath)
+    ## 391  Gulf of Maine (>50m Isobath)
+    ## 392            Massachusetts Bays
+    ## 393  Gulf of Maine (>50m Isobath)
+    ## 394  Gulf of Maine (>50m Isobath)
+    ## 395            Massachusetts Bays
+    ## 396            Massachusetts Bays
+    ## 397            Massachusetts Bays
+    ## 398            Massachusetts Bays
+    ## 399            Massachusetts Bays
+    ## 400            Massachusetts Bays
+    ## 401  Gulf of Maine (>50m Isobath)
+    ## 402  Gulf of Maine (>50m Isobath)
+    ## 403  Gulf of Maine (>50m Isobath)
+    ## 404  Gulf of Maine (>50m Isobath)
+    ## 405  Gulf of Maine (>50m Isobath)
+    ## 406  Gulf of Maine (>50m Isobath)
+    ## 407  Gulf of Maine (>50m Isobath)
+    ## 408  Gulf of Maine (>50m Isobath)
+    ## 409  Gulf of Maine (>50m Isobath)
+    ## 410  Gulf of Maine (>50m Isobath)
+    ## 411  Gulf of Maine (>50m Isobath)
+    ## 412  Gulf of Maine (>50m Isobath)
+    ## 413  Gulf of Maine (>50m Isobath)
+    ## 414  Gulf of Maine (>50m Isobath)
+    ## 415  Gulf of Maine (>50m Isobath)
+    ## 416  Gulf of Maine (>50m Isobath)
+    ## 417 Gulf of Maine (<=50m Isobath)
+    ## 418 Gulf of Maine (<=50m Isobath)
+    ## 419 Gulf of Maine (<=50m Isobath)
+    ## 420 Gulf of Maine (<=50m Isobath)
+    ## 421  Gulf of Maine (>50m Isobath)
+    ## 422  Gulf of Maine (>50m Isobath)
+    ## 423  Gulf of Maine (>50m Isobath)
+    ## 424  Gulf of Maine (>50m Isobath)
+    ## 425  Gulf of Maine (>50m Isobath)
+    ## 426  Gulf of Maine (>50m Isobath)
+    ## 427  Gulf of Maine (>50m Isobath)
+    ## 428  Gulf of Maine (>50m Isobath)
+    ## 429  Gulf of Maine (>50m Isobath)
+    ## 430  Gulf of Maine (>50m Isobath)
+    ## 431 Gulf of Maine (<=50m Isobath)
+    ## 432 Gulf of Maine (<=50m Isobath)
+    ## 433  Gulf of Maine (>50m Isobath)
+    ## 434  Gulf of Maine (>50m Isobath)
+    ## 435  Gulf of Maine (>50m Isobath)
+    ## 436  Gulf of Maine (>50m Isobath)
+    ## 437  Gulf of Maine (>50m Isobath)
+    ## 438  Gulf of Maine (>50m Isobath)
+    ## 439 Gulf of Maine (<=50m Isobath)
+    ## 440  Gulf of Maine (>50m Isobath)
+    ## 441  Gulf of Maine (>50m Isobath)
+    ## 442  Gulf of Maine (>50m Isobath)
+    ## 443  Gulf of Maine (>50m Isobath)
+    ## 444  Gulf of Maine (>50m Isobath)
+    ## 445  Gulf of Maine (>50m Isobath)
+    ## 446  Gulf of Maine (>50m Isobath)
+    ## 447  Gulf of Maine (>50m Isobath)
+    ## 448  Gulf of Maine (>50m Isobath)
+    ## 449       Northwest Boston Harbor
+    ## 450       Northwest Boston Harbor
+    ## 451         Central Boston Harbor
+    ## 452         Central Boston Harbor
+    ## 453       Southeast Boston Harbor
+    ## 454            Massachusetts Bays
+    ## 455            Massachusetts Bays
+    ## 456            Massachusetts Bays
+    ## 457  Gulf of Maine (>50m Isobath)
+    ## 458  Gulf of Maine (>50m Isobath)
+    ## 459            Massachusetts Bays
+    ## 460  Gulf of Maine (>50m Isobath)
+    ## 461  Gulf of Maine (>50m Isobath)
+    ## 462            Massachusetts Bays
+    ## 463            Massachusetts Bays
+    ## 464            Massachusetts Bays
+    ## 465            Massachusetts Bays
+    ## 466            Massachusetts Bays
+    ## 467            Massachusetts Bays
+    ## 468                 Cape Code Bay
+    ## 469                 Cape Code Bay
+    ## 470       Northwest Boston Harbor
+    ## 471       Northwest Boston Harbor
+    ## 472       Northwest Boston Harbor
+    ## 473       Northwest Boston Harbor
+    ## 474       Northwest Boston Harbor
+    ## 475       Northwest Boston Harbor
+    ## 476       Northwest Boston Harbor
+    ## 477       Northwest Boston Harbor
+    ## 478       Northwest Boston Harbor
+    ## 479       Northwest Boston Harbor
+    ## 480       Northwest Boston Harbor
+    ## 481       Northwest Boston Harbor
+    ## 482             Harbor Approaches
+    ## 483         Central Boston Harbor
+    ## 484         Central Boston Harbor
+    ## 485         Central Boston Harbor
+    ## 486         Central Boston Harbor
+    ## 487         Central Boston Harbor
+    ## 488         Central Boston Harbor
+    ## 489         Central Boston Harbor
+    ## 490         Central Boston Harbor
+    ## 491         Central Boston Harbor
+    ## 492         Central Boston Harbor
+    ## 493         Central Boston Harbor
+    ## 494         Central Boston Harbor
+    ## 495       Southeast Boston Harbor
+    ## 496       Southeast Boston Harbor
+    ## 497       Southeast Boston Harbor
+    ## 498       Southeast Boston Harbor
+    ## 499       Southeast Boston Harbor
+    ## 500       Southeast Boston Harbor
+    ## 501            Massachusetts Bays
+    ## 502            Massachusetts Bays
+    ## 503            Massachusetts Bays
+    ## 504            Massachusetts Bays
+    ## 505            Massachusetts Bays
+    ## 506            Massachusetts Bays
+    ## 507            Massachusetts Bays
+    ## 508            Massachusetts Bays
+    ## 509            Massachusetts Bays
+    ## 510            Massachusetts Bays
+    ## 511            Massachusetts Bays
+    ## 512            Massachusetts Bays
+    ## 513            Massachusetts Bays
+    ## 514  Gulf of Maine (>50m Isobath)
+    ## 515  Gulf of Maine (>50m Isobath)
+    ## 516  Gulf of Maine (>50m Isobath)
+    ## 517  Gulf of Maine (>50m Isobath)
+    ## 518  Gulf of Maine (>50m Isobath)
+    ## 519  Gulf of Maine (>50m Isobath)
+    ## 520  Gulf of Maine (>50m Isobath)
+    ## 521  Gulf of Maine (>50m Isobath)
+    ## 522  Gulf of Maine (>50m Isobath)
+    ## 523  Gulf of Maine (>50m Isobath)
+    ## 524  Gulf of Maine (>50m Isobath)
+    ## 525  Gulf of Maine (>50m Isobath)
+    ## 526            Massachusetts Bays
+    ## 527            Massachusetts Bays
+    ## 528            Massachusetts Bays
+    ## 529            Massachusetts Bays
+    ## 530            Massachusetts Bays
+    ## 531            Massachusetts Bays
+    ## 532  Gulf of Maine (>50m Isobath)
+    ## 533  Gulf of Maine (>50m Isobath)
+    ## 534  Gulf of Maine (>50m Isobath)
+    ## 535  Gulf of Maine (>50m Isobath)
+    ## 536  Gulf of Maine (>50m Isobath)
+    ## 537  Gulf of Maine (>50m Isobath)
+    ## 538  Gulf of Maine (>50m Isobath)
+    ## 539  Gulf of Maine (>50m Isobath)
+    ## 540  Gulf of Maine (>50m Isobath)
+    ## 541  Gulf of Maine (>50m Isobath)
+    ## 542  Gulf of Maine (>50m Isobath)
+    ## 543  Gulf of Maine (>50m Isobath)
+    ## 544            Massachusetts Bays
+    ## 545            Massachusetts Bays
+    ## 546            Massachusetts Bays
+    ## 547            Massachusetts Bays
+    ## 548            Massachusetts Bays
+    ## 549            Massachusetts Bays
+    ## 550            Massachusetts Bays
+    ## 551            Massachusetts Bays
+    ## 552            Massachusetts Bays
+    ## 553            Massachusetts Bays
+    ## 554            Massachusetts Bays
+    ## 555            Massachusetts Bays
+    ## 556            Massachusetts Bays
+    ## 557            Massachusetts Bays
+    ## 558            Massachusetts Bays
+    ## 559            Massachusetts Bays
+    ## 560            Massachusetts Bays
+    ## 561            Massachusetts Bays
+    ## 562            Massachusetts Bays
+    ## 563            Massachusetts Bays
+    ## 564            Massachusetts Bays
+    ## 565            Massachusetts Bays
+    ## 566            Massachusetts Bays
+    ## 567            Massachusetts Bays
+    ## 568            Massachusetts Bays
+    ## 569            Massachusetts Bays
+    ## 570            Massachusetts Bays
+    ## 571            Massachusetts Bays
+    ## 572            Massachusetts Bays
+    ## 573            Massachusetts Bays
+    ## 574            Massachusetts Bays
+    ## 575            Massachusetts Bays
+    ## 576            Massachusetts Bays
+    ## 577            Massachusetts Bays
+    ## 578            Massachusetts Bays
+    ## 579            Massachusetts Bays
+    ## 580            Massachusetts Bays
+    ## 581            Massachusetts Bays
+    ## 582            Massachusetts Bays
+    ## 583            Massachusetts Bays
+    ## 584                 Cape Code Bay
+    ## 585                 Cape Code Bay
+    ## 586                 Cape Code Bay
+    ## 587                 Cape Code Bay
+    ## 588                 Cape Code Bay
+    ## 589                 Cape Code Bay
+    ## 590                 Cape Code Bay
+    ## 591                 Cape Code Bay
+    ## 592                 Cape Code Bay
+    ## 593                 Cape Code Bay
+    ## 594                 Cape Code Bay
+    ## 595                 Cape Code Bay
+    ## 596  Gulf of Maine (>50m Isobath)
+    ## 597  Gulf of Maine (>50m Isobath)
+    ## 598  Gulf of Maine (>50m Isobath)
+    ## 599  Gulf of Maine (>50m Isobath)
+    ## 600  Gulf of Maine (>50m Isobath)
+    ## 601  Gulf of Maine (>50m Isobath)
+    ## 602  Gulf of Maine (>50m Isobath)
+    ## 603  Gulf of Maine (>50m Isobath)
+    ## 604  Gulf of Maine (>50m Isobath)
+    ## 605  Gulf of Maine (>50m Isobath)
+    ## 606  Gulf of Maine (>50m Isobath)
+    ## 607  Gulf of Maine (>50m Isobath)
+    ## 608  Gulf of Maine (>50m Isobath)
+    ## 609  Gulf of Maine (>50m Isobath)
+    ## 610  Gulf of Maine (>50m Isobath)
+    ## 611  Gulf of Maine (>50m Isobath)
+    ## 612  Gulf of Maine (>50m Isobath)
+    ## 613  Gulf of Maine (>50m Isobath)
+    ## 614  Gulf of Maine (>50m Isobath)
+    ## 615  Gulf of Maine (>50m Isobath)
+    ## 616            Massachusetts Bays
+    ## 617            Massachusetts Bays
+    ## 618            Massachusetts Bays
+    ## 619            Massachusetts Bays
+    ## 620            Massachusetts Bays
+    ## 621            Massachusetts Bays
+    ## 622            Massachusetts Bays
+    ## 623            Massachusetts Bays
+    ## 624            Massachusetts Bays
+    ## 625            Massachusetts Bays
+    ## 626            Massachusetts Bays
+    ## 627            Massachusetts Bays
+    ## 628            Massachusetts Bays
+    ## 629            Massachusetts Bays
+    ## 630            Massachusetts Bays
+    ## 631            Massachusetts Bays
+    ## 632            Massachusetts Bays
+    ## 633            Massachusetts Bays
+    ## 634            Massachusetts Bays
+    ## 635            Massachusetts Bays
+    ## 636            Massachusetts Bays
+    ## 637            Massachusetts Bays
+    ## 638            Massachusetts Bays
+    ## 639            Massachusetts Bays
+    ## 640            Massachusetts Bays
+    ## 641            Massachusetts Bays
+    ## 642       Northwest Boston Harbor
+    ## 643       Northwest Boston Harbor
+    ## 644       Northwest Boston Harbor
+    ## 645       Northwest Boston Harbor
+    ## 646       Northwest Boston Harbor
+    ## 647       Northwest Boston Harbor
+    ## 648       Northwest Boston Harbor
+    ## 649       Northwest Boston Harbor
+    ## 650       Northwest Boston Harbor
+    ## 651       Southeast Boston Harbor
+    ## 652       Southeast Boston Harbor
+    ## 653       Southeast Boston Harbor
+    ## 654         Central Boston Harbor
+    ## 655         Central Boston Harbor
+    ## 656         Central Boston Harbor
+    ## 657           Boston Inner Harbor
+    ## 658           Boston Inner Harbor
+    ## 659           Boston Inner Harbor
+    ## 660           Boston Inner Harbor
+    ## 661           Boston Inner Harbor
+    ## 662           Boston Inner Harbor
+    ## 663           Boston Inner Harbor
+    ## 664           Boston Inner Harbor
+    ## 665           Boston Inner Harbor
+    ## 666           Boston Inner Harbor
+    ## 667           Boston Inner Harbor
+    ## 668       Northwest Boston Harbor
+    ## 669       Northwest Boston Harbor
+    ## 670       Northwest Boston Harbor
+    ## 671       Northwest Boston Harbor
+    ## 672       Northwest Boston Harbor
+    ## 673       Northwest Boston Harbor
+    ## 674       Northwest Boston Harbor
+    ## 675       Northwest Boston Harbor
+    ## 676       Northwest Boston Harbor
+    ## 677       Northwest Boston Harbor
+    ## 678       Northwest Boston Harbor
+    ## 679       Northwest Boston Harbor
+    ## 680       Northwest Boston Harbor
+    ## 681       Northwest Boston Harbor
+    ## 682       Northwest Boston Harbor
+    ## 683       Northwest Boston Harbor
+    ## 684       Northwest Boston Harbor
+    ## 685       Northwest Boston Harbor
+    ## 686       Northwest Boston Harbor
+    ## 687       Northwest Boston Harbor
+    ## 688       Northwest Boston Harbor
+    ## 689       Northwest Boston Harbor
+    ## 690       Northwest Boston Harbor
+    ## 691       Northwest Boston Harbor
+    ## 692       Northwest Boston Harbor
+    ## 693       Northwest Boston Harbor
+    ## 694       Northwest Boston Harbor
+    ## 695       Northwest Boston Harbor
+    ## 696       Northwest Boston Harbor
+    ## 697       Northwest Boston Harbor
+    ## 698       Northwest Boston Harbor
+    ## 699       Northwest Boston Harbor
+    ## 700       Northwest Boston Harbor
+    ## 701       Northwest Boston Harbor
+    ## 702       Northwest Boston Harbor
+    ## 703       Northwest Boston Harbor
+    ## 704       Northwest Boston Harbor
+    ## 705       Northwest Boston Harbor
+    ## 706       Northwest Boston Harbor
+    ## 707       Northwest Boston Harbor
+    ## 708       Northwest Boston Harbor
+    ## 709       Northwest Boston Harbor
+    ## 710       Northwest Boston Harbor
+    ## 711       Northwest Boston Harbor
+    ## 712       Northwest Boston Harbor
+    ## 713       Northwest Boston Harbor
+    ## 714       Northwest Boston Harbor
+    ## 715       Northwest Boston Harbor
+    ## 716       Northwest Boston Harbor
+    ## 717            Massachusetts Bays
+    ## 718            Massachusetts Bays
+    ## 719            Massachusetts Bays
+    ## 720            Massachusetts Bays
+    ## 721            Massachusetts Bays
+    ## 722            Massachusetts Bays
+    ## 723            Massachusetts Bays
+    ## 724            Massachusetts Bays
+    ## 725            Massachusetts Bays
+    ## 726           Boston Inner Harbor
+    ## 727       Northwest Boston Harbor
+    ## 728       Northwest Boston Harbor
+    ## 729       Southeast Boston Harbor
+    ## 730       Southeast Boston Harbor
+    ## 731         Central Boston Harbor
+    ## 732         Central Boston Harbor
+    ## 733         Central Boston Harbor
+    ## 734           Boston Inner Harbor
+    ## 735           Boston Inner Harbor
+    ## 736       Northwest Boston Harbor
+    ## 737       Northwest Boston Harbor
+    ## 738       Northwest Boston Harbor
+    ## 739         Central Boston Harbor
+    ## 740         Central Boston Harbor
+    ## 741         Central Boston Harbor
+    ## 742       Southeast Boston Harbor
+    ## 743            Massachusetts Bays
+    ## 744         Central Boston Harbor
+    ## 745            Massachusetts Bays
+    ## 746            Massachusetts Bays
+    ## 747            Massachusetts Bays
+    ## 748             Harbor Approaches
+    ## 749       Northwest Boston Harbor
+    ## 750       Northwest Boston Harbor
+    ## 751       Northwest Boston Harbor
+    ## 752       Northwest Boston Harbor
+    ## 753           Boston Inner Harbor
+    ## 754           Boston Inner Harbor
+    ## 755           Boston Inner Harbor
+    ## 756           Boston Inner Harbor
+    ## 757           Boston Inner Harbor
+    ## 758           Boston Inner Harbor
+    ## 759           Boston Inner Harbor
+    ## 760           Boston Inner Harbor
+    ## 761           Boston Inner Harbor
+    ## 762           Boston Inner Harbor
+    ## 763           Boston Inner Harbor
+    ## 764           Boston Inner Harbor
+    ## 765           Boston Inner Harbor
+    ## 766           Boston Inner Harbor
+    ## 767       Northwest Boston Harbor
+    ## 768       Northwest Boston Harbor
+    ## 769       Northwest Boston Harbor
+    ## 770       Northwest Boston Harbor
+    ## 771       Northwest Boston Harbor
+    ## 772       Northwest Boston Harbor
+    ## 773       Northwest Boston Harbor
+    ## 774       Northwest Boston Harbor
+    ## 775       Northwest Boston Harbor
+    ## 776       Northwest Boston Harbor
+    ## 777       Northwest Boston Harbor
+    ## 778       Northwest Boston Harbor
+    ## 779       Northwest Boston Harbor
+    ## 780       Northwest Boston Harbor
+    ## 781       Northwest Boston Harbor
+    ## 782       Northwest Boston Harbor
+    ## 783       Northwest Boston Harbor
+    ## 784       Northwest Boston Harbor
+    ## 785       Northwest Boston Harbor
+    ## 786       Northwest Boston Harbor
+    ## 787       Northwest Boston Harbor
+    ## 788       Northwest Boston Harbor
+    ## 789       Northwest Boston Harbor
+    ## 790       Northwest Boston Harbor
+    ## 791       Northwest Boston Harbor
+    ## 792       Northwest Boston Harbor
+    ## 793       Northwest Boston Harbor
     ##                                                                                    SPECFC_LOC
     ## 1                                                                                         BIH
     ## 2                                                                                         BIH
@@ -4179,800 +4173,1594 @@ unique ID.
     ## 791                                              <NA>
     ## 792                                              <NA>
     ## 793                                              <NA>
-    ##                           DPTH_CODE COR_GRB_CD                          site
-    ## 1                           Unknown       Grab           Boston Inner Harbor
-    ## 2                           Unknown       Grab           Boston Inner Harbor
-    ## 3                             Depth       Core           Boston Inner Harbor
-    ## 4                             Depth       Core           Boston Inner Harbor
-    ## 5                           Unknown       Grab           Boston Inner Harbor
-    ## 6                           Unknown       Grab           Boston Inner Harbor
-    ## 7                           Unknown       Grab           Boston Inner Harbor
-    ## 8                           Unknown       Grab           Boston Inner Harbor
-    ## 9                           Unknown       Grab           Boston Inner Harbor
-    ## 10                          Unknown       Grab       Northwest Boston Harbor
-    ## 11                          Unknown       Grab       Northwest Boston Harbor
-    ## 12                          Unknown       Grab           Boston Inner Harbor
-    ## 13                          Unknown       Grab           Boston Inner Harbor
-    ## 14                          Unknown       Grab           Boston Inner Harbor
-    ## 15                          Surface       Grab           Boston Inner Harbor
-    ## 16                          Surface       Grab           Boston Inner Harbor
-    ## 17                          Surface       Grab           Boston Inner Harbor
-    ## 18                          Unknown       Grab           Boston Inner Harbor
-    ## 19                          Unknown       Grab           Boston Inner Harbor
-    ## 20                          Unknown       Grab           Boston Inner Harbor
-    ## 21                          Unknown       Grab         Central Boston Harbor
-    ## 22                          Unknown       Grab         Central Boston Harbor
-    ## 23                          Surface       Grab            Massachusetts Bays
-    ## 24                          Surface       Grab            Massachusetts Bays
-    ## 25                          Surface       Grab            Massachusetts Bays
-    ## 26                          Surface       Grab            Massachusetts Bays
-    ## 27                          Surface       Grab            Massachusetts Bays
-    ## 28                          Surface       Grab            Massachusetts Bays
-    ## 29                          Surface       Grab            Massachusetts Bays
-    ## 30                          Surface       Grab            Massachusetts Bays
-    ## 31                          Surface       Grab            Massachusetts Bays
-    ## 32                          Surface       Grab            Massachusetts Bays
-    ## 33                          Surface       Grab            Massachusetts Bays
-    ## 34                          Surface       Grab            Massachusetts Bays
-    ## 35                          Surface       Grab            Massachusetts Bays
-    ## 36                          Surface       Grab            Massachusetts Bays
-    ## 37                          Surface       Grab            Massachusetts Bays
-    ## 38                          Surface       Grab            Massachusetts Bays
-    ## 39                          Surface       Grab            Massachusetts Bays
-    ## 40                          Surface       Grab            Massachusetts Bays
-    ## 41                          Surface       Grab            Massachusetts Bays
-    ## 42                          Surface       Grab            Massachusetts Bays
-    ## 43                          Surface       Grab            Massachusetts Bays
-    ## 44                          Surface       Grab            Massachusetts Bays
-    ## 45                          Surface       Grab            Massachusetts Bays
-    ## 46                          Surface       Grab            Massachusetts Bays
-    ## 47                            Depth       Grab            Massachusetts Bays
-    ## 48                            Depth       Grab            Massachusetts Bays
-    ## 49                            Depth       Grab            Massachusetts Bays
-    ## 50                            Depth       Grab            Massachusetts Bays
-    ## 51                            Depth       Grab            Massachusetts Bays
-    ## 52                          Unknown       Grab           Boston Inner Harbor
-    ## 53                            Depth       Grab           Boston Inner Harbor
-    ## 54                            Depth       Grab           Boston Inner Harbor
-    ## 55                            Depth       Grab           Boston Inner Harbor
-    ## 56                            Depth       Grab           Boston Inner Harbor
-    ## 57                            Depth       Grab       Northwest Boston Harbor
-    ## 58                            Depth       Grab       Northwest Boston Harbor
-    ## 59                            Depth       Grab       Northwest Boston Harbor
-    ## 60                            Depth       Grab       Northwest Boston Harbor
-    ## 61                            Depth       Grab       Northwest Boston Harbor
-    ## 62                            Depth       Grab           Boston Inner Harbor
-    ## 63                            Depth       Grab           Boston Inner Harbor
-    ## 64                          Unknown       Grab       Northwest Boston Harbor
-    ## 65                          Unknown       Grab       Northwest Boston Harbor
-    ## 66                          Unknown       Grab       Northwest Boston Harbor
-    ## 67                            Depth       Core                 Cape Code Bay
-    ## 68                          Surface       Core                 Cape Code Bay
-    ## 69                            Depth       Core                 Cape Code Bay
-    ## 70                          Surface       Core                 Cape Code Bay
-    ## 71                            Depth       Core                 Cape Code Bay
-    ## 72                          Surface       Core                 Cape Code Bay
-    ## 73                            Depth       Core                 Cape Code Bay
-    ## 74                          Surface       Core                 Cape Code Bay
-    ## 75                            Depth       Core                 Cape Code Bay
-    ## 76                          Unknown       Grab                 Cape Code Bay
-    ## 77                          Unknown       Grab                 Cape Code Bay
-    ## 78                          Unknown       Grab                 Cape Code Bay
-    ## 79                          Unknown       Grab                 Cape Code Bay
-    ## 80                          Unknown       Grab                 Cape Code Bay
-    ## 81                          Unknown       Grab            Massachusetts Bays
-    ## 82                          Unknown       Grab            Massachusetts Bays
-    ## 83                          Unknown       Grab            Massachusetts Bays
-    ## 84                          Unknown       Grab       Southeast Boston Harbor
-    ## 85                          Unknown       Grab       Southeast Boston Harbor
-    ## 86                          Unknown       Grab       Southeast Boston Harbor
-    ## 87                          Unknown       Grab            Massachusetts Bays
-    ## 88                          Unknown       Grab            Massachusetts Bays
-    ## 89                          Unknown    Unknown                 Inland/Rivers
-    ## 90                          Unknown    Unknown                 Inland/Rivers
-    ## 91                          Unknown    Unknown                 Inland/Rivers
-    ## 92                          Unknown       Grab           Boston Inner Harbor
-    ## 93                          Unknown       Grab           Boston Inner Harbor
-    ## 94                          Unknown       Grab           Boston Inner Harbor
-    ## 95                          Unknown       Grab           Boston Inner Harbor
-    ## 96                            Depth       Core            Massachusetts Bays
-    ## 97                          Surface       Core            Massachusetts Bays
-    ## 98                            Depth       Core            Massachusetts Bays
-    ## 99                          Surface       Core            Massachusetts Bays
-    ## 100                           Depth       Core            Massachusetts Bays
-    ## 101                         Surface       Core            Massachusetts Bays
-    ## 102                           Depth       Core            Massachusetts Bays
-    ## 103                         Surface       Core            Massachusetts Bays
-    ## 104                         Surface       Core            Massachusetts Bays
-    ## 105                           Depth       Core            Massachusetts Bays
-    ## 106                           Depth       Core       Northwest Boston Harbor
-    ## 107                         Surface       Core       Northwest Boston Harbor
-    ## 108                           Depth       Core       Northwest Boston Harbor
-    ## 109                         Surface       Core       Northwest Boston Harbor
-    ## 110                           Depth       Core       Northwest Boston Harbor
-    ## 111                         Surface       Core       Northwest Boston Harbor
-    ## 112                           Depth       Core       Northwest Boston Harbor
-    ## 113                         Surface       Core       Northwest Boston Harbor
-    ## 114                           Depth       Core       Northwest Boston Harbor
-    ## 115                         Surface       Core       Northwest Boston Harbor
-    ## 116                           Depth       Core       Northwest Boston Harbor
-    ## 117                         Surface       Core       Northwest Boston Harbor
-    ## 118                         Surface       Core       Northwest Boston Harbor
-    ## 119                           Depth       Core       Northwest Boston Harbor
-    ## 120                         Surface       Core       Northwest Boston Harbor
-    ## 121                           Depth       Core       Northwest Boston Harbor
-    ## 122                         Surface       Core       Northwest Boston Harbor
-    ## 123                           Depth       Core       Northwest Boston Harbor
-    ## 124                         Surface       Core       Northwest Boston Harbor
-    ## 125                           Depth       Core       Northwest Boston Harbor
-    ## 126                         Surface       Core       Northwest Boston Harbor
-    ## 127                           Depth       Core       Northwest Boston Harbor
-    ## 128                         Surface       Core       Northwest Boston Harbor
-    ## 129                           Depth       Core       Northwest Boston Harbor
-    ## 130                         Surface       Core       Northwest Boston Harbor
-    ## 131                         Unknown       Grab           Boston Inner Harbor
-    ## 132                         Unknown       Grab            Massachusetts Bays
-    ## 133                         Unknown       Grab            Massachusetts Bays
-    ## 134                         Unknown       Grab            Massachusetts Bays
-    ## 135                         Unknown       Grab            Massachusetts Bays
-    ## 136                         Unknown       Grab            Massachusetts Bays
-    ## 137                         Unknown       Grab            Massachusetts Bays
-    ## 138                         Unknown       Grab            Massachusetts Bays
-    ## 139                         Unknown       Grab            Massachusetts Bays
-    ## 140                         Unknown       Grab            Massachusetts Bays
-    ## 141                         Unknown       Grab       Southeast Boston Harbor
-    ## 142                         Unknown       Grab            Massachusetts Bays
-    ## 143                         Unknown       Grab       Northwest Boston Harbor
-    ## 144                         Unknown       Grab       Northwest Boston Harbor
-    ## 145                         Unknown       Grab           Boston Inner Harbor
-    ## 146                         Unknown       Grab           Boston Inner Harbor
-    ## 147                         Unknown       Grab           Boston Inner Harbor
-    ## 148                         Unknown       Grab            Massachusetts Bays
-    ## 149                         Unknown       Grab            Massachusetts Bays
-    ## 150                         Unknown       Grab            Massachusetts Bays
-    ## 151                         Unknown       Grab            Massachusetts Bays
-    ## 152                         Unknown       Grab            Massachusetts Bays
-    ## 153                         Unknown       Grab            Massachusetts Bays
-    ## 154                         Unknown       Grab       Northwest Boston Harbor
-    ## 155                         Unknown       Grab       Northwest Boston Harbor
-    ## 156                         Unknown       Grab       Northwest Boston Harbor
-    ## 157                         Unknown       Grab       Northwest Boston Harbor
-    ## 158                         Unknown       Grab                 Cape Code Bay
-    ## 159                           Depth       Core       Northwest Boston Harbor
-    ## 160                         Surface       Core       Northwest Boston Harbor
-    ## 161                           Depth       Core       Northwest Boston Harbor
-    ## 162                         Surface       Core       Northwest Boston Harbor
-    ## 163                           Depth       Core       Northwest Boston Harbor
-    ## 164                           Depth       Core       Northwest Boston Harbor
-    ## 165                         Surface       Core       Northwest Boston Harbor
-    ## 166                           Depth       Core       Northwest Boston Harbor
-    ## 167                         Surface       Core       Northwest Boston Harbor
-    ## 168                           Depth       Core       Northwest Boston Harbor
-    ## 169                         Surface       Core       Northwest Boston Harbor
-    ## 170                           Depth       Core       Northwest Boston Harbor
-    ## 171                         Surface       Core       Northwest Boston Harbor
-    ## 172                         Surface       Core       Northwest Boston Harbor
-    ## 173                         Unknown       Grab            Massachusetts Bays
-    ## 174                         Unknown       Grab           Boston Inner Harbor
-    ## 175                         Unknown       Grab           Boston Inner Harbor
-    ## 176                         Unknown       Grab           Boston Inner Harbor
-    ## 177                         Unknown   Core (?)       Northwest Boston Harbor
-    ## 178                         Unknown   Core (?)       Northwest Boston Harbor
-    ## 179                         Unknown   Core (?)       Northwest Boston Harbor
-    ## 180                         Unknown   Core (?)       Northwest Boston Harbor
-    ## 181                           Depth       Grab            Massachusetts Bays
-    ## 182                           Depth       Grab            Massachusetts Bays
-    ## 183                           Depth       Grab            Massachusetts Bays
-    ## 184                           Depth       Grab            Massachusetts Bays
-    ## 185                           Depth       Grab            Massachusetts Bays
-    ## 186                         Unknown       Grab           Boston Inner Harbor
-    ## 187                         Unknown       Grab           Boston Inner Harbor
-    ## 188                         Unknown       Grab           Boston Inner Harbor
-    ## 189                         Unknown       Grab           Boston Inner Harbor
-    ## 190                         Unknown       Grab           Boston Inner Harbor
-    ## 191                         Unknown       Grab    Cape Ann to Cape Elizabeth
-    ## 192                         Unknown       Grab       Northwest Boston Harbor
-    ## 193                         Unknown       Grab       Northwest Boston Harbor
-    ## 194                         Unknown       Grab       Northwest Boston Harbor
-    ## 195                         Unknown       Grab       Northwest Boston Harbor
-    ## 196                         Unknown       Grab       Northwest Boston Harbor
-    ## 197                         Surface       Core           Boston Inner Harbor
-    ## 198                           Depth       Core           Boston Inner Harbor
-    ## 199                           Depth       Core           Boston Inner Harbor
-    ## 200                         Unknown       Grab                 Cape Code Bay
-    ## 201                         Unknown       Grab                 Cape Code Bay
-    ## 202                         Unknown       Core                 Inland/Rivers
-    ## 203                         Unknown       Core                 Inland/Rivers
-    ## 204                         Unknown       Core                 Inland/Rivers
-    ## 205                         Unknown       Core                 Inland/Rivers
-    ## 206                         Unknown       Core                 Inland/Rivers
-    ## 207                         Unknown       Core                 Inland/Rivers
-    ## 208                         Unknown       Core                 Inland/Rivers
-    ## 209                           Depth       Core                 Inland/Rivers
-    ## 210                           Depth       Core                 Inland/Rivers
-    ## 211                           Depth       Core                 Inland/Rivers
-    ## 212                           Depth       Core                 Inland/Rivers
-    ## 213                           Depth       Core                 Inland/Rivers
-    ## 214                           Depth       Core                 Inland/Rivers
-    ## 215                           Depth       Core                 Inland/Rivers
-    ## 216                           Depth       Core                 Inland/Rivers
-    ## 217                           Depth       Core                 Inland/Rivers
-    ## 218                           Depth       Core                 Inland/Rivers
-    ## 219                           Depth       Core                 Inland/Rivers
-    ## 220                           Depth       Core                 Inland/Rivers
-    ## 221                           Depth       Core                 Inland/Rivers
-    ## 222                           Depth       Core                 Inland/Rivers
-    ## 223                           Depth       Core                 Inland/Rivers
-    ## 224                           Depth       Core                 Inland/Rivers
-    ## 225                           Depth       Core                 Inland/Rivers
-    ## 226                           Depth       Core                 Inland/Rivers
-    ## 227                           Depth       Core                 Inland/Rivers
-    ## 228                           Depth       Core                 Inland/Rivers
-    ## 229                           Depth       Core                 Inland/Rivers
-    ## 230                           Depth       Core                 Inland/Rivers
-    ## 231                           Depth       Core                 Inland/Rivers
-    ## 232                           Depth       Core                 Inland/Rivers
-    ## 233                           Depth       Core                 Inland/Rivers
-    ## 234                           Depth       Core                 Inland/Rivers
-    ## 235                         Unknown       Core                 Inland/Rivers
-    ## 236                         Unknown       Core                 Inland/Rivers
-    ## 237                         Unknown       Core                 Inland/Rivers
-    ## 238                         Unknown       Core                 Inland/Rivers
-    ## 239                         Unknown       Grab       Northwest Boston Harbor
-    ## 240                         Unknown       Grab       Northwest Boston Harbor
-    ## 241                         Unknown       Grab       Northwest Boston Harbor
-    ## 242                         Unknown       Grab       Northwest Boston Harbor
-    ## 243                         Unknown       Grab       Northwest Boston Harbor
-    ## 244                         Unknown       Grab       Northwest Boston Harbor
-    ## 245                         Unknown       Grab       Northwest Boston Harbor
-    ## 246                         Unknown       Grab       Northwest Boston Harbor
-    ## 247                         Unknown       Grab       Northwest Boston Harbor
-    ## 248                         Unknown       Grab       Northwest Boston Harbor
-    ## 249                         Unknown       Grab       Northwest Boston Harbor
-    ## 250                         Unknown       Grab       Northwest Boston Harbor
-    ## 251                         Unknown       Grab       Northwest Boston Harbor
-    ## 252                         Unknown       Grab       Northwest Boston Harbor
-    ## 253                         Unknown       Grab           Boston Inner Harbor
-    ## 254                           Depth       Grab           Boston Inner Harbor
-    ## 255                           Depth       Grab           Boston Inner Harbor
-    ## 256                           Depth       Grab           Boston Inner Harbor
-    ## 257                           Depth       Grab           Boston Inner Harbor
-    ## 258                           Depth       Grab           Boston Inner Harbor
-    ## 259                           Depth       Grab           Boston Inner Harbor
-    ## 260                           Depth       Grab           Boston Inner Harbor
-    ## 261                           Depth       Grab           Boston Inner Harbor
-    ## 262                           Depth       Grab           Boston Inner Harbor
-    ## 263                           Depth       Grab           Boston Inner Harbor
-    ## 264                           Depth       Grab           Boston Inner Harbor
-    ## 265                           Depth       Grab           Boston Inner Harbor
-    ## 266                           Depth       Grab           Boston Inner Harbor
-    ## 267                           Depth       Grab           Boston Inner Harbor
-    ## 268                           Depth       Grab           Boston Inner Harbor
-    ## 269                           Depth       Grab           Boston Inner Harbor
-    ## 270                           Depth       Grab           Boston Inner Harbor
-    ## 271                           Depth       Grab           Boston Inner Harbor
-    ## 272                           Depth       Grab           Boston Inner Harbor
-    ## 273                           Depth       Grab           Boston Inner Harbor
-    ## 274                           Depth       Grab           Boston Inner Harbor
-    ## 275                           Depth       Grab           Boston Inner Harbor
-    ## 276                           Depth       Grab           Boston Inner Harbor
-    ## 277                           Depth       Grab           Boston Inner Harbor
-    ## 278                           Depth       Grab           Boston Inner Harbor
-    ## 279                           Depth       Grab           Boston Inner Harbor
-    ## 280                           Depth       Grab           Boston Inner Harbor
-    ## 281                           Depth       Grab           Boston Inner Harbor
-    ## 282                         Unknown       Grab       Northwest Boston Harbor
-    ## 283                         Unknown       Grab       Northwest Boston Harbor
-    ## 284                         Unknown       Grab       Northwest Boston Harbor
-    ## 285                         Unknown       Grab       Northwest Boston Harbor
-    ## 286                         Unknown       Grab       Northwest Boston Harbor
-    ## 287                         Unknown       Grab       Northwest Boston Harbor
-    ## 288                         Unknown       Grab       Northwest Boston Harbor
-    ## 289                         Unknown       Grab       Northwest Boston Harbor
-    ## 290                         Unknown       Grab       Northwest Boston Harbor
-    ## 291                         Unknown       Grab                 Inland/Rivers
-    ## 292                         Unknown       Grab                 Inland/Rivers
-    ## 293                         Surface       Grab       Southeast Boston Harbor
-    ## 294                         Surface       Grab       Southeast Boston Harbor
-    ## 295                         Surface       Grab       Southeast Boston Harbor
-    ## 296                         Surface       Grab       Southeast Boston Harbor
-    ## 297                         Surface       Grab       Southeast Boston Harbor
-    ## 298                           Depth       Grab           Boston Inner Harbor
-    ## 299                         Unknown       Grab       Southeast Boston Harbor
-    ## 300                         Unknown       Grab       Southeast Boston Harbor
-    ## 301                         Unknown       Grab       Southeast Boston Harbor
-    ## 302                         Unknown       Grab       Southeast Boston Harbor
-    ## 303                         Unknown       Grab       Southeast Boston Harbor
-    ## 304                         Unknown       Grab       Southeast Boston Harbor
-    ## 305                         Unknown       Grab       Southeast Boston Harbor
-    ## 306                         Unknown       Grab       Southeast Boston Harbor
-    ## 307                         Unknown       Grab       Southeast Boston Harbor
-    ## 308                         Unknown       Grab       Southeast Boston Harbor
-    ## 309                         Unknown       Grab       Northwest Boston Harbor
-    ## 310                         Unknown       Grab       Northwest Boston Harbor
-    ## 311                         Unknown       Grab       Northwest Boston Harbor
-    ## 312                         Surface       Grab       Northwest Boston Harbor
-    ## 313                           Depth       Grab       Northwest Boston Harbor
-    ## 314                         Surface       Grab       Northwest Boston Harbor
-    ## 315                           Depth       Grab       Northwest Boston Harbor
-    ## 316                         Surface       Grab       Northwest Boston Harbor
-    ## 317                           Depth       Grab       Northwest Boston Harbor
-    ## 318                         Surface       Grab       Northwest Boston Harbor
-    ## 319                           Depth       Grab       Northwest Boston Harbor
-    ## 320                           Depth       Grab       Northwest Boston Harbor
-    ## 321 Unknown (COE, probably surface)       Grab       Northwest Boston Harbor
-    ## 322 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 323 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 324 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 325 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 326 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 327 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 328 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 329 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 330 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 331 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 332 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 333 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 334 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 335 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 336 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 337 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 338 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 339 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 340 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 341 Unknown (COE, probably surface)       Grab           Boston Inner Harbor
-    ## 342 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 343 Unknown (COE, probably surface)       Grab                 Inland/Rivers
-    ## 344                           Depth       Core           Boston Inner Harbor
-    ## 345                         Surface       Core           Boston Inner Harbor
-    ## 346                           Depth       Core           Boston Inner Harbor
-    ## 347                         Surface       Grab           Boston Inner Harbor
-    ## 348                         Surface       Grab           Boston Inner Harbor
-    ## 349                         Surface       Grab           Boston Inner Harbor
-    ## 350                         Surface       Grab           Boston Inner Harbor
-    ## 351                         Surface       Grab           Boston Inner Harbor
-    ## 352                         Surface       Grab           Boston Inner Harbor
-    ## 353                           Depth       Grab           Boston Inner Harbor
-    ## 354                         Surface       Grab           Boston Inner Harbor
-    ## 355                         Surface       Grab           Boston Inner Harbor
-    ## 356                           Depth       Core           Boston Inner Harbor
-    ## 357                           Depth       Core           Boston Inner Harbor
-    ## 358                           Depth       Core           Boston Inner Harbor
-    ## 359                           Depth       Core           Boston Inner Harbor
-    ## 360                         Surface       Grab           Boston Inner Harbor
-    ## 361                           Depth       Core           Boston Inner Harbor
-    ## 362                           Depth       Core           Boston Inner Harbor
-    ## 363                         Surface       Core           Boston Inner Harbor
-    ## 364                           Depth       Core           Boston Inner Harbor
-    ## 365                           Depth       Core           Boston Inner Harbor
-    ## 366                           Depth       Core           Boston Inner Harbor
-    ## 367                         Surface       Grab           Boston Inner Harbor
-    ## 368                         Surface       Grab           Boston Inner Harbor
-    ## 369                         Surface       Grab           Boston Inner Harbor
-    ## 370                         Surface       Grab       Northwest Boston Harbor
-    ## 371                         Surface       Grab           Boston Inner Harbor
-    ## 372                         Surface       Grab           Boston Inner Harbor
-    ## 373                         Surface       Grab           Boston Inner Harbor
-    ## 374                         Surface       Grab           Boston Inner Harbor
-    ## 375                         Surface       Grab           Boston Inner Harbor
-    ## 376                         Surface       Grab           Boston Inner Harbor
-    ## 377                         Surface       Grab           Boston Inner Harbor
-    ## 378                         Surface       Grab           Boston Inner Harbor
-    ## 379                         Surface       Grab           Boston Inner Harbor
-    ## 380                         Surface       Grab           Boston Inner Harbor
-    ## 381                         Surface       Grab           Boston Inner Harbor
-    ## 382                         Unknown       Grab           Boston Inner Harbor
-    ## 383                         Unknown       Grab           Boston Inner Harbor
-    ## 384                         Unknown       Grab           Boston Inner Harbor
-    ## 385                         Unknown       Grab           Boston Inner Harbor
-    ## 386                         Surface       Grab            Massachusetts Bays
-    ## 387                         Surface       Grab                 Cape Code Bay
-    ## 388                         Surface       Grab                 Cape Code Bay
-    ## 389                         Surface       Grab            Massachusetts Bays
-    ## 390                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 391                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 392                         Surface       Grab            Massachusetts Bays
-    ## 393                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 394                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 395                         Surface       Grab            Massachusetts Bays
-    ## 396                         Surface       Grab            Massachusetts Bays
-    ## 397                         Surface       Grab            Massachusetts Bays
-    ## 398                         Surface       Grab            Massachusetts Bays
-    ## 399                         Surface       Grab            Massachusetts Bays
-    ## 400                         Surface       Grab            Massachusetts Bays
-    ## 401                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 402                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 403                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 404                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 405                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 406                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 407                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 408                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 409                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 410                         Surface       Core  Gulf of Maine (>50m Isobath)
-    ## 411                         Surface       Core  Gulf of Maine (>50m Isobath)
-    ## 412                         Surface       Core  Gulf of Maine (>50m Isobath)
-    ## 413                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 414                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 415                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 416                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 417                         Surface       Grab Gulf of Maine (<=50m Isobath)
-    ## 418                         Surface       Grab Gulf of Maine (<=50m Isobath)
-    ## 419                         Surface       Grab Gulf of Maine (<=50m Isobath)
-    ## 420                         Surface       Grab Gulf of Maine (<=50m Isobath)
-    ## 421                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 422                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 423                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 424                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 425                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 426                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 427                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 428                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 429                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 430                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 431                         Surface       Grab Gulf of Maine (<=50m Isobath)
-    ## 432                         Surface       Grab Gulf of Maine (<=50m Isobath)
-    ## 433                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 434                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 435                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 436                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 437                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 438                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 439                         Surface       Grab Gulf of Maine (<=50m Isobath)
-    ## 440                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 441                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 442                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 443                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 444                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 445                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 446                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 447                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 448                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 449                         Surface       Grab       Northwest Boston Harbor
-    ## 450                         Surface       Grab       Northwest Boston Harbor
-    ## 451                         Surface       Grab         Central Boston Harbor
-    ## 452                         Surface       Grab         Central Boston Harbor
-    ## 453                         Surface       Grab       Southeast Boston Harbor
-    ## 454                         Surface       Grab            Massachusetts Bays
-    ## 455                         Surface       Grab            Massachusetts Bays
-    ## 456                         Surface       Grab            Massachusetts Bays
-    ## 457                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 458                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 459                         Surface       Grab            Massachusetts Bays
-    ## 460                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 461                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 462                         Surface       Grab            Massachusetts Bays
-    ## 463                         Surface       Grab            Massachusetts Bays
-    ## 464                         Surface       Grab            Massachusetts Bays
-    ## 465                         Surface       Grab            Massachusetts Bays
-    ## 466                         Surface       Grab            Massachusetts Bays
-    ## 467                         Surface       Grab            Massachusetts Bays
-    ## 468                         Surface       Grab                 Cape Code Bay
-    ## 469                         Surface       Grab                 Cape Code Bay
-    ## 470                         Surface       Grab       Northwest Boston Harbor
-    ## 471                         Surface       Grab       Northwest Boston Harbor
-    ## 472                         Surface       Grab       Northwest Boston Harbor
-    ## 473                         Surface       Grab       Northwest Boston Harbor
-    ## 474                         Surface       Grab       Northwest Boston Harbor
-    ## 475                         Surface       Grab       Northwest Boston Harbor
-    ## 476                         Surface       Grab       Northwest Boston Harbor
-    ## 477                         Surface       Grab       Northwest Boston Harbor
-    ## 478                         Surface       Grab       Northwest Boston Harbor
-    ## 479                         Surface       Grab       Northwest Boston Harbor
-    ## 480                         Surface       Grab       Northwest Boston Harbor
-    ## 481                         Surface       Grab       Northwest Boston Harbor
-    ## 482                         Surface       Grab             Harbor Approaches
-    ## 483                         Surface       Grab         Central Boston Harbor
-    ## 484                         Surface       Grab         Central Boston Harbor
-    ## 485                         Surface       Grab         Central Boston Harbor
-    ## 486                         Surface       Grab         Central Boston Harbor
-    ## 487                         Surface       Grab         Central Boston Harbor
-    ## 488                         Surface       Grab         Central Boston Harbor
-    ## 489                         Surface       Grab         Central Boston Harbor
-    ## 490                         Surface       Grab         Central Boston Harbor
-    ## 491                         Surface       Grab         Central Boston Harbor
-    ## 492                         Surface       Grab         Central Boston Harbor
-    ## 493                         Surface       Grab         Central Boston Harbor
-    ## 494                         Surface       Grab         Central Boston Harbor
-    ## 495                         Surface       Grab       Southeast Boston Harbor
-    ## 496                         Surface       Grab       Southeast Boston Harbor
-    ## 497                         Surface       Grab       Southeast Boston Harbor
-    ## 498                         Surface       Grab       Southeast Boston Harbor
-    ## 499                         Surface       Grab       Southeast Boston Harbor
-    ## 500                         Surface       Grab       Southeast Boston Harbor
-    ## 501                         Surface       Grab            Massachusetts Bays
-    ## 502                         Surface       Grab            Massachusetts Bays
-    ## 503                         Surface       Grab            Massachusetts Bays
-    ## 504                         Surface       Grab            Massachusetts Bays
-    ## 505                         Surface       Grab            Massachusetts Bays
-    ## 506                         Surface       Grab            Massachusetts Bays
-    ## 507                         Surface       Grab            Massachusetts Bays
-    ## 508                         Surface       Grab            Massachusetts Bays
-    ## 509                         Surface       Grab            Massachusetts Bays
-    ## 510                         Surface       Grab            Massachusetts Bays
-    ## 511                         Surface       Grab            Massachusetts Bays
-    ## 512                         Surface       Grab            Massachusetts Bays
-    ## 513                         Surface       Grab            Massachusetts Bays
-    ## 514                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 515                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 516                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 517                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 518                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 519                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 520                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 521                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 522                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 523                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 524                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 525                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 526                         Surface       Grab            Massachusetts Bays
-    ## 527                         Surface       Grab            Massachusetts Bays
-    ## 528                         Surface       Grab            Massachusetts Bays
-    ## 529                         Surface       Grab            Massachusetts Bays
-    ## 530                         Surface       Grab            Massachusetts Bays
-    ## 531                         Surface       Grab            Massachusetts Bays
-    ## 532                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 533                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 534                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 535                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 536                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 537                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 538                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 539                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 540                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 541                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 542                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 543                         Surface       Grab  Gulf of Maine (>50m Isobath)
-    ## 544                         Surface       Grab            Massachusetts Bays
-    ## 545                         Surface       Grab            Massachusetts Bays
-    ## 546                         Surface       Grab            Massachusetts Bays
-    ## 547                         Surface       Grab            Massachusetts Bays
-    ## 548                         Surface       Grab            Massachusetts Bays
-    ## 549                         Surface       Grab            Massachusetts Bays
-    ## 550                         Surface       Grab            Massachusetts Bays
-    ## 551                         Surface       Grab            Massachusetts Bays
-    ## 552                         Surface       Grab            Massachusetts Bays
-    ## 553                         Surface       Grab            Massachusetts Bays
-    ## 554                         Surface       Grab            Massachusetts Bays
-    ## 555                         Surface       Grab            Massachusetts Bays
-    ## 556                         Surface       Grab            Massachusetts Bays
-    ## 557                         Surface       Grab            Massachusetts Bays
-    ## 558                         Surface       Grab            Massachusetts Bays
-    ## 559                         Surface       Grab            Massachusetts Bays
-    ## 560                         Surface       Grab            Massachusetts Bays
-    ## 561                         Surface       Grab            Massachusetts Bays
-    ## 562                         Surface       Grab            Massachusetts Bays
-    ## 563                         Surface       Grab            Massachusetts Bays
-    ## 564                         Surface       Grab            Massachusetts Bays
-    ## 565                         Surface       Grab            Massachusetts Bays
-    ## 566                         Surface       Grab            Massachusetts Bays
-    ## 567                         Surface       Grab            Massachusetts Bays
-    ## 568                         Surface       Grab            Massachusetts Bays
-    ## 569                         Surface       Grab            Massachusetts Bays
-    ## 570                         Surface       Grab            Massachusetts Bays
-    ## 571                         Surface       Grab            Massachusetts Bays
-    ## 572                         Surface       Grab            Massachusetts Bays
-    ## 573                         Surface       Grab            Massachusetts Bays
-    ## 574                         Surface       Grab            Massachusetts Bays
-    ## 575                         Surface       Grab            Massachusetts Bays
-    ## 576                         Surface       Grab            Massachusetts Bays
-    ## 577                         Surface       Grab            Massachusetts Bays
-    ## 578                         Surface       Grab            Massachusetts Bays
-    ## 579                         Surface       Grab            Massachusetts Bays
-    ## 580                         Surface       Grab            Massachusetts Bays
-    ## 581                         Surface       Grab            Massachusetts Bays
-    ## 582                         Surface       Grab            Massachusetts Bays
-    ## 583                         Surface       Grab            Massachusetts Bays
-    ## 584                         Surface       Grab                 Cape Code Bay
-    ## 585                         Surface       Grab                 Cape Code Bay
-    ## 586                         Surface       Grab                 Cape Code Bay
-    ## 587                         Surface       Grab                 Cape Code Bay
-    ## 588                         Surface       Grab                 Cape Code Bay
-    ## 589                         Surface       Grab                 Cape Code Bay
-    ## 590                         Surface       Grab                 Cape Code Bay
-    ## 591                         Surface       Grab                 Cape Code Bay
-    ## 592                         Surface       Grab                 Cape Code Bay
-    ## 593                         Surface       Grab                 Cape Code Bay
-    ## 594                         Surface       Grab                 Cape Code Bay
-    ## 595                         Surface       Grab                 Cape Code Bay
-    ## 596                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 597                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 598                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 599                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 600                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 601                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 602                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 603                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 604                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 605                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 606                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 607                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 608                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 609                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 610                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 611                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 612                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 613                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 614                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 615                     Surface (?)       Grab  Gulf of Maine (>50m Isobath)
-    ## 616                         Surface       Grab            Massachusetts Bays
-    ## 617                         Surface       Grab            Massachusetts Bays
-    ## 618                         Surface       Grab            Massachusetts Bays
-    ## 619                         Surface       Grab            Massachusetts Bays
-    ## 620                         Surface       Grab            Massachusetts Bays
-    ## 621                         Surface       Grab            Massachusetts Bays
-    ## 622                         Surface       Grab            Massachusetts Bays
-    ## 623                         Surface       Grab            Massachusetts Bays
-    ## 624                         Surface       Grab            Massachusetts Bays
-    ## 625                         Surface       Grab            Massachusetts Bays
-    ## 626                         Surface       Grab            Massachusetts Bays
-    ## 627                         Surface       Grab            Massachusetts Bays
-    ## 628                         Surface       Grab            Massachusetts Bays
-    ## 629                         Surface       Grab            Massachusetts Bays
-    ## 630                         Surface       Grab            Massachusetts Bays
-    ## 631                         Surface       Grab            Massachusetts Bays
-    ## 632                         Surface       Grab            Massachusetts Bays
-    ## 633                         Surface       Grab            Massachusetts Bays
-    ## 634                         Surface       Grab            Massachusetts Bays
-    ## 635                         Surface       Grab            Massachusetts Bays
-    ## 636                         Surface       Grab            Massachusetts Bays
-    ## 637                         Surface       Grab            Massachusetts Bays
-    ## 638                         Surface       Grab            Massachusetts Bays
-    ## 639                         Surface       Grab            Massachusetts Bays
-    ## 640                         Surface       Grab            Massachusetts Bays
-    ## 641                         Surface       Grab            Massachusetts Bays
-    ## 642                   Surface (COE)       Core       Northwest Boston Harbor
-    ## 643                   Surface (COE)       Core       Northwest Boston Harbor
-    ## 644                   Surface (COE)       Core       Northwest Boston Harbor
-    ## 645                   Surface (COE)       Core       Northwest Boston Harbor
-    ## 646                   Surface (COE)       Core       Northwest Boston Harbor
-    ## 647                   Surface (COE)       Core       Northwest Boston Harbor
-    ## 648                   Surface (COE)       Core       Northwest Boston Harbor
-    ## 649                   Surface (COE)       Core       Northwest Boston Harbor
-    ## 650                           Depth       Core       Northwest Boston Harbor
-    ## 651                   Surface (COE)       Core       Southeast Boston Harbor
-    ## 652                   Surface (COE)       Core       Southeast Boston Harbor
-    ## 653                           Depth       Core       Southeast Boston Harbor
-    ## 654                   Surface (COE)       Core         Central Boston Harbor
-    ## 655                   Surface (COE)       Core         Central Boston Harbor
-    ## 656                           Depth       Core         Central Boston Harbor
-    ## 657                   Surface (COE)       Core           Boston Inner Harbor
-    ## 658                   Surface (COE)       Core           Boston Inner Harbor
-    ## 659                           Depth       Core           Boston Inner Harbor
-    ## 660                           Depth       Core           Boston Inner Harbor
-    ## 661                           Depth       Core           Boston Inner Harbor
-    ## 662                           Depth       Core           Boston Inner Harbor
-    ## 663                           Depth       Core           Boston Inner Harbor
-    ## 664                           Depth       Core           Boston Inner Harbor
-    ## 665                           Depth       Core           Boston Inner Harbor
-    ## 666                           Depth       Core           Boston Inner Harbor
-    ## 667                           Depth       Core           Boston Inner Harbor
-    ## 668                         Surface       Core       Northwest Boston Harbor
-    ## 669                         Surface       Core       Northwest Boston Harbor
-    ## 670                         Surface       Core       Northwest Boston Harbor
-    ## 671                         Surface       Core       Northwest Boston Harbor
-    ## 672                           Depth       Core       Northwest Boston Harbor
-    ## 673                           Depth       Core       Northwest Boston Harbor
-    ## 674                           Depth       Core       Northwest Boston Harbor
-    ## 675                           Depth       Core       Northwest Boston Harbor
-    ## 676                           Depth       Core       Northwest Boston Harbor
-    ## 677                           Depth       Core       Northwest Boston Harbor
-    ## 678                           Depth       Core       Northwest Boston Harbor
-    ## 679                           Depth       Core       Northwest Boston Harbor
-    ## 680                           Depth       Core       Northwest Boston Harbor
-    ## 681                           Depth       Core       Northwest Boston Harbor
-    ## 682                           Depth       Core       Northwest Boston Harbor
-    ## 683                           Depth       Core       Northwest Boston Harbor
-    ## 684                           Depth       Core       Northwest Boston Harbor
-    ## 685                           Depth       Core       Northwest Boston Harbor
-    ## 686                           Depth       Core       Northwest Boston Harbor
-    ## 687                           Depth       Core       Northwest Boston Harbor
-    ## 688                           Depth       Core       Northwest Boston Harbor
-    ## 689                           Depth       Core       Northwest Boston Harbor
-    ## 690                           Depth       Core       Northwest Boston Harbor
-    ## 691                   Surface (COE)       Core       Northwest Boston Harbor
-    ## 692                         Surface       Core       Northwest Boston Harbor
-    ## 693                   Surface (COE)       Core       Northwest Boston Harbor
-    ## 694                         Surface       Core       Northwest Boston Harbor
-    ## 695                           Depth       Core       Northwest Boston Harbor
-    ## 696                           Depth       Core       Northwest Boston Harbor
-    ## 697                           Depth       Core       Northwest Boston Harbor
-    ## 698                           Depth       Core       Northwest Boston Harbor
-    ## 699                           Depth       Core       Northwest Boston Harbor
-    ## 700                           Depth       Core       Northwest Boston Harbor
-    ## 701                           Depth       Core       Northwest Boston Harbor
-    ## 702                           Depth       Core       Northwest Boston Harbor
-    ## 703                           Depth       Core       Northwest Boston Harbor
-    ## 704                           Depth       Core       Northwest Boston Harbor
-    ## 705                   Surface (COE)       Core       Northwest Boston Harbor
-    ## 706                   Surface (COE)       Core       Northwest Boston Harbor
-    ## 707                           Depth       Core       Northwest Boston Harbor
-    ## 708                           Depth       Core       Northwest Boston Harbor
-    ## 709                           Depth       Core       Northwest Boston Harbor
-    ## 710                           Depth       Core       Northwest Boston Harbor
-    ## 711                           Depth       Core       Northwest Boston Harbor
-    ## 712                           Depth       Core       Northwest Boston Harbor
-    ## 713                           Depth       Core       Northwest Boston Harbor
-    ## 714                           Depth       Core       Northwest Boston Harbor
-    ## 715                           Depth       Core       Northwest Boston Harbor
-    ## 716                           Depth       Core       Northwest Boston Harbor
-    ## 717                   Surface (COE)       Core            Massachusetts Bays
-    ## 718                   Surface (COE)       Core            Massachusetts Bays
-    ## 719                           Depth       Core            Massachusetts Bays
-    ## 720                           Depth       Core            Massachusetts Bays
-    ## 721                           Depth       Core            Massachusetts Bays
-    ## 722                           Depth       Core            Massachusetts Bays
-    ## 723                           Depth       Core            Massachusetts Bays
-    ## 724                           Depth       Core            Massachusetts Bays
-    ## 725                           Depth       Core            Massachusetts Bays
-    ## 726                         Surface       Grab           Boston Inner Harbor
-    ## 727                         Surface       Grab       Northwest Boston Harbor
-    ## 728                         Surface       Grab       Northwest Boston Harbor
-    ## 729                         Surface       Grab       Southeast Boston Harbor
-    ## 730                         Surface       Grab       Southeast Boston Harbor
-    ## 731                         Surface       Grab         Central Boston Harbor
-    ## 732                         Surface       Grab         Central Boston Harbor
-    ## 733                         Surface       Grab         Central Boston Harbor
-    ## 734                         Surface       Grab           Boston Inner Harbor
-    ## 735                         Surface       Grab           Boston Inner Harbor
-    ## 736                         Surface       Grab       Northwest Boston Harbor
-    ## 737                         Surface       Grab       Northwest Boston Harbor
-    ## 738                         Surface       Grab       Northwest Boston Harbor
-    ## 739                         Surface       Grab         Central Boston Harbor
-    ## 740                         Surface       Grab         Central Boston Harbor
-    ## 741                         Surface       Grab         Central Boston Harbor
-    ## 742                         Surface       Grab       Southeast Boston Harbor
-    ## 743                         Surface       Grab            Massachusetts Bays
-    ## 744                         Surface       Grab         Central Boston Harbor
-    ## 745                         Surface       Grab            Massachusetts Bays
-    ## 746                         Surface       Grab            Massachusetts Bays
-    ## 747                         Surface       Grab            Massachusetts Bays
-    ## 748                         Surface       Grab             Harbor Approaches
-    ## 749                         Surface       Grab       Northwest Boston Harbor
-    ## 750                         Surface       Grab       Northwest Boston Harbor
-    ## 751                         Surface       Grab       Northwest Boston Harbor
-    ## 752                         Surface       Grab       Northwest Boston Harbor
-    ## 753                         Surface       Core           Boston Inner Harbor
-    ## 754                         Surface       Core           Boston Inner Harbor
-    ## 755                           Depth       Core           Boston Inner Harbor
-    ## 756                           Depth       Core           Boston Inner Harbor
-    ## 757                           Depth       Core           Boston Inner Harbor
-    ## 758                           Depth       Core           Boston Inner Harbor
-    ## 759                           Depth       Core           Boston Inner Harbor
-    ## 760                           Depth       Core           Boston Inner Harbor
-    ## 761                           Depth       Core           Boston Inner Harbor
-    ## 762                           Depth       Core           Boston Inner Harbor
-    ## 763                           Depth       Core           Boston Inner Harbor
-    ## 764                           Depth       Core           Boston Inner Harbor
-    ## 765                           Depth       Core           Boston Inner Harbor
-    ## 766                           Depth       Core           Boston Inner Harbor
-    ## 767                         Surface       Core       Northwest Boston Harbor
-    ## 768                         Surface       Core       Northwest Boston Harbor
-    ## 769                         Surface       Core       Northwest Boston Harbor
-    ## 770                         Surface       Core       Northwest Boston Harbor
-    ## 771                         Surface       Core       Northwest Boston Harbor
-    ## 772                           Depth       Core       Northwest Boston Harbor
-    ## 773                           Depth       Core       Northwest Boston Harbor
-    ## 774                           Depth       Core       Northwest Boston Harbor
-    ## 775                           Depth       Core       Northwest Boston Harbor
-    ## 776                           Depth       Core       Northwest Boston Harbor
-    ## 777                           Depth       Core       Northwest Boston Harbor
-    ## 778                           Depth       Core       Northwest Boston Harbor
-    ## 779                           Depth       Core       Northwest Boston Harbor
-    ## 780                           Depth       Core       Northwest Boston Harbor
-    ## 781                         Surface       Core       Northwest Boston Harbor
-    ## 782                         Surface       Core       Northwest Boston Harbor
-    ## 783                           Depth       Core       Northwest Boston Harbor
-    ## 784                           Depth       Core       Northwest Boston Harbor
-    ## 785                           Depth       Core       Northwest Boston Harbor
-    ## 786                           Depth       Core       Northwest Boston Harbor
-    ## 787                           Depth       Core       Northwest Boston Harbor
-    ## 788                           Depth       Core       Northwest Boston Harbor
-    ## 789                           Depth       Core       Northwest Boston Harbor
-    ## 790                           Depth       Core       Northwest Boston Harbor
-    ## 791                           Depth       Core       Northwest Boston Harbor
-    ## 792                           Depth       Core       Northwest Boston Harbor
-    ## 793                           Depth       Core       Northwest Boston Harbor
+    ##                           DPTH_CODE COR_GRB_CD
+    ## 1                           Unknown       Grab
+    ## 2                           Unknown       Grab
+    ## 3                             Depth       Core
+    ## 4                             Depth       Core
+    ## 5                           Unknown       Grab
+    ## 6                           Unknown       Grab
+    ## 7                           Unknown       Grab
+    ## 8                           Unknown       Grab
+    ## 9                           Unknown       Grab
+    ## 10                          Unknown       Grab
+    ## 11                          Unknown       Grab
+    ## 12                          Unknown       Grab
+    ## 13                          Unknown       Grab
+    ## 14                          Unknown       Grab
+    ## 15                          Surface       Grab
+    ## 16                          Surface       Grab
+    ## 17                          Surface       Grab
+    ## 18                          Unknown       Grab
+    ## 19                          Unknown       Grab
+    ## 20                          Unknown       Grab
+    ## 21                          Unknown       Grab
+    ## 22                          Unknown       Grab
+    ## 23                          Surface       Grab
+    ## 24                          Surface       Grab
+    ## 25                          Surface       Grab
+    ## 26                          Surface       Grab
+    ## 27                          Surface       Grab
+    ## 28                          Surface       Grab
+    ## 29                          Surface       Grab
+    ## 30                          Surface       Grab
+    ## 31                          Surface       Grab
+    ## 32                          Surface       Grab
+    ## 33                          Surface       Grab
+    ## 34                          Surface       Grab
+    ## 35                          Surface       Grab
+    ## 36                          Surface       Grab
+    ## 37                          Surface       Grab
+    ## 38                          Surface       Grab
+    ## 39                          Surface       Grab
+    ## 40                          Surface       Grab
+    ## 41                          Surface       Grab
+    ## 42                          Surface       Grab
+    ## 43                          Surface       Grab
+    ## 44                          Surface       Grab
+    ## 45                          Surface       Grab
+    ## 46                          Surface       Grab
+    ## 47                            Depth       Grab
+    ## 48                            Depth       Grab
+    ## 49                            Depth       Grab
+    ## 50                            Depth       Grab
+    ## 51                            Depth       Grab
+    ## 52                          Unknown       Grab
+    ## 53                            Depth       Grab
+    ## 54                            Depth       Grab
+    ## 55                            Depth       Grab
+    ## 56                            Depth       Grab
+    ## 57                            Depth       Grab
+    ## 58                            Depth       Grab
+    ## 59                            Depth       Grab
+    ## 60                            Depth       Grab
+    ## 61                            Depth       Grab
+    ## 62                            Depth       Grab
+    ## 63                            Depth       Grab
+    ## 64                          Unknown       Grab
+    ## 65                          Unknown       Grab
+    ## 66                          Unknown       Grab
+    ## 67                            Depth       Core
+    ## 68                          Surface       Core
+    ## 69                            Depth       Core
+    ## 70                          Surface       Core
+    ## 71                            Depth       Core
+    ## 72                          Surface       Core
+    ## 73                            Depth       Core
+    ## 74                          Surface       Core
+    ## 75                            Depth       Core
+    ## 76                          Unknown       Grab
+    ## 77                          Unknown       Grab
+    ## 78                          Unknown       Grab
+    ## 79                          Unknown       Grab
+    ## 80                          Unknown       Grab
+    ## 81                          Unknown       Grab
+    ## 82                          Unknown       Grab
+    ## 83                          Unknown       Grab
+    ## 84                          Unknown       Grab
+    ## 85                          Unknown       Grab
+    ## 86                          Unknown       Grab
+    ## 87                          Unknown       Grab
+    ## 88                          Unknown       Grab
+    ## 89                          Unknown    Unknown
+    ## 90                          Unknown    Unknown
+    ## 91                          Unknown    Unknown
+    ## 92                          Unknown       Grab
+    ## 93                          Unknown       Grab
+    ## 94                          Unknown       Grab
+    ## 95                          Unknown       Grab
+    ## 96                            Depth       Core
+    ## 97                          Surface       Core
+    ## 98                            Depth       Core
+    ## 99                          Surface       Core
+    ## 100                           Depth       Core
+    ## 101                         Surface       Core
+    ## 102                           Depth       Core
+    ## 103                         Surface       Core
+    ## 104                         Surface       Core
+    ## 105                           Depth       Core
+    ## 106                           Depth       Core
+    ## 107                         Surface       Core
+    ## 108                           Depth       Core
+    ## 109                         Surface       Core
+    ## 110                           Depth       Core
+    ## 111                         Surface       Core
+    ## 112                           Depth       Core
+    ## 113                         Surface       Core
+    ## 114                           Depth       Core
+    ## 115                         Surface       Core
+    ## 116                           Depth       Core
+    ## 117                         Surface       Core
+    ## 118                         Surface       Core
+    ## 119                           Depth       Core
+    ## 120                         Surface       Core
+    ## 121                           Depth       Core
+    ## 122                         Surface       Core
+    ## 123                           Depth       Core
+    ## 124                         Surface       Core
+    ## 125                           Depth       Core
+    ## 126                         Surface       Core
+    ## 127                           Depth       Core
+    ## 128                         Surface       Core
+    ## 129                           Depth       Core
+    ## 130                         Surface       Core
+    ## 131                         Unknown       Grab
+    ## 132                         Unknown       Grab
+    ## 133                         Unknown       Grab
+    ## 134                         Unknown       Grab
+    ## 135                         Unknown       Grab
+    ## 136                         Unknown       Grab
+    ## 137                         Unknown       Grab
+    ## 138                         Unknown       Grab
+    ## 139                         Unknown       Grab
+    ## 140                         Unknown       Grab
+    ## 141                         Unknown       Grab
+    ## 142                         Unknown       Grab
+    ## 143                         Unknown       Grab
+    ## 144                         Unknown       Grab
+    ## 145                         Unknown       Grab
+    ## 146                         Unknown       Grab
+    ## 147                         Unknown       Grab
+    ## 148                         Unknown       Grab
+    ## 149                         Unknown       Grab
+    ## 150                         Unknown       Grab
+    ## 151                         Unknown       Grab
+    ## 152                         Unknown       Grab
+    ## 153                         Unknown       Grab
+    ## 154                         Unknown       Grab
+    ## 155                         Unknown       Grab
+    ## 156                         Unknown       Grab
+    ## 157                         Unknown       Grab
+    ## 158                         Unknown       Grab
+    ## 159                           Depth       Core
+    ## 160                         Surface       Core
+    ## 161                           Depth       Core
+    ## 162                         Surface       Core
+    ## 163                           Depth       Core
+    ## 164                           Depth       Core
+    ## 165                         Surface       Core
+    ## 166                           Depth       Core
+    ## 167                         Surface       Core
+    ## 168                           Depth       Core
+    ## 169                         Surface       Core
+    ## 170                           Depth       Core
+    ## 171                         Surface       Core
+    ## 172                         Surface       Core
+    ## 173                         Unknown       Grab
+    ## 174                         Unknown       Grab
+    ## 175                         Unknown       Grab
+    ## 176                         Unknown       Grab
+    ## 177                         Unknown   Core (?)
+    ## 178                         Unknown   Core (?)
+    ## 179                         Unknown   Core (?)
+    ## 180                         Unknown   Core (?)
+    ## 181                           Depth       Grab
+    ## 182                           Depth       Grab
+    ## 183                           Depth       Grab
+    ## 184                           Depth       Grab
+    ## 185                           Depth       Grab
+    ## 186                         Unknown       Grab
+    ## 187                         Unknown       Grab
+    ## 188                         Unknown       Grab
+    ## 189                         Unknown       Grab
+    ## 190                         Unknown       Grab
+    ## 191                         Unknown       Grab
+    ## 192                         Unknown       Grab
+    ## 193                         Unknown       Grab
+    ## 194                         Unknown       Grab
+    ## 195                         Unknown       Grab
+    ## 196                         Unknown       Grab
+    ## 197                         Surface       Core
+    ## 198                           Depth       Core
+    ## 199                           Depth       Core
+    ## 200                         Unknown       Grab
+    ## 201                         Unknown       Grab
+    ## 202                         Unknown       Core
+    ## 203                         Unknown       Core
+    ## 204                         Unknown       Core
+    ## 205                         Unknown       Core
+    ## 206                         Unknown       Core
+    ## 207                         Unknown       Core
+    ## 208                         Unknown       Core
+    ## 209                           Depth       Core
+    ## 210                           Depth       Core
+    ## 211                           Depth       Core
+    ## 212                           Depth       Core
+    ## 213                           Depth       Core
+    ## 214                           Depth       Core
+    ## 215                           Depth       Core
+    ## 216                           Depth       Core
+    ## 217                           Depth       Core
+    ## 218                           Depth       Core
+    ## 219                           Depth       Core
+    ## 220                           Depth       Core
+    ## 221                           Depth       Core
+    ## 222                           Depth       Core
+    ## 223                           Depth       Core
+    ## 224                           Depth       Core
+    ## 225                           Depth       Core
+    ## 226                           Depth       Core
+    ## 227                           Depth       Core
+    ## 228                           Depth       Core
+    ## 229                           Depth       Core
+    ## 230                           Depth       Core
+    ## 231                           Depth       Core
+    ## 232                           Depth       Core
+    ## 233                           Depth       Core
+    ## 234                           Depth       Core
+    ## 235                         Unknown       Core
+    ## 236                         Unknown       Core
+    ## 237                         Unknown       Core
+    ## 238                         Unknown       Core
+    ## 239                         Unknown       Grab
+    ## 240                         Unknown       Grab
+    ## 241                         Unknown       Grab
+    ## 242                         Unknown       Grab
+    ## 243                         Unknown       Grab
+    ## 244                         Unknown       Grab
+    ## 245                         Unknown       Grab
+    ## 246                         Unknown       Grab
+    ## 247                         Unknown       Grab
+    ## 248                         Unknown       Grab
+    ## 249                         Unknown       Grab
+    ## 250                         Unknown       Grab
+    ## 251                         Unknown       Grab
+    ## 252                         Unknown       Grab
+    ## 253                         Unknown       Grab
+    ## 254                           Depth       Grab
+    ## 255                           Depth       Grab
+    ## 256                           Depth       Grab
+    ## 257                           Depth       Grab
+    ## 258                           Depth       Grab
+    ## 259                           Depth       Grab
+    ## 260                           Depth       Grab
+    ## 261                           Depth       Grab
+    ## 262                           Depth       Grab
+    ## 263                           Depth       Grab
+    ## 264                           Depth       Grab
+    ## 265                           Depth       Grab
+    ## 266                           Depth       Grab
+    ## 267                           Depth       Grab
+    ## 268                           Depth       Grab
+    ## 269                           Depth       Grab
+    ## 270                           Depth       Grab
+    ## 271                           Depth       Grab
+    ## 272                           Depth       Grab
+    ## 273                           Depth       Grab
+    ## 274                           Depth       Grab
+    ## 275                           Depth       Grab
+    ## 276                           Depth       Grab
+    ## 277                           Depth       Grab
+    ## 278                           Depth       Grab
+    ## 279                           Depth       Grab
+    ## 280                           Depth       Grab
+    ## 281                           Depth       Grab
+    ## 282                         Unknown       Grab
+    ## 283                         Unknown       Grab
+    ## 284                         Unknown       Grab
+    ## 285                         Unknown       Grab
+    ## 286                         Unknown       Grab
+    ## 287                         Unknown       Grab
+    ## 288                         Unknown       Grab
+    ## 289                         Unknown       Grab
+    ## 290                         Unknown       Grab
+    ## 291                         Unknown       Grab
+    ## 292                         Unknown       Grab
+    ## 293                         Surface       Grab
+    ## 294                         Surface       Grab
+    ## 295                         Surface       Grab
+    ## 296                         Surface       Grab
+    ## 297                         Surface       Grab
+    ## 298                           Depth       Grab
+    ## 299                         Unknown       Grab
+    ## 300                         Unknown       Grab
+    ## 301                         Unknown       Grab
+    ## 302                         Unknown       Grab
+    ## 303                         Unknown       Grab
+    ## 304                         Unknown       Grab
+    ## 305                         Unknown       Grab
+    ## 306                         Unknown       Grab
+    ## 307                         Unknown       Grab
+    ## 308                         Unknown       Grab
+    ## 309                         Unknown       Grab
+    ## 310                         Unknown       Grab
+    ## 311                         Unknown       Grab
+    ## 312                         Surface       Grab
+    ## 313                           Depth       Grab
+    ## 314                         Surface       Grab
+    ## 315                           Depth       Grab
+    ## 316                         Surface       Grab
+    ## 317                           Depth       Grab
+    ## 318                         Surface       Grab
+    ## 319                           Depth       Grab
+    ## 320                           Depth       Grab
+    ## 321 Unknown (COE, probably surface)       Grab
+    ## 322 Unknown (COE, probably surface)       Grab
+    ## 323 Unknown (COE, probably surface)       Grab
+    ## 324 Unknown (COE, probably surface)       Grab
+    ## 325 Unknown (COE, probably surface)       Grab
+    ## 326 Unknown (COE, probably surface)       Grab
+    ## 327 Unknown (COE, probably surface)       Grab
+    ## 328 Unknown (COE, probably surface)       Grab
+    ## 329 Unknown (COE, probably surface)       Grab
+    ## 330 Unknown (COE, probably surface)       Grab
+    ## 331 Unknown (COE, probably surface)       Grab
+    ## 332 Unknown (COE, probably surface)       Grab
+    ## 333 Unknown (COE, probably surface)       Grab
+    ## 334 Unknown (COE, probably surface)       Grab
+    ## 335 Unknown (COE, probably surface)       Grab
+    ## 336 Unknown (COE, probably surface)       Grab
+    ## 337 Unknown (COE, probably surface)       Grab
+    ## 338 Unknown (COE, probably surface)       Grab
+    ## 339 Unknown (COE, probably surface)       Grab
+    ## 340 Unknown (COE, probably surface)       Grab
+    ## 341 Unknown (COE, probably surface)       Grab
+    ## 342 Unknown (COE, probably surface)       Grab
+    ## 343 Unknown (COE, probably surface)       Grab
+    ## 344                           Depth       Core
+    ## 345                         Surface       Core
+    ## 346                           Depth       Core
+    ## 347                         Surface       Grab
+    ## 348                         Surface       Grab
+    ## 349                         Surface       Grab
+    ## 350                         Surface       Grab
+    ## 351                         Surface       Grab
+    ## 352                         Surface       Grab
+    ## 353                           Depth       Grab
+    ## 354                         Surface       Grab
+    ## 355                         Surface       Grab
+    ## 356                           Depth       Core
+    ## 357                           Depth       Core
+    ## 358                           Depth       Core
+    ## 359                           Depth       Core
+    ## 360                         Surface       Grab
+    ## 361                           Depth       Core
+    ## 362                           Depth       Core
+    ## 363                         Surface       Core
+    ## 364                           Depth       Core
+    ## 365                           Depth       Core
+    ## 366                           Depth       Core
+    ## 367                         Surface       Grab
+    ## 368                         Surface       Grab
+    ## 369                         Surface       Grab
+    ## 370                         Surface       Grab
+    ## 371                         Surface       Grab
+    ## 372                         Surface       Grab
+    ## 373                         Surface       Grab
+    ## 374                         Surface       Grab
+    ## 375                         Surface       Grab
+    ## 376                         Surface       Grab
+    ## 377                         Surface       Grab
+    ## 378                         Surface       Grab
+    ## 379                         Surface       Grab
+    ## 380                         Surface       Grab
+    ## 381                         Surface       Grab
+    ## 382                         Unknown       Grab
+    ## 383                         Unknown       Grab
+    ## 384                         Unknown       Grab
+    ## 385                         Unknown       Grab
+    ## 386                         Surface       Grab
+    ## 387                         Surface       Grab
+    ## 388                         Surface       Grab
+    ## 389                         Surface       Grab
+    ## 390                         Surface       Grab
+    ## 391                         Surface       Grab
+    ## 392                         Surface       Grab
+    ## 393                         Surface       Grab
+    ## 394                         Surface       Grab
+    ## 395                         Surface       Grab
+    ## 396                         Surface       Grab
+    ## 397                         Surface       Grab
+    ## 398                         Surface       Grab
+    ## 399                         Surface       Grab
+    ## 400                         Surface       Grab
+    ## 401                         Surface       Grab
+    ## 402                         Surface       Grab
+    ## 403                         Surface       Grab
+    ## 404                         Surface       Grab
+    ## 405                         Surface       Grab
+    ## 406                         Surface       Grab
+    ## 407                         Surface       Grab
+    ## 408                         Surface       Grab
+    ## 409                         Surface       Grab
+    ## 410                         Surface       Core
+    ## 411                         Surface       Core
+    ## 412                         Surface       Core
+    ## 413                         Surface       Grab
+    ## 414                         Surface       Grab
+    ## 415                         Surface       Grab
+    ## 416                         Surface       Grab
+    ## 417                         Surface       Grab
+    ## 418                         Surface       Grab
+    ## 419                         Surface       Grab
+    ## 420                         Surface       Grab
+    ## 421                         Surface       Grab
+    ## 422                         Surface       Grab
+    ## 423                         Surface       Grab
+    ## 424                         Surface       Grab
+    ## 425                         Surface       Grab
+    ## 426                         Surface       Grab
+    ## 427                         Surface       Grab
+    ## 428                         Surface       Grab
+    ## 429                         Surface       Grab
+    ## 430                         Surface       Grab
+    ## 431                         Surface       Grab
+    ## 432                         Surface       Grab
+    ## 433                         Surface       Grab
+    ## 434                         Surface       Grab
+    ## 435                         Surface       Grab
+    ## 436                         Surface       Grab
+    ## 437                         Surface       Grab
+    ## 438                         Surface       Grab
+    ## 439                         Surface       Grab
+    ## 440                         Surface       Grab
+    ## 441                         Surface       Grab
+    ## 442                         Surface       Grab
+    ## 443                         Surface       Grab
+    ## 444                         Surface       Grab
+    ## 445                         Surface       Grab
+    ## 446                         Surface       Grab
+    ## 447                         Surface       Grab
+    ## 448                         Surface       Grab
+    ## 449                         Surface       Grab
+    ## 450                         Surface       Grab
+    ## 451                         Surface       Grab
+    ## 452                         Surface       Grab
+    ## 453                         Surface       Grab
+    ## 454                         Surface       Grab
+    ## 455                         Surface       Grab
+    ## 456                         Surface       Grab
+    ## 457                         Surface       Grab
+    ## 458                         Surface       Grab
+    ## 459                         Surface       Grab
+    ## 460                         Surface       Grab
+    ## 461                         Surface       Grab
+    ## 462                         Surface       Grab
+    ## 463                         Surface       Grab
+    ## 464                         Surface       Grab
+    ## 465                         Surface       Grab
+    ## 466                         Surface       Grab
+    ## 467                         Surface       Grab
+    ## 468                         Surface       Grab
+    ## 469                         Surface       Grab
+    ## 470                         Surface       Grab
+    ## 471                         Surface       Grab
+    ## 472                         Surface       Grab
+    ## 473                         Surface       Grab
+    ## 474                         Surface       Grab
+    ## 475                         Surface       Grab
+    ## 476                         Surface       Grab
+    ## 477                         Surface       Grab
+    ## 478                         Surface       Grab
+    ## 479                         Surface       Grab
+    ## 480                         Surface       Grab
+    ## 481                         Surface       Grab
+    ## 482                         Surface       Grab
+    ## 483                         Surface       Grab
+    ## 484                         Surface       Grab
+    ## 485                         Surface       Grab
+    ## 486                         Surface       Grab
+    ## 487                         Surface       Grab
+    ## 488                         Surface       Grab
+    ## 489                         Surface       Grab
+    ## 490                         Surface       Grab
+    ## 491                         Surface       Grab
+    ## 492                         Surface       Grab
+    ## 493                         Surface       Grab
+    ## 494                         Surface       Grab
+    ## 495                         Surface       Grab
+    ## 496                         Surface       Grab
+    ## 497                         Surface       Grab
+    ## 498                         Surface       Grab
+    ## 499                         Surface       Grab
+    ## 500                         Surface       Grab
+    ## 501                         Surface       Grab
+    ## 502                         Surface       Grab
+    ## 503                         Surface       Grab
+    ## 504                         Surface       Grab
+    ## 505                         Surface       Grab
+    ## 506                         Surface       Grab
+    ## 507                         Surface       Grab
+    ## 508                         Surface       Grab
+    ## 509                         Surface       Grab
+    ## 510                         Surface       Grab
+    ## 511                         Surface       Grab
+    ## 512                         Surface       Grab
+    ## 513                         Surface       Grab
+    ## 514                         Surface       Grab
+    ## 515                         Surface       Grab
+    ## 516                         Surface       Grab
+    ## 517                         Surface       Grab
+    ## 518                         Surface       Grab
+    ## 519                         Surface       Grab
+    ## 520                         Surface       Grab
+    ## 521                         Surface       Grab
+    ## 522                         Surface       Grab
+    ## 523                         Surface       Grab
+    ## 524                         Surface       Grab
+    ## 525                         Surface       Grab
+    ## 526                         Surface       Grab
+    ## 527                         Surface       Grab
+    ## 528                         Surface       Grab
+    ## 529                         Surface       Grab
+    ## 530                         Surface       Grab
+    ## 531                         Surface       Grab
+    ## 532                         Surface       Grab
+    ## 533                         Surface       Grab
+    ## 534                         Surface       Grab
+    ## 535                         Surface       Grab
+    ## 536                         Surface       Grab
+    ## 537                         Surface       Grab
+    ## 538                         Surface       Grab
+    ## 539                         Surface       Grab
+    ## 540                         Surface       Grab
+    ## 541                         Surface       Grab
+    ## 542                         Surface       Grab
+    ## 543                         Surface       Grab
+    ## 544                         Surface       Grab
+    ## 545                         Surface       Grab
+    ## 546                         Surface       Grab
+    ## 547                         Surface       Grab
+    ## 548                         Surface       Grab
+    ## 549                         Surface       Grab
+    ## 550                         Surface       Grab
+    ## 551                         Surface       Grab
+    ## 552                         Surface       Grab
+    ## 553                         Surface       Grab
+    ## 554                         Surface       Grab
+    ## 555                         Surface       Grab
+    ## 556                         Surface       Grab
+    ## 557                         Surface       Grab
+    ## 558                         Surface       Grab
+    ## 559                         Surface       Grab
+    ## 560                         Surface       Grab
+    ## 561                         Surface       Grab
+    ## 562                         Surface       Grab
+    ## 563                         Surface       Grab
+    ## 564                         Surface       Grab
+    ## 565                         Surface       Grab
+    ## 566                         Surface       Grab
+    ## 567                         Surface       Grab
+    ## 568                         Surface       Grab
+    ## 569                         Surface       Grab
+    ## 570                         Surface       Grab
+    ## 571                         Surface       Grab
+    ## 572                         Surface       Grab
+    ## 573                         Surface       Grab
+    ## 574                         Surface       Grab
+    ## 575                         Surface       Grab
+    ## 576                         Surface       Grab
+    ## 577                         Surface       Grab
+    ## 578                         Surface       Grab
+    ## 579                         Surface       Grab
+    ## 580                         Surface       Grab
+    ## 581                         Surface       Grab
+    ## 582                         Surface       Grab
+    ## 583                         Surface       Grab
+    ## 584                         Surface       Grab
+    ## 585                         Surface       Grab
+    ## 586                         Surface       Grab
+    ## 587                         Surface       Grab
+    ## 588                         Surface       Grab
+    ## 589                         Surface       Grab
+    ## 590                         Surface       Grab
+    ## 591                         Surface       Grab
+    ## 592                         Surface       Grab
+    ## 593                         Surface       Grab
+    ## 594                         Surface       Grab
+    ## 595                         Surface       Grab
+    ## 596                     Surface (?)       Grab
+    ## 597                     Surface (?)       Grab
+    ## 598                     Surface (?)       Grab
+    ## 599                     Surface (?)       Grab
+    ## 600                     Surface (?)       Grab
+    ## 601                     Surface (?)       Grab
+    ## 602                     Surface (?)       Grab
+    ## 603                     Surface (?)       Grab
+    ## 604                     Surface (?)       Grab
+    ## 605                     Surface (?)       Grab
+    ## 606                     Surface (?)       Grab
+    ## 607                     Surface (?)       Grab
+    ## 608                     Surface (?)       Grab
+    ## 609                     Surface (?)       Grab
+    ## 610                     Surface (?)       Grab
+    ## 611                     Surface (?)       Grab
+    ## 612                     Surface (?)       Grab
+    ## 613                     Surface (?)       Grab
+    ## 614                     Surface (?)       Grab
+    ## 615                     Surface (?)       Grab
+    ## 616                         Surface       Grab
+    ## 617                         Surface       Grab
+    ## 618                         Surface       Grab
+    ## 619                         Surface       Grab
+    ## 620                         Surface       Grab
+    ## 621                         Surface       Grab
+    ## 622                         Surface       Grab
+    ## 623                         Surface       Grab
+    ## 624                         Surface       Grab
+    ## 625                         Surface       Grab
+    ## 626                         Surface       Grab
+    ## 627                         Surface       Grab
+    ## 628                         Surface       Grab
+    ## 629                         Surface       Grab
+    ## 630                         Surface       Grab
+    ## 631                         Surface       Grab
+    ## 632                         Surface       Grab
+    ## 633                         Surface       Grab
+    ## 634                         Surface       Grab
+    ## 635                         Surface       Grab
+    ## 636                         Surface       Grab
+    ## 637                         Surface       Grab
+    ## 638                         Surface       Grab
+    ## 639                         Surface       Grab
+    ## 640                         Surface       Grab
+    ## 641                         Surface       Grab
+    ## 642                   Surface (COE)       Core
+    ## 643                   Surface (COE)       Core
+    ## 644                   Surface (COE)       Core
+    ## 645                   Surface (COE)       Core
+    ## 646                   Surface (COE)       Core
+    ## 647                   Surface (COE)       Core
+    ## 648                   Surface (COE)       Core
+    ## 649                   Surface (COE)       Core
+    ## 650                           Depth       Core
+    ## 651                   Surface (COE)       Core
+    ## 652                   Surface (COE)       Core
+    ## 653                           Depth       Core
+    ## 654                   Surface (COE)       Core
+    ## 655                   Surface (COE)       Core
+    ## 656                           Depth       Core
+    ## 657                   Surface (COE)       Core
+    ## 658                   Surface (COE)       Core
+    ## 659                           Depth       Core
+    ## 660                           Depth       Core
+    ## 661                           Depth       Core
+    ## 662                           Depth       Core
+    ## 663                           Depth       Core
+    ## 664                           Depth       Core
+    ## 665                           Depth       Core
+    ## 666                           Depth       Core
+    ## 667                           Depth       Core
+    ## 668                         Surface       Core
+    ## 669                         Surface       Core
+    ## 670                         Surface       Core
+    ## 671                         Surface       Core
+    ## 672                           Depth       Core
+    ## 673                           Depth       Core
+    ## 674                           Depth       Core
+    ## 675                           Depth       Core
+    ## 676                           Depth       Core
+    ## 677                           Depth       Core
+    ## 678                           Depth       Core
+    ## 679                           Depth       Core
+    ## 680                           Depth       Core
+    ## 681                           Depth       Core
+    ## 682                           Depth       Core
+    ## 683                           Depth       Core
+    ## 684                           Depth       Core
+    ## 685                           Depth       Core
+    ## 686                           Depth       Core
+    ## 687                           Depth       Core
+    ## 688                           Depth       Core
+    ## 689                           Depth       Core
+    ## 690                           Depth       Core
+    ## 691                   Surface (COE)       Core
+    ## 692                         Surface       Core
+    ## 693                   Surface (COE)       Core
+    ## 694                         Surface       Core
+    ## 695                           Depth       Core
+    ## 696                           Depth       Core
+    ## 697                           Depth       Core
+    ## 698                           Depth       Core
+    ## 699                           Depth       Core
+    ## 700                           Depth       Core
+    ## 701                           Depth       Core
+    ## 702                           Depth       Core
+    ## 703                           Depth       Core
+    ## 704                           Depth       Core
+    ## 705                   Surface (COE)       Core
+    ## 706                   Surface (COE)       Core
+    ## 707                           Depth       Core
+    ## 708                           Depth       Core
+    ## 709                           Depth       Core
+    ## 710                           Depth       Core
+    ## 711                           Depth       Core
+    ## 712                           Depth       Core
+    ## 713                           Depth       Core
+    ## 714                           Depth       Core
+    ## 715                           Depth       Core
+    ## 716                           Depth       Core
+    ## 717                   Surface (COE)       Core
+    ## 718                   Surface (COE)       Core
+    ## 719                           Depth       Core
+    ## 720                           Depth       Core
+    ## 721                           Depth       Core
+    ## 722                           Depth       Core
+    ## 723                           Depth       Core
+    ## 724                           Depth       Core
+    ## 725                           Depth       Core
+    ## 726                         Surface       Grab
+    ## 727                         Surface       Grab
+    ## 728                         Surface       Grab
+    ## 729                         Surface       Grab
+    ## 730                         Surface       Grab
+    ## 731                         Surface       Grab
+    ## 732                         Surface       Grab
+    ## 733                         Surface       Grab
+    ## 734                         Surface       Grab
+    ## 735                         Surface       Grab
+    ## 736                         Surface       Grab
+    ## 737                         Surface       Grab
+    ## 738                         Surface       Grab
+    ## 739                         Surface       Grab
+    ## 740                         Surface       Grab
+    ## 741                         Surface       Grab
+    ## 742                         Surface       Grab
+    ## 743                         Surface       Grab
+    ## 744                         Surface       Grab
+    ## 745                         Surface       Grab
+    ## 746                         Surface       Grab
+    ## 747                         Surface       Grab
+    ## 748                         Surface       Grab
+    ## 749                         Surface       Grab
+    ## 750                         Surface       Grab
+    ## 751                         Surface       Grab
+    ## 752                         Surface       Grab
+    ## 753                         Surface       Core
+    ## 754                         Surface       Core
+    ## 755                           Depth       Core
+    ## 756                           Depth       Core
+    ## 757                           Depth       Core
+    ## 758                           Depth       Core
+    ## 759                           Depth       Core
+    ## 760                           Depth       Core
+    ## 761                           Depth       Core
+    ## 762                           Depth       Core
+    ## 763                           Depth       Core
+    ## 764                           Depth       Core
+    ## 765                           Depth       Core
+    ## 766                           Depth       Core
+    ## 767                         Surface       Core
+    ## 768                         Surface       Core
+    ## 769                         Surface       Core
+    ## 770                         Surface       Core
+    ## 771                         Surface       Core
+    ## 772                           Depth       Core
+    ## 773                           Depth       Core
+    ## 774                           Depth       Core
+    ## 775                           Depth       Core
+    ## 776                           Depth       Core
+    ## 777                           Depth       Core
+    ## 778                           Depth       Core
+    ## 779                           Depth       Core
+    ## 780                           Depth       Core
+    ## 781                         Surface       Core
+    ## 782                         Surface       Core
+    ## 783                           Depth       Core
+    ## 784                           Depth       Core
+    ## 785                           Depth       Core
+    ## 786                           Depth       Core
+    ## 787                           Depth       Core
+    ## 788                           Depth       Core
+    ## 789                           Depth       Core
+    ## 790                           Depth       Core
+    ## 791                           Depth       Core
+    ## 792                           Depth       Core
+    ## 793                           Depth       Core
+    ##                                                                                          site
+    ## 1                                                                                         BIH
+    ## 2                                                                                         BIH
+    ## 3                                                                                         BIH
+    ## 4                                                                                         BIH
+    ## 5                                                                                         BIH
+    ## 6                                                                                         BIH
+    ## 7                                                                                         BIH
+    ## 8                                                                                         BIH
+    ## 9                                                                                         BIH
+    ## 10                                                                                        OOP
+    ## 11                                                                                        OOP
+    ## 12                                                                                        BIH
+    ## 13                                                                                        BIH
+    ## 14                                                                                        BIH
+    ## 15                                                                                        BIH
+    ## 16                                                                                        BIH
+    ## 17                                                                                        BIH
+    ## 18                                                                                        BIH
+    ## 19                                                                                        BIH
+    ## 20                                                                                        BIH
+    ## 21                                                                                        QUB
+    ## 22                                                                                        QUB
+    ## 23                                                                                       MBDS
+    ## 24                                                                                       MBDS
+    ## 25                                                                                       MBDS
+    ## 26                                                                                       MBDS
+    ## 27                                                                                       MBDS
+    ## 28                                                                                       MBDS
+    ## 29                                                                                       MBDS
+    ## 30                                                                                       MBDS
+    ## 31                                                                                       MBDS
+    ## 32                                                                                       MBDS
+    ## 33                                                                                       MBDS
+    ## 34                                                                                       MBDS
+    ## 35                                                                                       MBDS
+    ## 36                                                                                       MBDS
+    ## 37                                                                                       MBDS
+    ## 38                                                                                       MBDS
+    ## 39                                                                                       MBDS
+    ## 40                                                                                       MBDS
+    ## 41                                                                                       MBDS
+    ## 42                                                                                       MBDS
+    ## 43                                                                                       MBDS
+    ## 44                                                                                       MBDS
+    ## 45                                                                                       MBDS
+    ## 46                                                                                       MBDS
+    ## 47                                                                             Point of Pines
+    ## 48                                                                             Point of Pines
+    ## 49                                                                             Point of Pines
+    ## 50                                                                             Point of Pines
+    ## 51                                                                             Point of Pines
+    ## 52  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 53  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 54  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 55  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 56  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 57  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 58  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 59  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 60  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 61  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 62  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 63  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 64                                                                             DORCHESTER BAY
+    ## 65                                                                        CRYSTAL COVE MARINA
+    ## 66                                                                        CRYSTAL COVE MARINA
+    ## 67                                                                               GREEN HARBOR
+    ## 68                                                                               GREEN HARBOR
+    ## 69                                                                               GREEN HARBOR
+    ## 70                                                                               GREEN HARBOR
+    ## 71                                                                               GREEN HARBOR
+    ## 72                                                                               GREEN HARBOR
+    ## 73                                                                               GREEN HARBOR
+    ## 74                                                                               GREEN HARBOR
+    ## 75                                                                               GREEN HARBOR
+    ## 76                                                                               GREEN HARBOR
+    ## 77                                                                               GREEN HARBOR
+    ## 78                                                                               GREEN HARBOR
+    ## 79                                                                               GREEN HARBOR
+    ## 80                                                                               GREEN HARBOR
+    ## 81                                                                                 BASS RIVER
+    ## 82                                                                                 BASS RIVER
+    ## 83                                                                                 BASS RIVER
+    ## 84                                                                              HINGAM HARBOR
+    ## 85                                                                             HINGHAM HARBOR
+    ## 86                                                                             HINGHAM HARBOR
+    ## 87                                                                             BEVERLY HARBOR
+    ## 88                                                                             BEVERLY HARBOR
+    ## 89                                                                                ESSEX RIVER
+    ## 90                                                                                ESSEX RIVER
+    ## 91                                                                                ESSEX RIVER
+    ## 92                                                                               Mystic River
+    ## 93                                                                               Mystic River
+    ## 94                                                                               Mystic River
+    ## 95                                                                               Mystic River
+    ## 96                                                                                 SMITH COVE
+    ## 97                                                                                 SMITH COVE
+    ## 98                                                                                 SMITH COVE
+    ## 99                                                                                 SMITH COVE
+    ## 100                                                                                SMITH COVE
+    ## 101                                                                                SMITH COVE
+    ## 102                                                                                SMITH COVE
+    ## 103                                                                                SMITH COVE
+    ## 104                                                                                SMITH COVE
+    ## 105                                                                                SMITH COVE
+    ## 106                                                                           WINTHROP HARBOR
+    ## 107                                                                           WINTHROP HARBOR
+    ## 108                                                                           WINTHROP HARBOR
+    ## 109                                                                           WINTHROP HARBOR
+    ## 110                                                                           WINTHROP HARBOR
+    ## 111                                                                           WINTHROP HARBOR
+    ## 112                                                                           WINTHROP HARBOR
+    ## 113                                                                           WINTHROP HARBOR
+    ## 114                                                                            WINTROP HARBOR
+    ## 115                                                                           WINTHROP HARBOR
+    ## 116                                                                           WINTHROP HARBOR
+    ## 117                                                                           WINTHROP HARBOR
+    ## 118                                                                           WINTHROP HARBOR
+    ## 119                                                                           WINTHROP HARBOR
+    ## 120                                                                           WINTHROP HARBOR
+    ## 121                                                                           WINTHROP HARBOR
+    ## 122                                                                           WINTHROP HARBOR
+    ## 123                                                                           WINTHROP HARBOR
+    ## 124                                                                           WINTHROP HARBOR
+    ## 125                                                                           WINTHROP HARBOR
+    ## 126                                                                           WINTHROP HARBOR
+    ## 127                                                                           WINTHROP HARBOR
+    ## 128                                                                           WINTHROP HARBOR
+    ## 129                                                                           WINTHROP HARBOR
+    ## 130                                                                           WINTHROP HARBOR
+    ## 131                                                                     Little Mystic Channel
+    ## 132                                                                         MANCHESTER HARBOR
+    ## 133                                                                         MANCHESTER HARBOR
+    ## 134                                                                         MANCHESTER HARBOR
+    ## 135                                                                         MANCHESTER HARBOR
+    ## 136                                                                           SCITUATE HARBOR
+    ## 137                                                                       Weymouth Fore River
+    ## 138                                                                       Weymouth Fore River
+    ## 139                                                                       Weymouth Fore River
+    ## 140                                                                       Weymouth Fore River
+    ## 141                                                                            HINGHAM HARBOR
+    ## 142                                                                              SALEM HARBOR
+    ## 143                                                                      BOSTON HARBOR MARINA
+    ## 144                                                                      BOSTON HARBOR MARINA
+    ## 145                                                                              Mystic River
+    ## 146                                                                              Mystic River
+    ## 147                                                                              Mystic River
+    ## 148                                                                           SCITUATE HARBOR
+    ## 149                                                                           SCITUATE HARBOR
+    ## 150                                                                           SCITUATE HARBOR
+    ## 151                                                                           SCITUATE HARBOR
+    ## 152                                                                         GLOUCESTER HARBOR
+    ## 153                                                                         GLOUCESTER HARBOR
+    ## 154                                                                             BOSTON HARBOR
+    ## 155                                                                             BOSTON HARBOR
+    ## 156                                                                             BOSTON HARBOR
+    ## 157                                                                             BOSTON HARBOR
+    ## 158                                                                               DUXBURY BAY
+    ## 159                                                                            DORCHESTER BAY
+    ## 160                                                                            DORCHESTER BAY
+    ## 161                                                                            DORCHESTER BAY
+    ## 162                                                                            DORCHESTER BAY
+    ## 163                                                                            DORCHESTER BAY
+    ## 164                                                                            DORCHESTER BAY
+    ## 165                                                                            DORCHESTER BAY
+    ## 166                                                                            DORCHESTER BAY
+    ## 167                                                                            DORCHESTER BAY
+    ## 168                                                                            DORCHESTER BAY
+    ## 169                                                                            DORCHESTER BAY
+    ## 170                                                                            DORCHESTER BAY
+    ## 171                                                                            DORCHESTER BAY
+    ## 172                                                                            DORCHESTER BAY
+    ## 173                                                                            BEVERLY HARBOR
+    ## 174                                                                             CHELSEA RIVER
+    ## 175                                                                             CHELSEA RIVER
+    ## 176                                                                             CHELSEA RIVER
+    ## 177                                                                   PORT NORFOLK YACHT CLUB
+    ## 178                                                                   PORT NORFOLK YACHT CLUB
+    ## 179                                                                   PORT NORFOLK YACHT CLUB
+    ## 180                                                                   PORT NORFOLK YACHT CLUB
+    ## 181                                                                           Cohasset Harbor
+    ## 182                                                                           Cohasset Harbor
+    ## 183                                                                           Cohasset Harbor
+    ## 184                                                                           Cohasset Harbor
+    ## 185                                                                           Cohasset Harbor
+    ## 186                                                                             Chelsea River
+    ## 187                                                                             Chelsea River
+    ## 188                                                                             Chelsea River
+    ## 189                                                                             Chelsea River
+    ## 190                                                                             Chelsea River
+    ## 191                                                                                 Salisbury
+    ## 192                                                                            Dorchester Bay
+    ## 193                                                                            Dorchester Bay
+    ## 194                                                                            Dorchester Bay
+    ## 195                                                                            Dorchester Bay
+    ## 196                                                                            Dorchester Bay
+    ## 197                                                                   Rowes and Fosters Wharf
+    ## 198                                                                   Rowes and Fosters Wharf
+    ## 199                                                                   Rowes and Fosters Wharf
+    ## 200                                                                              GREEN HARBOR
+    ## 201                                                                              GREEN HARBOR
+    ## 202                                                                                Mill Creek
+    ## 203                                                                                Mill Creek
+    ## 204                                                                                Mill Creek
+    ## 205                                                                                Mill Creek
+    ## 206                                                                                Mill Creek
+    ## 207                                                                                Mill Creek
+    ## 208                                                                                Mill Creek
+    ## 209                                                                                Mill Creek
+    ## 210                                                                                Mill Creek
+    ## 211                                                                                Mill Creek
+    ## 212                                                                                Mill Creek
+    ## 213                                                                                Mill Creek
+    ## 214                                                                                Mill Creek
+    ## 215                                                                                Mill Creek
+    ## 216                                                                                Mill Creek
+    ## 217                                                                                Mill Creek
+    ## 218                                                                                Mill Creek
+    ## 219                                                                                Mill Creek
+    ## 220                                                                                Mill Creek
+    ## 221                                                                                Mill Creek
+    ## 222                                                                                Mill Creek
+    ## 223                                                                                Mill Creek
+    ## 224                                                                                Mill Creek
+    ## 225                                                                                Mill Creek
+    ## 226                                                                                Mill Creek
+    ## 227                                                                                Mill Creek
+    ## 228                                                                                Mill Creek
+    ## 229                                                                                Mill Creek
+    ## 230                                                                                Mill Creek
+    ## 231                                                                                Mill Creek
+    ## 232                                                                                Mill Creek
+    ## 233                                                                                Mill Creek
+    ## 234                                                                                Mill Creek
+    ## 235                                                                                Mill Creek
+    ## 236                                                                                Mill Creek
+    ## 237                                                                                Mill Creek
+    ## 238                                                                                Mill Creek
+    ## 239                                                           Victory Road Park Inlet Channel
+    ## 240                                                           Victory Road Park Inlet Channel
+    ## 241                                                           Victory Road Park Inlet Channel
+    ## 242                                                           Victory Road Park Inlet Channel
+    ## 243                                                           Victory Road Park Inlet Channel
+    ## 244                                                           Victory Road Park Inlet Channel
+    ## 245                                                           Victory Road Park Inlet Channel
+    ## 246                                                           Victory Road Park Inlet Channel
+    ## 247                                                           Victory Road Park Inlet Channel
+    ## 248                                                           Victory Road Park Inlet Channel
+    ## 249                                                           Victory Road Park Inlet Channel
+    ## 250                                                           Victory Road Park Inlet Channel
+    ## 251                                                           Victory Road Park Inlet Channel
+    ## 252                                                           Victory Road Park Inlet Channel
+    ## 253                                                                              Mystic River
+    ## 254                                                           Seaward of New England Aquarium
+    ## 255                                                           Seaward of New England Aquarium
+    ## 256                                                           Seaward of New England Aquarium
+    ## 257                                                                   South Basin, Long Wharf
+    ## 258                                                                   South Basin, Long Wharf
+    ## 259                                                                   South Basin, Long Wharf
+    ## 260                                                                   South Basin, Long Wharf
+    ## 261                                                                   South Basin, Long Wharf
+    ## 262                                                                     Seaward of Long Wharf
+    ## 263                                                                     Seaward of Long Wharf
+    ## 264                                                                     Seaward of Long Wharf
+    ## 265                                                                   North Basin, Long Wharf
+    ## 266                                                                   North Basin, Long Wharf
+    ## 267                                                                                Long Wharf
+    ## 268                                                                   North Basin, Long Wharf
+    ## 269                                                                   North Basin, Long Wharf
+    ## 270                                                                   North Basin, Long Wharf
+    ## 271                                                                   North Basin, Long Wharf
+    ## 272                                      Public Boat Basin between Long and Commercial Wharfs
+    ## 273                                      Public Boat Basin between Long and Commercial Wharfs
+    ## 274                                      Public Boat Basin between Long and Commercial Wharfs
+    ## 275                                      Public Boat Basin between Long and Commercial Wharfs
+    ## 276                                      Public Boat Basin between Long and Commercial Wharfs
+    ## 277                                      Public Boat Basin between Long and Commercial Wharfs
+    ## 278                                                                Seaward of Waterfront Park
+    ## 279                                                                Seaward of Waterfront Park
+    ## 280                                                                Seaward of Waterfront Park
+    ## 281                                                                                Long Wharf
+    ## 282                                                                     Neponset River Bridge
+    ## 283                                                                     Neponset River Bridge
+    ## 284                                                                     Neponset River Bridge
+    ## 285                                                                     Neponset River Bridge
+    ## 286                                                                     Neponset River Bridge
+    ## 287                                                                     Neponset River Bridge
+    ## 288                                                                     Neponset River Bridge
+    ## 289                                                                     Neponset River Bridge
+    ## 290                                                                     Neponset River Bridge
+    ## 291                                                                               South River
+    ## 292                                                                               South River
+    ## 293                                                                Weymouth Fore & Town River
+    ## 294                                                                Weymouth Fore & Town River
+    ## 295                                                                Weymouth Fore & Town River
+    ## 296                                                                Weymouth Fore & Town River
+    ## 297                                                                Weymouth Fore & Town River
+    ## 298                                                                                LONG WHARF
+    ## 299                                                                           Allerton Harbor
+    ## 300                                                                           Allerton Harbor
+    ## 301                                                                           Allerton Harbor
+    ## 302                                                                           Allerton Harbor
+    ## 303                                                                           Allerton Harbor
+    ## 304                                                                           Allerton Harbor
+    ## 305                                                                           Allerton Harbor
+    ## 306                                                                           Allerton Harbor
+    ## 307                                                                           Allerton Harbor
+    ## 308                                                                           Allerton Harbor
+    ## 309                                                                           Winthrop Harbor
+    ## 310                                                                           Winthrop Harbor
+    ## 311                                                                           Winthrop Harbor
+    ## 312                                                         Winthrop Harbor, entrance channel
+    ## 313                                                         Winthrop Harbor, entrance channel
+    ## 314                                                         Winthrop Harbor, entrance channel
+    ## 315                                                         Winthrop Harbor, entrance channel
+    ## 316                                                         Winthrop Harbor, entrance channel
+    ## 317                                                         Winthrop Harbor, entrance channel
+    ## 318                                                                           Winthrop Harbor
+    ## 319                                                                           Winthrop Harbor
+    ## 320                                                                           Winthrop Harbor
+    ## 321                                                                           Winthrop Harbor
+    ## 322                                                                     North & Danvers River
+    ## 323                                                                     North & Danvers River
+    ## 324                                                                     North & Danvers River
+    ## 325                                                                     North & Danvers River
+    ## 326                                                                     North & Danvers River
+    ## 327                                                                     North & Danvers River
+    ## 328                                                                     North & Danvers River
+    ## 329                                                                     North & Danvers River
+    ## 330                                                                     North & Danvers River
+    ## 331                                                                     North & Danvers River
+    ## 332                                                                     North & Danvers River
+    ## 333                                                                     North & Danvers River
+    ## 334                                                                     North & Danvers River
+    ## 335                                                                     North & Danvers River
+    ## 336                                                                     North & Danvers River
+    ## 337                                                                     North & Danvers River
+    ## 338                                                                     North & Danvers River
+    ## 339                                                                     North & Danvers River
+    ## 340                                                                     North & Danvers River
+    ## 341                                                        Jeffries Cove, Boston Inner Harbor
+    ## 342                                                                      Stoney Brook Conduit
+    ## 343                                                                  Old Stoney Brook Conduit
+    ## 344                                                                              Mystic River
+    ## 345                                                                              Mystic River
+    ## 346                                                                              Mystic River
+    ## 347                                                                          Mystic River "C"
+    ## 348                                                                            Mystic River D
+    ## 349                                                                             Chelsea River
+    ## 350                                                                             Chelsea River
+    ## 351                                                                             Chelsea River
+    ## 352                                                                             Chelsea River
+    ## 353                                                                             Chelsea River
+    ## 354                                                                             Chelsea River
+    ## 355                                                                             Chelsea River
+    ## 356                                                                             Chelsea River
+    ## 357                                                                             Chelsea River
+    ## 358                                                                             Chelsea River
+    ## 359                                                                             Chelsea River
+    ## 360                                                                             Chelsea River
+    ## 361                                                                         Reserve Channel A
+    ## 362                                                                         Reserve Channel A
+    ## 363                                                                         Reserve Channel A
+    ## 364                                                                         Reserve Channel B
+    ## 365                                                                         Reserve Channel B
+    ## 366                                                                         Reserve Channel B
+    ## 367                                                                         Reserve Channel C
+    ## 368                                                                       Reserve Channel "D"
+    ## 369                                                                         Reserve Channel E
+    ## 370                                                                         Reserve Channel F
+    ## 371                                                                        Inner Confluence A
+    ## 372                                                                      Inner Confluence "B"
+    ## 373                                                                      Inner Confluence "C"
+    ## 374                                                                              Mystic River
+    ## 375                                                                              Mystic River
+    ## 376                                                                             Chelsea River
+    ## 377                                                                             Chelsea River
+    ## 378                                                                          Reserve "B"-7826
+    ## 379                                                                          Reserve "D"-7827
+    ## 380                                                              FADS-Reference location-7832
+    ## 381                                                                          Mystic River "A"
+    ## 382                                                                              Gulf Oil Co.
+    ## 383                                                                              Gibb Oil ???
+    ## 384                                                                      Gibb Oil North Berth
+    ## 385                                                                      Gibb Oil South Berth
+    ## 386                                                               SE of The Graves, Mass. Bay
+    ## 387                                                                                      <NA>
+    ## 388                                                                                      <NA>
+    ## 389                                                                                      <NA>
+    ## 390                                                                                      <NA>
+    ## 391                                                                                      <NA>
+    ## 392                                                                                      <NA>
+    ## 393                                                                                      <NA>
+    ## 394                                                                                      <NA>
+    ## 395                                                                                      <NA>
+    ## 396                                                                                      <NA>
+    ## 397                                                                                      <NA>
+    ## 398                                                                                      <NA>
+    ## 399                                                                                      <NA>
+    ## 400                                                                                      <NA>
+    ## 401                                                                                      <NA>
+    ## 402                                                                                      <NA>
+    ## 403                                                                                      <NA>
+    ## 404                                                                                      <NA>
+    ## 405                                                                                      <NA>
+    ## 406                                                                                      <NA>
+    ## 407                                                                                      <NA>
+    ## 408                                                                                      <NA>
+    ## 409                                                                                      <NA>
+    ## 410                                                                                      <NA>
+    ## 411                                                                                      <NA>
+    ## 412                                                                                      <NA>
+    ## 413                                                                                      <NA>
+    ## 414                                                                                      <NA>
+    ## 415                                                                                      <NA>
+    ## 416                                                                                      <NA>
+    ## 417                                                                              GEORGES BANK
+    ## 418                                                                              GEORGES BANK
+    ## 419                                                                              GEORGES BANK
+    ## 420                                                                              GEORGES BANK
+    ## 421                                                                                      <NA>
+    ## 422                                                                                      <NA>
+    ## 423                                                                                      <NA>
+    ## 424                                                                                      <NA>
+    ## 425                                                                                      <NA>
+    ## 426                                                                                      <NA>
+    ## 427                                                                                      <NA>
+    ## 428                                                                                      <NA>
+    ## 429                                                                                      <NA>
+    ## 430                                                                                      <NA>
+    ## 431                                                                              GEORGES BANK
+    ## 432                                                                              GEORGES BANK
+    ## 433                                                                                      <NA>
+    ## 434                                                                                      <NA>
+    ## 435                                                                                      <NA>
+    ## 436                                                                                      <NA>
+    ## 437                                                                                      <NA>
+    ## 438                                                                                      <NA>
+    ## 439                                                                              GEORGES BANK
+    ## 440                                                                                      <NA>
+    ## 441                                                                                      <NA>
+    ## 442                                                                                      <NA>
+    ## 443                                                                                      <NA>
+    ## 444                                                                                      <NA>
+    ## 445                                                                                      <NA>
+    ## 446                                                                                      <NA>
+    ## 447                                                                                      <NA>
+    ## 448                                                                                      <NA>
+    ## 449                                                                      ESE of Castle Island
+    ## 450                                                             btwn DeerI. &GovernorsI.Flats
+    ## 451                                                                                Quincy Bay
+    ## 452                                                           Nantasket Roads W of Perry Cove
+    ## 453                                                                                  Hull Bay
+    ## 454                                                               SE of The Graves, Mass. Bay
+    ## 455                                                                               Salem Sound
+    ## 456                                                                         Massachusetts Bay
+    ## 457                                                                         Massachusetts Bay
+    ## 458                                                                         Massachusetts Bay
+    ## 459                                                                         Massachusetts Bay
+    ## 460                                                                         Massachusetts Bay
+    ## 461                                                                         Massachusetts Bay
+    ## 462                                                                         Massachusetts Bay
+    ## 463                                                                         Massachusetts Bay
+    ## 464                                                                         Massachusetts Bay
+    ## 465                                                                         Massachusetts Bay
+    ## 466                                                                         Massachusetts Bay
+    ## 467                                                                         Massachusetts Bay
+    ## 468                                                                              Cape Cod Bay
+    ## 469                                                                              Cape Cod Bay
+    ## 470                                                                      ESE of Castle Island
+    ## 471                                                                      ESE of Castle Island
+    ## 472                                                                      ESE of Castle Island
+    ## 473                                                                      ESE of Castle Island
+    ## 474                                                                      ESE of Castle Island
+    ## 475                                                                      ESE of Castle Island
+    ## 476                                                         btwn Deer I. & Governors I. Flats
+    ## 477                                                         btwn Deer I. & Governors I. Flats
+    ## 478                                                         btwn Deer I. & Governors I. Flats
+    ## 479                                                         btwn Deer I. & Governors I. Flats
+    ## 480                                                         btwn Deer I. & Governors I. Flats
+    ## 481                                                         btwn Deer I. & Governors I. Flats
+    ## 482                                                                         SE of Deer Island
+    ## 483                                                                                Quincy Bay
+    ## 484                                                                                Quincy Bay
+    ## 485                                                                                Quincy Bay
+    ## 486                                                                                Quincy Bay
+    ## 487                                                                                Quincy Bay
+    ## 488                                                                                Quincy Bay
+    ## 489                                                           Nantasket Roads W of Perry Cove
+    ## 490                                                           Nantasket Roads W of Perry Cove
+    ## 491                                                           Nantasket Roads W of Perry Cove
+    ## 492                                                           Nantasket Roads W of Perry Cove
+    ## 493                                                           Nantasket Roads W of Perry Cove
+    ## 494                                                           Nantasket Roads W of Perry Cove
+    ## 495                                                                                  Hull Bay
+    ## 496                                                                                  Hull Bay
+    ## 497                                                                                  Hull Bay
+    ## 498                                                                                  Hull Bay
+    ## 499                                                                                  Hull Bay
+    ## 500                                                                                  Hull Bay
+    ## 501                                                               SE of The Graves, Mass. Bay
+    ## 502                                                               SE of The Graves, Mass. Bay
+    ## 503                                                               SE of The Graves, Mass. Bay
+    ## 504                                                               SE of The Graves, Mass. Bay
+    ## 505                                                                               Salem Sound
+    ## 506                                                                         Massachusetts Bay
+    ## 507                                                                         Massachusetts Bay
+    ## 508                                                                         Massachusetts Bay
+    ## 509                                                                         Massachusetts Bay
+    ## 510                                                                         Massachusetts Bay
+    ## 511                                                                         Massachusetts Bay
+    ## 512                                                                         Massachusetts Bay
+    ## 513                                                                         Massachusetts Bay
+    ## 514                                                                         Massachusetts Bay
+    ## 515                                                                         Massachusetts Bay
+    ## 516                                                                         Massachusetts Bay
+    ## 517                                                                         Massachusetts Bay
+    ## 518                                                                         Massachusetts Bay
+    ## 519                                                                         Massachusetts Bay
+    ## 520                                                                         Massachusetts Bay
+    ## 521                                                                         Massachusetts Bay
+    ## 522                                                                         Massachusetts Bay
+    ## 523                                                                         Massachusetts Bay
+    ## 524                                                                         Massachusetts Bay
+    ## 525                                                                         Massachusetts Bay
+    ## 526                                                                         Massachusetts Bay
+    ## 527                                                                         Massachusetts Bay
+    ## 528                                                                         Massachusetts Bay
+    ## 529                                                                         Massachusetts Bay
+    ## 530                                                                         Massachusetts Bay
+    ## 531                                                                         Massachusetts Bay
+    ## 532                                                                         Massachusetts Bay
+    ## 533                                                                         Massachusetts Bay
+    ## 534                                                                         Massachusetts Bay
+    ## 535                                                                         Massachusetts Bay
+    ## 536                                                                         Massachusetts Bay
+    ## 537                                                                         Massachusetts Bay
+    ## 538                                                                         Massachusetts Bay
+    ## 539                                                                         Massachusetts Bay
+    ## 540                                                                         Massachusetts Bay
+    ## 541                                                                         Massachusetts Bay
+    ## 542                                                                         Massachusetts Bay
+    ## 543                                                                         Massachusetts Bay
+    ## 544                                                                         Massachusetts Bay
+    ## 545                                                                         Massachusetts Bay
+    ## 546                                                                         Massachusetts Bay
+    ## 547                                                                         Massachusetts Bay
+    ## 548                                                                         Massachusetts Bay
+    ## 549                                                                         Massachusetts Bay
+    ## 550                                                                         Massachusetts Bay
+    ## 551                                                                         Massachusetts Bay
+    ## 552                                                                         Massachusetts Bay
+    ## 553                                                                         Massachusetts Bay
+    ## 554                                                                         Massachusetts Bay
+    ## 555                                                                         Massachusetts Bay
+    ## 556                                                                         Massachusetts Bay
+    ## 557                                                                         Massachusetts Bay
+    ## 558                                                                         Massachusetts Bay
+    ## 559                                                                         Massachusetts Bay
+    ## 560                                                                         Massachusetts Bay
+    ## 561                                                                         Massachusetts Bay
+    ## 562                                                                         Massachusetts Bay
+    ## 563                                                                         Massachusetts Bay
+    ## 564                                                                         Massachusetts Bay
+    ## 565                                                                         Massachusetts Bay
+    ## 566                                                                         Massachusetts Bay
+    ## 567                                                                         Massachusetts Bay
+    ## 568                                                                         Massachusetts Bay
+    ## 569                                                                         Massachusetts Bay
+    ## 570                                                                         Massachusetts Bay
+    ## 571                                                                         Massachusetts Bay
+    ## 572                                                                         Massachusetts Bay
+    ## 573                                                                         Massachusetts Bay
+    ## 574                                                                         Massachusetts Bay
+    ## 575                                                                         Massachusetts Bay
+    ## 576                                                                         Massachusetts Bay
+    ## 577                                                                         Massachusetts Bay
+    ## 578                                                                         Massachusetts Bay
+    ## 579                                                                         Massachusetts Bay
+    ## 580                                                                         Massachusetts Bay
+    ## 581                                                                         Massachusetts Bay
+    ## 582                                                                         Massachusetts Bay
+    ## 583                                                                         Massachusetts Bay
+    ## 584                                                                              Cape Cod Bay
+    ## 585                                                                              Cape Cod Bay
+    ## 586                                                                              Cape Cod Bay
+    ## 587                                                                              Cape Cod Bay
+    ## 588                                                                              Cape Cod Bay
+    ## 589                                                                              Cape Cod Bay
+    ## 590                                                                              Cape Cod Bay
+    ## 591                                                                              Cape Cod Bay
+    ## 592                                                                              Cape Cod Bay
+    ## 593                                                                              Cape Cod Bay
+    ## 594                                                                              Cape Cod Bay
+    ## 595                                                                              Cape Cod Bay
+    ## 596                                                                                      <NA>
+    ## 597                                                                                      <NA>
+    ## 598                                                                                      <NA>
+    ## 599                                                                                      <NA>
+    ## 600                                                                                      <NA>
+    ## 601                                                                                      <NA>
+    ## 602                                                                                      <NA>
+    ## 603                                                                                      <NA>
+    ## 604                                                                                      <NA>
+    ## 605                                                                                      <NA>
+    ## 606                                                                                      <NA>
+    ## 607                                                                                      <NA>
+    ## 608                                                                                      <NA>
+    ## 609                                                                                      <NA>
+    ## 610                                                                                      <NA>
+    ## 611                                                                                      <NA>
+    ## 612                                                                                      <NA>
+    ## 613                                                                                      <NA>
+    ## 614                                                                                      <NA>
+    ## 615                                                                                      <NA>
+    ## 616                                                                                      <NA>
+    ## 617                                                                                      <NA>
+    ## 618                                                                                      <NA>
+    ## 619                                                                                      <NA>
+    ## 620                                                                                      <NA>
+    ## 621                                                                                      <NA>
+    ## 622                                                                                      <NA>
+    ## 623                                                                                      <NA>
+    ## 624                                                                                      <NA>
+    ## 625                                                                                      <NA>
+    ## 626                                                                                      <NA>
+    ## 627                                                                                      <NA>
+    ## 628                                                                                      <NA>
+    ## 629                                                                               W. Mass Bay
+    ## 630                                                                               W. Mass Bay
+    ## 631                                                                               W. Mass Bay
+    ## 632                                                                               W. Mass Bay
+    ## 633                                                                               W. Mass Bay
+    ## 634                                                                               W. Mass Bay
+    ## 635                                                                               W. Mass Bay
+    ## 636                                                                               W. Mass Bay
+    ## 637                                                                               W. Mass Bay
+    ## 638                                                                               W. Mass Bay
+    ## 639                                                                               W. Mass Bay
+    ## 640                                                                               W. Mass Bay
+    ## 641                                                                               W. Mass Bay
+    ## 642                                                                            Dorchester Bay
+    ## 643                                                                            Dorchester Bay
+    ## 644                                                                            Dorchester Bay
+    ## 645                                                                            Dorchester Bay
+    ## 646                                                                            Dorchester Bay
+    ## 647                                                                            Dorchester Bay
+    ## 648                                                                            Dorchester Bay
+    ## 649                                                                            Dorchester Bay
+    ## 650                                                                            Dorchester Bay
+    ## 651                                                                               Hingham Bay
+    ## 652                                                                               Hingham Bay
+    ## 653                                                                               Hingham Bay
+    ## 654                                                                                Quincy Bay
+    ## 655                                                                                Quincy Bay
+    ## 656                                                                                Quincy Bay
+    ## 657                                                                                 BIH mouth
+    ## 658                                                                                 BIH mouth
+    ## 659                                                                                 BIH mouth
+    ## 660                                                                                 BIH mouth
+    ## 661                                                                                 BIH mouth
+    ## 662                                                                                 BIH mouth
+    ## 663                                                                                 BIH mouth
+    ## 664                                                                                 BIH mouth
+    ## 665                                                                                 BIH mouth
+    ## 666                                                                                 BIH mouth
+    ## 667                                                                                 BIH mouth
+    ## 668                                                                                       DOB
+    ## 669                                                                                       DOB
+    ## 670                                                                                       DOB
+    ## 671                                                                                       DOB
+    ## 672                                                                                       DOB
+    ## 673                                                                                       DOB
+    ## 674                                                                                       DOB
+    ## 675                                                                                       DOB
+    ## 676                                                                                       DOB
+    ## 677                                                                                       DOB
+    ## 678                                                                                       DOB
+    ## 679                                                                                       DOB
+    ## 680                                                                                       DOB
+    ## 681                                                                                       DOB
+    ## 682                                                                                       DOB
+    ## 683                                                                                       DOB
+    ## 684                                                                                       DOB
+    ## 685                                                                                       DOB
+    ## 686                                                                                       DOB
+    ## 687                                                                                       DOB
+    ## 688                                                                                       DOB
+    ## 689                                                                                       DOB
+    ## 690                                                                                       DOB
+    ## 691                                                                        DOB Deer Is. Flats
+    ## 692                                                                        DOB Deer Is. Flats
+    ## 693                                                                        DOB Deer Is. Flats
+    ## 694                                                                        DOB Deer Is. Flats
+    ## 695                                                                        DOB Deer Is. Flats
+    ## 696                                                                        DOB Deer Is. Flats
+    ## 697                                                                        DOB Deer Is. Flats
+    ## 698                                                                        DOB Deer Is. Flats
+    ## 699                                                                        DOB Deer Is. Flats
+    ## 700                                                                        DOB Deer Is. Flats
+    ## 701                                                                        DOB Deer Is. Flats
+    ## 702                                                                        DOB Deer Is. Flats
+    ## 703                                                                        DOB Deer Is. Flats
+    ## 704                                                                        DOB Deer Is. Flats
+    ## 705                                                                    DOB Sculpin Ledge Chn.
+    ## 706                                                                    DOB Sculpin Ledge Chn.
+    ## 707                                                                    DOB Sculpin Ledge Chn.
+    ## 708                                                                    DOB Sculpin Ledge Chn.
+    ## 709                                                                    DOB Sculpin Ledge Chn.
+    ## 710                                                                    DOB Sculpin Ledge Chn.
+    ## 711                                                                    DOB Sculpin Ledge Chn.
+    ## 712                                                                    DOB Sculpin Ledge Chn.
+    ## 713                                                                    DOB Sculpin Ledge Chn.
+    ## 714                                                                    DOB Sculpin Ledge Chn.
+    ## 715                                                                    DOB Sculpin Ledge Chn.
+    ## 716                                                                    DOB Sculpin Ledge Chn.
+    ## 717                                                                      Mass Bay Broad Sound
+    ## 718                                                                      Mass Bay Broad Sound
+    ## 719                                                                      Mass Bay Broad Sound
+    ## 720                                                                      Mass Bay Broad Sound
+    ## 721                                                                      Mass Bay Broad Sound
+    ## 722                                                                      Mass Bay Broad Sound
+    ## 723                                                                      Mass Bay Broad Sound
+    ## 724                                                                      Mass Bay Broad Sound
+    ## 725                                                                      Mass Bay Broad Sound
+    ## 726                                                                                 BIH mouth
+    ## 727                                                                                       DOB
+    ## 728                                                                    DOB Sculpin Ledge Chn.
+    ## 729                                                                                       HIB
+    ## 730                                                                                      <NA>
+    ## 731                                                                       QUB Nantasket Roads
+    ## 732                                                                                       QUB
+    ## 733                                                                                      <NA>
+    ## 734                                                                                       BIH
+    ## 735                                                                                       BIH
+    ## 736                                                                                       DOB
+    ## 737                                                                                       DOB
+    ## 738                                                                         DOB Sculpin Ledge
+    ## 739                                                                                       QUB
+    ## 740                                                                                       QUB
+    ## 741                                                                          QUB/HIB West Gut
+    ## 742                                                                                       HIB
+    ## 743                                                                                  Mass Bay
+    ## 744                                                                                       QUB
+    ## 745                                                                                  Mass Bay
+    ## 746                                                                                  Mass Bay
+    ## 747                                                   Mass Bay (Approaches) N. Harbor Channel
+    ## 748                                                     Mass Bay (Approaches) President Roads
+    ## 749                                                                       DOB President Roads
+    ## 750                                                                       DOB President Roads
+    ## 751                                                                      DOB Deer/Govn. Flats
+    ## 752                                                                      DOB Deer/Govn. Flats
+    ## 753                                                                                 BIH mouth
+    ## 754                                                                                 BIH mouth
+    ## 755                                                                                 BIH mouth
+    ## 756                                                                                 BIH mouth
+    ## 757                                                                                 BIH mouth
+    ## 758                                                                                 BIH mouth
+    ## 759                                                                                 BIH mouth
+    ## 760                                                                                 BIH mouth
+    ## 761                                                                                 BIH mouth
+    ## 762                                                                                 BIH mouth
+    ## 763                                                                                 BIH mouth
+    ## 764                                                                                 BIH mouth
+    ## 765                                                                                 BIH mouth
+    ## 766                                                                                 BIH mouth
+    ## 767                                                                                       DOB
+    ## 768                                                                                       DOB
+    ## 769                                                                                       DOB
+    ## 770                                                                                       DOB
+    ## 771                                                                                      <NA>
+    ## 772                                                                                       DOB
+    ## 773                                                                                      <NA>
+    ## 774                                                                                       DOB
+    ## 775                                                                                       DOB
+    ## 776                                                                                       DOB
+    ## 777                                                                                       DOB
+    ## 778                                                                                       DOB
+    ## 779                                                                                      <NA>
+    ## 780                                                                                       DOB
+    ## 781                                                                    DOB Sculpin Ledge Chn.
+    ## 782                                                                    DOB Sculpin Ledge Chn.
+    ## 783                                                                    DOB Sculpin Ledge Chn.
+    ## 784                                                                    DOB Sculpin Ledge Chn.
+    ## 785                                                                    DOB Sculpin Ledge Chn.
+    ## 786                                                                    DOB Sculpin Ledge Chn.
+    ## 787                                                                    DOB Sculpin Ledge Chn.
+    ## 788                                                                    DOB Sculpin Ledge Chn.
+    ## 789                                                                    DOB Sculpin Ledge Chn.
+    ## 790                                                                    DOB Sculpin Ledge Chn.
+    ## 791                                                                    DOB Sculpin Ledge Chn.
+    ## 792                                                                    DOB Sculpin Ledge Chn.
+    ## 793                                                                    DOB Sculpin Ledge Chn.
     ##     BENZNE_C X2BZTPN_C X2BZTPN_T_C C1DIBZTPNC C2DIBZTPNC C3DIBZTPNC X2BZFRN_T_C
     ## 1         NA        NA          NA         NA         NA         NA          NA
     ## 2         NA        NA          NA         NA         NA         NA          NA
@@ -12119,800 +12907,800 @@ unique ID.
     ## 791   -70.97417           NA           MA         <NA>
     ## 792   -70.97417           NA           MA         <NA>
     ## 793   -70.97417           NA           MA         <NA>
-    ##                    GEN_LOC_NM.1
-    ## 1           BOSTON INNER HARBOR
-    ## 2           BOSTON INNER HARBOR
-    ## 3           BOSTON INNER HARBOR
-    ## 4           BOSTON INNER HARBOR
-    ## 5           BOSTON INNER HARBOR
-    ## 6           BOSTON INNER HARBOR
-    ## 7           BOSTON INNER HARBOR
-    ## 8           BOSTON INNER HARBOR
-    ## 9           BOSTON INNER HARBOR
-    ## 10      NORTHWEST BOSTON HARBOR
-    ## 11      NORTHWEST BOSTON HARBOR
-    ## 12          BOSTON INNER HARBOR
-    ## 13          BOSTON INNER HARBOR
-    ## 14          BOSTON INNER HARBOR
-    ## 15          BOSTON INNER HARBOR
-    ## 16          BOSTON INNER HARBOR
-    ## 17          BOSTON INNER HARBOR
-    ## 18          BOSTON INNER HARBOR
-    ## 19          BOSTON INNER HARBOR
-    ## 20          BOSTON INNER HARBOR
-    ## 21        CENTRAL BOSTON HARBOR
-    ## 22        CENTRAL BOSTON HARBOR
-    ## 23                    MASS BAYS
-    ## 24                    MASS BAYS
-    ## 25                    MASS BAYS
-    ## 26                    MASS BAYS
-    ## 27                    MASS BAYS
-    ## 28                    MASS BAYS
-    ## 29                    MASS BAYS
-    ## 30                    MASS BAYS
-    ## 31                    MASS BAYS
-    ## 32                    MASS BAYS
-    ## 33                    MASS BAYS
-    ## 34                    MASS BAYS
-    ## 35                    MASS BAYS
-    ## 36                    MASS BAYS
-    ## 37                    MASS BAYS
-    ## 38                    MASS BAYS
-    ## 39                    MASS BAYS
-    ## 40                    MASS BAYS
-    ## 41                    MASS BAYS
-    ## 42                    MASS BAYS
-    ## 43                    MASS BAYS
-    ## 44                    MASS BAYS
-    ## 45                    MASS BAYS
-    ## 46                    MASS BAYS
-    ## 47                    MASS BAYS
-    ## 48                    MASS BAYS
-    ## 49                    MASS BAYS
-    ## 50                    MASS BAYS
-    ## 51                    MASS BAYS
-    ## 52          BOSTON INNER HARBOR
-    ## 53          BOSTON INNER HARBOR
-    ## 54          BOSTON INNER HARBOR
-    ## 55          BOSTON INNER HARBOR
-    ## 56          BOSTON INNER HARBOR
-    ## 57      NORTHWEST BOSTON HARBOR
-    ## 58      NORTHWEST BOSTON HARBOR
-    ## 59      NORTHWEST BOSTON HARBOR
-    ## 60      NORTHWEST BOSTON HARBOR
-    ## 61      NORTHWEST BOSTON HARBOR
-    ## 62          BOSTON INNER HARBOR
-    ## 63          BOSTON INNER HARBOR
-    ## 64      NORTHWEST BOSTON HARBOR
-    ## 65      NORTHWEST BOSTON HARBOR
-    ## 66      NORTHWEST BOSTON HARBOR
-    ## 67                 CAPE COD BAY
-    ## 68                 CAPE COD BAY
-    ## 69                 CAPE COD BAY
-    ## 70                 CAPE COD BAY
-    ## 71                 CAPE COD BAY
-    ## 72                 CAPE COD BAY
-    ## 73                 CAPE COD BAY
-    ## 74                 CAPE COD BAY
-    ## 75                 CAPE COD BAY
-    ## 76                 CAPE COD BAY
-    ## 77                 CAPE COD BAY
-    ## 78                 CAPE COD BAY
-    ## 79                 CAPE COD BAY
-    ## 80                 CAPE COD BAY
-    ## 81                    MASS BAYS
-    ## 82                    MASS BAYS
-    ## 83                    MASS BAYS
-    ## 84      SOUTHEAST BOSTON HARBOR
-    ## 85      SOUTHEAST BOSTON HARBOR
-    ## 86      SOUTHEAST BOSTON HARBOR
-    ## 87                    MASS BAYS
-    ## 88                    MASS BAYS
-    ## 89              INLAND / RIVERS
-    ## 90              INLAND / RIVERS
-    ## 91              INLAND / RIVERS
-    ## 92          BOSTON INNER HARBOR
-    ## 93          BOSTON INNER HARBOR
-    ## 94          BOSTON INNER HARBOR
-    ## 95          BOSTON INNER HARBOR
-    ## 96                    MASS BAYS
-    ## 97                    MASS BAYS
-    ## 98                    MASS BAYS
-    ## 99                    MASS BAYS
-    ## 100                   MASS BAYS
-    ## 101                   MASS BAYS
-    ## 102                   MASS BAYS
-    ## 103                   MASS BAYS
-    ## 104                   MASS BAYS
-    ## 105                   MASS BAYS
-    ## 106     NORTHWEST BOSTON HARBOR
-    ## 107     NORTHWEST BOSTON HARBOR
-    ## 108     NORTHWEST BOSTON HARBOR
-    ## 109     NORTHWEST BOSTON HARBOR
-    ## 110     NORTHWEST BOSTON HARBOR
-    ## 111     NORTHWEST BOSTON HARBOR
-    ## 112     NORTHWEST BOSTON HARBOR
-    ## 113     NORTHWEST BOSTON HARBOR
-    ## 114     NORTHWEST BOSTON HARBOR
-    ## 115     NORTHWEST BOSTON HARBOR
-    ## 116     NORTHWEST BOSTON HARBOR
-    ## 117     NORTHWEST BOSTON HARBOR
-    ## 118     NORTHWEST BOSTON HARBOR
-    ## 119     NORTHWEST BOSTON HARBOR
-    ## 120     NORTHWEST BOSTON HARBOR
-    ## 121     NORTHWEST BOSTON HARBOR
-    ## 122     NORTHWEST BOSTON HARBOR
-    ## 123     NORTHWEST BOSTON HARBOR
-    ## 124     NORTHWEST BOSTON HARBOR
-    ## 125     NORTHWEST BOSTON HARBOR
-    ## 126     NORTHWEST BOSTON HARBOR
-    ## 127     NORTHWEST BOSTON HARBOR
-    ## 128     NORTHWEST BOSTON HARBOR
-    ## 129     NORTHWEST BOSTON HARBOR
-    ## 130     NORTHWEST BOSTON HARBOR
-    ## 131         BOSTON INNER HARBOR
-    ## 132                   MASS BAYS
-    ## 133                   MASS BAYS
-    ## 134                   MASS BAYS
-    ## 135                   MASS BAYS
-    ## 136                   MASS BAYS
-    ## 137                   MASS BAYS
-    ## 138                   MASS BAYS
-    ## 139                   MASS BAYS
-    ## 140                   MASS BAYS
-    ## 141     SOUTHEAST BOSTON HARBOR
-    ## 142                   MASS BAYS
-    ## 143     NORTHWEST BOSTON HARBOR
-    ## 144     NORTHWEST BOSTON HARBOR
-    ## 145         BOSTON INNER HARBOR
-    ## 146         BOSTON INNER HARBOR
-    ## 147         BOSTON INNER HARBOR
-    ## 148                   MASS BAYS
-    ## 149                   MASS BAYS
-    ## 150                   MASS BAYS
-    ## 151                   MASS BAYS
-    ## 152                   MASS BAYS
-    ## 153                   MASS BAYS
-    ## 154     NORTHWEST BOSTON HARBOR
-    ## 155     NORTHWEST BOSTON HARBOR
-    ## 156     NORTHWEST BOSTON HARBOR
-    ## 157     NORTHWEST BOSTON HARBOR
-    ## 158                CAPE COD BAY
-    ## 159     NORTHWEST BOSTON HARBOR
-    ## 160     NORTHWEST BOSTON HARBOR
-    ## 161     NORTHWEST BOSTON HARBOR
-    ## 162     NORTHWEST BOSTON HARBOR
-    ## 163     NORTHWEST BOSTON HARBOR
-    ## 164     NORTHWEST BOSTON HARBOR
-    ## 165     NORTHWEST BOSTON HARBOR
-    ## 166     NORTHWEST BOSTON HARBOR
-    ## 167     NORTHWEST BOSTON HARBOR
-    ## 168     NORTHWEST BOSTON HARBOR
-    ## 169     NORTHWEST BOSTON HARBOR
-    ## 170     NORTHWEST BOSTON HARBOR
-    ## 171     NORTHWEST BOSTON HARBOR
-    ## 172     NORTHWEST BOSTON HARBOR
-    ## 173                   MASS BAYS
-    ## 174         BOSTON INNER HARBOR
-    ## 175         BOSTON INNER HARBOR
-    ## 176         BOSTON INNER HARBOR
-    ## 177     NORTHWEST BOSTON HARBOR
-    ## 178     NORTHWEST BOSTON HARBOR
-    ## 179     NORTHWEST BOSTON HARBOR
-    ## 180     NORTHWEST BOSTON HARBOR
-    ## 181                   MASS BAYS
-    ## 182                   MASS BAYS
-    ## 183                   MASS BAYS
-    ## 184                   MASS BAYS
-    ## 185                   MASS BAYS
-    ## 186         BOSTON INNER HARBOR
-    ## 187         BOSTON INNER HARBOR
-    ## 188         BOSTON INNER HARBOR
-    ## 189         BOSTON INNER HARBOR
-    ## 190         BOSTON INNER HARBOR
-    ## 191           CAPE ANN to 43.5N
-    ## 192     NORTHWEST BOSTON HARBOR
-    ## 193     NORTHWEST BOSTON HARBOR
-    ## 194     NORTHWEST BOSTON HARBOR
-    ## 195     NORTHWEST BOSTON HARBOR
-    ## 196     NORTHWEST BOSTON HARBOR
-    ## 197         BOSTON INNER HARBOR
-    ## 198         BOSTON INNER HARBOR
-    ## 199         BOSTON INNER HARBOR
-    ## 200                CAPE COD BAY
-    ## 201                CAPE COD BAY
-    ## 202             INLAND / RIVERS
-    ## 203             INLAND / RIVERS
-    ## 204             INLAND / RIVERS
-    ## 205             INLAND / RIVERS
-    ## 206             INLAND / RIVERS
-    ## 207             INLAND / RIVERS
-    ## 208             INLAND / RIVERS
-    ## 209             INLAND / RIVERS
-    ## 210             INLAND / RIVERS
-    ## 211             INLAND / RIVERS
-    ## 212             INLAND / RIVERS
-    ## 213             INLAND / RIVERS
-    ## 214             INLAND / RIVERS
-    ## 215             INLAND / RIVERS
-    ## 216             INLAND / RIVERS
-    ## 217             INLAND / RIVERS
-    ## 218             INLAND / RIVERS
-    ## 219             INLAND / RIVERS
-    ## 220             INLAND / RIVERS
-    ## 221             INLAND / RIVERS
-    ## 222             INLAND / RIVERS
-    ## 223             INLAND / RIVERS
-    ## 224             INLAND / RIVERS
-    ## 225             INLAND / RIVERS
-    ## 226             INLAND / RIVERS
-    ## 227             INLAND / RIVERS
-    ## 228             INLAND / RIVERS
-    ## 229             INLAND / RIVERS
-    ## 230             INLAND / RIVERS
-    ## 231             INLAND / RIVERS
-    ## 232             INLAND / RIVERS
-    ## 233             INLAND / RIVERS
-    ## 234             INLAND / RIVERS
-    ## 235             INLAND / RIVERS
-    ## 236             INLAND / RIVERS
-    ## 237             INLAND / RIVERS
-    ## 238             INLAND / RIVERS
-    ## 239     NORTHWEST BOSTON HARBOR
-    ## 240     NORTHWEST BOSTON HARBOR
-    ## 241     NORTHWEST BOSTON HARBOR
-    ## 242     NORTHWEST BOSTON HARBOR
-    ## 243     NORTHWEST BOSTON HARBOR
-    ## 244     NORTHWEST BOSTON HARBOR
-    ## 245     NORTHWEST BOSTON HARBOR
-    ## 246     NORTHWEST BOSTON HARBOR
-    ## 247     NORTHWEST BOSTON HARBOR
-    ## 248     NORTHWEST BOSTON HARBOR
-    ## 249     NORTHWEST BOSTON HARBOR
-    ## 250     NORTHWEST BOSTON HARBOR
-    ## 251     NORTHWEST BOSTON HARBOR
-    ## 252     NORTHWEST BOSTON HARBOR
-    ## 253         BOSTON INNER HARBOR
-    ## 254         BOSTON INNER HARBOR
-    ## 255         BOSTON INNER HARBOR
-    ## 256         BOSTON INNER HARBOR
-    ## 257         BOSTON INNER HARBOR
-    ## 258         BOSTON INNER HARBOR
-    ## 259         BOSTON INNER HARBOR
-    ## 260         BOSTON INNER HARBOR
-    ## 261         BOSTON INNER HARBOR
-    ## 262         BOSTON INNER HARBOR
-    ## 263         BOSTON INNER HARBOR
-    ## 264         BOSTON INNER HARBOR
-    ## 265         BOSTON INNER HARBOR
-    ## 266         BOSTON INNER HARBOR
-    ## 267         BOSTON INNER HARBOR
-    ## 268         BOSTON INNER HARBOR
-    ## 269         BOSTON INNER HARBOR
-    ## 270         BOSTON INNER HARBOR
-    ## 271         BOSTON INNER HARBOR
-    ## 272         BOSTON INNER HARBOR
-    ## 273         BOSTON INNER HARBOR
-    ## 274         BOSTON INNER HARBOR
-    ## 275         BOSTON INNER HARBOR
-    ## 276         BOSTON INNER HARBOR
-    ## 277         BOSTON INNER HARBOR
-    ## 278         BOSTON INNER HARBOR
-    ## 279         BOSTON INNER HARBOR
-    ## 280         BOSTON INNER HARBOR
-    ## 281         BOSTON INNER HARBOR
-    ## 282     NORTHWEST BOSTON HARBOR
-    ## 283     NORTHWEST BOSTON HARBOR
-    ## 284     NORTHWEST BOSTON HARBOR
-    ## 285     NORTHWEST BOSTON HARBOR
-    ## 286     NORTHWEST BOSTON HARBOR
-    ## 287     NORTHWEST BOSTON HARBOR
-    ## 288     NORTHWEST BOSTON HARBOR
-    ## 289     NORTHWEST BOSTON HARBOR
-    ## 290     NORTHWEST BOSTON HARBOR
-    ## 291             INLAND / RIVERS
-    ## 292             INLAND / RIVERS
-    ## 293     SOUTHEAST BOSTON HARBOR
-    ## 294     SOUTHEAST BOSTON HARBOR
-    ## 295     SOUTHEAST BOSTON HARBOR
-    ## 296     SOUTHEAST BOSTON HARBOR
-    ## 297     SOUTHEAST BOSTON HARBOR
-    ## 298         BOSTON INNER HARBOR
-    ## 299     SOUTHEAST BOSTON HARBOR
-    ## 300     SOUTHEAST BOSTON HARBOR
-    ## 301     SOUTHEAST BOSTON HARBOR
-    ## 302     SOUTHEAST BOSTON HARBOR
-    ## 303     SOUTHEAST BOSTON HARBOR
-    ## 304     SOUTHEAST BOSTON HARBOR
-    ## 305     SOUTHEAST BOSTON HARBOR
-    ## 306     SOUTHEAST BOSTON HARBOR
-    ## 307     SOUTHEAST BOSTON HARBOR
-    ## 308     SOUTHEAST BOSTON HARBOR
-    ## 309     NORTHWEST BOSTON HARBOR
-    ## 310     NORTHWEST BOSTON HARBOR
-    ## 311     NORTHWEST BOSTON HARBOR
-    ## 312     NORTHWEST BOSTON HARBOR
-    ## 313     NORTHWEST BOSTON HARBOR
-    ## 314     NORTHWEST BOSTON HARBOR
-    ## 315     NORTHWEST BOSTON HARBOR
-    ## 316     NORTHWEST BOSTON HARBOR
-    ## 317     NORTHWEST BOSTON HARBOR
-    ## 318     NORTHWEST BOSTON HARBOR
-    ## 319     NORTHWEST BOSTON HARBOR
-    ## 320     NORTHWEST BOSTON HARBOR
-    ## 321     NORTHWEST BOSTON HARBOR
-    ## 322             INLAND / RIVERS
-    ## 323             INLAND / RIVERS
-    ## 324             INLAND / RIVERS
-    ## 325             INLAND / RIVERS
-    ## 326             INLAND / RIVERS
-    ## 327             INLAND / RIVERS
-    ## 328             INLAND / RIVERS
-    ## 329             INLAND / RIVERS
-    ## 330             INLAND / RIVERS
-    ## 331             INLAND / RIVERS
-    ## 332             INLAND / RIVERS
-    ## 333             INLAND / RIVERS
-    ## 334             INLAND / RIVERS
-    ## 335             INLAND / RIVERS
-    ## 336             INLAND / RIVERS
-    ## 337             INLAND / RIVERS
-    ## 338             INLAND / RIVERS
-    ## 339             INLAND / RIVERS
-    ## 340             INLAND / RIVERS
-    ## 341         BOSTON INNER HARBOR
-    ## 342             INLAND / RIVERS
-    ## 343             INLAND / RIVERS
-    ## 344         BOSTON INNER HARBOR
-    ## 345         BOSTON INNER HARBOR
-    ## 346         BOSTON INNER HARBOR
-    ## 347         BOSTON INNER HARBOR
-    ## 348         BOSTON INNER HARBOR
-    ## 349         BOSTON INNER HARBOR
-    ## 350         BOSTON INNER HARBOR
-    ## 351         BOSTON INNER HARBOR
-    ## 352         BOSTON INNER HARBOR
-    ## 353         BOSTON INNER HARBOR
-    ## 354         BOSTON INNER HARBOR
-    ## 355         BOSTON INNER HARBOR
-    ## 356         BOSTON INNER HARBOR
-    ## 357         BOSTON INNER HARBOR
-    ## 358         BOSTON INNER HARBOR
-    ## 359         BOSTON INNER HARBOR
-    ## 360         BOSTON INNER HARBOR
-    ## 361         BOSTON INNER HARBOR
-    ## 362         BOSTON INNER HARBOR
-    ## 363         BOSTON INNER HARBOR
-    ## 364         BOSTON INNER HARBOR
-    ## 365         BOSTON INNER HARBOR
-    ## 366         BOSTON INNER HARBOR
-    ## 367         BOSTON INNER HARBOR
-    ## 368         BOSTON INNER HARBOR
-    ## 369         BOSTON INNER HARBOR
-    ## 370     NORTHWEST BOSTON HARBOR
-    ## 371         BOSTON INNER HARBOR
-    ## 372         BOSTON INNER HARBOR
-    ## 373         BOSTON INNER HARBOR
-    ## 374         BOSTON INNER HARBOR
-    ## 375         BOSTON INNER HARBOR
-    ## 376         BOSTON INNER HARBOR
-    ## 377         BOSTON INNER HARBOR
-    ## 378         BOSTON INNER HARBOR
-    ## 379         BOSTON INNER HARBOR
-    ## 380         BOSTON INNER HARBOR
-    ## 381         BOSTON INNER HARBOR
-    ## 382         BOSTON INNER HARBOR
-    ## 383         BOSTON INNER HARBOR
-    ## 384         BOSTON INNER HARBOR
-    ## 385         BOSTON INNER HARBOR
-    ## 386                   MASS BAYS
-    ## 387                CAPE COD BAY
-    ## 388                CAPE COD BAY
-    ## 389                   MASS BAYS
-    ## 390 GULF OF MAINE, >50M ISOBATH
-    ## 391 GULF OF MAINE, >50M ISOBATH
-    ## 392                   MASS BAYS
-    ## 393 GULF OF MAINE, >50M ISOBATH
-    ## 394 GULF OF MAINE, >50M ISOBATH
-    ## 395                   MASS BAYS
-    ## 396                   MASS BAYS
-    ## 397                   MASS BAYS
-    ## 398                   MASS BAYS
-    ## 399                   MASS BAYS
-    ## 400                   MASS BAYS
-    ## 401 GULF OF MAINE, >50M ISOBATH
-    ## 402 GULF OF MAINE, >50M ISOBATH
-    ## 403 GULF OF MAINE, >50M ISOBATH
-    ## 404 GULF OF MAINE, >50M ISOBATH
-    ## 405 GULF OF MAINE, >50M ISOBATH
-    ## 406 GULF OF MAINE, >50M ISOBATH
-    ## 407 GULF OF MAINE, >50M ISOBATH
-    ## 408 GULF OF MAINE, >50M ISOBATH
-    ## 409 GULF OF MAINE, >50M ISOBATH
-    ## 410 GULF OF MAINE, >50M ISOBATH
-    ## 411 GULF OF MAINE, >50M ISOBATH
-    ## 412 GULF OF MAINE, >50M ISOBATH
-    ## 413 GULF OF MAINE, >50M ISOBATH
-    ## 414 GULF OF MAINE, >50M ISOBATH
-    ## 415 GULF OF MAINE, >50M ISOBATH
-    ## 416 GULF OF MAINE, >50M ISOBATH
-    ## 417        GULF OF MAINE, <=50M
-    ## 418        GULF OF MAINE, <=50M
-    ## 419        GULF OF MAINE, <=50M
-    ## 420        GULF OF MAINE, <=50M
-    ## 421 GULF OF MAINE, >50M ISOBATH
-    ## 422 GULF OF MAINE, >50M ISOBATH
-    ## 423 GULF OF MAINE, >50M ISOBATH
-    ## 424 GULF OF MAINE, >50M ISOBATH
-    ## 425 GULF OF MAINE, >50M ISOBATH
-    ## 426 GULF OF MAINE, >50M ISOBATH
-    ## 427 GULF OF MAINE, >50M ISOBATH
-    ## 428 GULF OF MAINE, >50M ISOBATH
-    ## 429 GULF OF MAINE, >50M ISOBATH
-    ## 430 GULF OF MAINE, >50M ISOBATH
-    ## 431        GULF OF MAINE, <=50M
-    ## 432        GULF OF MAINE, <=50M
-    ## 433 GULF OF MAINE, >50M ISOBATH
-    ## 434 GULF OF MAINE, >50M ISOBATH
-    ## 435 GULF OF MAINE, >50M ISOBATH
-    ## 436 GULF OF MAINE, >50M ISOBATH
-    ## 437 GULF OF MAINE, >50M ISOBATH
-    ## 438 GULF OF MAINE, >50M ISOBATH
-    ## 439        GULF OF MAINE, <=50M
-    ## 440 GULF OF MAINE, >50M ISOBATH
-    ## 441 GULF OF MAINE, >50M ISOBATH
-    ## 442 GULF OF MAINE, >50M ISOBATH
-    ## 443 GULF OF MAINE, >50M ISOBATH
-    ## 444 GULF OF MAINE, >50M ISOBATH
-    ## 445 GULF OF MAINE, >50M ISOBATH
-    ## 446 GULF OF MAINE, >50M ISOBATH
-    ## 447 GULF OF MAINE, >50M ISOBATH
-    ## 448 GULF OF MAINE, >50M ISOBATH
-    ## 449     NORTHWEST BOSTON HARBOR
-    ## 450     NORTHWEST BOSTON HARBOR
-    ## 451       CENTRAL BOSTON HARBOR
-    ## 452       CENTRAL BOSTON HARBOR
-    ## 453     SOUTHEAST BOSTON HARBOR
-    ## 454                   MASS BAYS
-    ## 455                   MASS BAYS
-    ## 456                   MASS BAYS
-    ## 457 GULF OF MAINE, >50M ISOBATH
-    ## 458 GULF OF MAINE, >50M ISOBATH
-    ## 459                   MASS BAYS
-    ## 460 GULF OF MAINE, >50M ISOBATH
-    ## 461 GULF OF MAINE, >50M ISOBATH
-    ## 462                   MASS BAYS
-    ## 463                   MASS BAYS
-    ## 464                   MASS BAYS
-    ## 465                   MASS BAYS
-    ## 466                   MASS BAYS
-    ## 467                   MASS BAYS
-    ## 468                CAPE COD BAY
-    ## 469                CAPE COD BAY
-    ## 470     NORTHWEST BOSTON HARBOR
-    ## 471     NORTHWEST BOSTON HARBOR
-    ## 472     NORTHWEST BOSTON HARBOR
-    ## 473     NORTHWEST BOSTON HARBOR
-    ## 474     NORTHWEST BOSTON HARBOR
-    ## 475     NORTHWEST BOSTON HARBOR
-    ## 476     NORTHWEST BOSTON HARBOR
-    ## 477     NORTHWEST BOSTON HARBOR
-    ## 478     NORTHWEST BOSTON HARBOR
-    ## 479     NORTHWEST BOSTON HARBOR
-    ## 480     NORTHWEST BOSTON HARBOR
-    ## 481     NORTHWEST BOSTON HARBOR
-    ## 482           HARBOR APPROACHES
-    ## 483       CENTRAL BOSTON HARBOR
-    ## 484       CENTRAL BOSTON HARBOR
-    ## 485       CENTRAL BOSTON HARBOR
-    ## 486       CENTRAL BOSTON HARBOR
-    ## 487       CENTRAL BOSTON HARBOR
-    ## 488       CENTRAL BOSTON HARBOR
-    ## 489       CENTRAL BOSTON HARBOR
-    ## 490       CENTRAL BOSTON HARBOR
-    ## 491       CENTRAL BOSTON HARBOR
-    ## 492       CENTRAL BOSTON HARBOR
-    ## 493       CENTRAL BOSTON HARBOR
-    ## 494       CENTRAL BOSTON HARBOR
-    ## 495     SOUTHEAST BOSTON HARBOR
-    ## 496     SOUTHEAST BOSTON HARBOR
-    ## 497     SOUTHEAST BOSTON HARBOR
-    ## 498     SOUTHEAST BOSTON HARBOR
-    ## 499     SOUTHEAST BOSTON HARBOR
-    ## 500     SOUTHEAST BOSTON HARBOR
-    ## 501                   MASS BAYS
-    ## 502                   MASS BAYS
-    ## 503                   MASS BAYS
-    ## 504                   MASS BAYS
-    ## 505                   MASS BAYS
-    ## 506                   MASS BAYS
-    ## 507                   MASS BAYS
-    ## 508                   MASS BAYS
-    ## 509                   MASS BAYS
-    ## 510                   MASS BAYS
-    ## 511                   MASS BAYS
-    ## 512                   MASS BAYS
-    ## 513                   MASS BAYS
-    ## 514 GULF OF MAINE, >50M ISOBATH
-    ## 515 GULF OF MAINE, >50M ISOBATH
-    ## 516 GULF OF MAINE, >50M ISOBATH
-    ## 517 GULF OF MAINE, >50M ISOBATH
-    ## 518 GULF OF MAINE, >50M ISOBATH
-    ## 519 GULF OF MAINE, >50M ISOBATH
-    ## 520 GULF OF MAINE, >50M ISOBATH
-    ## 521 GULF OF MAINE, >50M ISOBATH
-    ## 522 GULF OF MAINE, >50M ISOBATH
-    ## 523 GULF OF MAINE, >50M ISOBATH
-    ## 524 GULF OF MAINE, >50M ISOBATH
-    ## 525 GULF OF MAINE, >50M ISOBATH
-    ## 526                   MASS BAYS
-    ## 527                   MASS BAYS
-    ## 528                   MASS BAYS
-    ## 529                   MASS BAYS
-    ## 530                   MASS BAYS
-    ## 531                   MASS BAYS
-    ## 532 GULF OF MAINE, >50M ISOBATH
-    ## 533 GULF OF MAINE, >50M ISOBATH
-    ## 534 GULF OF MAINE, >50M ISOBATH
-    ## 535 GULF OF MAINE, >50M ISOBATH
-    ## 536 GULF OF MAINE, >50M ISOBATH
-    ## 537 GULF OF MAINE, >50M ISOBATH
-    ## 538 GULF OF MAINE, >50M ISOBATH
-    ## 539 GULF OF MAINE, >50M ISOBATH
-    ## 540 GULF OF MAINE, >50M ISOBATH
-    ## 541 GULF OF MAINE, >50M ISOBATH
-    ## 542 GULF OF MAINE, >50M ISOBATH
-    ## 543 GULF OF MAINE, >50M ISOBATH
-    ## 544                   MASS BAYS
-    ## 545                   MASS BAYS
-    ## 546                   MASS BAYS
-    ## 547                   MASS BAYS
-    ## 548                   MASS BAYS
-    ## 549                   MASS BAYS
-    ## 550                   MASS BAYS
-    ## 551                   MASS BAYS
-    ## 552                   MASS BAYS
-    ## 553                   MASS BAYS
-    ## 554                   MASS BAYS
-    ## 555                   MASS BAYS
-    ## 556                   MASS BAYS
-    ## 557                   MASS BAYS
-    ## 558                   MASS BAYS
-    ## 559                   MASS BAYS
-    ## 560                   MASS BAYS
-    ## 561                   MASS BAYS
-    ## 562                   MASS BAYS
-    ## 563                   MASS BAYS
-    ## 564                   MASS BAYS
-    ## 565                   MASS BAYS
-    ## 566                   MASS BAYS
-    ## 567                   MASS BAYS
-    ## 568                   MASS BAYS
-    ## 569                   MASS BAYS
-    ## 570                   MASS BAYS
-    ## 571                   MASS BAYS
-    ## 572                   MASS BAYS
-    ## 573                   MASS BAYS
-    ## 574                   MASS BAYS
-    ## 575                   MASS BAYS
-    ## 576                   MASS BAYS
-    ## 577                   MASS BAYS
-    ## 578                   MASS BAYS
-    ## 579                   MASS BAYS
-    ## 580                   MASS BAYS
-    ## 581                   MASS BAYS
-    ## 582                   MASS BAYS
-    ## 583                   MASS BAYS
-    ## 584                CAPE COD BAY
-    ## 585                CAPE COD BAY
-    ## 586                CAPE COD BAY
-    ## 587                CAPE COD BAY
-    ## 588                CAPE COD BAY
-    ## 589                CAPE COD BAY
-    ## 590                CAPE COD BAY
-    ## 591                CAPE COD BAY
-    ## 592                CAPE COD BAY
-    ## 593                CAPE COD BAY
-    ## 594                CAPE COD BAY
-    ## 595                CAPE COD BAY
-    ## 596 GULF OF MAINE, >50M ISOBATH
-    ## 597 GULF OF MAINE, >50M ISOBATH
-    ## 598 GULF OF MAINE, >50M ISOBATH
-    ## 599 GULF OF MAINE, >50M ISOBATH
-    ## 600 GULF OF MAINE, >50M ISOBATH
-    ## 601 GULF OF MAINE, >50M ISOBATH
-    ## 602 GULF OF MAINE, >50M ISOBATH
-    ## 603 GULF OF MAINE, >50M ISOBATH
-    ## 604 GULF OF MAINE, >50M ISOBATH
-    ## 605 GULF OF MAINE, >50M ISOBATH
-    ## 606 GULF OF MAINE, >50M ISOBATH
-    ## 607 GULF OF MAINE, >50M ISOBATH
-    ## 608 GULF OF MAINE, >50M ISOBATH
-    ## 609 GULF OF MAINE, >50M ISOBATH
-    ## 610 GULF OF MAINE, >50M ISOBATH
-    ## 611 GULF OF MAINE, >50M ISOBATH
-    ## 612 GULF OF MAINE, >50M ISOBATH
-    ## 613 GULF OF MAINE, >50M ISOBATH
-    ## 614 GULF OF MAINE, >50M ISOBATH
-    ## 615 GULF OF MAINE, >50M ISOBATH
-    ## 616                   MASS BAYS
-    ## 617                   MASS BAYS
-    ## 618                   MASS BAYS
-    ## 619                   MASS BAYS
-    ## 620                   MASS BAYS
-    ## 621                   MASS BAYS
-    ## 622                   MASS BAYS
-    ## 623                   MASS BAYS
-    ## 624                   MASS BAYS
-    ## 625                   MASS BAYS
-    ## 626                   MASS BAYS
-    ## 627                   MASS BAYS
-    ## 628                   MASS BAYS
-    ## 629                   MASS BAYS
-    ## 630                   MASS BAYS
-    ## 631                   MASS BAYS
-    ## 632                   MASS BAYS
-    ## 633                   MASS BAYS
-    ## 634                   MASS BAYS
-    ## 635                   MASS BAYS
-    ## 636                   MASS BAYS
-    ## 637                   MASS BAYS
-    ## 638                   MASS BAYS
-    ## 639                   MASS BAYS
-    ## 640                   MASS BAYS
-    ## 641                   MASS BAYS
-    ## 642     NORTHWEST BOSTON HARBOR
-    ## 643     NORTHWEST BOSTON HARBOR
-    ## 644     NORTHWEST BOSTON HARBOR
-    ## 645     NORTHWEST BOSTON HARBOR
-    ## 646     NORTHWEST BOSTON HARBOR
-    ## 647     NORTHWEST BOSTON HARBOR
-    ## 648     NORTHWEST BOSTON HARBOR
-    ## 649     NORTHWEST BOSTON HARBOR
-    ## 650     NORTHWEST BOSTON HARBOR
-    ## 651     SOUTHEAST BOSTON HARBOR
-    ## 652     SOUTHEAST BOSTON HARBOR
-    ## 653     SOUTHEAST BOSTON HARBOR
-    ## 654       CENTRAL BOSTON HARBOR
-    ## 655       CENTRAL BOSTON HARBOR
-    ## 656       CENTRAL BOSTON HARBOR
-    ## 657         BOSTON INNER HARBOR
-    ## 658         BOSTON INNER HARBOR
-    ## 659         BOSTON INNER HARBOR
-    ## 660         BOSTON INNER HARBOR
-    ## 661         BOSTON INNER HARBOR
-    ## 662         BOSTON INNER HARBOR
-    ## 663         BOSTON INNER HARBOR
-    ## 664         BOSTON INNER HARBOR
-    ## 665         BOSTON INNER HARBOR
-    ## 666         BOSTON INNER HARBOR
-    ## 667         BOSTON INNER HARBOR
-    ## 668     NORTHWEST BOSTON HARBOR
-    ## 669     NORTHWEST BOSTON HARBOR
-    ## 670     NORTHWEST BOSTON HARBOR
-    ## 671     NORTHWEST BOSTON HARBOR
-    ## 672     NORTHWEST BOSTON HARBOR
-    ## 673     NORTHWEST BOSTON HARBOR
-    ## 674     NORTHWEST BOSTON HARBOR
-    ## 675     NORTHWEST BOSTON HARBOR
-    ## 676     NORTHWEST BOSTON HARBOR
-    ## 677     NORTHWEST BOSTON HARBOR
-    ## 678     NORTHWEST BOSTON HARBOR
-    ## 679     NORTHWEST BOSTON HARBOR
-    ## 680     NORTHWEST BOSTON HARBOR
-    ## 681     NORTHWEST BOSTON HARBOR
-    ## 682     NORTHWEST BOSTON HARBOR
-    ## 683     NORTHWEST BOSTON HARBOR
-    ## 684     NORTHWEST BOSTON HARBOR
-    ## 685     NORTHWEST BOSTON HARBOR
-    ## 686     NORTHWEST BOSTON HARBOR
-    ## 687     NORTHWEST BOSTON HARBOR
-    ## 688     NORTHWEST BOSTON HARBOR
-    ## 689     NORTHWEST BOSTON HARBOR
-    ## 690     NORTHWEST BOSTON HARBOR
-    ## 691     NORTHWEST BOSTON HARBOR
-    ## 692     NORTHWEST BOSTON HARBOR
-    ## 693     NORTHWEST BOSTON HARBOR
-    ## 694     NORTHWEST BOSTON HARBOR
-    ## 695     NORTHWEST BOSTON HARBOR
-    ## 696     NORTHWEST BOSTON HARBOR
-    ## 697     NORTHWEST BOSTON HARBOR
-    ## 698     NORTHWEST BOSTON HARBOR
-    ## 699     NORTHWEST BOSTON HARBOR
-    ## 700     NORTHWEST BOSTON HARBOR
-    ## 701     NORTHWEST BOSTON HARBOR
-    ## 702     NORTHWEST BOSTON HARBOR
-    ## 703     NORTHWEST BOSTON HARBOR
-    ## 704     NORTHWEST BOSTON HARBOR
-    ## 705     NORTHWEST BOSTON HARBOR
-    ## 706     NORTHWEST BOSTON HARBOR
-    ## 707     NORTHWEST BOSTON HARBOR
-    ## 708     NORTHWEST BOSTON HARBOR
-    ## 709     NORTHWEST BOSTON HARBOR
-    ## 710     NORTHWEST BOSTON HARBOR
-    ## 711     NORTHWEST BOSTON HARBOR
-    ## 712     NORTHWEST BOSTON HARBOR
-    ## 713     NORTHWEST BOSTON HARBOR
-    ## 714     NORTHWEST BOSTON HARBOR
-    ## 715     NORTHWEST BOSTON HARBOR
-    ## 716     NORTHWEST BOSTON HARBOR
-    ## 717                   MASS BAYS
-    ## 718                   MASS BAYS
-    ## 719                   MASS BAYS
-    ## 720                   MASS BAYS
-    ## 721                   MASS BAYS
-    ## 722                   MASS BAYS
-    ## 723                   MASS BAYS
-    ## 724                   MASS BAYS
-    ## 725                   MASS BAYS
-    ## 726         BOSTON INNER HARBOR
-    ## 727     NORTHWEST BOSTON HARBOR
-    ## 728     NORTHWEST BOSTON HARBOR
-    ## 729     SOUTHEAST BOSTON HARBOR
-    ## 730     SOUTHEAST BOSTON HARBOR
-    ## 731       CENTRAL BOSTON HARBOR
-    ## 732       CENTRAL BOSTON HARBOR
-    ## 733       CENTRAL BOSTON HARBOR
-    ## 734         BOSTON INNER HARBOR
-    ## 735         BOSTON INNER HARBOR
-    ## 736     NORTHWEST BOSTON HARBOR
-    ## 737     NORTHWEST BOSTON HARBOR
-    ## 738     NORTHWEST BOSTON HARBOR
-    ## 739       CENTRAL BOSTON HARBOR
-    ## 740       CENTRAL BOSTON HARBOR
-    ## 741       CENTRAL BOSTON HARBOR
-    ## 742     SOUTHEAST BOSTON HARBOR
-    ## 743                   MASS BAYS
-    ## 744       CENTRAL BOSTON HARBOR
-    ## 745                   MASS BAYS
-    ## 746                   MASS BAYS
-    ## 747                   MASS BAYS
-    ## 748           HARBOR APPROACHES
-    ## 749     NORTHWEST BOSTON HARBOR
-    ## 750     NORTHWEST BOSTON HARBOR
-    ## 751     NORTHWEST BOSTON HARBOR
-    ## 752     NORTHWEST BOSTON HARBOR
-    ## 753         BOSTON INNER HARBOR
-    ## 754         BOSTON INNER HARBOR
-    ## 755         BOSTON INNER HARBOR
-    ## 756         BOSTON INNER HARBOR
-    ## 757         BOSTON INNER HARBOR
-    ## 758         BOSTON INNER HARBOR
-    ## 759         BOSTON INNER HARBOR
-    ## 760         BOSTON INNER HARBOR
-    ## 761         BOSTON INNER HARBOR
-    ## 762         BOSTON INNER HARBOR
-    ## 763         BOSTON INNER HARBOR
-    ## 764         BOSTON INNER HARBOR
-    ## 765         BOSTON INNER HARBOR
-    ## 766         BOSTON INNER HARBOR
-    ## 767     NORTHWEST BOSTON HARBOR
-    ## 768     NORTHWEST BOSTON HARBOR
-    ## 769     NORTHWEST BOSTON HARBOR
-    ## 770     NORTHWEST BOSTON HARBOR
-    ## 771     NORTHWEST BOSTON HARBOR
-    ## 772     NORTHWEST BOSTON HARBOR
-    ## 773     NORTHWEST BOSTON HARBOR
-    ## 774     NORTHWEST BOSTON HARBOR
-    ## 775     NORTHWEST BOSTON HARBOR
-    ## 776     NORTHWEST BOSTON HARBOR
-    ## 777     NORTHWEST BOSTON HARBOR
-    ## 778     NORTHWEST BOSTON HARBOR
-    ## 779     NORTHWEST BOSTON HARBOR
-    ## 780     NORTHWEST BOSTON HARBOR
-    ## 781     NORTHWEST BOSTON HARBOR
-    ## 782     NORTHWEST BOSTON HARBOR
-    ## 783     NORTHWEST BOSTON HARBOR
-    ## 784     NORTHWEST BOSTON HARBOR
-    ## 785     NORTHWEST BOSTON HARBOR
-    ## 786     NORTHWEST BOSTON HARBOR
-    ## 787     NORTHWEST BOSTON HARBOR
-    ## 788     NORTHWEST BOSTON HARBOR
-    ## 789     NORTHWEST BOSTON HARBOR
-    ## 790     NORTHWEST BOSTON HARBOR
-    ## 791     NORTHWEST BOSTON HARBOR
-    ## 792     NORTHWEST BOSTON HARBOR
-    ## 793     NORTHWEST BOSTON HARBOR
+    ##                      GEN_LOC_NM.1
+    ## 1             Boston Inner Harbor
+    ## 2             Boston Inner Harbor
+    ## 3             Boston Inner Harbor
+    ## 4             Boston Inner Harbor
+    ## 5             Boston Inner Harbor
+    ## 6             Boston Inner Harbor
+    ## 7             Boston Inner Harbor
+    ## 8             Boston Inner Harbor
+    ## 9             Boston Inner Harbor
+    ## 10        Northwest Boston Harbor
+    ## 11        Northwest Boston Harbor
+    ## 12            Boston Inner Harbor
+    ## 13            Boston Inner Harbor
+    ## 14            Boston Inner Harbor
+    ## 15            Boston Inner Harbor
+    ## 16            Boston Inner Harbor
+    ## 17            Boston Inner Harbor
+    ## 18            Boston Inner Harbor
+    ## 19            Boston Inner Harbor
+    ## 20            Boston Inner Harbor
+    ## 21          Central Boston Harbor
+    ## 22          Central Boston Harbor
+    ## 23             Massachusetts Bays
+    ## 24             Massachusetts Bays
+    ## 25             Massachusetts Bays
+    ## 26             Massachusetts Bays
+    ## 27             Massachusetts Bays
+    ## 28             Massachusetts Bays
+    ## 29             Massachusetts Bays
+    ## 30             Massachusetts Bays
+    ## 31             Massachusetts Bays
+    ## 32             Massachusetts Bays
+    ## 33             Massachusetts Bays
+    ## 34             Massachusetts Bays
+    ## 35             Massachusetts Bays
+    ## 36             Massachusetts Bays
+    ## 37             Massachusetts Bays
+    ## 38             Massachusetts Bays
+    ## 39             Massachusetts Bays
+    ## 40             Massachusetts Bays
+    ## 41             Massachusetts Bays
+    ## 42             Massachusetts Bays
+    ## 43             Massachusetts Bays
+    ## 44             Massachusetts Bays
+    ## 45             Massachusetts Bays
+    ## 46             Massachusetts Bays
+    ## 47             Massachusetts Bays
+    ## 48             Massachusetts Bays
+    ## 49             Massachusetts Bays
+    ## 50             Massachusetts Bays
+    ## 51             Massachusetts Bays
+    ## 52            Boston Inner Harbor
+    ## 53            Boston Inner Harbor
+    ## 54            Boston Inner Harbor
+    ## 55            Boston Inner Harbor
+    ## 56            Boston Inner Harbor
+    ## 57        Northwest Boston Harbor
+    ## 58        Northwest Boston Harbor
+    ## 59        Northwest Boston Harbor
+    ## 60        Northwest Boston Harbor
+    ## 61        Northwest Boston Harbor
+    ## 62            Boston Inner Harbor
+    ## 63            Boston Inner Harbor
+    ## 64        Northwest Boston Harbor
+    ## 65        Northwest Boston Harbor
+    ## 66        Northwest Boston Harbor
+    ## 67                  Cape Code Bay
+    ## 68                  Cape Code Bay
+    ## 69                  Cape Code Bay
+    ## 70                  Cape Code Bay
+    ## 71                  Cape Code Bay
+    ## 72                  Cape Code Bay
+    ## 73                  Cape Code Bay
+    ## 74                  Cape Code Bay
+    ## 75                  Cape Code Bay
+    ## 76                  Cape Code Bay
+    ## 77                  Cape Code Bay
+    ## 78                  Cape Code Bay
+    ## 79                  Cape Code Bay
+    ## 80                  Cape Code Bay
+    ## 81             Massachusetts Bays
+    ## 82             Massachusetts Bays
+    ## 83             Massachusetts Bays
+    ## 84        Southeast Boston Harbor
+    ## 85        Southeast Boston Harbor
+    ## 86        Southeast Boston Harbor
+    ## 87             Massachusetts Bays
+    ## 88             Massachusetts Bays
+    ## 89                  Inland/Rivers
+    ## 90                  Inland/Rivers
+    ## 91                  Inland/Rivers
+    ## 92            Boston Inner Harbor
+    ## 93            Boston Inner Harbor
+    ## 94            Boston Inner Harbor
+    ## 95            Boston Inner Harbor
+    ## 96             Massachusetts Bays
+    ## 97             Massachusetts Bays
+    ## 98             Massachusetts Bays
+    ## 99             Massachusetts Bays
+    ## 100            Massachusetts Bays
+    ## 101            Massachusetts Bays
+    ## 102            Massachusetts Bays
+    ## 103            Massachusetts Bays
+    ## 104            Massachusetts Bays
+    ## 105            Massachusetts Bays
+    ## 106       Northwest Boston Harbor
+    ## 107       Northwest Boston Harbor
+    ## 108       Northwest Boston Harbor
+    ## 109       Northwest Boston Harbor
+    ## 110       Northwest Boston Harbor
+    ## 111       Northwest Boston Harbor
+    ## 112       Northwest Boston Harbor
+    ## 113       Northwest Boston Harbor
+    ## 114       Northwest Boston Harbor
+    ## 115       Northwest Boston Harbor
+    ## 116       Northwest Boston Harbor
+    ## 117       Northwest Boston Harbor
+    ## 118       Northwest Boston Harbor
+    ## 119       Northwest Boston Harbor
+    ## 120       Northwest Boston Harbor
+    ## 121       Northwest Boston Harbor
+    ## 122       Northwest Boston Harbor
+    ## 123       Northwest Boston Harbor
+    ## 124       Northwest Boston Harbor
+    ## 125       Northwest Boston Harbor
+    ## 126       Northwest Boston Harbor
+    ## 127       Northwest Boston Harbor
+    ## 128       Northwest Boston Harbor
+    ## 129       Northwest Boston Harbor
+    ## 130       Northwest Boston Harbor
+    ## 131           Boston Inner Harbor
+    ## 132            Massachusetts Bays
+    ## 133            Massachusetts Bays
+    ## 134            Massachusetts Bays
+    ## 135            Massachusetts Bays
+    ## 136            Massachusetts Bays
+    ## 137            Massachusetts Bays
+    ## 138            Massachusetts Bays
+    ## 139            Massachusetts Bays
+    ## 140            Massachusetts Bays
+    ## 141       Southeast Boston Harbor
+    ## 142            Massachusetts Bays
+    ## 143       Northwest Boston Harbor
+    ## 144       Northwest Boston Harbor
+    ## 145           Boston Inner Harbor
+    ## 146           Boston Inner Harbor
+    ## 147           Boston Inner Harbor
+    ## 148            Massachusetts Bays
+    ## 149            Massachusetts Bays
+    ## 150            Massachusetts Bays
+    ## 151            Massachusetts Bays
+    ## 152            Massachusetts Bays
+    ## 153            Massachusetts Bays
+    ## 154       Northwest Boston Harbor
+    ## 155       Northwest Boston Harbor
+    ## 156       Northwest Boston Harbor
+    ## 157       Northwest Boston Harbor
+    ## 158                 Cape Code Bay
+    ## 159       Northwest Boston Harbor
+    ## 160       Northwest Boston Harbor
+    ## 161       Northwest Boston Harbor
+    ## 162       Northwest Boston Harbor
+    ## 163       Northwest Boston Harbor
+    ## 164       Northwest Boston Harbor
+    ## 165       Northwest Boston Harbor
+    ## 166       Northwest Boston Harbor
+    ## 167       Northwest Boston Harbor
+    ## 168       Northwest Boston Harbor
+    ## 169       Northwest Boston Harbor
+    ## 170       Northwest Boston Harbor
+    ## 171       Northwest Boston Harbor
+    ## 172       Northwest Boston Harbor
+    ## 173            Massachusetts Bays
+    ## 174           Boston Inner Harbor
+    ## 175           Boston Inner Harbor
+    ## 176           Boston Inner Harbor
+    ## 177       Northwest Boston Harbor
+    ## 178       Northwest Boston Harbor
+    ## 179       Northwest Boston Harbor
+    ## 180       Northwest Boston Harbor
+    ## 181            Massachusetts Bays
+    ## 182            Massachusetts Bays
+    ## 183            Massachusetts Bays
+    ## 184            Massachusetts Bays
+    ## 185            Massachusetts Bays
+    ## 186           Boston Inner Harbor
+    ## 187           Boston Inner Harbor
+    ## 188           Boston Inner Harbor
+    ## 189           Boston Inner Harbor
+    ## 190           Boston Inner Harbor
+    ## 191    Cape Ann to Cape Elizabeth
+    ## 192       Northwest Boston Harbor
+    ## 193       Northwest Boston Harbor
+    ## 194       Northwest Boston Harbor
+    ## 195       Northwest Boston Harbor
+    ## 196       Northwest Boston Harbor
+    ## 197           Boston Inner Harbor
+    ## 198           Boston Inner Harbor
+    ## 199           Boston Inner Harbor
+    ## 200                 Cape Code Bay
+    ## 201                 Cape Code Bay
+    ## 202                 Inland/Rivers
+    ## 203                 Inland/Rivers
+    ## 204                 Inland/Rivers
+    ## 205                 Inland/Rivers
+    ## 206                 Inland/Rivers
+    ## 207                 Inland/Rivers
+    ## 208                 Inland/Rivers
+    ## 209                 Inland/Rivers
+    ## 210                 Inland/Rivers
+    ## 211                 Inland/Rivers
+    ## 212                 Inland/Rivers
+    ## 213                 Inland/Rivers
+    ## 214                 Inland/Rivers
+    ## 215                 Inland/Rivers
+    ## 216                 Inland/Rivers
+    ## 217                 Inland/Rivers
+    ## 218                 Inland/Rivers
+    ## 219                 Inland/Rivers
+    ## 220                 Inland/Rivers
+    ## 221                 Inland/Rivers
+    ## 222                 Inland/Rivers
+    ## 223                 Inland/Rivers
+    ## 224                 Inland/Rivers
+    ## 225                 Inland/Rivers
+    ## 226                 Inland/Rivers
+    ## 227                 Inland/Rivers
+    ## 228                 Inland/Rivers
+    ## 229                 Inland/Rivers
+    ## 230                 Inland/Rivers
+    ## 231                 Inland/Rivers
+    ## 232                 Inland/Rivers
+    ## 233                 Inland/Rivers
+    ## 234                 Inland/Rivers
+    ## 235                 Inland/Rivers
+    ## 236                 Inland/Rivers
+    ## 237                 Inland/Rivers
+    ## 238                 Inland/Rivers
+    ## 239       Northwest Boston Harbor
+    ## 240       Northwest Boston Harbor
+    ## 241       Northwest Boston Harbor
+    ## 242       Northwest Boston Harbor
+    ## 243       Northwest Boston Harbor
+    ## 244       Northwest Boston Harbor
+    ## 245       Northwest Boston Harbor
+    ## 246       Northwest Boston Harbor
+    ## 247       Northwest Boston Harbor
+    ## 248       Northwest Boston Harbor
+    ## 249       Northwest Boston Harbor
+    ## 250       Northwest Boston Harbor
+    ## 251       Northwest Boston Harbor
+    ## 252       Northwest Boston Harbor
+    ## 253           Boston Inner Harbor
+    ## 254           Boston Inner Harbor
+    ## 255           Boston Inner Harbor
+    ## 256           Boston Inner Harbor
+    ## 257           Boston Inner Harbor
+    ## 258           Boston Inner Harbor
+    ## 259           Boston Inner Harbor
+    ## 260           Boston Inner Harbor
+    ## 261           Boston Inner Harbor
+    ## 262           Boston Inner Harbor
+    ## 263           Boston Inner Harbor
+    ## 264           Boston Inner Harbor
+    ## 265           Boston Inner Harbor
+    ## 266           Boston Inner Harbor
+    ## 267           Boston Inner Harbor
+    ## 268           Boston Inner Harbor
+    ## 269           Boston Inner Harbor
+    ## 270           Boston Inner Harbor
+    ## 271           Boston Inner Harbor
+    ## 272           Boston Inner Harbor
+    ## 273           Boston Inner Harbor
+    ## 274           Boston Inner Harbor
+    ## 275           Boston Inner Harbor
+    ## 276           Boston Inner Harbor
+    ## 277           Boston Inner Harbor
+    ## 278           Boston Inner Harbor
+    ## 279           Boston Inner Harbor
+    ## 280           Boston Inner Harbor
+    ## 281           Boston Inner Harbor
+    ## 282       Northwest Boston Harbor
+    ## 283       Northwest Boston Harbor
+    ## 284       Northwest Boston Harbor
+    ## 285       Northwest Boston Harbor
+    ## 286       Northwest Boston Harbor
+    ## 287       Northwest Boston Harbor
+    ## 288       Northwest Boston Harbor
+    ## 289       Northwest Boston Harbor
+    ## 290       Northwest Boston Harbor
+    ## 291                 Inland/Rivers
+    ## 292                 Inland/Rivers
+    ## 293       Southeast Boston Harbor
+    ## 294       Southeast Boston Harbor
+    ## 295       Southeast Boston Harbor
+    ## 296       Southeast Boston Harbor
+    ## 297       Southeast Boston Harbor
+    ## 298           Boston Inner Harbor
+    ## 299       Southeast Boston Harbor
+    ## 300       Southeast Boston Harbor
+    ## 301       Southeast Boston Harbor
+    ## 302       Southeast Boston Harbor
+    ## 303       Southeast Boston Harbor
+    ## 304       Southeast Boston Harbor
+    ## 305       Southeast Boston Harbor
+    ## 306       Southeast Boston Harbor
+    ## 307       Southeast Boston Harbor
+    ## 308       Southeast Boston Harbor
+    ## 309       Northwest Boston Harbor
+    ## 310       Northwest Boston Harbor
+    ## 311       Northwest Boston Harbor
+    ## 312       Northwest Boston Harbor
+    ## 313       Northwest Boston Harbor
+    ## 314       Northwest Boston Harbor
+    ## 315       Northwest Boston Harbor
+    ## 316       Northwest Boston Harbor
+    ## 317       Northwest Boston Harbor
+    ## 318       Northwest Boston Harbor
+    ## 319       Northwest Boston Harbor
+    ## 320       Northwest Boston Harbor
+    ## 321       Northwest Boston Harbor
+    ## 322                 Inland/Rivers
+    ## 323                 Inland/Rivers
+    ## 324                 Inland/Rivers
+    ## 325                 Inland/Rivers
+    ## 326                 Inland/Rivers
+    ## 327                 Inland/Rivers
+    ## 328                 Inland/Rivers
+    ## 329                 Inland/Rivers
+    ## 330                 Inland/Rivers
+    ## 331                 Inland/Rivers
+    ## 332                 Inland/Rivers
+    ## 333                 Inland/Rivers
+    ## 334                 Inland/Rivers
+    ## 335                 Inland/Rivers
+    ## 336                 Inland/Rivers
+    ## 337                 Inland/Rivers
+    ## 338                 Inland/Rivers
+    ## 339                 Inland/Rivers
+    ## 340                 Inland/Rivers
+    ## 341           Boston Inner Harbor
+    ## 342                 Inland/Rivers
+    ## 343                 Inland/Rivers
+    ## 344           Boston Inner Harbor
+    ## 345           Boston Inner Harbor
+    ## 346           Boston Inner Harbor
+    ## 347           Boston Inner Harbor
+    ## 348           Boston Inner Harbor
+    ## 349           Boston Inner Harbor
+    ## 350           Boston Inner Harbor
+    ## 351           Boston Inner Harbor
+    ## 352           Boston Inner Harbor
+    ## 353           Boston Inner Harbor
+    ## 354           Boston Inner Harbor
+    ## 355           Boston Inner Harbor
+    ## 356           Boston Inner Harbor
+    ## 357           Boston Inner Harbor
+    ## 358           Boston Inner Harbor
+    ## 359           Boston Inner Harbor
+    ## 360           Boston Inner Harbor
+    ## 361           Boston Inner Harbor
+    ## 362           Boston Inner Harbor
+    ## 363           Boston Inner Harbor
+    ## 364           Boston Inner Harbor
+    ## 365           Boston Inner Harbor
+    ## 366           Boston Inner Harbor
+    ## 367           Boston Inner Harbor
+    ## 368           Boston Inner Harbor
+    ## 369           Boston Inner Harbor
+    ## 370       Northwest Boston Harbor
+    ## 371           Boston Inner Harbor
+    ## 372           Boston Inner Harbor
+    ## 373           Boston Inner Harbor
+    ## 374           Boston Inner Harbor
+    ## 375           Boston Inner Harbor
+    ## 376           Boston Inner Harbor
+    ## 377           Boston Inner Harbor
+    ## 378           Boston Inner Harbor
+    ## 379           Boston Inner Harbor
+    ## 380           Boston Inner Harbor
+    ## 381           Boston Inner Harbor
+    ## 382           Boston Inner Harbor
+    ## 383           Boston Inner Harbor
+    ## 384           Boston Inner Harbor
+    ## 385           Boston Inner Harbor
+    ## 386            Massachusetts Bays
+    ## 387                 Cape Code Bay
+    ## 388                 Cape Code Bay
+    ## 389            Massachusetts Bays
+    ## 390  Gulf of Maine (>50m Isobath)
+    ## 391  Gulf of Maine (>50m Isobath)
+    ## 392            Massachusetts Bays
+    ## 393  Gulf of Maine (>50m Isobath)
+    ## 394  Gulf of Maine (>50m Isobath)
+    ## 395            Massachusetts Bays
+    ## 396            Massachusetts Bays
+    ## 397            Massachusetts Bays
+    ## 398            Massachusetts Bays
+    ## 399            Massachusetts Bays
+    ## 400            Massachusetts Bays
+    ## 401  Gulf of Maine (>50m Isobath)
+    ## 402  Gulf of Maine (>50m Isobath)
+    ## 403  Gulf of Maine (>50m Isobath)
+    ## 404  Gulf of Maine (>50m Isobath)
+    ## 405  Gulf of Maine (>50m Isobath)
+    ## 406  Gulf of Maine (>50m Isobath)
+    ## 407  Gulf of Maine (>50m Isobath)
+    ## 408  Gulf of Maine (>50m Isobath)
+    ## 409  Gulf of Maine (>50m Isobath)
+    ## 410  Gulf of Maine (>50m Isobath)
+    ## 411  Gulf of Maine (>50m Isobath)
+    ## 412  Gulf of Maine (>50m Isobath)
+    ## 413  Gulf of Maine (>50m Isobath)
+    ## 414  Gulf of Maine (>50m Isobath)
+    ## 415  Gulf of Maine (>50m Isobath)
+    ## 416  Gulf of Maine (>50m Isobath)
+    ## 417 Gulf of Maine (<=50m Isobath)
+    ## 418 Gulf of Maine (<=50m Isobath)
+    ## 419 Gulf of Maine (<=50m Isobath)
+    ## 420 Gulf of Maine (<=50m Isobath)
+    ## 421  Gulf of Maine (>50m Isobath)
+    ## 422  Gulf of Maine (>50m Isobath)
+    ## 423  Gulf of Maine (>50m Isobath)
+    ## 424  Gulf of Maine (>50m Isobath)
+    ## 425  Gulf of Maine (>50m Isobath)
+    ## 426  Gulf of Maine (>50m Isobath)
+    ## 427  Gulf of Maine (>50m Isobath)
+    ## 428  Gulf of Maine (>50m Isobath)
+    ## 429  Gulf of Maine (>50m Isobath)
+    ## 430  Gulf of Maine (>50m Isobath)
+    ## 431 Gulf of Maine (<=50m Isobath)
+    ## 432 Gulf of Maine (<=50m Isobath)
+    ## 433  Gulf of Maine (>50m Isobath)
+    ## 434  Gulf of Maine (>50m Isobath)
+    ## 435  Gulf of Maine (>50m Isobath)
+    ## 436  Gulf of Maine (>50m Isobath)
+    ## 437  Gulf of Maine (>50m Isobath)
+    ## 438  Gulf of Maine (>50m Isobath)
+    ## 439 Gulf of Maine (<=50m Isobath)
+    ## 440  Gulf of Maine (>50m Isobath)
+    ## 441  Gulf of Maine (>50m Isobath)
+    ## 442  Gulf of Maine (>50m Isobath)
+    ## 443  Gulf of Maine (>50m Isobath)
+    ## 444  Gulf of Maine (>50m Isobath)
+    ## 445  Gulf of Maine (>50m Isobath)
+    ## 446  Gulf of Maine (>50m Isobath)
+    ## 447  Gulf of Maine (>50m Isobath)
+    ## 448  Gulf of Maine (>50m Isobath)
+    ## 449       Northwest Boston Harbor
+    ## 450       Northwest Boston Harbor
+    ## 451         Central Boston Harbor
+    ## 452         Central Boston Harbor
+    ## 453       Southeast Boston Harbor
+    ## 454            Massachusetts Bays
+    ## 455            Massachusetts Bays
+    ## 456            Massachusetts Bays
+    ## 457  Gulf of Maine (>50m Isobath)
+    ## 458  Gulf of Maine (>50m Isobath)
+    ## 459            Massachusetts Bays
+    ## 460  Gulf of Maine (>50m Isobath)
+    ## 461  Gulf of Maine (>50m Isobath)
+    ## 462            Massachusetts Bays
+    ## 463            Massachusetts Bays
+    ## 464            Massachusetts Bays
+    ## 465            Massachusetts Bays
+    ## 466            Massachusetts Bays
+    ## 467            Massachusetts Bays
+    ## 468                 Cape Code Bay
+    ## 469                 Cape Code Bay
+    ## 470       Northwest Boston Harbor
+    ## 471       Northwest Boston Harbor
+    ## 472       Northwest Boston Harbor
+    ## 473       Northwest Boston Harbor
+    ## 474       Northwest Boston Harbor
+    ## 475       Northwest Boston Harbor
+    ## 476       Northwest Boston Harbor
+    ## 477       Northwest Boston Harbor
+    ## 478       Northwest Boston Harbor
+    ## 479       Northwest Boston Harbor
+    ## 480       Northwest Boston Harbor
+    ## 481       Northwest Boston Harbor
+    ## 482             Harbor Approaches
+    ## 483         Central Boston Harbor
+    ## 484         Central Boston Harbor
+    ## 485         Central Boston Harbor
+    ## 486         Central Boston Harbor
+    ## 487         Central Boston Harbor
+    ## 488         Central Boston Harbor
+    ## 489         Central Boston Harbor
+    ## 490         Central Boston Harbor
+    ## 491         Central Boston Harbor
+    ## 492         Central Boston Harbor
+    ## 493         Central Boston Harbor
+    ## 494         Central Boston Harbor
+    ## 495       Southeast Boston Harbor
+    ## 496       Southeast Boston Harbor
+    ## 497       Southeast Boston Harbor
+    ## 498       Southeast Boston Harbor
+    ## 499       Southeast Boston Harbor
+    ## 500       Southeast Boston Harbor
+    ## 501            Massachusetts Bays
+    ## 502            Massachusetts Bays
+    ## 503            Massachusetts Bays
+    ## 504            Massachusetts Bays
+    ## 505            Massachusetts Bays
+    ## 506            Massachusetts Bays
+    ## 507            Massachusetts Bays
+    ## 508            Massachusetts Bays
+    ## 509            Massachusetts Bays
+    ## 510            Massachusetts Bays
+    ## 511            Massachusetts Bays
+    ## 512            Massachusetts Bays
+    ## 513            Massachusetts Bays
+    ## 514  Gulf of Maine (>50m Isobath)
+    ## 515  Gulf of Maine (>50m Isobath)
+    ## 516  Gulf of Maine (>50m Isobath)
+    ## 517  Gulf of Maine (>50m Isobath)
+    ## 518  Gulf of Maine (>50m Isobath)
+    ## 519  Gulf of Maine (>50m Isobath)
+    ## 520  Gulf of Maine (>50m Isobath)
+    ## 521  Gulf of Maine (>50m Isobath)
+    ## 522  Gulf of Maine (>50m Isobath)
+    ## 523  Gulf of Maine (>50m Isobath)
+    ## 524  Gulf of Maine (>50m Isobath)
+    ## 525  Gulf of Maine (>50m Isobath)
+    ## 526            Massachusetts Bays
+    ## 527            Massachusetts Bays
+    ## 528            Massachusetts Bays
+    ## 529            Massachusetts Bays
+    ## 530            Massachusetts Bays
+    ## 531            Massachusetts Bays
+    ## 532  Gulf of Maine (>50m Isobath)
+    ## 533  Gulf of Maine (>50m Isobath)
+    ## 534  Gulf of Maine (>50m Isobath)
+    ## 535  Gulf of Maine (>50m Isobath)
+    ## 536  Gulf of Maine (>50m Isobath)
+    ## 537  Gulf of Maine (>50m Isobath)
+    ## 538  Gulf of Maine (>50m Isobath)
+    ## 539  Gulf of Maine (>50m Isobath)
+    ## 540  Gulf of Maine (>50m Isobath)
+    ## 541  Gulf of Maine (>50m Isobath)
+    ## 542  Gulf of Maine (>50m Isobath)
+    ## 543  Gulf of Maine (>50m Isobath)
+    ## 544            Massachusetts Bays
+    ## 545            Massachusetts Bays
+    ## 546            Massachusetts Bays
+    ## 547            Massachusetts Bays
+    ## 548            Massachusetts Bays
+    ## 549            Massachusetts Bays
+    ## 550            Massachusetts Bays
+    ## 551            Massachusetts Bays
+    ## 552            Massachusetts Bays
+    ## 553            Massachusetts Bays
+    ## 554            Massachusetts Bays
+    ## 555            Massachusetts Bays
+    ## 556            Massachusetts Bays
+    ## 557            Massachusetts Bays
+    ## 558            Massachusetts Bays
+    ## 559            Massachusetts Bays
+    ## 560            Massachusetts Bays
+    ## 561            Massachusetts Bays
+    ## 562            Massachusetts Bays
+    ## 563            Massachusetts Bays
+    ## 564            Massachusetts Bays
+    ## 565            Massachusetts Bays
+    ## 566            Massachusetts Bays
+    ## 567            Massachusetts Bays
+    ## 568            Massachusetts Bays
+    ## 569            Massachusetts Bays
+    ## 570            Massachusetts Bays
+    ## 571            Massachusetts Bays
+    ## 572            Massachusetts Bays
+    ## 573            Massachusetts Bays
+    ## 574            Massachusetts Bays
+    ## 575            Massachusetts Bays
+    ## 576            Massachusetts Bays
+    ## 577            Massachusetts Bays
+    ## 578            Massachusetts Bays
+    ## 579            Massachusetts Bays
+    ## 580            Massachusetts Bays
+    ## 581            Massachusetts Bays
+    ## 582            Massachusetts Bays
+    ## 583            Massachusetts Bays
+    ## 584                 Cape Code Bay
+    ## 585                 Cape Code Bay
+    ## 586                 Cape Code Bay
+    ## 587                 Cape Code Bay
+    ## 588                 Cape Code Bay
+    ## 589                 Cape Code Bay
+    ## 590                 Cape Code Bay
+    ## 591                 Cape Code Bay
+    ## 592                 Cape Code Bay
+    ## 593                 Cape Code Bay
+    ## 594                 Cape Code Bay
+    ## 595                 Cape Code Bay
+    ## 596  Gulf of Maine (>50m Isobath)
+    ## 597  Gulf of Maine (>50m Isobath)
+    ## 598  Gulf of Maine (>50m Isobath)
+    ## 599  Gulf of Maine (>50m Isobath)
+    ## 600  Gulf of Maine (>50m Isobath)
+    ## 601  Gulf of Maine (>50m Isobath)
+    ## 602  Gulf of Maine (>50m Isobath)
+    ## 603  Gulf of Maine (>50m Isobath)
+    ## 604  Gulf of Maine (>50m Isobath)
+    ## 605  Gulf of Maine (>50m Isobath)
+    ## 606  Gulf of Maine (>50m Isobath)
+    ## 607  Gulf of Maine (>50m Isobath)
+    ## 608  Gulf of Maine (>50m Isobath)
+    ## 609  Gulf of Maine (>50m Isobath)
+    ## 610  Gulf of Maine (>50m Isobath)
+    ## 611  Gulf of Maine (>50m Isobath)
+    ## 612  Gulf of Maine (>50m Isobath)
+    ## 613  Gulf of Maine (>50m Isobath)
+    ## 614  Gulf of Maine (>50m Isobath)
+    ## 615  Gulf of Maine (>50m Isobath)
+    ## 616            Massachusetts Bays
+    ## 617            Massachusetts Bays
+    ## 618            Massachusetts Bays
+    ## 619            Massachusetts Bays
+    ## 620            Massachusetts Bays
+    ## 621            Massachusetts Bays
+    ## 622            Massachusetts Bays
+    ## 623            Massachusetts Bays
+    ## 624            Massachusetts Bays
+    ## 625            Massachusetts Bays
+    ## 626            Massachusetts Bays
+    ## 627            Massachusetts Bays
+    ## 628            Massachusetts Bays
+    ## 629            Massachusetts Bays
+    ## 630            Massachusetts Bays
+    ## 631            Massachusetts Bays
+    ## 632            Massachusetts Bays
+    ## 633            Massachusetts Bays
+    ## 634            Massachusetts Bays
+    ## 635            Massachusetts Bays
+    ## 636            Massachusetts Bays
+    ## 637            Massachusetts Bays
+    ## 638            Massachusetts Bays
+    ## 639            Massachusetts Bays
+    ## 640            Massachusetts Bays
+    ## 641            Massachusetts Bays
+    ## 642       Northwest Boston Harbor
+    ## 643       Northwest Boston Harbor
+    ## 644       Northwest Boston Harbor
+    ## 645       Northwest Boston Harbor
+    ## 646       Northwest Boston Harbor
+    ## 647       Northwest Boston Harbor
+    ## 648       Northwest Boston Harbor
+    ## 649       Northwest Boston Harbor
+    ## 650       Northwest Boston Harbor
+    ## 651       Southeast Boston Harbor
+    ## 652       Southeast Boston Harbor
+    ## 653       Southeast Boston Harbor
+    ## 654         Central Boston Harbor
+    ## 655         Central Boston Harbor
+    ## 656         Central Boston Harbor
+    ## 657           Boston Inner Harbor
+    ## 658           Boston Inner Harbor
+    ## 659           Boston Inner Harbor
+    ## 660           Boston Inner Harbor
+    ## 661           Boston Inner Harbor
+    ## 662           Boston Inner Harbor
+    ## 663           Boston Inner Harbor
+    ## 664           Boston Inner Harbor
+    ## 665           Boston Inner Harbor
+    ## 666           Boston Inner Harbor
+    ## 667           Boston Inner Harbor
+    ## 668       Northwest Boston Harbor
+    ## 669       Northwest Boston Harbor
+    ## 670       Northwest Boston Harbor
+    ## 671       Northwest Boston Harbor
+    ## 672       Northwest Boston Harbor
+    ## 673       Northwest Boston Harbor
+    ## 674       Northwest Boston Harbor
+    ## 675       Northwest Boston Harbor
+    ## 676       Northwest Boston Harbor
+    ## 677       Northwest Boston Harbor
+    ## 678       Northwest Boston Harbor
+    ## 679       Northwest Boston Harbor
+    ## 680       Northwest Boston Harbor
+    ## 681       Northwest Boston Harbor
+    ## 682       Northwest Boston Harbor
+    ## 683       Northwest Boston Harbor
+    ## 684       Northwest Boston Harbor
+    ## 685       Northwest Boston Harbor
+    ## 686       Northwest Boston Harbor
+    ## 687       Northwest Boston Harbor
+    ## 688       Northwest Boston Harbor
+    ## 689       Northwest Boston Harbor
+    ## 690       Northwest Boston Harbor
+    ## 691       Northwest Boston Harbor
+    ## 692       Northwest Boston Harbor
+    ## 693       Northwest Boston Harbor
+    ## 694       Northwest Boston Harbor
+    ## 695       Northwest Boston Harbor
+    ## 696       Northwest Boston Harbor
+    ## 697       Northwest Boston Harbor
+    ## 698       Northwest Boston Harbor
+    ## 699       Northwest Boston Harbor
+    ## 700       Northwest Boston Harbor
+    ## 701       Northwest Boston Harbor
+    ## 702       Northwest Boston Harbor
+    ## 703       Northwest Boston Harbor
+    ## 704       Northwest Boston Harbor
+    ## 705       Northwest Boston Harbor
+    ## 706       Northwest Boston Harbor
+    ## 707       Northwest Boston Harbor
+    ## 708       Northwest Boston Harbor
+    ## 709       Northwest Boston Harbor
+    ## 710       Northwest Boston Harbor
+    ## 711       Northwest Boston Harbor
+    ## 712       Northwest Boston Harbor
+    ## 713       Northwest Boston Harbor
+    ## 714       Northwest Boston Harbor
+    ## 715       Northwest Boston Harbor
+    ## 716       Northwest Boston Harbor
+    ## 717            Massachusetts Bays
+    ## 718            Massachusetts Bays
+    ## 719            Massachusetts Bays
+    ## 720            Massachusetts Bays
+    ## 721            Massachusetts Bays
+    ## 722            Massachusetts Bays
+    ## 723            Massachusetts Bays
+    ## 724            Massachusetts Bays
+    ## 725            Massachusetts Bays
+    ## 726           Boston Inner Harbor
+    ## 727       Northwest Boston Harbor
+    ## 728       Northwest Boston Harbor
+    ## 729       Southeast Boston Harbor
+    ## 730       Southeast Boston Harbor
+    ## 731         Central Boston Harbor
+    ## 732         Central Boston Harbor
+    ## 733         Central Boston Harbor
+    ## 734           Boston Inner Harbor
+    ## 735           Boston Inner Harbor
+    ## 736       Northwest Boston Harbor
+    ## 737       Northwest Boston Harbor
+    ## 738       Northwest Boston Harbor
+    ## 739         Central Boston Harbor
+    ## 740         Central Boston Harbor
+    ## 741         Central Boston Harbor
+    ## 742       Southeast Boston Harbor
+    ## 743            Massachusetts Bays
+    ## 744         Central Boston Harbor
+    ## 745            Massachusetts Bays
+    ## 746            Massachusetts Bays
+    ## 747            Massachusetts Bays
+    ## 748             Harbor Approaches
+    ## 749       Northwest Boston Harbor
+    ## 750       Northwest Boston Harbor
+    ## 751       Northwest Boston Harbor
+    ## 752       Northwest Boston Harbor
+    ## 753           Boston Inner Harbor
+    ## 754           Boston Inner Harbor
+    ## 755           Boston Inner Harbor
+    ## 756           Boston Inner Harbor
+    ## 757           Boston Inner Harbor
+    ## 758           Boston Inner Harbor
+    ## 759           Boston Inner Harbor
+    ## 760           Boston Inner Harbor
+    ## 761           Boston Inner Harbor
+    ## 762           Boston Inner Harbor
+    ## 763           Boston Inner Harbor
+    ## 764           Boston Inner Harbor
+    ## 765           Boston Inner Harbor
+    ## 766           Boston Inner Harbor
+    ## 767       Northwest Boston Harbor
+    ## 768       Northwest Boston Harbor
+    ## 769       Northwest Boston Harbor
+    ## 770       Northwest Boston Harbor
+    ## 771       Northwest Boston Harbor
+    ## 772       Northwest Boston Harbor
+    ## 773       Northwest Boston Harbor
+    ## 774       Northwest Boston Harbor
+    ## 775       Northwest Boston Harbor
+    ## 776       Northwest Boston Harbor
+    ## 777       Northwest Boston Harbor
+    ## 778       Northwest Boston Harbor
+    ## 779       Northwest Boston Harbor
+    ## 780       Northwest Boston Harbor
+    ## 781       Northwest Boston Harbor
+    ## 782       Northwest Boston Harbor
+    ## 783       Northwest Boston Harbor
+    ## 784       Northwest Boston Harbor
+    ## 785       Northwest Boston Harbor
+    ## 786       Northwest Boston Harbor
+    ## 787       Northwest Boston Harbor
+    ## 788       Northwest Boston Harbor
+    ## 789       Northwest Boston Harbor
+    ## 790       Northwest Boston Harbor
+    ## 791       Northwest Boston Harbor
+    ## 792       Northwest Boston Harbor
+    ## 793       Northwest Boston Harbor
     ##                                                                                  SPECFC_LOC.1
     ## 1                                                                                         BIH
     ## 2                                                                                         BIH
@@ -15295,800 +16083,1594 @@ unique ID.
     ## 791                                              <NA>
     ## 792                                              <NA>
     ## 793                                              <NA>
-    ##                         DPTH_CODE.1 COR_GRB_CD.1                        site.1
-    ## 1                           Unknown         Grab           Boston Inner Harbor
-    ## 2                           Unknown         Grab           Boston Inner Harbor
-    ## 3                             Depth         Core           Boston Inner Harbor
-    ## 4                             Depth         Core           Boston Inner Harbor
-    ## 5                           Unknown         Grab           Boston Inner Harbor
-    ## 6                           Unknown         Grab           Boston Inner Harbor
-    ## 7                           Unknown         Grab           Boston Inner Harbor
-    ## 8                           Unknown         Grab           Boston Inner Harbor
-    ## 9                           Unknown         Grab           Boston Inner Harbor
-    ## 10                          Unknown         Grab       Northwest Boston Harbor
-    ## 11                          Unknown         Grab       Northwest Boston Harbor
-    ## 12                          Unknown         Grab           Boston Inner Harbor
-    ## 13                          Unknown         Grab           Boston Inner Harbor
-    ## 14                          Unknown         Grab           Boston Inner Harbor
-    ## 15                          Surface         Grab           Boston Inner Harbor
-    ## 16                          Surface         Grab           Boston Inner Harbor
-    ## 17                          Surface         Grab           Boston Inner Harbor
-    ## 18                          Unknown         Grab           Boston Inner Harbor
-    ## 19                          Unknown         Grab           Boston Inner Harbor
-    ## 20                          Unknown         Grab           Boston Inner Harbor
-    ## 21                          Unknown         Grab         Central Boston Harbor
-    ## 22                          Unknown         Grab         Central Boston Harbor
-    ## 23                          Surface         Grab            Massachusetts Bays
-    ## 24                          Surface         Grab            Massachusetts Bays
-    ## 25                          Surface         Grab            Massachusetts Bays
-    ## 26                          Surface         Grab            Massachusetts Bays
-    ## 27                          Surface         Grab            Massachusetts Bays
-    ## 28                          Surface         Grab            Massachusetts Bays
-    ## 29                          Surface         Grab            Massachusetts Bays
-    ## 30                          Surface         Grab            Massachusetts Bays
-    ## 31                          Surface         Grab            Massachusetts Bays
-    ## 32                          Surface         Grab            Massachusetts Bays
-    ## 33                          Surface         Grab            Massachusetts Bays
-    ## 34                          Surface         Grab            Massachusetts Bays
-    ## 35                          Surface         Grab            Massachusetts Bays
-    ## 36                          Surface         Grab            Massachusetts Bays
-    ## 37                          Surface         Grab            Massachusetts Bays
-    ## 38                          Surface         Grab            Massachusetts Bays
-    ## 39                          Surface         Grab            Massachusetts Bays
-    ## 40                          Surface         Grab            Massachusetts Bays
-    ## 41                          Surface         Grab            Massachusetts Bays
-    ## 42                          Surface         Grab            Massachusetts Bays
-    ## 43                          Surface         Grab            Massachusetts Bays
-    ## 44                          Surface         Grab            Massachusetts Bays
-    ## 45                          Surface         Grab            Massachusetts Bays
-    ## 46                          Surface         Grab            Massachusetts Bays
-    ## 47                            Depth         Grab            Massachusetts Bays
-    ## 48                            Depth         Grab            Massachusetts Bays
-    ## 49                            Depth         Grab            Massachusetts Bays
-    ## 50                            Depth         Grab            Massachusetts Bays
-    ## 51                            Depth         Grab            Massachusetts Bays
-    ## 52                          Unknown         Grab           Boston Inner Harbor
-    ## 53                            Depth         Grab           Boston Inner Harbor
-    ## 54                            Depth         Grab           Boston Inner Harbor
-    ## 55                            Depth         Grab           Boston Inner Harbor
-    ## 56                            Depth         Grab           Boston Inner Harbor
-    ## 57                            Depth         Grab       Northwest Boston Harbor
-    ## 58                            Depth         Grab       Northwest Boston Harbor
-    ## 59                            Depth         Grab       Northwest Boston Harbor
-    ## 60                            Depth         Grab       Northwest Boston Harbor
-    ## 61                            Depth         Grab       Northwest Boston Harbor
-    ## 62                            Depth         Grab           Boston Inner Harbor
-    ## 63                            Depth         Grab           Boston Inner Harbor
-    ## 64                          Unknown         Grab       Northwest Boston Harbor
-    ## 65                          Unknown         Grab       Northwest Boston Harbor
-    ## 66                          Unknown         Grab       Northwest Boston Harbor
-    ## 67                            Depth         Core                 Cape Code Bay
-    ## 68                          Surface         Core                 Cape Code Bay
-    ## 69                            Depth         Core                 Cape Code Bay
-    ## 70                          Surface         Core                 Cape Code Bay
-    ## 71                            Depth         Core                 Cape Code Bay
-    ## 72                          Surface         Core                 Cape Code Bay
-    ## 73                            Depth         Core                 Cape Code Bay
-    ## 74                          Surface         Core                 Cape Code Bay
-    ## 75                            Depth         Core                 Cape Code Bay
-    ## 76                          Unknown         Grab                 Cape Code Bay
-    ## 77                          Unknown         Grab                 Cape Code Bay
-    ## 78                          Unknown         Grab                 Cape Code Bay
-    ## 79                          Unknown         Grab                 Cape Code Bay
-    ## 80                          Unknown         Grab                 Cape Code Bay
-    ## 81                          Unknown         Grab            Massachusetts Bays
-    ## 82                          Unknown         Grab            Massachusetts Bays
-    ## 83                          Unknown         Grab            Massachusetts Bays
-    ## 84                          Unknown         Grab       Southeast Boston Harbor
-    ## 85                          Unknown         Grab       Southeast Boston Harbor
-    ## 86                          Unknown         Grab       Southeast Boston Harbor
-    ## 87                          Unknown         Grab            Massachusetts Bays
-    ## 88                          Unknown         Grab            Massachusetts Bays
-    ## 89                          Unknown      Unknown                 Inland/Rivers
-    ## 90                          Unknown      Unknown                 Inland/Rivers
-    ## 91                          Unknown      Unknown                 Inland/Rivers
-    ## 92                          Unknown         Grab           Boston Inner Harbor
-    ## 93                          Unknown         Grab           Boston Inner Harbor
-    ## 94                          Unknown         Grab           Boston Inner Harbor
-    ## 95                          Unknown         Grab           Boston Inner Harbor
-    ## 96                            Depth         Core            Massachusetts Bays
-    ## 97                          Surface         Core            Massachusetts Bays
-    ## 98                            Depth         Core            Massachusetts Bays
-    ## 99                          Surface         Core            Massachusetts Bays
-    ## 100                           Depth         Core            Massachusetts Bays
-    ## 101                         Surface         Core            Massachusetts Bays
-    ## 102                           Depth         Core            Massachusetts Bays
-    ## 103                         Surface         Core            Massachusetts Bays
-    ## 104                         Surface         Core            Massachusetts Bays
-    ## 105                           Depth         Core            Massachusetts Bays
-    ## 106                           Depth         Core       Northwest Boston Harbor
-    ## 107                         Surface         Core       Northwest Boston Harbor
-    ## 108                           Depth         Core       Northwest Boston Harbor
-    ## 109                         Surface         Core       Northwest Boston Harbor
-    ## 110                           Depth         Core       Northwest Boston Harbor
-    ## 111                         Surface         Core       Northwest Boston Harbor
-    ## 112                           Depth         Core       Northwest Boston Harbor
-    ## 113                         Surface         Core       Northwest Boston Harbor
-    ## 114                           Depth         Core       Northwest Boston Harbor
-    ## 115                         Surface         Core       Northwest Boston Harbor
-    ## 116                           Depth         Core       Northwest Boston Harbor
-    ## 117                         Surface         Core       Northwest Boston Harbor
-    ## 118                         Surface         Core       Northwest Boston Harbor
-    ## 119                           Depth         Core       Northwest Boston Harbor
-    ## 120                         Surface         Core       Northwest Boston Harbor
-    ## 121                           Depth         Core       Northwest Boston Harbor
-    ## 122                         Surface         Core       Northwest Boston Harbor
-    ## 123                           Depth         Core       Northwest Boston Harbor
-    ## 124                         Surface         Core       Northwest Boston Harbor
-    ## 125                           Depth         Core       Northwest Boston Harbor
-    ## 126                         Surface         Core       Northwest Boston Harbor
-    ## 127                           Depth         Core       Northwest Boston Harbor
-    ## 128                         Surface         Core       Northwest Boston Harbor
-    ## 129                           Depth         Core       Northwest Boston Harbor
-    ## 130                         Surface         Core       Northwest Boston Harbor
-    ## 131                         Unknown         Grab           Boston Inner Harbor
-    ## 132                         Unknown         Grab            Massachusetts Bays
-    ## 133                         Unknown         Grab            Massachusetts Bays
-    ## 134                         Unknown         Grab            Massachusetts Bays
-    ## 135                         Unknown         Grab            Massachusetts Bays
-    ## 136                         Unknown         Grab            Massachusetts Bays
-    ## 137                         Unknown         Grab            Massachusetts Bays
-    ## 138                         Unknown         Grab            Massachusetts Bays
-    ## 139                         Unknown         Grab            Massachusetts Bays
-    ## 140                         Unknown         Grab            Massachusetts Bays
-    ## 141                         Unknown         Grab       Southeast Boston Harbor
-    ## 142                         Unknown         Grab            Massachusetts Bays
-    ## 143                         Unknown         Grab       Northwest Boston Harbor
-    ## 144                         Unknown         Grab       Northwest Boston Harbor
-    ## 145                         Unknown         Grab           Boston Inner Harbor
-    ## 146                         Unknown         Grab           Boston Inner Harbor
-    ## 147                         Unknown         Grab           Boston Inner Harbor
-    ## 148                         Unknown         Grab            Massachusetts Bays
-    ## 149                         Unknown         Grab            Massachusetts Bays
-    ## 150                         Unknown         Grab            Massachusetts Bays
-    ## 151                         Unknown         Grab            Massachusetts Bays
-    ## 152                         Unknown         Grab            Massachusetts Bays
-    ## 153                         Unknown         Grab            Massachusetts Bays
-    ## 154                         Unknown         Grab       Northwest Boston Harbor
-    ## 155                         Unknown         Grab       Northwest Boston Harbor
-    ## 156                         Unknown         Grab       Northwest Boston Harbor
-    ## 157                         Unknown         Grab       Northwest Boston Harbor
-    ## 158                         Unknown         Grab                 Cape Code Bay
-    ## 159                           Depth         Core       Northwest Boston Harbor
-    ## 160                         Surface         Core       Northwest Boston Harbor
-    ## 161                           Depth         Core       Northwest Boston Harbor
-    ## 162                         Surface         Core       Northwest Boston Harbor
-    ## 163                           Depth         Core       Northwest Boston Harbor
-    ## 164                           Depth         Core       Northwest Boston Harbor
-    ## 165                         Surface         Core       Northwest Boston Harbor
-    ## 166                           Depth         Core       Northwest Boston Harbor
-    ## 167                         Surface         Core       Northwest Boston Harbor
-    ## 168                           Depth         Core       Northwest Boston Harbor
-    ## 169                         Surface         Core       Northwest Boston Harbor
-    ## 170                           Depth         Core       Northwest Boston Harbor
-    ## 171                         Surface         Core       Northwest Boston Harbor
-    ## 172                         Surface         Core       Northwest Boston Harbor
-    ## 173                         Unknown         Grab            Massachusetts Bays
-    ## 174                         Unknown         Grab           Boston Inner Harbor
-    ## 175                         Unknown         Grab           Boston Inner Harbor
-    ## 176                         Unknown         Grab           Boston Inner Harbor
-    ## 177                         Unknown     Core (?)       Northwest Boston Harbor
-    ## 178                         Unknown     Core (?)       Northwest Boston Harbor
-    ## 179                         Unknown     Core (?)       Northwest Boston Harbor
-    ## 180                         Unknown     Core (?)       Northwest Boston Harbor
-    ## 181                           Depth         Grab            Massachusetts Bays
-    ## 182                           Depth         Grab            Massachusetts Bays
-    ## 183                           Depth         Grab            Massachusetts Bays
-    ## 184                           Depth         Grab            Massachusetts Bays
-    ## 185                           Depth         Grab            Massachusetts Bays
-    ## 186                         Unknown         Grab           Boston Inner Harbor
-    ## 187                         Unknown         Grab           Boston Inner Harbor
-    ## 188                         Unknown         Grab           Boston Inner Harbor
-    ## 189                         Unknown         Grab           Boston Inner Harbor
-    ## 190                         Unknown         Grab           Boston Inner Harbor
-    ## 191                         Unknown         Grab    Cape Ann to Cape Elizabeth
-    ## 192                         Unknown         Grab       Northwest Boston Harbor
-    ## 193                         Unknown         Grab       Northwest Boston Harbor
-    ## 194                         Unknown         Grab       Northwest Boston Harbor
-    ## 195                         Unknown         Grab       Northwest Boston Harbor
-    ## 196                         Unknown         Grab       Northwest Boston Harbor
-    ## 197                         Surface         Core           Boston Inner Harbor
-    ## 198                           Depth         Core           Boston Inner Harbor
-    ## 199                           Depth         Core           Boston Inner Harbor
-    ## 200                         Unknown         Grab                 Cape Code Bay
-    ## 201                         Unknown         Grab                 Cape Code Bay
-    ## 202                         Unknown         Core                 Inland/Rivers
-    ## 203                         Unknown         Core                 Inland/Rivers
-    ## 204                         Unknown         Core                 Inland/Rivers
-    ## 205                         Unknown         Core                 Inland/Rivers
-    ## 206                         Unknown         Core                 Inland/Rivers
-    ## 207                         Unknown         Core                 Inland/Rivers
-    ## 208                         Unknown         Core                 Inland/Rivers
-    ## 209                           Depth         Core                 Inland/Rivers
-    ## 210                           Depth         Core                 Inland/Rivers
-    ## 211                           Depth         Core                 Inland/Rivers
-    ## 212                           Depth         Core                 Inland/Rivers
-    ## 213                           Depth         Core                 Inland/Rivers
-    ## 214                           Depth         Core                 Inland/Rivers
-    ## 215                           Depth         Core                 Inland/Rivers
-    ## 216                           Depth         Core                 Inland/Rivers
-    ## 217                           Depth         Core                 Inland/Rivers
-    ## 218                           Depth         Core                 Inland/Rivers
-    ## 219                           Depth         Core                 Inland/Rivers
-    ## 220                           Depth         Core                 Inland/Rivers
-    ## 221                           Depth         Core                 Inland/Rivers
-    ## 222                           Depth         Core                 Inland/Rivers
-    ## 223                           Depth         Core                 Inland/Rivers
-    ## 224                           Depth         Core                 Inland/Rivers
-    ## 225                           Depth         Core                 Inland/Rivers
-    ## 226                           Depth         Core                 Inland/Rivers
-    ## 227                           Depth         Core                 Inland/Rivers
-    ## 228                           Depth         Core                 Inland/Rivers
-    ## 229                           Depth         Core                 Inland/Rivers
-    ## 230                           Depth         Core                 Inland/Rivers
-    ## 231                           Depth         Core                 Inland/Rivers
-    ## 232                           Depth         Core                 Inland/Rivers
-    ## 233                           Depth         Core                 Inland/Rivers
-    ## 234                           Depth         Core                 Inland/Rivers
-    ## 235                         Unknown         Core                 Inland/Rivers
-    ## 236                         Unknown         Core                 Inland/Rivers
-    ## 237                         Unknown         Core                 Inland/Rivers
-    ## 238                         Unknown         Core                 Inland/Rivers
-    ## 239                         Unknown         Grab       Northwest Boston Harbor
-    ## 240                         Unknown         Grab       Northwest Boston Harbor
-    ## 241                         Unknown         Grab       Northwest Boston Harbor
-    ## 242                         Unknown         Grab       Northwest Boston Harbor
-    ## 243                         Unknown         Grab       Northwest Boston Harbor
-    ## 244                         Unknown         Grab       Northwest Boston Harbor
-    ## 245                         Unknown         Grab       Northwest Boston Harbor
-    ## 246                         Unknown         Grab       Northwest Boston Harbor
-    ## 247                         Unknown         Grab       Northwest Boston Harbor
-    ## 248                         Unknown         Grab       Northwest Boston Harbor
-    ## 249                         Unknown         Grab       Northwest Boston Harbor
-    ## 250                         Unknown         Grab       Northwest Boston Harbor
-    ## 251                         Unknown         Grab       Northwest Boston Harbor
-    ## 252                         Unknown         Grab       Northwest Boston Harbor
-    ## 253                         Unknown         Grab           Boston Inner Harbor
-    ## 254                           Depth         Grab           Boston Inner Harbor
-    ## 255                           Depth         Grab           Boston Inner Harbor
-    ## 256                           Depth         Grab           Boston Inner Harbor
-    ## 257                           Depth         Grab           Boston Inner Harbor
-    ## 258                           Depth         Grab           Boston Inner Harbor
-    ## 259                           Depth         Grab           Boston Inner Harbor
-    ## 260                           Depth         Grab           Boston Inner Harbor
-    ## 261                           Depth         Grab           Boston Inner Harbor
-    ## 262                           Depth         Grab           Boston Inner Harbor
-    ## 263                           Depth         Grab           Boston Inner Harbor
-    ## 264                           Depth         Grab           Boston Inner Harbor
-    ## 265                           Depth         Grab           Boston Inner Harbor
-    ## 266                           Depth         Grab           Boston Inner Harbor
-    ## 267                           Depth         Grab           Boston Inner Harbor
-    ## 268                           Depth         Grab           Boston Inner Harbor
-    ## 269                           Depth         Grab           Boston Inner Harbor
-    ## 270                           Depth         Grab           Boston Inner Harbor
-    ## 271                           Depth         Grab           Boston Inner Harbor
-    ## 272                           Depth         Grab           Boston Inner Harbor
-    ## 273                           Depth         Grab           Boston Inner Harbor
-    ## 274                           Depth         Grab           Boston Inner Harbor
-    ## 275                           Depth         Grab           Boston Inner Harbor
-    ## 276                           Depth         Grab           Boston Inner Harbor
-    ## 277                           Depth         Grab           Boston Inner Harbor
-    ## 278                           Depth         Grab           Boston Inner Harbor
-    ## 279                           Depth         Grab           Boston Inner Harbor
-    ## 280                           Depth         Grab           Boston Inner Harbor
-    ## 281                           Depth         Grab           Boston Inner Harbor
-    ## 282                         Unknown         Grab       Northwest Boston Harbor
-    ## 283                         Unknown         Grab       Northwest Boston Harbor
-    ## 284                         Unknown         Grab       Northwest Boston Harbor
-    ## 285                         Unknown         Grab       Northwest Boston Harbor
-    ## 286                         Unknown         Grab       Northwest Boston Harbor
-    ## 287                         Unknown         Grab       Northwest Boston Harbor
-    ## 288                         Unknown         Grab       Northwest Boston Harbor
-    ## 289                         Unknown         Grab       Northwest Boston Harbor
-    ## 290                         Unknown         Grab       Northwest Boston Harbor
-    ## 291                         Unknown         Grab                 Inland/Rivers
-    ## 292                         Unknown         Grab                 Inland/Rivers
-    ## 293                         Surface         Grab       Southeast Boston Harbor
-    ## 294                         Surface         Grab       Southeast Boston Harbor
-    ## 295                         Surface         Grab       Southeast Boston Harbor
-    ## 296                         Surface         Grab       Southeast Boston Harbor
-    ## 297                         Surface         Grab       Southeast Boston Harbor
-    ## 298                           Depth         Grab           Boston Inner Harbor
-    ## 299                         Unknown         Grab       Southeast Boston Harbor
-    ## 300                         Unknown         Grab       Southeast Boston Harbor
-    ## 301                         Unknown         Grab       Southeast Boston Harbor
-    ## 302                         Unknown         Grab       Southeast Boston Harbor
-    ## 303                         Unknown         Grab       Southeast Boston Harbor
-    ## 304                         Unknown         Grab       Southeast Boston Harbor
-    ## 305                         Unknown         Grab       Southeast Boston Harbor
-    ## 306                         Unknown         Grab       Southeast Boston Harbor
-    ## 307                         Unknown         Grab       Southeast Boston Harbor
-    ## 308                         Unknown         Grab       Southeast Boston Harbor
-    ## 309                         Unknown         Grab       Northwest Boston Harbor
-    ## 310                         Unknown         Grab       Northwest Boston Harbor
-    ## 311                         Unknown         Grab       Northwest Boston Harbor
-    ## 312                         Surface         Grab       Northwest Boston Harbor
-    ## 313                           Depth         Grab       Northwest Boston Harbor
-    ## 314                         Surface         Grab       Northwest Boston Harbor
-    ## 315                           Depth         Grab       Northwest Boston Harbor
-    ## 316                         Surface         Grab       Northwest Boston Harbor
-    ## 317                           Depth         Grab       Northwest Boston Harbor
-    ## 318                         Surface         Grab       Northwest Boston Harbor
-    ## 319                           Depth         Grab       Northwest Boston Harbor
-    ## 320                           Depth         Grab       Northwest Boston Harbor
-    ## 321 Unknown (COE, probably surface)         Grab       Northwest Boston Harbor
-    ## 322 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 323 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 324 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 325 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 326 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 327 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 328 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 329 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 330 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 331 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 332 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 333 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 334 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 335 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 336 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 337 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 338 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 339 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 340 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 341 Unknown (COE, probably surface)         Grab           Boston Inner Harbor
-    ## 342 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 343 Unknown (COE, probably surface)         Grab                 Inland/Rivers
-    ## 344                           Depth         Core           Boston Inner Harbor
-    ## 345                         Surface         Core           Boston Inner Harbor
-    ## 346                           Depth         Core           Boston Inner Harbor
-    ## 347                         Surface         Grab           Boston Inner Harbor
-    ## 348                         Surface         Grab           Boston Inner Harbor
-    ## 349                         Surface         Grab           Boston Inner Harbor
-    ## 350                         Surface         Grab           Boston Inner Harbor
-    ## 351                         Surface         Grab           Boston Inner Harbor
-    ## 352                         Surface         Grab           Boston Inner Harbor
-    ## 353                           Depth         Grab           Boston Inner Harbor
-    ## 354                         Surface         Grab           Boston Inner Harbor
-    ## 355                         Surface         Grab           Boston Inner Harbor
-    ## 356                           Depth         Core           Boston Inner Harbor
-    ## 357                           Depth         Core           Boston Inner Harbor
-    ## 358                           Depth         Core           Boston Inner Harbor
-    ## 359                           Depth         Core           Boston Inner Harbor
-    ## 360                         Surface         Grab           Boston Inner Harbor
-    ## 361                           Depth         Core           Boston Inner Harbor
-    ## 362                           Depth         Core           Boston Inner Harbor
-    ## 363                         Surface         Core           Boston Inner Harbor
-    ## 364                           Depth         Core           Boston Inner Harbor
-    ## 365                           Depth         Core           Boston Inner Harbor
-    ## 366                           Depth         Core           Boston Inner Harbor
-    ## 367                         Surface         Grab           Boston Inner Harbor
-    ## 368                         Surface         Grab           Boston Inner Harbor
-    ## 369                         Surface         Grab           Boston Inner Harbor
-    ## 370                         Surface         Grab       Northwest Boston Harbor
-    ## 371                         Surface         Grab           Boston Inner Harbor
-    ## 372                         Surface         Grab           Boston Inner Harbor
-    ## 373                         Surface         Grab           Boston Inner Harbor
-    ## 374                         Surface         Grab           Boston Inner Harbor
-    ## 375                         Surface         Grab           Boston Inner Harbor
-    ## 376                         Surface         Grab           Boston Inner Harbor
-    ## 377                         Surface         Grab           Boston Inner Harbor
-    ## 378                         Surface         Grab           Boston Inner Harbor
-    ## 379                         Surface         Grab           Boston Inner Harbor
-    ## 380                         Surface         Grab           Boston Inner Harbor
-    ## 381                         Surface         Grab           Boston Inner Harbor
-    ## 382                         Unknown         Grab           Boston Inner Harbor
-    ## 383                         Unknown         Grab           Boston Inner Harbor
-    ## 384                         Unknown         Grab           Boston Inner Harbor
-    ## 385                         Unknown         Grab           Boston Inner Harbor
-    ## 386                         Surface         Grab            Massachusetts Bays
-    ## 387                         Surface         Grab                 Cape Code Bay
-    ## 388                         Surface         Grab                 Cape Code Bay
-    ## 389                         Surface         Grab            Massachusetts Bays
-    ## 390                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 391                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 392                         Surface         Grab            Massachusetts Bays
-    ## 393                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 394                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 395                         Surface         Grab            Massachusetts Bays
-    ## 396                         Surface         Grab            Massachusetts Bays
-    ## 397                         Surface         Grab            Massachusetts Bays
-    ## 398                         Surface         Grab            Massachusetts Bays
-    ## 399                         Surface         Grab            Massachusetts Bays
-    ## 400                         Surface         Grab            Massachusetts Bays
-    ## 401                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 402                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 403                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 404                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 405                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 406                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 407                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 408                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 409                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 410                         Surface         Core  Gulf of Maine (>50m Isobath)
-    ## 411                         Surface         Core  Gulf of Maine (>50m Isobath)
-    ## 412                         Surface         Core  Gulf of Maine (>50m Isobath)
-    ## 413                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 414                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 415                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 416                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 417                         Surface         Grab Gulf of Maine (<=50m Isobath)
-    ## 418                         Surface         Grab Gulf of Maine (<=50m Isobath)
-    ## 419                         Surface         Grab Gulf of Maine (<=50m Isobath)
-    ## 420                         Surface         Grab Gulf of Maine (<=50m Isobath)
-    ## 421                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 422                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 423                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 424                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 425                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 426                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 427                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 428                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 429                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 430                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 431                         Surface         Grab Gulf of Maine (<=50m Isobath)
-    ## 432                         Surface         Grab Gulf of Maine (<=50m Isobath)
-    ## 433                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 434                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 435                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 436                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 437                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 438                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 439                         Surface         Grab Gulf of Maine (<=50m Isobath)
-    ## 440                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 441                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 442                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 443                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 444                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 445                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 446                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 447                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 448                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 449                         Surface         Grab       Northwest Boston Harbor
-    ## 450                         Surface         Grab       Northwest Boston Harbor
-    ## 451                         Surface         Grab         Central Boston Harbor
-    ## 452                         Surface         Grab         Central Boston Harbor
-    ## 453                         Surface         Grab       Southeast Boston Harbor
-    ## 454                         Surface         Grab            Massachusetts Bays
-    ## 455                         Surface         Grab            Massachusetts Bays
-    ## 456                         Surface         Grab            Massachusetts Bays
-    ## 457                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 458                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 459                         Surface         Grab            Massachusetts Bays
-    ## 460                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 461                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 462                         Surface         Grab            Massachusetts Bays
-    ## 463                         Surface         Grab            Massachusetts Bays
-    ## 464                         Surface         Grab            Massachusetts Bays
-    ## 465                         Surface         Grab            Massachusetts Bays
-    ## 466                         Surface         Grab            Massachusetts Bays
-    ## 467                         Surface         Grab            Massachusetts Bays
-    ## 468                         Surface         Grab                 Cape Code Bay
-    ## 469                         Surface         Grab                 Cape Code Bay
-    ## 470                         Surface         Grab       Northwest Boston Harbor
-    ## 471                         Surface         Grab       Northwest Boston Harbor
-    ## 472                         Surface         Grab       Northwest Boston Harbor
-    ## 473                         Surface         Grab       Northwest Boston Harbor
-    ## 474                         Surface         Grab       Northwest Boston Harbor
-    ## 475                         Surface         Grab       Northwest Boston Harbor
-    ## 476                         Surface         Grab       Northwest Boston Harbor
-    ## 477                         Surface         Grab       Northwest Boston Harbor
-    ## 478                         Surface         Grab       Northwest Boston Harbor
-    ## 479                         Surface         Grab       Northwest Boston Harbor
-    ## 480                         Surface         Grab       Northwest Boston Harbor
-    ## 481                         Surface         Grab       Northwest Boston Harbor
-    ## 482                         Surface         Grab             Harbor Approaches
-    ## 483                         Surface         Grab         Central Boston Harbor
-    ## 484                         Surface         Grab         Central Boston Harbor
-    ## 485                         Surface         Grab         Central Boston Harbor
-    ## 486                         Surface         Grab         Central Boston Harbor
-    ## 487                         Surface         Grab         Central Boston Harbor
-    ## 488                         Surface         Grab         Central Boston Harbor
-    ## 489                         Surface         Grab         Central Boston Harbor
-    ## 490                         Surface         Grab         Central Boston Harbor
-    ## 491                         Surface         Grab         Central Boston Harbor
-    ## 492                         Surface         Grab         Central Boston Harbor
-    ## 493                         Surface         Grab         Central Boston Harbor
-    ## 494                         Surface         Grab         Central Boston Harbor
-    ## 495                         Surface         Grab       Southeast Boston Harbor
-    ## 496                         Surface         Grab       Southeast Boston Harbor
-    ## 497                         Surface         Grab       Southeast Boston Harbor
-    ## 498                         Surface         Grab       Southeast Boston Harbor
-    ## 499                         Surface         Grab       Southeast Boston Harbor
-    ## 500                         Surface         Grab       Southeast Boston Harbor
-    ## 501                         Surface         Grab            Massachusetts Bays
-    ## 502                         Surface         Grab            Massachusetts Bays
-    ## 503                         Surface         Grab            Massachusetts Bays
-    ## 504                         Surface         Grab            Massachusetts Bays
-    ## 505                         Surface         Grab            Massachusetts Bays
-    ## 506                         Surface         Grab            Massachusetts Bays
-    ## 507                         Surface         Grab            Massachusetts Bays
-    ## 508                         Surface         Grab            Massachusetts Bays
-    ## 509                         Surface         Grab            Massachusetts Bays
-    ## 510                         Surface         Grab            Massachusetts Bays
-    ## 511                         Surface         Grab            Massachusetts Bays
-    ## 512                         Surface         Grab            Massachusetts Bays
-    ## 513                         Surface         Grab            Massachusetts Bays
-    ## 514                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 515                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 516                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 517                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 518                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 519                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 520                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 521                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 522                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 523                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 524                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 525                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 526                         Surface         Grab            Massachusetts Bays
-    ## 527                         Surface         Grab            Massachusetts Bays
-    ## 528                         Surface         Grab            Massachusetts Bays
-    ## 529                         Surface         Grab            Massachusetts Bays
-    ## 530                         Surface         Grab            Massachusetts Bays
-    ## 531                         Surface         Grab            Massachusetts Bays
-    ## 532                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 533                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 534                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 535                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 536                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 537                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 538                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 539                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 540                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 541                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 542                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 543                         Surface         Grab  Gulf of Maine (>50m Isobath)
-    ## 544                         Surface         Grab            Massachusetts Bays
-    ## 545                         Surface         Grab            Massachusetts Bays
-    ## 546                         Surface         Grab            Massachusetts Bays
-    ## 547                         Surface         Grab            Massachusetts Bays
-    ## 548                         Surface         Grab            Massachusetts Bays
-    ## 549                         Surface         Grab            Massachusetts Bays
-    ## 550                         Surface         Grab            Massachusetts Bays
-    ## 551                         Surface         Grab            Massachusetts Bays
-    ## 552                         Surface         Grab            Massachusetts Bays
-    ## 553                         Surface         Grab            Massachusetts Bays
-    ## 554                         Surface         Grab            Massachusetts Bays
-    ## 555                         Surface         Grab            Massachusetts Bays
-    ## 556                         Surface         Grab            Massachusetts Bays
-    ## 557                         Surface         Grab            Massachusetts Bays
-    ## 558                         Surface         Grab            Massachusetts Bays
-    ## 559                         Surface         Grab            Massachusetts Bays
-    ## 560                         Surface         Grab            Massachusetts Bays
-    ## 561                         Surface         Grab            Massachusetts Bays
-    ## 562                         Surface         Grab            Massachusetts Bays
-    ## 563                         Surface         Grab            Massachusetts Bays
-    ## 564                         Surface         Grab            Massachusetts Bays
-    ## 565                         Surface         Grab            Massachusetts Bays
-    ## 566                         Surface         Grab            Massachusetts Bays
-    ## 567                         Surface         Grab            Massachusetts Bays
-    ## 568                         Surface         Grab            Massachusetts Bays
-    ## 569                         Surface         Grab            Massachusetts Bays
-    ## 570                         Surface         Grab            Massachusetts Bays
-    ## 571                         Surface         Grab            Massachusetts Bays
-    ## 572                         Surface         Grab            Massachusetts Bays
-    ## 573                         Surface         Grab            Massachusetts Bays
-    ## 574                         Surface         Grab            Massachusetts Bays
-    ## 575                         Surface         Grab            Massachusetts Bays
-    ## 576                         Surface         Grab            Massachusetts Bays
-    ## 577                         Surface         Grab            Massachusetts Bays
-    ## 578                         Surface         Grab            Massachusetts Bays
-    ## 579                         Surface         Grab            Massachusetts Bays
-    ## 580                         Surface         Grab            Massachusetts Bays
-    ## 581                         Surface         Grab            Massachusetts Bays
-    ## 582                         Surface         Grab            Massachusetts Bays
-    ## 583                         Surface         Grab            Massachusetts Bays
-    ## 584                         Surface         Grab                 Cape Code Bay
-    ## 585                         Surface         Grab                 Cape Code Bay
-    ## 586                         Surface         Grab                 Cape Code Bay
-    ## 587                         Surface         Grab                 Cape Code Bay
-    ## 588                         Surface         Grab                 Cape Code Bay
-    ## 589                         Surface         Grab                 Cape Code Bay
-    ## 590                         Surface         Grab                 Cape Code Bay
-    ## 591                         Surface         Grab                 Cape Code Bay
-    ## 592                         Surface         Grab                 Cape Code Bay
-    ## 593                         Surface         Grab                 Cape Code Bay
-    ## 594                         Surface         Grab                 Cape Code Bay
-    ## 595                         Surface         Grab                 Cape Code Bay
-    ## 596                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 597                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 598                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 599                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 600                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 601                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 602                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 603                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 604                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 605                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 606                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 607                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 608                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 609                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 610                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 611                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 612                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 613                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 614                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 615                     Surface (?)         Grab  Gulf of Maine (>50m Isobath)
-    ## 616                         Surface         Grab            Massachusetts Bays
-    ## 617                         Surface         Grab            Massachusetts Bays
-    ## 618                         Surface         Grab            Massachusetts Bays
-    ## 619                         Surface         Grab            Massachusetts Bays
-    ## 620                         Surface         Grab            Massachusetts Bays
-    ## 621                         Surface         Grab            Massachusetts Bays
-    ## 622                         Surface         Grab            Massachusetts Bays
-    ## 623                         Surface         Grab            Massachusetts Bays
-    ## 624                         Surface         Grab            Massachusetts Bays
-    ## 625                         Surface         Grab            Massachusetts Bays
-    ## 626                         Surface         Grab            Massachusetts Bays
-    ## 627                         Surface         Grab            Massachusetts Bays
-    ## 628                         Surface         Grab            Massachusetts Bays
-    ## 629                         Surface         Grab            Massachusetts Bays
-    ## 630                         Surface         Grab            Massachusetts Bays
-    ## 631                         Surface         Grab            Massachusetts Bays
-    ## 632                         Surface         Grab            Massachusetts Bays
-    ## 633                         Surface         Grab            Massachusetts Bays
-    ## 634                         Surface         Grab            Massachusetts Bays
-    ## 635                         Surface         Grab            Massachusetts Bays
-    ## 636                         Surface         Grab            Massachusetts Bays
-    ## 637                         Surface         Grab            Massachusetts Bays
-    ## 638                         Surface         Grab            Massachusetts Bays
-    ## 639                         Surface         Grab            Massachusetts Bays
-    ## 640                         Surface         Grab            Massachusetts Bays
-    ## 641                         Surface         Grab            Massachusetts Bays
-    ## 642                   Surface (COE)         Core       Northwest Boston Harbor
-    ## 643                   Surface (COE)         Core       Northwest Boston Harbor
-    ## 644                   Surface (COE)         Core       Northwest Boston Harbor
-    ## 645                   Surface (COE)         Core       Northwest Boston Harbor
-    ## 646                   Surface (COE)         Core       Northwest Boston Harbor
-    ## 647                   Surface (COE)         Core       Northwest Boston Harbor
-    ## 648                   Surface (COE)         Core       Northwest Boston Harbor
-    ## 649                   Surface (COE)         Core       Northwest Boston Harbor
-    ## 650                           Depth         Core       Northwest Boston Harbor
-    ## 651                   Surface (COE)         Core       Southeast Boston Harbor
-    ## 652                   Surface (COE)         Core       Southeast Boston Harbor
-    ## 653                           Depth         Core       Southeast Boston Harbor
-    ## 654                   Surface (COE)         Core         Central Boston Harbor
-    ## 655                   Surface (COE)         Core         Central Boston Harbor
-    ## 656                           Depth         Core         Central Boston Harbor
-    ## 657                   Surface (COE)         Core           Boston Inner Harbor
-    ## 658                   Surface (COE)         Core           Boston Inner Harbor
-    ## 659                           Depth         Core           Boston Inner Harbor
-    ## 660                           Depth         Core           Boston Inner Harbor
-    ## 661                           Depth         Core           Boston Inner Harbor
-    ## 662                           Depth         Core           Boston Inner Harbor
-    ## 663                           Depth         Core           Boston Inner Harbor
-    ## 664                           Depth         Core           Boston Inner Harbor
-    ## 665                           Depth         Core           Boston Inner Harbor
-    ## 666                           Depth         Core           Boston Inner Harbor
-    ## 667                           Depth         Core           Boston Inner Harbor
-    ## 668                         Surface         Core       Northwest Boston Harbor
-    ## 669                         Surface         Core       Northwest Boston Harbor
-    ## 670                         Surface         Core       Northwest Boston Harbor
-    ## 671                         Surface         Core       Northwest Boston Harbor
-    ## 672                           Depth         Core       Northwest Boston Harbor
-    ## 673                           Depth         Core       Northwest Boston Harbor
-    ## 674                           Depth         Core       Northwest Boston Harbor
-    ## 675                           Depth         Core       Northwest Boston Harbor
-    ## 676                           Depth         Core       Northwest Boston Harbor
-    ## 677                           Depth         Core       Northwest Boston Harbor
-    ## 678                           Depth         Core       Northwest Boston Harbor
-    ## 679                           Depth         Core       Northwest Boston Harbor
-    ## 680                           Depth         Core       Northwest Boston Harbor
-    ## 681                           Depth         Core       Northwest Boston Harbor
-    ## 682                           Depth         Core       Northwest Boston Harbor
-    ## 683                           Depth         Core       Northwest Boston Harbor
-    ## 684                           Depth         Core       Northwest Boston Harbor
-    ## 685                           Depth         Core       Northwest Boston Harbor
-    ## 686                           Depth         Core       Northwest Boston Harbor
-    ## 687                           Depth         Core       Northwest Boston Harbor
-    ## 688                           Depth         Core       Northwest Boston Harbor
-    ## 689                           Depth         Core       Northwest Boston Harbor
-    ## 690                           Depth         Core       Northwest Boston Harbor
-    ## 691                   Surface (COE)         Core       Northwest Boston Harbor
-    ## 692                         Surface         Core       Northwest Boston Harbor
-    ## 693                   Surface (COE)         Core       Northwest Boston Harbor
-    ## 694                         Surface         Core       Northwest Boston Harbor
-    ## 695                           Depth         Core       Northwest Boston Harbor
-    ## 696                           Depth         Core       Northwest Boston Harbor
-    ## 697                           Depth         Core       Northwest Boston Harbor
-    ## 698                           Depth         Core       Northwest Boston Harbor
-    ## 699                           Depth         Core       Northwest Boston Harbor
-    ## 700                           Depth         Core       Northwest Boston Harbor
-    ## 701                           Depth         Core       Northwest Boston Harbor
-    ## 702                           Depth         Core       Northwest Boston Harbor
-    ## 703                           Depth         Core       Northwest Boston Harbor
-    ## 704                           Depth         Core       Northwest Boston Harbor
-    ## 705                   Surface (COE)         Core       Northwest Boston Harbor
-    ## 706                   Surface (COE)         Core       Northwest Boston Harbor
-    ## 707                           Depth         Core       Northwest Boston Harbor
-    ## 708                           Depth         Core       Northwest Boston Harbor
-    ## 709                           Depth         Core       Northwest Boston Harbor
-    ## 710                           Depth         Core       Northwest Boston Harbor
-    ## 711                           Depth         Core       Northwest Boston Harbor
-    ## 712                           Depth         Core       Northwest Boston Harbor
-    ## 713                           Depth         Core       Northwest Boston Harbor
-    ## 714                           Depth         Core       Northwest Boston Harbor
-    ## 715                           Depth         Core       Northwest Boston Harbor
-    ## 716                           Depth         Core       Northwest Boston Harbor
-    ## 717                   Surface (COE)         Core            Massachusetts Bays
-    ## 718                   Surface (COE)         Core            Massachusetts Bays
-    ## 719                           Depth         Core            Massachusetts Bays
-    ## 720                           Depth         Core            Massachusetts Bays
-    ## 721                           Depth         Core            Massachusetts Bays
-    ## 722                           Depth         Core            Massachusetts Bays
-    ## 723                           Depth         Core            Massachusetts Bays
-    ## 724                           Depth         Core            Massachusetts Bays
-    ## 725                           Depth         Core            Massachusetts Bays
-    ## 726                         Surface         Grab           Boston Inner Harbor
-    ## 727                         Surface         Grab       Northwest Boston Harbor
-    ## 728                         Surface         Grab       Northwest Boston Harbor
-    ## 729                         Surface         Grab       Southeast Boston Harbor
-    ## 730                         Surface         Grab       Southeast Boston Harbor
-    ## 731                         Surface         Grab         Central Boston Harbor
-    ## 732                         Surface         Grab         Central Boston Harbor
-    ## 733                         Surface         Grab         Central Boston Harbor
-    ## 734                         Surface         Grab           Boston Inner Harbor
-    ## 735                         Surface         Grab           Boston Inner Harbor
-    ## 736                         Surface         Grab       Northwest Boston Harbor
-    ## 737                         Surface         Grab       Northwest Boston Harbor
-    ## 738                         Surface         Grab       Northwest Boston Harbor
-    ## 739                         Surface         Grab         Central Boston Harbor
-    ## 740                         Surface         Grab         Central Boston Harbor
-    ## 741                         Surface         Grab         Central Boston Harbor
-    ## 742                         Surface         Grab       Southeast Boston Harbor
-    ## 743                         Surface         Grab            Massachusetts Bays
-    ## 744                         Surface         Grab         Central Boston Harbor
-    ## 745                         Surface         Grab            Massachusetts Bays
-    ## 746                         Surface         Grab            Massachusetts Bays
-    ## 747                         Surface         Grab            Massachusetts Bays
-    ## 748                         Surface         Grab             Harbor Approaches
-    ## 749                         Surface         Grab       Northwest Boston Harbor
-    ## 750                         Surface         Grab       Northwest Boston Harbor
-    ## 751                         Surface         Grab       Northwest Boston Harbor
-    ## 752                         Surface         Grab       Northwest Boston Harbor
-    ## 753                         Surface         Core           Boston Inner Harbor
-    ## 754                         Surface         Core           Boston Inner Harbor
-    ## 755                           Depth         Core           Boston Inner Harbor
-    ## 756                           Depth         Core           Boston Inner Harbor
-    ## 757                           Depth         Core           Boston Inner Harbor
-    ## 758                           Depth         Core           Boston Inner Harbor
-    ## 759                           Depth         Core           Boston Inner Harbor
-    ## 760                           Depth         Core           Boston Inner Harbor
-    ## 761                           Depth         Core           Boston Inner Harbor
-    ## 762                           Depth         Core           Boston Inner Harbor
-    ## 763                           Depth         Core           Boston Inner Harbor
-    ## 764                           Depth         Core           Boston Inner Harbor
-    ## 765                           Depth         Core           Boston Inner Harbor
-    ## 766                           Depth         Core           Boston Inner Harbor
-    ## 767                         Surface         Core       Northwest Boston Harbor
-    ## 768                         Surface         Core       Northwest Boston Harbor
-    ## 769                         Surface         Core       Northwest Boston Harbor
-    ## 770                         Surface         Core       Northwest Boston Harbor
-    ## 771                         Surface         Core       Northwest Boston Harbor
-    ## 772                           Depth         Core       Northwest Boston Harbor
-    ## 773                           Depth         Core       Northwest Boston Harbor
-    ## 774                           Depth         Core       Northwest Boston Harbor
-    ## 775                           Depth         Core       Northwest Boston Harbor
-    ## 776                           Depth         Core       Northwest Boston Harbor
-    ## 777                           Depth         Core       Northwest Boston Harbor
-    ## 778                           Depth         Core       Northwest Boston Harbor
-    ## 779                           Depth         Core       Northwest Boston Harbor
-    ## 780                           Depth         Core       Northwest Boston Harbor
-    ## 781                         Surface         Core       Northwest Boston Harbor
-    ## 782                         Surface         Core       Northwest Boston Harbor
-    ## 783                           Depth         Core       Northwest Boston Harbor
-    ## 784                           Depth         Core       Northwest Boston Harbor
-    ## 785                           Depth         Core       Northwest Boston Harbor
-    ## 786                           Depth         Core       Northwest Boston Harbor
-    ## 787                           Depth         Core       Northwest Boston Harbor
-    ## 788                           Depth         Core       Northwest Boston Harbor
-    ## 789                           Depth         Core       Northwest Boston Harbor
-    ## 790                           Depth         Core       Northwest Boston Harbor
-    ## 791                           Depth         Core       Northwest Boston Harbor
-    ## 792                           Depth         Core       Northwest Boston Harbor
-    ## 793                           Depth         Core       Northwest Boston Harbor
+    ##                         DPTH_CODE.1 COR_GRB_CD.1
+    ## 1                           Unknown         Grab
+    ## 2                           Unknown         Grab
+    ## 3                             Depth         Core
+    ## 4                             Depth         Core
+    ## 5                           Unknown         Grab
+    ## 6                           Unknown         Grab
+    ## 7                           Unknown         Grab
+    ## 8                           Unknown         Grab
+    ## 9                           Unknown         Grab
+    ## 10                          Unknown         Grab
+    ## 11                          Unknown         Grab
+    ## 12                          Unknown         Grab
+    ## 13                          Unknown         Grab
+    ## 14                          Unknown         Grab
+    ## 15                          Surface         Grab
+    ## 16                          Surface         Grab
+    ## 17                          Surface         Grab
+    ## 18                          Unknown         Grab
+    ## 19                          Unknown         Grab
+    ## 20                          Unknown         Grab
+    ## 21                          Unknown         Grab
+    ## 22                          Unknown         Grab
+    ## 23                          Surface         Grab
+    ## 24                          Surface         Grab
+    ## 25                          Surface         Grab
+    ## 26                          Surface         Grab
+    ## 27                          Surface         Grab
+    ## 28                          Surface         Grab
+    ## 29                          Surface         Grab
+    ## 30                          Surface         Grab
+    ## 31                          Surface         Grab
+    ## 32                          Surface         Grab
+    ## 33                          Surface         Grab
+    ## 34                          Surface         Grab
+    ## 35                          Surface         Grab
+    ## 36                          Surface         Grab
+    ## 37                          Surface         Grab
+    ## 38                          Surface         Grab
+    ## 39                          Surface         Grab
+    ## 40                          Surface         Grab
+    ## 41                          Surface         Grab
+    ## 42                          Surface         Grab
+    ## 43                          Surface         Grab
+    ## 44                          Surface         Grab
+    ## 45                          Surface         Grab
+    ## 46                          Surface         Grab
+    ## 47                            Depth         Grab
+    ## 48                            Depth         Grab
+    ## 49                            Depth         Grab
+    ## 50                            Depth         Grab
+    ## 51                            Depth         Grab
+    ## 52                          Unknown         Grab
+    ## 53                            Depth         Grab
+    ## 54                            Depth         Grab
+    ## 55                            Depth         Grab
+    ## 56                            Depth         Grab
+    ## 57                            Depth         Grab
+    ## 58                            Depth         Grab
+    ## 59                            Depth         Grab
+    ## 60                            Depth         Grab
+    ## 61                            Depth         Grab
+    ## 62                            Depth         Grab
+    ## 63                            Depth         Grab
+    ## 64                          Unknown         Grab
+    ## 65                          Unknown         Grab
+    ## 66                          Unknown         Grab
+    ## 67                            Depth         Core
+    ## 68                          Surface         Core
+    ## 69                            Depth         Core
+    ## 70                          Surface         Core
+    ## 71                            Depth         Core
+    ## 72                          Surface         Core
+    ## 73                            Depth         Core
+    ## 74                          Surface         Core
+    ## 75                            Depth         Core
+    ## 76                          Unknown         Grab
+    ## 77                          Unknown         Grab
+    ## 78                          Unknown         Grab
+    ## 79                          Unknown         Grab
+    ## 80                          Unknown         Grab
+    ## 81                          Unknown         Grab
+    ## 82                          Unknown         Grab
+    ## 83                          Unknown         Grab
+    ## 84                          Unknown         Grab
+    ## 85                          Unknown         Grab
+    ## 86                          Unknown         Grab
+    ## 87                          Unknown         Grab
+    ## 88                          Unknown         Grab
+    ## 89                          Unknown      Unknown
+    ## 90                          Unknown      Unknown
+    ## 91                          Unknown      Unknown
+    ## 92                          Unknown         Grab
+    ## 93                          Unknown         Grab
+    ## 94                          Unknown         Grab
+    ## 95                          Unknown         Grab
+    ## 96                            Depth         Core
+    ## 97                          Surface         Core
+    ## 98                            Depth         Core
+    ## 99                          Surface         Core
+    ## 100                           Depth         Core
+    ## 101                         Surface         Core
+    ## 102                           Depth         Core
+    ## 103                         Surface         Core
+    ## 104                         Surface         Core
+    ## 105                           Depth         Core
+    ## 106                           Depth         Core
+    ## 107                         Surface         Core
+    ## 108                           Depth         Core
+    ## 109                         Surface         Core
+    ## 110                           Depth         Core
+    ## 111                         Surface         Core
+    ## 112                           Depth         Core
+    ## 113                         Surface         Core
+    ## 114                           Depth         Core
+    ## 115                         Surface         Core
+    ## 116                           Depth         Core
+    ## 117                         Surface         Core
+    ## 118                         Surface         Core
+    ## 119                           Depth         Core
+    ## 120                         Surface         Core
+    ## 121                           Depth         Core
+    ## 122                         Surface         Core
+    ## 123                           Depth         Core
+    ## 124                         Surface         Core
+    ## 125                           Depth         Core
+    ## 126                         Surface         Core
+    ## 127                           Depth         Core
+    ## 128                         Surface         Core
+    ## 129                           Depth         Core
+    ## 130                         Surface         Core
+    ## 131                         Unknown         Grab
+    ## 132                         Unknown         Grab
+    ## 133                         Unknown         Grab
+    ## 134                         Unknown         Grab
+    ## 135                         Unknown         Grab
+    ## 136                         Unknown         Grab
+    ## 137                         Unknown         Grab
+    ## 138                         Unknown         Grab
+    ## 139                         Unknown         Grab
+    ## 140                         Unknown         Grab
+    ## 141                         Unknown         Grab
+    ## 142                         Unknown         Grab
+    ## 143                         Unknown         Grab
+    ## 144                         Unknown         Grab
+    ## 145                         Unknown         Grab
+    ## 146                         Unknown         Grab
+    ## 147                         Unknown         Grab
+    ## 148                         Unknown         Grab
+    ## 149                         Unknown         Grab
+    ## 150                         Unknown         Grab
+    ## 151                         Unknown         Grab
+    ## 152                         Unknown         Grab
+    ## 153                         Unknown         Grab
+    ## 154                         Unknown         Grab
+    ## 155                         Unknown         Grab
+    ## 156                         Unknown         Grab
+    ## 157                         Unknown         Grab
+    ## 158                         Unknown         Grab
+    ## 159                           Depth         Core
+    ## 160                         Surface         Core
+    ## 161                           Depth         Core
+    ## 162                         Surface         Core
+    ## 163                           Depth         Core
+    ## 164                           Depth         Core
+    ## 165                         Surface         Core
+    ## 166                           Depth         Core
+    ## 167                         Surface         Core
+    ## 168                           Depth         Core
+    ## 169                         Surface         Core
+    ## 170                           Depth         Core
+    ## 171                         Surface         Core
+    ## 172                         Surface         Core
+    ## 173                         Unknown         Grab
+    ## 174                         Unknown         Grab
+    ## 175                         Unknown         Grab
+    ## 176                         Unknown         Grab
+    ## 177                         Unknown     Core (?)
+    ## 178                         Unknown     Core (?)
+    ## 179                         Unknown     Core (?)
+    ## 180                         Unknown     Core (?)
+    ## 181                           Depth         Grab
+    ## 182                           Depth         Grab
+    ## 183                           Depth         Grab
+    ## 184                           Depth         Grab
+    ## 185                           Depth         Grab
+    ## 186                         Unknown         Grab
+    ## 187                         Unknown         Grab
+    ## 188                         Unknown         Grab
+    ## 189                         Unknown         Grab
+    ## 190                         Unknown         Grab
+    ## 191                         Unknown         Grab
+    ## 192                         Unknown         Grab
+    ## 193                         Unknown         Grab
+    ## 194                         Unknown         Grab
+    ## 195                         Unknown         Grab
+    ## 196                         Unknown         Grab
+    ## 197                         Surface         Core
+    ## 198                           Depth         Core
+    ## 199                           Depth         Core
+    ## 200                         Unknown         Grab
+    ## 201                         Unknown         Grab
+    ## 202                         Unknown         Core
+    ## 203                         Unknown         Core
+    ## 204                         Unknown         Core
+    ## 205                         Unknown         Core
+    ## 206                         Unknown         Core
+    ## 207                         Unknown         Core
+    ## 208                         Unknown         Core
+    ## 209                           Depth         Core
+    ## 210                           Depth         Core
+    ## 211                           Depth         Core
+    ## 212                           Depth         Core
+    ## 213                           Depth         Core
+    ## 214                           Depth         Core
+    ## 215                           Depth         Core
+    ## 216                           Depth         Core
+    ## 217                           Depth         Core
+    ## 218                           Depth         Core
+    ## 219                           Depth         Core
+    ## 220                           Depth         Core
+    ## 221                           Depth         Core
+    ## 222                           Depth         Core
+    ## 223                           Depth         Core
+    ## 224                           Depth         Core
+    ## 225                           Depth         Core
+    ## 226                           Depth         Core
+    ## 227                           Depth         Core
+    ## 228                           Depth         Core
+    ## 229                           Depth         Core
+    ## 230                           Depth         Core
+    ## 231                           Depth         Core
+    ## 232                           Depth         Core
+    ## 233                           Depth         Core
+    ## 234                           Depth         Core
+    ## 235                         Unknown         Core
+    ## 236                         Unknown         Core
+    ## 237                         Unknown         Core
+    ## 238                         Unknown         Core
+    ## 239                         Unknown         Grab
+    ## 240                         Unknown         Grab
+    ## 241                         Unknown         Grab
+    ## 242                         Unknown         Grab
+    ## 243                         Unknown         Grab
+    ## 244                         Unknown         Grab
+    ## 245                         Unknown         Grab
+    ## 246                         Unknown         Grab
+    ## 247                         Unknown         Grab
+    ## 248                         Unknown         Grab
+    ## 249                         Unknown         Grab
+    ## 250                         Unknown         Grab
+    ## 251                         Unknown         Grab
+    ## 252                         Unknown         Grab
+    ## 253                         Unknown         Grab
+    ## 254                           Depth         Grab
+    ## 255                           Depth         Grab
+    ## 256                           Depth         Grab
+    ## 257                           Depth         Grab
+    ## 258                           Depth         Grab
+    ## 259                           Depth         Grab
+    ## 260                           Depth         Grab
+    ## 261                           Depth         Grab
+    ## 262                           Depth         Grab
+    ## 263                           Depth         Grab
+    ## 264                           Depth         Grab
+    ## 265                           Depth         Grab
+    ## 266                           Depth         Grab
+    ## 267                           Depth         Grab
+    ## 268                           Depth         Grab
+    ## 269                           Depth         Grab
+    ## 270                           Depth         Grab
+    ## 271                           Depth         Grab
+    ## 272                           Depth         Grab
+    ## 273                           Depth         Grab
+    ## 274                           Depth         Grab
+    ## 275                           Depth         Grab
+    ## 276                           Depth         Grab
+    ## 277                           Depth         Grab
+    ## 278                           Depth         Grab
+    ## 279                           Depth         Grab
+    ## 280                           Depth         Grab
+    ## 281                           Depth         Grab
+    ## 282                         Unknown         Grab
+    ## 283                         Unknown         Grab
+    ## 284                         Unknown         Grab
+    ## 285                         Unknown         Grab
+    ## 286                         Unknown         Grab
+    ## 287                         Unknown         Grab
+    ## 288                         Unknown         Grab
+    ## 289                         Unknown         Grab
+    ## 290                         Unknown         Grab
+    ## 291                         Unknown         Grab
+    ## 292                         Unknown         Grab
+    ## 293                         Surface         Grab
+    ## 294                         Surface         Grab
+    ## 295                         Surface         Grab
+    ## 296                         Surface         Grab
+    ## 297                         Surface         Grab
+    ## 298                           Depth         Grab
+    ## 299                         Unknown         Grab
+    ## 300                         Unknown         Grab
+    ## 301                         Unknown         Grab
+    ## 302                         Unknown         Grab
+    ## 303                         Unknown         Grab
+    ## 304                         Unknown         Grab
+    ## 305                         Unknown         Grab
+    ## 306                         Unknown         Grab
+    ## 307                         Unknown         Grab
+    ## 308                         Unknown         Grab
+    ## 309                         Unknown         Grab
+    ## 310                         Unknown         Grab
+    ## 311                         Unknown         Grab
+    ## 312                         Surface         Grab
+    ## 313                           Depth         Grab
+    ## 314                         Surface         Grab
+    ## 315                           Depth         Grab
+    ## 316                         Surface         Grab
+    ## 317                           Depth         Grab
+    ## 318                         Surface         Grab
+    ## 319                           Depth         Grab
+    ## 320                           Depth         Grab
+    ## 321 Unknown (COE, probably surface)         Grab
+    ## 322 Unknown (COE, probably surface)         Grab
+    ## 323 Unknown (COE, probably surface)         Grab
+    ## 324 Unknown (COE, probably surface)         Grab
+    ## 325 Unknown (COE, probably surface)         Grab
+    ## 326 Unknown (COE, probably surface)         Grab
+    ## 327 Unknown (COE, probably surface)         Grab
+    ## 328 Unknown (COE, probably surface)         Grab
+    ## 329 Unknown (COE, probably surface)         Grab
+    ## 330 Unknown (COE, probably surface)         Grab
+    ## 331 Unknown (COE, probably surface)         Grab
+    ## 332 Unknown (COE, probably surface)         Grab
+    ## 333 Unknown (COE, probably surface)         Grab
+    ## 334 Unknown (COE, probably surface)         Grab
+    ## 335 Unknown (COE, probably surface)         Grab
+    ## 336 Unknown (COE, probably surface)         Grab
+    ## 337 Unknown (COE, probably surface)         Grab
+    ## 338 Unknown (COE, probably surface)         Grab
+    ## 339 Unknown (COE, probably surface)         Grab
+    ## 340 Unknown (COE, probably surface)         Grab
+    ## 341 Unknown (COE, probably surface)         Grab
+    ## 342 Unknown (COE, probably surface)         Grab
+    ## 343 Unknown (COE, probably surface)         Grab
+    ## 344                           Depth         Core
+    ## 345                         Surface         Core
+    ## 346                           Depth         Core
+    ## 347                         Surface         Grab
+    ## 348                         Surface         Grab
+    ## 349                         Surface         Grab
+    ## 350                         Surface         Grab
+    ## 351                         Surface         Grab
+    ## 352                         Surface         Grab
+    ## 353                           Depth         Grab
+    ## 354                         Surface         Grab
+    ## 355                         Surface         Grab
+    ## 356                           Depth         Core
+    ## 357                           Depth         Core
+    ## 358                           Depth         Core
+    ## 359                           Depth         Core
+    ## 360                         Surface         Grab
+    ## 361                           Depth         Core
+    ## 362                           Depth         Core
+    ## 363                         Surface         Core
+    ## 364                           Depth         Core
+    ## 365                           Depth         Core
+    ## 366                           Depth         Core
+    ## 367                         Surface         Grab
+    ## 368                         Surface         Grab
+    ## 369                         Surface         Grab
+    ## 370                         Surface         Grab
+    ## 371                         Surface         Grab
+    ## 372                         Surface         Grab
+    ## 373                         Surface         Grab
+    ## 374                         Surface         Grab
+    ## 375                         Surface         Grab
+    ## 376                         Surface         Grab
+    ## 377                         Surface         Grab
+    ## 378                         Surface         Grab
+    ## 379                         Surface         Grab
+    ## 380                         Surface         Grab
+    ## 381                         Surface         Grab
+    ## 382                         Unknown         Grab
+    ## 383                         Unknown         Grab
+    ## 384                         Unknown         Grab
+    ## 385                         Unknown         Grab
+    ## 386                         Surface         Grab
+    ## 387                         Surface         Grab
+    ## 388                         Surface         Grab
+    ## 389                         Surface         Grab
+    ## 390                         Surface         Grab
+    ## 391                         Surface         Grab
+    ## 392                         Surface         Grab
+    ## 393                         Surface         Grab
+    ## 394                         Surface         Grab
+    ## 395                         Surface         Grab
+    ## 396                         Surface         Grab
+    ## 397                         Surface         Grab
+    ## 398                         Surface         Grab
+    ## 399                         Surface         Grab
+    ## 400                         Surface         Grab
+    ## 401                         Surface         Grab
+    ## 402                         Surface         Grab
+    ## 403                         Surface         Grab
+    ## 404                         Surface         Grab
+    ## 405                         Surface         Grab
+    ## 406                         Surface         Grab
+    ## 407                         Surface         Grab
+    ## 408                         Surface         Grab
+    ## 409                         Surface         Grab
+    ## 410                         Surface         Core
+    ## 411                         Surface         Core
+    ## 412                         Surface         Core
+    ## 413                         Surface         Grab
+    ## 414                         Surface         Grab
+    ## 415                         Surface         Grab
+    ## 416                         Surface         Grab
+    ## 417                         Surface         Grab
+    ## 418                         Surface         Grab
+    ## 419                         Surface         Grab
+    ## 420                         Surface         Grab
+    ## 421                         Surface         Grab
+    ## 422                         Surface         Grab
+    ## 423                         Surface         Grab
+    ## 424                         Surface         Grab
+    ## 425                         Surface         Grab
+    ## 426                         Surface         Grab
+    ## 427                         Surface         Grab
+    ## 428                         Surface         Grab
+    ## 429                         Surface         Grab
+    ## 430                         Surface         Grab
+    ## 431                         Surface         Grab
+    ## 432                         Surface         Grab
+    ## 433                         Surface         Grab
+    ## 434                         Surface         Grab
+    ## 435                         Surface         Grab
+    ## 436                         Surface         Grab
+    ## 437                         Surface         Grab
+    ## 438                         Surface         Grab
+    ## 439                         Surface         Grab
+    ## 440                         Surface         Grab
+    ## 441                         Surface         Grab
+    ## 442                         Surface         Grab
+    ## 443                         Surface         Grab
+    ## 444                         Surface         Grab
+    ## 445                         Surface         Grab
+    ## 446                         Surface         Grab
+    ## 447                         Surface         Grab
+    ## 448                         Surface         Grab
+    ## 449                         Surface         Grab
+    ## 450                         Surface         Grab
+    ## 451                         Surface         Grab
+    ## 452                         Surface         Grab
+    ## 453                         Surface         Grab
+    ## 454                         Surface         Grab
+    ## 455                         Surface         Grab
+    ## 456                         Surface         Grab
+    ## 457                         Surface         Grab
+    ## 458                         Surface         Grab
+    ## 459                         Surface         Grab
+    ## 460                         Surface         Grab
+    ## 461                         Surface         Grab
+    ## 462                         Surface         Grab
+    ## 463                         Surface         Grab
+    ## 464                         Surface         Grab
+    ## 465                         Surface         Grab
+    ## 466                         Surface         Grab
+    ## 467                         Surface         Grab
+    ## 468                         Surface         Grab
+    ## 469                         Surface         Grab
+    ## 470                         Surface         Grab
+    ## 471                         Surface         Grab
+    ## 472                         Surface         Grab
+    ## 473                         Surface         Grab
+    ## 474                         Surface         Grab
+    ## 475                         Surface         Grab
+    ## 476                         Surface         Grab
+    ## 477                         Surface         Grab
+    ## 478                         Surface         Grab
+    ## 479                         Surface         Grab
+    ## 480                         Surface         Grab
+    ## 481                         Surface         Grab
+    ## 482                         Surface         Grab
+    ## 483                         Surface         Grab
+    ## 484                         Surface         Grab
+    ## 485                         Surface         Grab
+    ## 486                         Surface         Grab
+    ## 487                         Surface         Grab
+    ## 488                         Surface         Grab
+    ## 489                         Surface         Grab
+    ## 490                         Surface         Grab
+    ## 491                         Surface         Grab
+    ## 492                         Surface         Grab
+    ## 493                         Surface         Grab
+    ## 494                         Surface         Grab
+    ## 495                         Surface         Grab
+    ## 496                         Surface         Grab
+    ## 497                         Surface         Grab
+    ## 498                         Surface         Grab
+    ## 499                         Surface         Grab
+    ## 500                         Surface         Grab
+    ## 501                         Surface         Grab
+    ## 502                         Surface         Grab
+    ## 503                         Surface         Grab
+    ## 504                         Surface         Grab
+    ## 505                         Surface         Grab
+    ## 506                         Surface         Grab
+    ## 507                         Surface         Grab
+    ## 508                         Surface         Grab
+    ## 509                         Surface         Grab
+    ## 510                         Surface         Grab
+    ## 511                         Surface         Grab
+    ## 512                         Surface         Grab
+    ## 513                         Surface         Grab
+    ## 514                         Surface         Grab
+    ## 515                         Surface         Grab
+    ## 516                         Surface         Grab
+    ## 517                         Surface         Grab
+    ## 518                         Surface         Grab
+    ## 519                         Surface         Grab
+    ## 520                         Surface         Grab
+    ## 521                         Surface         Grab
+    ## 522                         Surface         Grab
+    ## 523                         Surface         Grab
+    ## 524                         Surface         Grab
+    ## 525                         Surface         Grab
+    ## 526                         Surface         Grab
+    ## 527                         Surface         Grab
+    ## 528                         Surface         Grab
+    ## 529                         Surface         Grab
+    ## 530                         Surface         Grab
+    ## 531                         Surface         Grab
+    ## 532                         Surface         Grab
+    ## 533                         Surface         Grab
+    ## 534                         Surface         Grab
+    ## 535                         Surface         Grab
+    ## 536                         Surface         Grab
+    ## 537                         Surface         Grab
+    ## 538                         Surface         Grab
+    ## 539                         Surface         Grab
+    ## 540                         Surface         Grab
+    ## 541                         Surface         Grab
+    ## 542                         Surface         Grab
+    ## 543                         Surface         Grab
+    ## 544                         Surface         Grab
+    ## 545                         Surface         Grab
+    ## 546                         Surface         Grab
+    ## 547                         Surface         Grab
+    ## 548                         Surface         Grab
+    ## 549                         Surface         Grab
+    ## 550                         Surface         Grab
+    ## 551                         Surface         Grab
+    ## 552                         Surface         Grab
+    ## 553                         Surface         Grab
+    ## 554                         Surface         Grab
+    ## 555                         Surface         Grab
+    ## 556                         Surface         Grab
+    ## 557                         Surface         Grab
+    ## 558                         Surface         Grab
+    ## 559                         Surface         Grab
+    ## 560                         Surface         Grab
+    ## 561                         Surface         Grab
+    ## 562                         Surface         Grab
+    ## 563                         Surface         Grab
+    ## 564                         Surface         Grab
+    ## 565                         Surface         Grab
+    ## 566                         Surface         Grab
+    ## 567                         Surface         Grab
+    ## 568                         Surface         Grab
+    ## 569                         Surface         Grab
+    ## 570                         Surface         Grab
+    ## 571                         Surface         Grab
+    ## 572                         Surface         Grab
+    ## 573                         Surface         Grab
+    ## 574                         Surface         Grab
+    ## 575                         Surface         Grab
+    ## 576                         Surface         Grab
+    ## 577                         Surface         Grab
+    ## 578                         Surface         Grab
+    ## 579                         Surface         Grab
+    ## 580                         Surface         Grab
+    ## 581                         Surface         Grab
+    ## 582                         Surface         Grab
+    ## 583                         Surface         Grab
+    ## 584                         Surface         Grab
+    ## 585                         Surface         Grab
+    ## 586                         Surface         Grab
+    ## 587                         Surface         Grab
+    ## 588                         Surface         Grab
+    ## 589                         Surface         Grab
+    ## 590                         Surface         Grab
+    ## 591                         Surface         Grab
+    ## 592                         Surface         Grab
+    ## 593                         Surface         Grab
+    ## 594                         Surface         Grab
+    ## 595                         Surface         Grab
+    ## 596                     Surface (?)         Grab
+    ## 597                     Surface (?)         Grab
+    ## 598                     Surface (?)         Grab
+    ## 599                     Surface (?)         Grab
+    ## 600                     Surface (?)         Grab
+    ## 601                     Surface (?)         Grab
+    ## 602                     Surface (?)         Grab
+    ## 603                     Surface (?)         Grab
+    ## 604                     Surface (?)         Grab
+    ## 605                     Surface (?)         Grab
+    ## 606                     Surface (?)         Grab
+    ## 607                     Surface (?)         Grab
+    ## 608                     Surface (?)         Grab
+    ## 609                     Surface (?)         Grab
+    ## 610                     Surface (?)         Grab
+    ## 611                     Surface (?)         Grab
+    ## 612                     Surface (?)         Grab
+    ## 613                     Surface (?)         Grab
+    ## 614                     Surface (?)         Grab
+    ## 615                     Surface (?)         Grab
+    ## 616                         Surface         Grab
+    ## 617                         Surface         Grab
+    ## 618                         Surface         Grab
+    ## 619                         Surface         Grab
+    ## 620                         Surface         Grab
+    ## 621                         Surface         Grab
+    ## 622                         Surface         Grab
+    ## 623                         Surface         Grab
+    ## 624                         Surface         Grab
+    ## 625                         Surface         Grab
+    ## 626                         Surface         Grab
+    ## 627                         Surface         Grab
+    ## 628                         Surface         Grab
+    ## 629                         Surface         Grab
+    ## 630                         Surface         Grab
+    ## 631                         Surface         Grab
+    ## 632                         Surface         Grab
+    ## 633                         Surface         Grab
+    ## 634                         Surface         Grab
+    ## 635                         Surface         Grab
+    ## 636                         Surface         Grab
+    ## 637                         Surface         Grab
+    ## 638                         Surface         Grab
+    ## 639                         Surface         Grab
+    ## 640                         Surface         Grab
+    ## 641                         Surface         Grab
+    ## 642                   Surface (COE)         Core
+    ## 643                   Surface (COE)         Core
+    ## 644                   Surface (COE)         Core
+    ## 645                   Surface (COE)         Core
+    ## 646                   Surface (COE)         Core
+    ## 647                   Surface (COE)         Core
+    ## 648                   Surface (COE)         Core
+    ## 649                   Surface (COE)         Core
+    ## 650                           Depth         Core
+    ## 651                   Surface (COE)         Core
+    ## 652                   Surface (COE)         Core
+    ## 653                           Depth         Core
+    ## 654                   Surface (COE)         Core
+    ## 655                   Surface (COE)         Core
+    ## 656                           Depth         Core
+    ## 657                   Surface (COE)         Core
+    ## 658                   Surface (COE)         Core
+    ## 659                           Depth         Core
+    ## 660                           Depth         Core
+    ## 661                           Depth         Core
+    ## 662                           Depth         Core
+    ## 663                           Depth         Core
+    ## 664                           Depth         Core
+    ## 665                           Depth         Core
+    ## 666                           Depth         Core
+    ## 667                           Depth         Core
+    ## 668                         Surface         Core
+    ## 669                         Surface         Core
+    ## 670                         Surface         Core
+    ## 671                         Surface         Core
+    ## 672                           Depth         Core
+    ## 673                           Depth         Core
+    ## 674                           Depth         Core
+    ## 675                           Depth         Core
+    ## 676                           Depth         Core
+    ## 677                           Depth         Core
+    ## 678                           Depth         Core
+    ## 679                           Depth         Core
+    ## 680                           Depth         Core
+    ## 681                           Depth         Core
+    ## 682                           Depth         Core
+    ## 683                           Depth         Core
+    ## 684                           Depth         Core
+    ## 685                           Depth         Core
+    ## 686                           Depth         Core
+    ## 687                           Depth         Core
+    ## 688                           Depth         Core
+    ## 689                           Depth         Core
+    ## 690                           Depth         Core
+    ## 691                   Surface (COE)         Core
+    ## 692                         Surface         Core
+    ## 693                   Surface (COE)         Core
+    ## 694                         Surface         Core
+    ## 695                           Depth         Core
+    ## 696                           Depth         Core
+    ## 697                           Depth         Core
+    ## 698                           Depth         Core
+    ## 699                           Depth         Core
+    ## 700                           Depth         Core
+    ## 701                           Depth         Core
+    ## 702                           Depth         Core
+    ## 703                           Depth         Core
+    ## 704                           Depth         Core
+    ## 705                   Surface (COE)         Core
+    ## 706                   Surface (COE)         Core
+    ## 707                           Depth         Core
+    ## 708                           Depth         Core
+    ## 709                           Depth         Core
+    ## 710                           Depth         Core
+    ## 711                           Depth         Core
+    ## 712                           Depth         Core
+    ## 713                           Depth         Core
+    ## 714                           Depth         Core
+    ## 715                           Depth         Core
+    ## 716                           Depth         Core
+    ## 717                   Surface (COE)         Core
+    ## 718                   Surface (COE)         Core
+    ## 719                           Depth         Core
+    ## 720                           Depth         Core
+    ## 721                           Depth         Core
+    ## 722                           Depth         Core
+    ## 723                           Depth         Core
+    ## 724                           Depth         Core
+    ## 725                           Depth         Core
+    ## 726                         Surface         Grab
+    ## 727                         Surface         Grab
+    ## 728                         Surface         Grab
+    ## 729                         Surface         Grab
+    ## 730                         Surface         Grab
+    ## 731                         Surface         Grab
+    ## 732                         Surface         Grab
+    ## 733                         Surface         Grab
+    ## 734                         Surface         Grab
+    ## 735                         Surface         Grab
+    ## 736                         Surface         Grab
+    ## 737                         Surface         Grab
+    ## 738                         Surface         Grab
+    ## 739                         Surface         Grab
+    ## 740                         Surface         Grab
+    ## 741                         Surface         Grab
+    ## 742                         Surface         Grab
+    ## 743                         Surface         Grab
+    ## 744                         Surface         Grab
+    ## 745                         Surface         Grab
+    ## 746                         Surface         Grab
+    ## 747                         Surface         Grab
+    ## 748                         Surface         Grab
+    ## 749                         Surface         Grab
+    ## 750                         Surface         Grab
+    ## 751                         Surface         Grab
+    ## 752                         Surface         Grab
+    ## 753                         Surface         Core
+    ## 754                         Surface         Core
+    ## 755                           Depth         Core
+    ## 756                           Depth         Core
+    ## 757                           Depth         Core
+    ## 758                           Depth         Core
+    ## 759                           Depth         Core
+    ## 760                           Depth         Core
+    ## 761                           Depth         Core
+    ## 762                           Depth         Core
+    ## 763                           Depth         Core
+    ## 764                           Depth         Core
+    ## 765                           Depth         Core
+    ## 766                           Depth         Core
+    ## 767                         Surface         Core
+    ## 768                         Surface         Core
+    ## 769                         Surface         Core
+    ## 770                         Surface         Core
+    ## 771                         Surface         Core
+    ## 772                           Depth         Core
+    ## 773                           Depth         Core
+    ## 774                           Depth         Core
+    ## 775                           Depth         Core
+    ## 776                           Depth         Core
+    ## 777                           Depth         Core
+    ## 778                           Depth         Core
+    ## 779                           Depth         Core
+    ## 780                           Depth         Core
+    ## 781                         Surface         Core
+    ## 782                         Surface         Core
+    ## 783                           Depth         Core
+    ## 784                           Depth         Core
+    ## 785                           Depth         Core
+    ## 786                           Depth         Core
+    ## 787                           Depth         Core
+    ## 788                           Depth         Core
+    ## 789                           Depth         Core
+    ## 790                           Depth         Core
+    ## 791                           Depth         Core
+    ## 792                           Depth         Core
+    ## 793                           Depth         Core
+    ##                                                                                        site.1
+    ## 1                                                                                         BIH
+    ## 2                                                                                         BIH
+    ## 3                                                                                         BIH
+    ## 4                                                                                         BIH
+    ## 5                                                                                         BIH
+    ## 6                                                                                         BIH
+    ## 7                                                                                         BIH
+    ## 8                                                                                         BIH
+    ## 9                                                                                         BIH
+    ## 10                                                                                        OOP
+    ## 11                                                                                        OOP
+    ## 12                                                                                        BIH
+    ## 13                                                                                        BIH
+    ## 14                                                                                        BIH
+    ## 15                                                                                        BIH
+    ## 16                                                                                        BIH
+    ## 17                                                                                        BIH
+    ## 18                                                                                        BIH
+    ## 19                                                                                        BIH
+    ## 20                                                                                        BIH
+    ## 21                                                                                        QUB
+    ## 22                                                                                        QUB
+    ## 23                                                                                       MBDS
+    ## 24                                                                                       MBDS
+    ## 25                                                                                       MBDS
+    ## 26                                                                                       MBDS
+    ## 27                                                                                       MBDS
+    ## 28                                                                                       MBDS
+    ## 29                                                                                       MBDS
+    ## 30                                                                                       MBDS
+    ## 31                                                                                       MBDS
+    ## 32                                                                                       MBDS
+    ## 33                                                                                       MBDS
+    ## 34                                                                                       MBDS
+    ## 35                                                                                       MBDS
+    ## 36                                                                                       MBDS
+    ## 37                                                                                       MBDS
+    ## 38                                                                                       MBDS
+    ## 39                                                                                       MBDS
+    ## 40                                                                                       MBDS
+    ## 41                                                                                       MBDS
+    ## 42                                                                                       MBDS
+    ## 43                                                                                       MBDS
+    ## 44                                                                                       MBDS
+    ## 45                                                                                       MBDS
+    ## 46                                                                                       MBDS
+    ## 47                                                                             Point of Pines
+    ## 48                                                                             Point of Pines
+    ## 49                                                                             Point of Pines
+    ## 50                                                                             Point of Pines
+    ## 51                                                                             Point of Pines
+    ## 52  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 53  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 54  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 55  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 56  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 57  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 58  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 59  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 60  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 61  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 62  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 63  Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
+    ## 64                                                                             DORCHESTER BAY
+    ## 65                                                                        CRYSTAL COVE MARINA
+    ## 66                                                                        CRYSTAL COVE MARINA
+    ## 67                                                                               GREEN HARBOR
+    ## 68                                                                               GREEN HARBOR
+    ## 69                                                                               GREEN HARBOR
+    ## 70                                                                               GREEN HARBOR
+    ## 71                                                                               GREEN HARBOR
+    ## 72                                                                               GREEN HARBOR
+    ## 73                                                                               GREEN HARBOR
+    ## 74                                                                               GREEN HARBOR
+    ## 75                                                                               GREEN HARBOR
+    ## 76                                                                               GREEN HARBOR
+    ## 77                                                                               GREEN HARBOR
+    ## 78                                                                               GREEN HARBOR
+    ## 79                                                                               GREEN HARBOR
+    ## 80                                                                               GREEN HARBOR
+    ## 81                                                                                 BASS RIVER
+    ## 82                                                                                 BASS RIVER
+    ## 83                                                                                 BASS RIVER
+    ## 84                                                                              HINGAM HARBOR
+    ## 85                                                                             HINGHAM HARBOR
+    ## 86                                                                             HINGHAM HARBOR
+    ## 87                                                                             BEVERLY HARBOR
+    ## 88                                                                             BEVERLY HARBOR
+    ## 89                                                                                ESSEX RIVER
+    ## 90                                                                                ESSEX RIVER
+    ## 91                                                                                ESSEX RIVER
+    ## 92                                                                               Mystic River
+    ## 93                                                                               Mystic River
+    ## 94                                                                               Mystic River
+    ## 95                                                                               Mystic River
+    ## 96                                                                                 SMITH COVE
+    ## 97                                                                                 SMITH COVE
+    ## 98                                                                                 SMITH COVE
+    ## 99                                                                                 SMITH COVE
+    ## 100                                                                                SMITH COVE
+    ## 101                                                                                SMITH COVE
+    ## 102                                                                                SMITH COVE
+    ## 103                                                                                SMITH COVE
+    ## 104                                                                                SMITH COVE
+    ## 105                                                                                SMITH COVE
+    ## 106                                                                           WINTHROP HARBOR
+    ## 107                                                                           WINTHROP HARBOR
+    ## 108                                                                           WINTHROP HARBOR
+    ## 109                                                                           WINTHROP HARBOR
+    ## 110                                                                           WINTHROP HARBOR
+    ## 111                                                                           WINTHROP HARBOR
+    ## 112                                                                           WINTHROP HARBOR
+    ## 113                                                                           WINTHROP HARBOR
+    ## 114                                                                            WINTROP HARBOR
+    ## 115                                                                           WINTHROP HARBOR
+    ## 116                                                                           WINTHROP HARBOR
+    ## 117                                                                           WINTHROP HARBOR
+    ## 118                                                                           WINTHROP HARBOR
+    ## 119                                                                           WINTHROP HARBOR
+    ## 120                                                                           WINTHROP HARBOR
+    ## 121                                                                           WINTHROP HARBOR
+    ## 122                                                                           WINTHROP HARBOR
+    ## 123                                                                           WINTHROP HARBOR
+    ## 124                                                                           WINTHROP HARBOR
+    ## 125                                                                           WINTHROP HARBOR
+    ## 126                                                                           WINTHROP HARBOR
+    ## 127                                                                           WINTHROP HARBOR
+    ## 128                                                                           WINTHROP HARBOR
+    ## 129                                                                           WINTHROP HARBOR
+    ## 130                                                                           WINTHROP HARBOR
+    ## 131                                                                     Little Mystic Channel
+    ## 132                                                                         MANCHESTER HARBOR
+    ## 133                                                                         MANCHESTER HARBOR
+    ## 134                                                                         MANCHESTER HARBOR
+    ## 135                                                                         MANCHESTER HARBOR
+    ## 136                                                                           SCITUATE HARBOR
+    ## 137                                                                       Weymouth Fore River
+    ## 138                                                                       Weymouth Fore River
+    ## 139                                                                       Weymouth Fore River
+    ## 140                                                                       Weymouth Fore River
+    ## 141                                                                            HINGHAM HARBOR
+    ## 142                                                                              SALEM HARBOR
+    ## 143                                                                      BOSTON HARBOR MARINA
+    ## 144                                                                      BOSTON HARBOR MARINA
+    ## 145                                                                              Mystic River
+    ## 146                                                                              Mystic River
+    ## 147                                                                              Mystic River
+    ## 148                                                                           SCITUATE HARBOR
+    ## 149                                                                           SCITUATE HARBOR
+    ## 150                                                                           SCITUATE HARBOR
+    ## 151                                                                           SCITUATE HARBOR
+    ## 152                                                                         GLOUCESTER HARBOR
+    ## 153                                                                         GLOUCESTER HARBOR
+    ## 154                                                                             BOSTON HARBOR
+    ## 155                                                                             BOSTON HARBOR
+    ## 156                                                                             BOSTON HARBOR
+    ## 157                                                                             BOSTON HARBOR
+    ## 158                                                                               DUXBURY BAY
+    ## 159                                                                            DORCHESTER BAY
+    ## 160                                                                            DORCHESTER BAY
+    ## 161                                                                            DORCHESTER BAY
+    ## 162                                                                            DORCHESTER BAY
+    ## 163                                                                            DORCHESTER BAY
+    ## 164                                                                            DORCHESTER BAY
+    ## 165                                                                            DORCHESTER BAY
+    ## 166                                                                            DORCHESTER BAY
+    ## 167                                                                            DORCHESTER BAY
+    ## 168                                                                            DORCHESTER BAY
+    ## 169                                                                            DORCHESTER BAY
+    ## 170                                                                            DORCHESTER BAY
+    ## 171                                                                            DORCHESTER BAY
+    ## 172                                                                            DORCHESTER BAY
+    ## 173                                                                            BEVERLY HARBOR
+    ## 174                                                                             CHELSEA RIVER
+    ## 175                                                                             CHELSEA RIVER
+    ## 176                                                                             CHELSEA RIVER
+    ## 177                                                                   PORT NORFOLK YACHT CLUB
+    ## 178                                                                   PORT NORFOLK YACHT CLUB
+    ## 179                                                                   PORT NORFOLK YACHT CLUB
+    ## 180                                                                   PORT NORFOLK YACHT CLUB
+    ## 181                                                                           Cohasset Harbor
+    ## 182                                                                           Cohasset Harbor
+    ## 183                                                                           Cohasset Harbor
+    ## 184                                                                           Cohasset Harbor
+    ## 185                                                                           Cohasset Harbor
+    ## 186                                                                             Chelsea River
+    ## 187                                                                             Chelsea River
+    ## 188                                                                             Chelsea River
+    ## 189                                                                             Chelsea River
+    ## 190                                                                             Chelsea River
+    ## 191                                                                                 Salisbury
+    ## 192                                                                            Dorchester Bay
+    ## 193                                                                            Dorchester Bay
+    ## 194                                                                            Dorchester Bay
+    ## 195                                                                            Dorchester Bay
+    ## 196                                                                            Dorchester Bay
+    ## 197                                                                   Rowes and Fosters Wharf
+    ## 198                                                                   Rowes and Fosters Wharf
+    ## 199                                                                   Rowes and Fosters Wharf
+    ## 200                                                                              GREEN HARBOR
+    ## 201                                                                              GREEN HARBOR
+    ## 202                                                                                Mill Creek
+    ## 203                                                                                Mill Creek
+    ## 204                                                                                Mill Creek
+    ## 205                                                                                Mill Creek
+    ## 206                                                                                Mill Creek
+    ## 207                                                                                Mill Creek
+    ## 208                                                                                Mill Creek
+    ## 209                                                                                Mill Creek
+    ## 210                                                                                Mill Creek
+    ## 211                                                                                Mill Creek
+    ## 212                                                                                Mill Creek
+    ## 213                                                                                Mill Creek
+    ## 214                                                                                Mill Creek
+    ## 215                                                                                Mill Creek
+    ## 216                                                                                Mill Creek
+    ## 217                                                                                Mill Creek
+    ## 218                                                                                Mill Creek
+    ## 219                                                                                Mill Creek
+    ## 220                                                                                Mill Creek
+    ## 221                                                                                Mill Creek
+    ## 222                                                                                Mill Creek
+    ## 223                                                                                Mill Creek
+    ## 224                                                                                Mill Creek
+    ## 225                                                                                Mill Creek
+    ## 226                                                                                Mill Creek
+    ## 227                                                                                Mill Creek
+    ## 228                                                                                Mill Creek
+    ## 229                                                                                Mill Creek
+    ## 230                                                                                Mill Creek
+    ## 231                                                                                Mill Creek
+    ## 232                                                                                Mill Creek
+    ## 233                                                                                Mill Creek
+    ## 234                                                                                Mill Creek
+    ## 235                                                                                Mill Creek
+    ## 236                                                                                Mill Creek
+    ## 237                                                                                Mill Creek
+    ## 238                                                                                Mill Creek
+    ## 239                                                           Victory Road Park Inlet Channel
+    ## 240                                                           Victory Road Park Inlet Channel
+    ## 241                                                           Victory Road Park Inlet Channel
+    ## 242                                                           Victory Road Park Inlet Channel
+    ## 243                                                           Victory Road Park Inlet Channel
+    ## 244                                                           Victory Road Park Inlet Channel
+    ## 245                                                           Victory Road Park Inlet Channel
+    ## 246                                                           Victory Road Park Inlet Channel
+    ## 247                                                           Victory Road Park Inlet Channel
+    ## 248                                                           Victory Road Park Inlet Channel
+    ## 249                                                           Victory Road Park Inlet Channel
+    ## 250                                                           Victory Road Park Inlet Channel
+    ## 251                                                           Victory Road Park Inlet Channel
+    ## 252                                                           Victory Road Park Inlet Channel
+    ## 253                                                                              Mystic River
+    ## 254                                                           Seaward of New England Aquarium
+    ## 255                                                           Seaward of New England Aquarium
+    ## 256                                                           Seaward of New England Aquarium
+    ## 257                                                                   South Basin, Long Wharf
+    ## 258                                                                   South Basin, Long Wharf
+    ## 259                                                                   South Basin, Long Wharf
+    ## 260                                                                   South Basin, Long Wharf
+    ## 261                                                                   South Basin, Long Wharf
+    ## 262                                                                     Seaward of Long Wharf
+    ## 263                                                                     Seaward of Long Wharf
+    ## 264                                                                     Seaward of Long Wharf
+    ## 265                                                                   North Basin, Long Wharf
+    ## 266                                                                   North Basin, Long Wharf
+    ## 267                                                                                Long Wharf
+    ## 268                                                                   North Basin, Long Wharf
+    ## 269                                                                   North Basin, Long Wharf
+    ## 270                                                                   North Basin, Long Wharf
+    ## 271                                                                   North Basin, Long Wharf
+    ## 272                                      Public Boat Basin between Long and Commercial Wharfs
+    ## 273                                      Public Boat Basin between Long and Commercial Wharfs
+    ## 274                                      Public Boat Basin between Long and Commercial Wharfs
+    ## 275                                      Public Boat Basin between Long and Commercial Wharfs
+    ## 276                                      Public Boat Basin between Long and Commercial Wharfs
+    ## 277                                      Public Boat Basin between Long and Commercial Wharfs
+    ## 278                                                                Seaward of Waterfront Park
+    ## 279                                                                Seaward of Waterfront Park
+    ## 280                                                                Seaward of Waterfront Park
+    ## 281                                                                                Long Wharf
+    ## 282                                                                     Neponset River Bridge
+    ## 283                                                                     Neponset River Bridge
+    ## 284                                                                     Neponset River Bridge
+    ## 285                                                                     Neponset River Bridge
+    ## 286                                                                     Neponset River Bridge
+    ## 287                                                                     Neponset River Bridge
+    ## 288                                                                     Neponset River Bridge
+    ## 289                                                                     Neponset River Bridge
+    ## 290                                                                     Neponset River Bridge
+    ## 291                                                                               South River
+    ## 292                                                                               South River
+    ## 293                                                                Weymouth Fore & Town River
+    ## 294                                                                Weymouth Fore & Town River
+    ## 295                                                                Weymouth Fore & Town River
+    ## 296                                                                Weymouth Fore & Town River
+    ## 297                                                                Weymouth Fore & Town River
+    ## 298                                                                                LONG WHARF
+    ## 299                                                                           Allerton Harbor
+    ## 300                                                                           Allerton Harbor
+    ## 301                                                                           Allerton Harbor
+    ## 302                                                                           Allerton Harbor
+    ## 303                                                                           Allerton Harbor
+    ## 304                                                                           Allerton Harbor
+    ## 305                                                                           Allerton Harbor
+    ## 306                                                                           Allerton Harbor
+    ## 307                                                                           Allerton Harbor
+    ## 308                                                                           Allerton Harbor
+    ## 309                                                                           Winthrop Harbor
+    ## 310                                                                           Winthrop Harbor
+    ## 311                                                                           Winthrop Harbor
+    ## 312                                                         Winthrop Harbor, entrance channel
+    ## 313                                                         Winthrop Harbor, entrance channel
+    ## 314                                                         Winthrop Harbor, entrance channel
+    ## 315                                                         Winthrop Harbor, entrance channel
+    ## 316                                                         Winthrop Harbor, entrance channel
+    ## 317                                                         Winthrop Harbor, entrance channel
+    ## 318                                                                           Winthrop Harbor
+    ## 319                                                                           Winthrop Harbor
+    ## 320                                                                           Winthrop Harbor
+    ## 321                                                                           Winthrop Harbor
+    ## 322                                                                     North & Danvers River
+    ## 323                                                                     North & Danvers River
+    ## 324                                                                     North & Danvers River
+    ## 325                                                                     North & Danvers River
+    ## 326                                                                     North & Danvers River
+    ## 327                                                                     North & Danvers River
+    ## 328                                                                     North & Danvers River
+    ## 329                                                                     North & Danvers River
+    ## 330                                                                     North & Danvers River
+    ## 331                                                                     North & Danvers River
+    ## 332                                                                     North & Danvers River
+    ## 333                                                                     North & Danvers River
+    ## 334                                                                     North & Danvers River
+    ## 335                                                                     North & Danvers River
+    ## 336                                                                     North & Danvers River
+    ## 337                                                                     North & Danvers River
+    ## 338                                                                     North & Danvers River
+    ## 339                                                                     North & Danvers River
+    ## 340                                                                     North & Danvers River
+    ## 341                                                        Jeffries Cove, Boston Inner Harbor
+    ## 342                                                                      Stoney Brook Conduit
+    ## 343                                                                  Old Stoney Brook Conduit
+    ## 344                                                                              Mystic River
+    ## 345                                                                              Mystic River
+    ## 346                                                                              Mystic River
+    ## 347                                                                          Mystic River "C"
+    ## 348                                                                            Mystic River D
+    ## 349                                                                             Chelsea River
+    ## 350                                                                             Chelsea River
+    ## 351                                                                             Chelsea River
+    ## 352                                                                             Chelsea River
+    ## 353                                                                             Chelsea River
+    ## 354                                                                             Chelsea River
+    ## 355                                                                             Chelsea River
+    ## 356                                                                             Chelsea River
+    ## 357                                                                             Chelsea River
+    ## 358                                                                             Chelsea River
+    ## 359                                                                             Chelsea River
+    ## 360                                                                             Chelsea River
+    ## 361                                                                         Reserve Channel A
+    ## 362                                                                         Reserve Channel A
+    ## 363                                                                         Reserve Channel A
+    ## 364                                                                         Reserve Channel B
+    ## 365                                                                         Reserve Channel B
+    ## 366                                                                         Reserve Channel B
+    ## 367                                                                         Reserve Channel C
+    ## 368                                                                       Reserve Channel "D"
+    ## 369                                                                         Reserve Channel E
+    ## 370                                                                         Reserve Channel F
+    ## 371                                                                        Inner Confluence A
+    ## 372                                                                      Inner Confluence "B"
+    ## 373                                                                      Inner Confluence "C"
+    ## 374                                                                              Mystic River
+    ## 375                                                                              Mystic River
+    ## 376                                                                             Chelsea River
+    ## 377                                                                             Chelsea River
+    ## 378                                                                          Reserve "B"-7826
+    ## 379                                                                          Reserve "D"-7827
+    ## 380                                                              FADS-Reference location-7832
+    ## 381                                                                          Mystic River "A"
+    ## 382                                                                              Gulf Oil Co.
+    ## 383                                                                              Gibb Oil ???
+    ## 384                                                                      Gibb Oil North Berth
+    ## 385                                                                      Gibb Oil South Berth
+    ## 386                                                               SE of The Graves, Mass. Bay
+    ## 387                                                                                      <NA>
+    ## 388                                                                                      <NA>
+    ## 389                                                                                      <NA>
+    ## 390                                                                                      <NA>
+    ## 391                                                                                      <NA>
+    ## 392                                                                                      <NA>
+    ## 393                                                                                      <NA>
+    ## 394                                                                                      <NA>
+    ## 395                                                                                      <NA>
+    ## 396                                                                                      <NA>
+    ## 397                                                                                      <NA>
+    ## 398                                                                                      <NA>
+    ## 399                                                                                      <NA>
+    ## 400                                                                                      <NA>
+    ## 401                                                                                      <NA>
+    ## 402                                                                                      <NA>
+    ## 403                                                                                      <NA>
+    ## 404                                                                                      <NA>
+    ## 405                                                                                      <NA>
+    ## 406                                                                                      <NA>
+    ## 407                                                                                      <NA>
+    ## 408                                                                                      <NA>
+    ## 409                                                                                      <NA>
+    ## 410                                                                                      <NA>
+    ## 411                                                                                      <NA>
+    ## 412                                                                                      <NA>
+    ## 413                                                                                      <NA>
+    ## 414                                                                                      <NA>
+    ## 415                                                                                      <NA>
+    ## 416                                                                                      <NA>
+    ## 417                                                                              GEORGES BANK
+    ## 418                                                                              GEORGES BANK
+    ## 419                                                                              GEORGES BANK
+    ## 420                                                                              GEORGES BANK
+    ## 421                                                                                      <NA>
+    ## 422                                                                                      <NA>
+    ## 423                                                                                      <NA>
+    ## 424                                                                                      <NA>
+    ## 425                                                                                      <NA>
+    ## 426                                                                                      <NA>
+    ## 427                                                                                      <NA>
+    ## 428                                                                                      <NA>
+    ## 429                                                                                      <NA>
+    ## 430                                                                                      <NA>
+    ## 431                                                                              GEORGES BANK
+    ## 432                                                                              GEORGES BANK
+    ## 433                                                                                      <NA>
+    ## 434                                                                                      <NA>
+    ## 435                                                                                      <NA>
+    ## 436                                                                                      <NA>
+    ## 437                                                                                      <NA>
+    ## 438                                                                                      <NA>
+    ## 439                                                                              GEORGES BANK
+    ## 440                                                                                      <NA>
+    ## 441                                                                                      <NA>
+    ## 442                                                                                      <NA>
+    ## 443                                                                                      <NA>
+    ## 444                                                                                      <NA>
+    ## 445                                                                                      <NA>
+    ## 446                                                                                      <NA>
+    ## 447                                                                                      <NA>
+    ## 448                                                                                      <NA>
+    ## 449                                                                      ESE of Castle Island
+    ## 450                                                             btwn DeerI. &GovernorsI.Flats
+    ## 451                                                                                Quincy Bay
+    ## 452                                                           Nantasket Roads W of Perry Cove
+    ## 453                                                                                  Hull Bay
+    ## 454                                                               SE of The Graves, Mass. Bay
+    ## 455                                                                               Salem Sound
+    ## 456                                                                         Massachusetts Bay
+    ## 457                                                                         Massachusetts Bay
+    ## 458                                                                         Massachusetts Bay
+    ## 459                                                                         Massachusetts Bay
+    ## 460                                                                         Massachusetts Bay
+    ## 461                                                                         Massachusetts Bay
+    ## 462                                                                         Massachusetts Bay
+    ## 463                                                                         Massachusetts Bay
+    ## 464                                                                         Massachusetts Bay
+    ## 465                                                                         Massachusetts Bay
+    ## 466                                                                         Massachusetts Bay
+    ## 467                                                                         Massachusetts Bay
+    ## 468                                                                              Cape Cod Bay
+    ## 469                                                                              Cape Cod Bay
+    ## 470                                                                      ESE of Castle Island
+    ## 471                                                                      ESE of Castle Island
+    ## 472                                                                      ESE of Castle Island
+    ## 473                                                                      ESE of Castle Island
+    ## 474                                                                      ESE of Castle Island
+    ## 475                                                                      ESE of Castle Island
+    ## 476                                                         btwn Deer I. & Governors I. Flats
+    ## 477                                                         btwn Deer I. & Governors I. Flats
+    ## 478                                                         btwn Deer I. & Governors I. Flats
+    ## 479                                                         btwn Deer I. & Governors I. Flats
+    ## 480                                                         btwn Deer I. & Governors I. Flats
+    ## 481                                                         btwn Deer I. & Governors I. Flats
+    ## 482                                                                         SE of Deer Island
+    ## 483                                                                                Quincy Bay
+    ## 484                                                                                Quincy Bay
+    ## 485                                                                                Quincy Bay
+    ## 486                                                                                Quincy Bay
+    ## 487                                                                                Quincy Bay
+    ## 488                                                                                Quincy Bay
+    ## 489                                                           Nantasket Roads W of Perry Cove
+    ## 490                                                           Nantasket Roads W of Perry Cove
+    ## 491                                                           Nantasket Roads W of Perry Cove
+    ## 492                                                           Nantasket Roads W of Perry Cove
+    ## 493                                                           Nantasket Roads W of Perry Cove
+    ## 494                                                           Nantasket Roads W of Perry Cove
+    ## 495                                                                                  Hull Bay
+    ## 496                                                                                  Hull Bay
+    ## 497                                                                                  Hull Bay
+    ## 498                                                                                  Hull Bay
+    ## 499                                                                                  Hull Bay
+    ## 500                                                                                  Hull Bay
+    ## 501                                                               SE of The Graves, Mass. Bay
+    ## 502                                                               SE of The Graves, Mass. Bay
+    ## 503                                                               SE of The Graves, Mass. Bay
+    ## 504                                                               SE of The Graves, Mass. Bay
+    ## 505                                                                               Salem Sound
+    ## 506                                                                         Massachusetts Bay
+    ## 507                                                                         Massachusetts Bay
+    ## 508                                                                         Massachusetts Bay
+    ## 509                                                                         Massachusetts Bay
+    ## 510                                                                         Massachusetts Bay
+    ## 511                                                                         Massachusetts Bay
+    ## 512                                                                         Massachusetts Bay
+    ## 513                                                                         Massachusetts Bay
+    ## 514                                                                         Massachusetts Bay
+    ## 515                                                                         Massachusetts Bay
+    ## 516                                                                         Massachusetts Bay
+    ## 517                                                                         Massachusetts Bay
+    ## 518                                                                         Massachusetts Bay
+    ## 519                                                                         Massachusetts Bay
+    ## 520                                                                         Massachusetts Bay
+    ## 521                                                                         Massachusetts Bay
+    ## 522                                                                         Massachusetts Bay
+    ## 523                                                                         Massachusetts Bay
+    ## 524                                                                         Massachusetts Bay
+    ## 525                                                                         Massachusetts Bay
+    ## 526                                                                         Massachusetts Bay
+    ## 527                                                                         Massachusetts Bay
+    ## 528                                                                         Massachusetts Bay
+    ## 529                                                                         Massachusetts Bay
+    ## 530                                                                         Massachusetts Bay
+    ## 531                                                                         Massachusetts Bay
+    ## 532                                                                         Massachusetts Bay
+    ## 533                                                                         Massachusetts Bay
+    ## 534                                                                         Massachusetts Bay
+    ## 535                                                                         Massachusetts Bay
+    ## 536                                                                         Massachusetts Bay
+    ## 537                                                                         Massachusetts Bay
+    ## 538                                                                         Massachusetts Bay
+    ## 539                                                                         Massachusetts Bay
+    ## 540                                                                         Massachusetts Bay
+    ## 541                                                                         Massachusetts Bay
+    ## 542                                                                         Massachusetts Bay
+    ## 543                                                                         Massachusetts Bay
+    ## 544                                                                         Massachusetts Bay
+    ## 545                                                                         Massachusetts Bay
+    ## 546                                                                         Massachusetts Bay
+    ## 547                                                                         Massachusetts Bay
+    ## 548                                                                         Massachusetts Bay
+    ## 549                                                                         Massachusetts Bay
+    ## 550                                                                         Massachusetts Bay
+    ## 551                                                                         Massachusetts Bay
+    ## 552                                                                         Massachusetts Bay
+    ## 553                                                                         Massachusetts Bay
+    ## 554                                                                         Massachusetts Bay
+    ## 555                                                                         Massachusetts Bay
+    ## 556                                                                         Massachusetts Bay
+    ## 557                                                                         Massachusetts Bay
+    ## 558                                                                         Massachusetts Bay
+    ## 559                                                                         Massachusetts Bay
+    ## 560                                                                         Massachusetts Bay
+    ## 561                                                                         Massachusetts Bay
+    ## 562                                                                         Massachusetts Bay
+    ## 563                                                                         Massachusetts Bay
+    ## 564                                                                         Massachusetts Bay
+    ## 565                                                                         Massachusetts Bay
+    ## 566                                                                         Massachusetts Bay
+    ## 567                                                                         Massachusetts Bay
+    ## 568                                                                         Massachusetts Bay
+    ## 569                                                                         Massachusetts Bay
+    ## 570                                                                         Massachusetts Bay
+    ## 571                                                                         Massachusetts Bay
+    ## 572                                                                         Massachusetts Bay
+    ## 573                                                                         Massachusetts Bay
+    ## 574                                                                         Massachusetts Bay
+    ## 575                                                                         Massachusetts Bay
+    ## 576                                                                         Massachusetts Bay
+    ## 577                                                                         Massachusetts Bay
+    ## 578                                                                         Massachusetts Bay
+    ## 579                                                                         Massachusetts Bay
+    ## 580                                                                         Massachusetts Bay
+    ## 581                                                                         Massachusetts Bay
+    ## 582                                                                         Massachusetts Bay
+    ## 583                                                                         Massachusetts Bay
+    ## 584                                                                              Cape Cod Bay
+    ## 585                                                                              Cape Cod Bay
+    ## 586                                                                              Cape Cod Bay
+    ## 587                                                                              Cape Cod Bay
+    ## 588                                                                              Cape Cod Bay
+    ## 589                                                                              Cape Cod Bay
+    ## 590                                                                              Cape Cod Bay
+    ## 591                                                                              Cape Cod Bay
+    ## 592                                                                              Cape Cod Bay
+    ## 593                                                                              Cape Cod Bay
+    ## 594                                                                              Cape Cod Bay
+    ## 595                                                                              Cape Cod Bay
+    ## 596                                                                                      <NA>
+    ## 597                                                                                      <NA>
+    ## 598                                                                                      <NA>
+    ## 599                                                                                      <NA>
+    ## 600                                                                                      <NA>
+    ## 601                                                                                      <NA>
+    ## 602                                                                                      <NA>
+    ## 603                                                                                      <NA>
+    ## 604                                                                                      <NA>
+    ## 605                                                                                      <NA>
+    ## 606                                                                                      <NA>
+    ## 607                                                                                      <NA>
+    ## 608                                                                                      <NA>
+    ## 609                                                                                      <NA>
+    ## 610                                                                                      <NA>
+    ## 611                                                                                      <NA>
+    ## 612                                                                                      <NA>
+    ## 613                                                                                      <NA>
+    ## 614                                                                                      <NA>
+    ## 615                                                                                      <NA>
+    ## 616                                                                                      <NA>
+    ## 617                                                                                      <NA>
+    ## 618                                                                                      <NA>
+    ## 619                                                                                      <NA>
+    ## 620                                                                                      <NA>
+    ## 621                                                                                      <NA>
+    ## 622                                                                                      <NA>
+    ## 623                                                                                      <NA>
+    ## 624                                                                                      <NA>
+    ## 625                                                                                      <NA>
+    ## 626                                                                                      <NA>
+    ## 627                                                                                      <NA>
+    ## 628                                                                                      <NA>
+    ## 629                                                                               W. Mass Bay
+    ## 630                                                                               W. Mass Bay
+    ## 631                                                                               W. Mass Bay
+    ## 632                                                                               W. Mass Bay
+    ## 633                                                                               W. Mass Bay
+    ## 634                                                                               W. Mass Bay
+    ## 635                                                                               W. Mass Bay
+    ## 636                                                                               W. Mass Bay
+    ## 637                                                                               W. Mass Bay
+    ## 638                                                                               W. Mass Bay
+    ## 639                                                                               W. Mass Bay
+    ## 640                                                                               W. Mass Bay
+    ## 641                                                                               W. Mass Bay
+    ## 642                                                                            Dorchester Bay
+    ## 643                                                                            Dorchester Bay
+    ## 644                                                                            Dorchester Bay
+    ## 645                                                                            Dorchester Bay
+    ## 646                                                                            Dorchester Bay
+    ## 647                                                                            Dorchester Bay
+    ## 648                                                                            Dorchester Bay
+    ## 649                                                                            Dorchester Bay
+    ## 650                                                                            Dorchester Bay
+    ## 651                                                                               Hingham Bay
+    ## 652                                                                               Hingham Bay
+    ## 653                                                                               Hingham Bay
+    ## 654                                                                                Quincy Bay
+    ## 655                                                                                Quincy Bay
+    ## 656                                                                                Quincy Bay
+    ## 657                                                                                 BIH mouth
+    ## 658                                                                                 BIH mouth
+    ## 659                                                                                 BIH mouth
+    ## 660                                                                                 BIH mouth
+    ## 661                                                                                 BIH mouth
+    ## 662                                                                                 BIH mouth
+    ## 663                                                                                 BIH mouth
+    ## 664                                                                                 BIH mouth
+    ## 665                                                                                 BIH mouth
+    ## 666                                                                                 BIH mouth
+    ## 667                                                                                 BIH mouth
+    ## 668                                                                                       DOB
+    ## 669                                                                                       DOB
+    ## 670                                                                                       DOB
+    ## 671                                                                                       DOB
+    ## 672                                                                                       DOB
+    ## 673                                                                                       DOB
+    ## 674                                                                                       DOB
+    ## 675                                                                                       DOB
+    ## 676                                                                                       DOB
+    ## 677                                                                                       DOB
+    ## 678                                                                                       DOB
+    ## 679                                                                                       DOB
+    ## 680                                                                                       DOB
+    ## 681                                                                                       DOB
+    ## 682                                                                                       DOB
+    ## 683                                                                                       DOB
+    ## 684                                                                                       DOB
+    ## 685                                                                                       DOB
+    ## 686                                                                                       DOB
+    ## 687                                                                                       DOB
+    ## 688                                                                                       DOB
+    ## 689                                                                                       DOB
+    ## 690                                                                                       DOB
+    ## 691                                                                        DOB Deer Is. Flats
+    ## 692                                                                        DOB Deer Is. Flats
+    ## 693                                                                        DOB Deer Is. Flats
+    ## 694                                                                        DOB Deer Is. Flats
+    ## 695                                                                        DOB Deer Is. Flats
+    ## 696                                                                        DOB Deer Is. Flats
+    ## 697                                                                        DOB Deer Is. Flats
+    ## 698                                                                        DOB Deer Is. Flats
+    ## 699                                                                        DOB Deer Is. Flats
+    ## 700                                                                        DOB Deer Is. Flats
+    ## 701                                                                        DOB Deer Is. Flats
+    ## 702                                                                        DOB Deer Is. Flats
+    ## 703                                                                        DOB Deer Is. Flats
+    ## 704                                                                        DOB Deer Is. Flats
+    ## 705                                                                    DOB Sculpin Ledge Chn.
+    ## 706                                                                    DOB Sculpin Ledge Chn.
+    ## 707                                                                    DOB Sculpin Ledge Chn.
+    ## 708                                                                    DOB Sculpin Ledge Chn.
+    ## 709                                                                    DOB Sculpin Ledge Chn.
+    ## 710                                                                    DOB Sculpin Ledge Chn.
+    ## 711                                                                    DOB Sculpin Ledge Chn.
+    ## 712                                                                    DOB Sculpin Ledge Chn.
+    ## 713                                                                    DOB Sculpin Ledge Chn.
+    ## 714                                                                    DOB Sculpin Ledge Chn.
+    ## 715                                                                    DOB Sculpin Ledge Chn.
+    ## 716                                                                    DOB Sculpin Ledge Chn.
+    ## 717                                                                      Mass Bay Broad Sound
+    ## 718                                                                      Mass Bay Broad Sound
+    ## 719                                                                      Mass Bay Broad Sound
+    ## 720                                                                      Mass Bay Broad Sound
+    ## 721                                                                      Mass Bay Broad Sound
+    ## 722                                                                      Mass Bay Broad Sound
+    ## 723                                                                      Mass Bay Broad Sound
+    ## 724                                                                      Mass Bay Broad Sound
+    ## 725                                                                      Mass Bay Broad Sound
+    ## 726                                                                                 BIH mouth
+    ## 727                                                                                       DOB
+    ## 728                                                                    DOB Sculpin Ledge Chn.
+    ## 729                                                                                       HIB
+    ## 730                                                                                      <NA>
+    ## 731                                                                       QUB Nantasket Roads
+    ## 732                                                                                       QUB
+    ## 733                                                                                      <NA>
+    ## 734                                                                                       BIH
+    ## 735                                                                                       BIH
+    ## 736                                                                                       DOB
+    ## 737                                                                                       DOB
+    ## 738                                                                         DOB Sculpin Ledge
+    ## 739                                                                                       QUB
+    ## 740                                                                                       QUB
+    ## 741                                                                          QUB/HIB West Gut
+    ## 742                                                                                       HIB
+    ## 743                                                                                  Mass Bay
+    ## 744                                                                                       QUB
+    ## 745                                                                                  Mass Bay
+    ## 746                                                                                  Mass Bay
+    ## 747                                                   Mass Bay (Approaches) N. Harbor Channel
+    ## 748                                                     Mass Bay (Approaches) President Roads
+    ## 749                                                                       DOB President Roads
+    ## 750                                                                       DOB President Roads
+    ## 751                                                                      DOB Deer/Govn. Flats
+    ## 752                                                                      DOB Deer/Govn. Flats
+    ## 753                                                                                 BIH mouth
+    ## 754                                                                                 BIH mouth
+    ## 755                                                                                 BIH mouth
+    ## 756                                                                                 BIH mouth
+    ## 757                                                                                 BIH mouth
+    ## 758                                                                                 BIH mouth
+    ## 759                                                                                 BIH mouth
+    ## 760                                                                                 BIH mouth
+    ## 761                                                                                 BIH mouth
+    ## 762                                                                                 BIH mouth
+    ## 763                                                                                 BIH mouth
+    ## 764                                                                                 BIH mouth
+    ## 765                                                                                 BIH mouth
+    ## 766                                                                                 BIH mouth
+    ## 767                                                                                       DOB
+    ## 768                                                                                       DOB
+    ## 769                                                                                       DOB
+    ## 770                                                                                       DOB
+    ## 771                                                                                      <NA>
+    ## 772                                                                                       DOB
+    ## 773                                                                                      <NA>
+    ## 774                                                                                       DOB
+    ## 775                                                                                       DOB
+    ## 776                                                                                       DOB
+    ## 777                                                                                       DOB
+    ## 778                                                                                       DOB
+    ## 779                                                                                      <NA>
+    ## 780                                                                                       DOB
+    ## 781                                                                    DOB Sculpin Ledge Chn.
+    ## 782                                                                    DOB Sculpin Ledge Chn.
+    ## 783                                                                    DOB Sculpin Ledge Chn.
+    ## 784                                                                    DOB Sculpin Ledge Chn.
+    ## 785                                                                    DOB Sculpin Ledge Chn.
+    ## 786                                                                    DOB Sculpin Ledge Chn.
+    ## 787                                                                    DOB Sculpin Ledge Chn.
+    ## 788                                                                    DOB Sculpin Ledge Chn.
+    ## 789                                                                    DOB Sculpin Ledge Chn.
+    ## 790                                                                    DOB Sculpin Ledge Chn.
+    ## 791                                                                    DOB Sculpin Ledge Chn.
+    ## 792                                                                    DOB Sculpin Ledge Chn.
+    ## 793                                                                    DOB Sculpin Ledge Chn.
     ##     BENZNE_C.1 X2BZTPN_C.1 X2BZTPN_T_C.1 C1DIBZTPNC.1 C2DIBZTPNC.1 C3DIBZTPNC.1
     ## 1           NA          NA            NA           NA           NA           NA
     ## 2           NA          NA            NA           NA           NA           NA
@@ -24121,9 +25703,9 @@ naniar::miss_var_summary(PCBs_loc)
 # Write loc datasets as CSVs
 
 ``` r
-write_csv(Organics_loc, "/cloud/project/data/datasets_csv/Organics_loc.csv")
-write_csv(PAHs_loc, "/cloud/project/data/datasets_csv/PAHs_loc.csv")
-write_csv(PCBs_loc, "/cloud/project/data/datasets_csv/PCBs_loc.csv")
+#write_csv(Organics_loc, "/cloud/project/data/datasets_csv/Organics_loc.csv")
+#write_csv(PAHs_loc, "/cloud/project/data/datasets_csv/PAHs_loc.csv")
+#write_csv(PCBs_loc, "/cloud/project/data/datasets_csv/PCBs_loc.csv")
 ```
 
 # JH – we do not need to load .shp files here; we still have to load them separately whenever we use them.
