@@ -227,6 +227,18 @@ Organics_long_no_na_no_zero %>%
   labs(title = "Organic Concentrations in Boston Inner Harbor Sediments",
        x = "Organic Detected",
        y = "Amount Detected (ug/g)")
+
+#Organics_long_no_na_no_zero %>%
+  #filter(GEN_LOC_NM %in% c("Boston Inner Harbor")) %>%
+  #ggplot(aes(x="", y = sum(amount_detected), fill = organic_detected)) +
+  #geom_bar(stat="identity", width=1) +
+  #coord_polar("y", start=0) + 
+  #theme_minimal() + 
+  #scale_fill_viridis_d() + 
+   #labs(title = "Organic Concentrations in Boston Inner Harbor Sediments",
+       #fill = "Organic Detected",
+       #x = "Amount Detected (ug/g)")
+  
 ```
 
 #### Cape Ann to Cape Elizabeth Concentrations
@@ -360,7 +372,7 @@ Sum_all_pcb_rock_n %>%
 Sum_all_pcb_rock_n %>%
 ggplot(aes(x="", y = mean, fill = pcb)) +
   geom_bar(stat="identity", width=1) +
-  coord_polar("y", start=0) + 
+  coord_polar("y", start=0) 
   
 ```
 JH -- I will probably break this up so PCBs and pesticides are in two separate plots.
