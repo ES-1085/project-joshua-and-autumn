@@ -4,7 +4,7 @@ author: "Joshua Harkness and Autumn Pauly"
 date: "2023-10-28"
 output: github_document
 ---
-### Introduction
+# Introduction
 This document is an analysis of distributions and concentrations of PCB and Organic contaminants that were reported in a publication by the U.S. Geological Survey on contaminated sediments in the Gulf of Maine. 
 
 ### Loading packages
@@ -115,7 +115,7 @@ geom_histogram(fill = "skyblue", color = "black")
 #### General PCB Summary Statistics
 The table below is visualizing the mean, standard deviation, count, and principal square root values of PCB concentrations for the general locations.
 
-Boston Inner Harbor has the highest mean PCB concentration (average of 44.21 ng/g per observation), followed by Cape Ann to Cape Elizabeth (average of 26.90 ng/g per observation) and Southeast Boston Harbor (average of 18.35 ng/g per observation). Boston Inner Harbor (average standard deviation of 284.81) and Cape Ann to Cape Elizabeth (average standard deviation of 227.34) have the highest standard deviations, suggesting that, though they are the locations with the highest average PCB concentrations, the counts per observation vary greatly. The ranges of both locations is 3,000 ng/g to 0 ng/g, which is a wide range of values. 
+Boston Inner Harbor has the highest mean PCB concentration (average of 44.21 ug/g per observation), followed by Cape Ann to Cape Elizabeth (average of 26.90 ug/g per observation) and Southeast Boston Harbor (average of 18.35 ug/g per observation). Boston Inner Harbor (average standard deviation of 284.81) and Cape Ann to Cape Elizabeth (average standard deviation of 227.34) have the highest standard deviations, suggesting that, though they are the locations with the highest average PCB concentrations, the counts per observation vary greatly. The ranges of both locations is 3,000 ug/g to 0 ug/g, which is a wide range of values. 
 
 ```{r calculate-sum-stats-organics}
 Summary_Organics <- Organics %>%
@@ -129,7 +129,7 @@ Summary_Organics <- Organics %>%
 
 Summary_Organics
 ```
-The graph below is plotting the mean PCB concentration (ng/g) found at each general location with error bards accounting for one standard error. As was reflected upon above, Boston Inner Harbor, Cape Ann to Cape Elizabeth, and Southeast Boston Harbor have the highest concentrations of PCBs.
+The graph below is plotting the mean PCB concentration (ug/g) found at each general location with error bards accounting for one standard error. As was reflected upon above, Boston Inner Harbor, Cape Ann to Cape Elizabeth, and Southeast Boston Harbor have the highest concentrations of PCBs.
 
 ```{r pcb-gen-loc}
 Summary_Organics %>%
@@ -226,7 +226,7 @@ Organics_long_no_na_no_zero %>%
   theme(legend.position = "none")+
   labs(title = "Organic Concentrations in Boston Inner Harbor Sediments",
        x = "Organic Detected",
-       y = "Amount Detected (ng/g)")
+       y = "Amount Detected (ug/g)")
 ```
 
 #### Cape Ann to Cape Elizabeth Concentrations
@@ -251,7 +251,7 @@ Organics_long_no_na_no_zero %>%
   theme(legend.position = "none")+
   labs(title = "Organic Concentrations in Cape Ann to Cape Elizabeth Sediments",
        x = "Organic Detected",
-       y = "Amount Detected (ng/g)")
+       y = "Amount Detected (ug/g)")
 ```
 
 #### Southeast Boston Harbor Concentrations
@@ -276,12 +276,12 @@ Organics_long_no_na_no_zero %>%
   theme(legend.position = "none")+
   labs(title = "Organic Concentrations in Southeast Boston Harbor Sediments",
        x = "Organic Detected",
-       y = "Amount Detected (ng/g)")
+       y = "Amount Detected (ug/g)")
 ```
 
 #### Cape Elizabeth to Rockland Concentrations
 This plot visualizes the specific organics present from Cape Elizabeth to Rockland. 
-DDD compounds (9,901.23 ng/g) is PCB with the highest concentration followed by PCBs (802.64 ng/g).
+DDD compounds (9,901.23 ug/g) is PCB with the highest concentration followed by PCBs (802.64 ug/g).
 
 ``` {r type_of_organic-from-cape-elizabeth-to-rockland, echo=FALSE, message=FALSE}
 Organics_long_no_na_no_zero %>%
@@ -301,12 +301,12 @@ Organics_long_no_na_no_zero %>%
   theme(legend.position = "none")+
   labs(title = "Organic Concentrations in Cape Elizabeth to Rockland Sediments",
        x = "Organic Detected",
-       y = "Amount Detected (ng/g)")
+       y = "Amount Detected (ug/g)")
 ```
 
 #### Rockland to North Concentrations
 This plot visualizes the specific organics present from Rockland, ME to any area northward. 
-As shown in the plot, DDD compounds (1,303.10 ng/g) is PCB with the highest concentration followed by PCBs (354.77 ng/g). 
+As shown in the plot, DDD compounds (1,303.10 ug/g) is PCB with the highest concentration followed by PCBs (354.77 ug/g). 
 
 ``` {r type_of_organic-in-rockalnd-to-N, echo = FALSE, message = FALSE}
 Organics_long_no_na_no_zero %>%
@@ -326,7 +326,7 @@ Organics_long_no_na_no_zero %>%
   theme(legend.position = "none")+
   labs(title = "Organic Concentrations in Rockland to North Sediments",
        x = "Organic Detected",
-       y = "Amount Detected (ng/g)")
+       y = "Amount Detected (ug/g)")
 ```
 
 ### PCB and Pesticide Concentrations in Sediments
@@ -357,7 +357,13 @@ Sum_all_pcb_rock_n %>%
   labs(title = "PCB and Pesticide Concentrations in Sediments",
        subtitle = "Rockland, ME, and points north",
        x = "PCB/Pesticide Detected",
-       y = "Amount Detected (ng/g)")
+       y = "Amount Detected (ug/g)")
+
+Sum_all_pcb_rock_n %>%
+ggplot(aes(x="", y = mean, fill = pcb)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) + 
+  
 ```
 
 ### PCB Summary Statistics of Rivers With Highest Concentrations
@@ -673,7 +679,7 @@ ggplot(GOM_states) +
   xlim(-72,-65) +
   ylim(40,45) +
   theme_bw() +
-  guides(size = guide_legend(title = "Concentration ng/g")) +
+  guides(size = guide_legend(title = "Concentration ug/g")) +
   guides(alpha = FALSE) +
   theme(legend.direction = "vertical", legend.box = "horizontal") +
   scale_color_discrete(name = "Pesticide",
