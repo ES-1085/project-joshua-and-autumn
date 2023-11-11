@@ -308,6 +308,33 @@ Organics_long_no_na_no_zero %>%
        x = "Organic Detected",
        y = "Amount Detected (ng/g)")
 ```
+```{r}
+Sum_all_pcb_rock_n <- PCBs_long %>%
+  group_by(pcb, site) %>%
+  filter(GEN_LOC_NM == "Rockland to north") %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  drop_na(amount_detected) %>%
+  summarise(mean = mean(amount_detected),
+    sd = sd(amount_detected),
+    n = n(),
+    SE = sd(amount_detected) / sqrt(n()))
+
+Sum_all_pcb_rock_n
+```
+```{r}
+Sum_all_pcb_rock_n %>%
+  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = mean, fill = pcb)) +
+  geom_col(color = "black") +
+   geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
+  coord_flip() +
+  theme_classic() +
+  scale_fill_brewer(type = "qual", palette = 5, direction = 1, aesthetics = "fill") +
+  theme(legend.position = "none") +
+  labs(title = "PCB and Pesticide Concentrations in Sediments",
+       subtitle = "Rockland, ME, and points north",
+       x = "PCB/Pesticide Detected",
+       y = "Amount Detected (ng/g)")
+```
 
 ### Specific Locations
 #### Rivers
