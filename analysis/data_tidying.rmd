@@ -1,5 +1,5 @@
 ---
-title: "GOM Contaminated Sediments analysis: data tidying"
+title: "GOM Contaminated Sediments Analysis: Data Tidying"
 author: "Joshua Harkness and Autumn Pauly,"
 date: "2023-10-20"
 output: github_document

@@ -1,5 +1,5 @@
 ---
-title: 'GOM Contaminated Sediments analysis: PAHs'
+title: 'GOM Contaminated Sediments Analysis: PAHs'
 author: "Joshua Harkness and Autumn Pauly"
 date: "2023-10-28"
 output: github_document
