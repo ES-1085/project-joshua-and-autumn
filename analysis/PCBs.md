@@ -3,7 +3,15 @@ GOM Contaminated Sediments analysis: PCBs
 Joshua Harkness and Autumn Pauly
 2023-10-28
 
+### Introduction
+
+This document is an analysis of distributions and concentrations of PCB
+and Organic contaminants that were reported in a publication by the U.S.
+Geological Survey on contaminated sediments in the Gulf of Maine.
+
 ### Loading packages
+
+These are the packages that will be used for analysis.
 
 ``` r
 library(tidyverse)
@@ -35,12 +43,19 @@ library(dplyr)
 
 ### Loading PCB and Organics Datasets
 
+This loads the datasets from .csv files and reads them into the
+environment.
+
 ``` r
 PCBs <- read.csv(paste0("/cloud/project/data/datasets_csv/PCBs_loc.csv"), header = T)
 Organics <- read.csv(paste0("/cloud/project/data/datasets_csv/Organics_loc.csv"), header = T)
 ```
 
 ### Glimpsing the PCB and Organics Datasets
+
+These data sets are quite large and contain a lot of information.
+Pivoting will need to be done to restructure this into a format that
+will be easier to interpret.
 
 ``` r
 glimpse(PCBs)
@@ -168,7 +183,7 @@ glimpse(Organics_long)
     ## $ organic_detected <chr> "REPNO_ORG", "TOTREP_ORG", "TVS_EP_PCT", "O_G_PCT", "…
     ## $ amount_detected  <dbl> 1.00, 1.00, NA, 0.05, NA, NA, NA, NA, NA, NA, NA, NA,…
 
-# AP - Placing this here for the time being
+### AP - Placing this here for the time being
 
 ``` r
 Organics_long_no_na_no_zero <- Organics_long %>%
@@ -176,7 +191,12 @@ Organics_long_no_na_no_zero <- Organics_long %>%
   filter(amount_detected != "0")
 ```
 
-### Pivot PCBs longer
+### Pivoting PCBs into a Longer Format
+
+This function creates two columns to properly contain the values of PCBs
+measured during these surveys - the `pcb` column contains the type of
+PCB that was measured and the `amount_detected` column contains the
+values for each measurement.
 
 ``` r
 PCBs_long <- PCBs %>%
@@ -207,9 +227,9 @@ glimpse(PCBs_long)
     ## $ pcb             <chr> "PCB_52_NGG", "PCB101_NGG", "PCB118_NGG", "PCB128_NGG"…
     ## $ amount_detected <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
 
-### Pesticides
+### Creating Pesticides Data Set
 
-This is creating a dataset that only contains the pesticides that were
+This is creating a data set that only contains the pesticides that were
 measured.
 
 ``` r
@@ -245,14 +265,15 @@ glimpse(pesticides)
     ## $ pcb             <fct> DDT_C, DDT_C, DDE_4_4_C, DDD_4_4_C, ENDRIN_C, ENDR_ALD…
     ## $ amount_detected <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
 
-## Visualizations
+## Data Visualizations
 
 ### Descriptive Visualizations
 
-This bar plot uses number of observations on its y axis, thus reflecting
-sampling intensity by general location. The greatest number of
-observations are in the Gulf of Maine below the 50m isobath (partly this
-is a product of area extent as well as sampling intensity);
+First, the number of observations collected at each location will be
+visualized. This bar plot uses number of observations on its y axis,
+thus reflecting sampling intensity by general location. The greatest
+number of observations are in the Gulf of Maine below the 50m isobath
+(partly this is a product of area extent as well as sampling intensity);
 Massachusetts Bays, Boston Harbor sites, and the MA/NH/ME coast are all
 generally heavily sampled.
 
@@ -264,8 +285,8 @@ Organics %>%
   theme_minimal() +
   scale_fill_viridis_d() +
   theme(legend.position = "none") +
-  labs(title = "Number of observations by general location",
-       subtitle = "for PCB contaminents",
+  labs(title = "Number of Observations by General Location",
+       subtitle = "for PCB Contaminents",
        x = "General Location",
        y = "Count (n Observations)")
 ```
@@ -287,6 +308,8 @@ geom_histogram(fill = "skyblue", color = "black")
 
 ### PCB Site to Site Comparisons
 
+#### General PCB Summary Statistics
+
 The table below is visualizing the mean, standard deviation, count, and
 principal square root values of PCB concentrations for the general
 locations.
@@ -294,12 +317,13 @@ locations.
 Boston Inner Harbor has the highest mean PCB concentration (average of
 44.21 ng/g per observation), followed by Cape Ann to Cape Elizabeth
 (average of 26.90 ng/g per observation) and Southeast Boston Harbor
-(average of 18.35 ng/g per observation). Boston Inner Harbor (284.81)
-and Cape Ann to Cape Elizabeth (227.34) have the highest standard
-deviations, suggesting that, though they are the locations with the
-highest average PCB concentrations, the counts per observation vary
-greatly. The ranges of both locations is 3,000 ng/g to 0 ng/g, which is
-a wide range of values.
+(average of 18.35 ng/g per observation). Boston Inner Harbor (average
+standard deviation of 284.81) and Cape Ann to Cape Elizabeth (average
+standard deviation of 227.34) have the highest standard deviations,
+suggesting that, though they are the locations with the highest average
+PCB concentrations, the counts per observation vary greatly. The ranges
+of both locations is 3,000 ng/g to 0 ng/g, which is a wide range of
+values.
 
 ``` r
 Summary_Organics <- Organics %>%
@@ -352,6 +376,8 @@ Summary_Organics %>%
 
 ![](PCBs_files/figure-gfm/pcb-gen-loc-1.png)<!-- -->
 
+#### PCB Summary Statistics of Boston Harbor
+
 This graph shows the PCB concentrations in Boston Harbor, comparing all
 locations.
 
@@ -394,8 +420,9 @@ Summary_Organics %>%
 
 ![](PCBs_files/figure-gfm/pcb-boston-harbor2-1.png)<!-- -->
 
-This graph compares the locations with the highest concentrations of
-PCBs.
+\##Visualizing Specific PCB Concentrations \### PCB Summary Statistics
+of Locations With Highest Concentrations This graph identifies the
+locations with the highest concentrations of PCBs.
 
 ``` r
 Summary_Organics %>%
@@ -419,9 +446,10 @@ Summary_Organics %>%
 
 ![](PCBs_files/figure-gfm/pcb-highest-concentrations-1.png)<!-- -->
 
-\###Visualizing Specific PCB Concentrations \## Boston Inner Harbor
-Concentrations This plot visualizes the specific organics present in
-Boston Inner Harbor.
+#### Boston Inner Harbor Concentrations
+
+This plot visualizes the specific organics present in Boston Inner
+Harbor.
 
 As shown in the plot, Oil and Grease in sediments (173,938.40 moles/g)
 has the highest concentration in the harbor, followed by Petroleum
@@ -477,7 +505,7 @@ Organics_long_no_na_no_zero %>%
 
 ![](PCBs_files/figure-gfm/type_of_organic-in-boston-inner-harbor-1.png)<!-- -->
 
-## Cape Ann to Cape Elizabeth Concentrations
+#### Cape Ann to Cape Elizabeth Concentrations
 
 This plot visualizes the specific organics present in Cape Ann to Cape
 Elizabeth.
@@ -526,7 +554,7 @@ Organics_long_no_na_no_zero %>%
 
 ![](PCBs_files/figure-gfm/type_of_organic-in-cape-ann-to-elizabeth-1.png)<!-- -->
 
-## Southeast Boston Harbor Concentrations
+#### Southeast Boston Harbor Concentrations
 
 This plot visualizes the specific organics present in Southeast Boston
 Harbor.
@@ -585,7 +613,7 @@ Organics_long_no_na_no_zero %>%
 
 ![](PCBs_files/figure-gfm/type_of_organic-in-boston-southeast-harbor-1.png)<!-- -->
 
-## Cape Elizabeth to Rockland Concentrations
+#### Cape Elizabeth to Rockland Concentrations
 
 This plot visualizes the specific organics present from Cape Elizabeth
 to Rockland. As shown in the plot, DDD compounds (9,901.23 ng/g) is PCB
@@ -625,7 +653,7 @@ Organics_long_no_na_no_zero %>%
 
 ![](PCBs_files/figure-gfm/type_of_organic-from-cape-elizabeth-to-rockland-1.png)<!-- -->
 
-## Rockland to North Concentrations
+#### Rockland to North Concentrations
 
 This plot visualizes the specific organics present from Rockland, ME to
 any area northward. As shown in the plot, DDD compounds (1,303.10 ng/g)
