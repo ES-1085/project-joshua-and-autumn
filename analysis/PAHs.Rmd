@@ -19,6 +19,8 @@ library(sf)
 library(leaflet)
 library(ggplot2)
 library(RColorBrewer)
+install.packages("ggridges")
+library(ggridges)
 ```
 
 ### Loading PAH Dataset
@@ -83,11 +85,13 @@ PAHs %>%
 ### Fluoranthene Concentration
 ``` {r fluoranthene-concentration}
 PAHs %>%
-  filter(pah_detected == "FLORNTHN") %>%
+  select(pah_detected == "FLORNTHN", "PYRENE", "CHRYSENE", "PHNANTHR") %>%
   filter(amount_detected <= 2000 ) %>%
-  ggplot(aes(x = amount_detected)) + 
+  ggplot(aes(x = amount_detected, y = pah_detected, fill = pah_detected)) + 
+  geom_density_ridges() +
+  theme_ridges() + 
+  theme(legend.position = "none")+
   theme_minimal() +
-  geom_histogram(binwidth = 50, fill="#69b3a2", color="#e9ecef", alpha=0.9) + 
   labs(title = "Fluoranthene Concentration (ng/g)", 
         x = "Amount Detected (ng/g)", 
         y = "Frequency of Amount Detected")
