@@ -49,8 +49,7 @@ Organics_long = select(Organics_long, c(UNIQUE_ID, LATITUDE, LONGITUDE, SOUNDING
 
 glimpse(Organics_long)
 ```
-
-### AP - Placing this here for the time being
+### Filter out NAs and 0 values from Organics_long
 ```{r filter-organics-no-nas-no-zeros-duplicate}
 Organics_long_no_na_no_zero <- Organics_long %>%
   drop_na(amount_detected) %>%
@@ -85,6 +84,8 @@ pesticides <- PCBs_long %>%
 glimpse(pesticides)
 ```
 
+For clarity in later visualizations, we have combined 2,4 and 4,4 DDT and BHC A, B, and D.
+
 ## Data Visualizations
 ### Descriptive Visualizations
 First, the number of observations collected at each location will be visualized. This bar plot uses number of observations on its y axis, thus reflecting sampling intensity by general location.  The greatest number of observations are in the Gulf of Maine below the 50m isobath (partly this is a product of area extent as well as sampling intensity); Massachusetts Bays, Boston Harbor sites, and the MA/NH/ME coast are all generally heavily sampled.
@@ -98,18 +99,61 @@ Organics %>%
   scale_fill_viridis_d() +
   theme(legend.position = "none") +
   labs(title = "Number of Observations by General Location",
-       subtitle = "for PCB Contaminents",
        x = "General Location",
        y = "Count (n Observations)")
-```
 
-AP - What is this graph showing us? Do we need it? 
+
+```
+Interpretation: This bar plot shows number of observations in each general location catagory, within the Organics dataset. 
 
 ```{r hist-pcb-total}
-ggplot(Organics, aes(x = PCB_T_UGG)) +
-geom_histogram(fill = "skyblue", color = "black")
+ggplot(PCBs_long, aes(x = amount_detected)) +
+  geom_histogram(fill = "skyblue", color = "black")
+
+ggplot(Organics_long, aes(x = amount_detected)) +
+  geom_histogram(fill = "skyblue", color = "black")
+```
+Interpretation: In both the PCBs and Organics datasets, the amount detected (concentration) is extremely right skewed, with most of our values close to zero, and high influence outliers at much higher values.
+
+```{r boxplots-skewness}
+ggplot(pesticides, aes(x = GEN_LOC_NM, y = amount_detected)) +
+  geom_boxplot() +
+  coord_flip() +
+  theme_bw() +
+  labs(title = "Boxplot of PCB/pesticide concentrations",
+       x = "General location",
+       y = "Concentration (ng/g)")
+
+#create zoomed in version
+
+ggplot(pesticides, aes(x = GEN_LOC_NM, y = amount_detected)) +
+  geom_boxplot() +
+  coord_flip() +
+  theme_bw() +
+  labs(title = "Boxplot of PCB/pesticide concentrations",
+       x = "General location",
+       y = "Concentration (ng/g)",
+       caption = "Y axis limited to 15 ng/g") +
+  ylim(0,15)
 ```
 
+Interpretation: These two boxplots also serve the purpose of indicating how extremely skewed our dataset is; the first shows the full range of our data, the second limits the y axis to 0 to 15 ng/g.  Mean values are all less than 2.5 ng/gm, but outliers are present as high as 4000 ng/g.
+
+```{r boxplot-without-zeros}
+pesticides %>%
+  filter(amount_detected != 0) %>%
+  
+  ggplot(aes(x = GEN_LOC_NM, y = amount_detected)) +
+  geom_boxplot() +
+  coord_flip() +
+  theme_bw() +
+  labs(title = "Boxplot of PCB/pesticide concentrations",
+       x = "General location",
+       y = "Concentration (ng/g)") +
+  ylim(0,15)
+```
+
+Interpretation: Filtering out zero values helps with the skewness; but since zero values (absence of PCBs from sample) are important to our analysis, this is not a valid approach.
 
 ### PCB Site to Site Comparisons
 #### General PCB Summary Statistics
