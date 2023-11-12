@@ -41,7 +41,7 @@ JH -- the organics dataset has already been joined with the stations dataset (lo
 
 ```{r joining-station-info, warning = FALSE}
 Organics_long <- Organics %>%
- pivot_longer(cols = `REPNO_ORG`:`TTBT_C`, 
+ pivot_longer(cols = `REPNO_ORG`:`TTBT`, 
                names_to = "organic_detected", 
                values_to = "amount_detected")
 
@@ -61,7 +61,7 @@ This function creates two columns to properly contain the values of PCBs measure
 
 ```{r pcbs-pivot-long}
 PCBs_long <- PCBs %>%
-  pivot_longer(cols = `PCB_52_NGG`:`LINDANE_C`, 
+  pivot_longer(cols = `PCB_52`:`LINDANE`, 
                names_to = "pcb", 
                values_to = "amount_detected")
 
@@ -74,12 +74,12 @@ This is creating a data set that only contains the pesticides that were measured
 ```{r create-pesticides-df-combine-pest-categories}
 pesticides <- PCBs_long %>%
   mutate(pcb = fct_recode(pcb,
-                          "DDT_C" = "DDT_2_4_C",
-                          "DDT_C" = "DDT_4_4_C",
-                          "BHC_C" = "BHC_A_C",
-                          "BHC_C" = "BHC_B_C",
-                          "BHC_C" = "BHC_D_C")) %>%
-  filter(pcb %in% c("DDT_C", "DDT_4_4_C", "DDE_4_4_C", "DDD_4_4_C", "ENDRIN_C", "ENDR_ALD_C", "ALDRIN_C", "DIELDRN_C", "CLRDNE_T_C", "MIREX_C", "METHOXYCLC", "BHC_C", "LINDANE_C", "BHC_C"))
+                          "DDT" = "DDT_2_4",
+                          "DDT" = "DDT_4_4",
+                          "BHC" = "BHC_A",
+                          "BHC" = "BHC_B",
+                          "BHC" = "BHC_D")) %>%
+  filter(pcb %in% c("DDT", "DDT_4_4", "DDE_4_4", "DDD_4_4", "ENDRIN", "ENDR_ALD", "ALDRIN", "DIELDRN", "CLRDNE_T", "MIREX", "METHOXYCL", "BHC", "LINDANE", "BHC"))
 
 glimpse(pesticides)
 ```
@@ -89,7 +89,7 @@ For clarity in later visualizations, we have combined 2,4 and 4,4 DDT and BHC A,
 ### Create PCBs_only dataset
 ```{r}
 pcbs_only <- PCBs_long %>%
-  filter(pcb %in% c("PCB_52_NGG", "PCB101_NGG", "PCB118_NGG", "PCB128_NGG", "PCB138_NGG", "PCB153_NGG", "PCB180_NGG", "PCB206_NGG", "PCB209_NGG"))
+  filter(pcb %in% c("PCB_52", "PCB101", "PCB118", "PCB128", "PCB138", "PCB153", "PCB180", "PCB206", "PCB209"))
 
 glimpse(pcbs_only)
 ```
@@ -173,12 +173,12 @@ Boston Inner Harbor has the highest mean PCB concentration (average of 44.21 ug/
 ```{r calculate-sum-stats-organics}
 Summary_Organics <- Organics %>%
   group_by(GEN_LOC_NM) %>%
-  drop_na(PCB_T_UGG) %>%
-  reframe(mean_PCB_T = mean(PCB_T_UGG),
-    sd_PCB_T = sd(PCB_T_UGG), 
-    range_PCB_T = range(PCB_T_UGG),
+  drop_na(PCB) %>%
+  reframe(mean_PCB_T = mean(PCB),
+    sd_PCB_T = sd(PCB), 
+    range_PCB_T = range(PCB),
     n_PCB_T = n(),
-    SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
+    SE_PCB_T = sd(PCB) / sqrt(n()))
 
 Summary_Organics
 ```
@@ -317,6 +317,18 @@ Organics_long_no_na_no_zero %>%
   labs(title = "Organic Concentrations in Cape Ann to Cape Elizabeth Sediments",
        x = "Organic Detected",
        y = "Amount Detected (ug/g)")
+
+Organics_long_no_na_no_zero %>%
+  filter(GEN_LOC_NM %in% c("Cape Ann to Cape Elizabeth")) %>%
+  ggplot(aes(x="", y = amount_detected, fill = organic_detected)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) +
+  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill", 
+                    name = "Organic") +
+  labs(title = "Organic Concentrations",
+       subtitle = "Cape Ann to Cape Elizabeth",
+       x = "",
+       y = "Percent Composition")
 ```
 
 #### Southeast Boston Harbor Concentrations
@@ -342,6 +354,18 @@ Organics_long_no_na_no_zero %>%
   labs(title = "Organic Concentrations in Southeast Boston Harbor Sediments",
        x = "Organic Detected",
        y = "Amount Detected (ug/g)")
+
+Organics_long_no_na_no_zero %>%
+  filter(GEN_LOC_NM %in% c("Southeast Boston Harbor")) %>%
+  ggplot(aes(x="", y = amount_detected, fill = organic_detected)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) +
+  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill", 
+                    name = "Organic") +
+  labs(title = "Organic Concentrations",
+       subtitle = "Southeast Boston Harbor",
+       x = "",
+       y = "Percent Composition")
 ```
 
 #### Cape Elizabeth to Rockland Concentrations
@@ -367,6 +391,18 @@ Organics_long_no_na_no_zero %>%
   labs(title = "Organic Concentrations in Cape Elizabeth to Rockland Sediments",
        x = "Organic Detected",
        y = "Amount Detected (ug/g)")
+
+Organics_long_no_na_no_zero %>%
+  filter(GEN_LOC_NM %in% c("Cape Elizabeth to Rockland")) %>%
+  ggplot(aes(x="", y = amount_detected, fill = organic_detected)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) +
+  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill", 
+                    name = "Organic") +
+  labs(title = "Organic Concentrations",
+       subtitle = "Cape Elizabeth to Rockland",
+       x = "",
+       y = "Percent Composition")
 ```
 
 #### Rockland to North Concentrations
@@ -392,6 +428,18 @@ Organics_long_no_na_no_zero %>%
   labs(title = "Organic Concentrations in Rockland to North Sediments",
        x = "Organic Detected",
        y = "Amount Detected (ug/g)")
+
+Organics_long_no_na_no_zero %>%
+  filter(GEN_LOC_NM %in% c("Rockland to north")) %>%
+  ggplot(aes(x="", y = amount_detected, fill = organic_detected)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) +
+  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill", 
+                    name = "Organic") +
+  labs(title = "Organic Concentrations",
+       subtitle = "Rockland to north",
+       x = "",
+       y = "Percent Composition")
 ```
 
 ```{r sum-all-pcbs-rockland-n}
