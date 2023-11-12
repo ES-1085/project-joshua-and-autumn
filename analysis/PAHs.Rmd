@@ -5,8 +5,11 @@ date: "2023-10-28"
 output: github_document
 ---
 # Introduction
-This document is an analysis of distributions and concentrations of Polycyclic aromatic hydrocarbons (PAH) contaminants that were reported in a publication by the U.S. Geological Survey on contaminated sediments in the Gulf of Maine. These are the types of chemicals that naturally occur in crude oil, coal, and gasoline. 
+This document is an analysis of distributions and concentrations of Polycyclic aromatic hydrocarbons (PAH) contaminants that were reported in a publication by the U.S. Geological Survey on contaminated sediments in the Gulf of Maine. In this data set, we analyzed the prevalence of Benzene, Dibenzothiophene, Dibenzofuran, Biphenyl, Acenaphthene, Acenaphthylene, Fluorene, Phenanthrene, Anthracene,  Pyrene , Fluoranthene, Chrysene, and Perylene. 
 
+Polycyclic aromatic hydrocarbons (PAH) are a class of organic compound made of multiple aromatic rings. Particle-bound PAHs, or PAHs with five rings or more, are considered to be very hazardous to human health. These are the types of chemicals that naturally occur in crude oil, coal, and gasoline and are put into the environment in high temperature events, such as burning, and oil spill events. 
+
+The Agency for Toxic Substances and Disease Registry states that PAHs have a low degree of acute toxicity to humans. When chronically exposed as high doses, PAH toxicity can induce issues within the pulmonary, gastrointestinal, renal, and dental systems as well as increase an individual's risk of cancer (Gupta et al. 1991). In regards to the environment, PAHs have a moderate to high acute toxicity to wildlife, specifically aquatic life and birds (Honda & Suzuki 2020). Research has found that PAHs have toxic compounds that affect immunotoxicity, cardiotoxicity, and embryonic abnormalities in marine organisms.
 
 
 ### Loading Packages
