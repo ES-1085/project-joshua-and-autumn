@@ -32,11 +32,11 @@ These data sets are quite large and contain a lot of information. Pivoting will 
 
 ```{r glimpse-data, warning = FALSE}
 glimpse(PCBs)
-
 glimpse(Organics)
 ```
+
 ## Data Transformation
-### Pivot Organics longer
+### Pivot Organics Longer
 JH -- the organics dataset has already been joined with the stations dataset (loaded "Organics_loc.csv" above), so the data now needs to be pivoted into R format.
 
 ```{r joining-station-info, warning = FALSE}
@@ -49,6 +49,7 @@ Organics_long = select(Organics_long, c(UNIQUE_ID, LATITUDE, LONGITUDE, SOUNDING
 
 glimpse(Organics_long)
 ```
+
 ### Filter out NAs and 0 values from Organics_long
 ```{r filter-organics-no-nas-no-zeros-duplicate}
 Organics_long_no_na_no_zero <- Organics_long %>%
@@ -168,8 +169,6 @@ Interpretation: Filtering out zero values helps with the skewness; but since zer
 #### General PCB Summary Statistics
 The table below is visualizing the mean, standard deviation, count, and principal square root values of PCB concentrations for the general locations.
 
-Boston Inner Harbor has the highest mean PCB concentration (average of 44.21 ug/g per observation), followed by Cape Ann to Cape Elizabeth (average of 26.90 ug/g per observation) and Southeast Boston Harbor (average of 18.35 ug/g per observation). Boston Inner Harbor (average standard deviation of 284.81) and Cape Ann to Cape Elizabeth (average standard deviation of 227.34) have the highest standard deviations, suggesting that, though they are the locations with the highest average PCB concentrations, the counts per observation vary greatly. The ranges of both locations is 3,000 ug/g to 0 ug/g, which is a wide range of values. 
-
 ```{r calculate-sum-stats-organics}
 Summary_Organics <- Organics %>%
   group_by(GEN_LOC_NM) %>%
@@ -182,7 +181,9 @@ Summary_Organics <- Organics %>%
 
 Summary_Organics
 ```
-The graph below is plotting the mean PCB concentration (ug/g) found at each general location with error bards accounting for one standard error. As was reflected upon above, Boston Inner Harbor, Cape Ann to Cape Elizabeth, and Southeast Boston Harbor have the highest concentrations of PCBs.
+Interpretation: Boston Inner Harbor has the highest mean PCB concentration (average of 44.21 ug/g per observation), followed by Cape Ann to Cape Elizabeth (average of 26.90 ug/g per observation) and Southeast Boston Harbor (average of 18.35 ug/g per observation). Boston Inner Harbor (average standard deviation of 284.81) and Cape Ann to Cape Elizabeth (average standard deviation of 227.34) have the highest standard deviations, suggesting that, though they are the locations with the highest average PCB concentrations, the counts per observation vary greatly. The ranges of both locations is 3,000 ug/g to 0 ug/g, which is a wide range of values. 
+
+The graph below is plotting the mean PCB concentration (ug/g) found at each general location with error bards accounting for one standard error. 
 
 ```{r pcb-gen-loc}
 Summary_Organics %>%
@@ -198,6 +199,7 @@ Summary_Organics %>%
        y = "Mean total PCB concentration ug/g",
        caption = "Error bars = 1 standard error")
 ```
+Interpretation: As was reflected upon above, Boston Inner Harbor, Cape Ann to Cape Elizabeth, and Southeast Boston Harbor have the highest concentrations of PCBs.
 
 #### PCB Summary Statistics of Boston Harbor
 This graph shows the PCB concentrations in Boston Harbor, comparing all locations. 
@@ -268,6 +270,7 @@ Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM == "Boston Inner Harbor") %>%
   arrange(desc(amount_detected))
 ```
+
 ``` {r type_of_organic-in-boston-inner-harbor-graph, warning = FALSE}
 Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM %in% c("Boston Inner Harbor")) %>%
@@ -281,17 +284,15 @@ Organics_long_no_na_no_zero %>%
        x = "Organic Detected",
        y = "Amount Detected (ug/g)")
 
-#Organics_long_no_na_no_zero %>%
-  #filter(GEN_LOC_NM %in% c("Boston Inner Harbor")) %>%
-  #ggplot(aes(x="", y = sum(amount_detected), fill = organic_detected)) +
-  #geom_bar(stat="identity", width=1) +
-  #coord_polar("y", start=0) + 
-  #theme_minimal() + 
-  #scale_fill_viridis_d() + 
-   #labs(title = "Organic Concentrations in Boston Inner Harbor Sediments",
-       #fill = "Organic Detected",
-       #x = "Amount Detected (ug/g)")
-  
+Organics_long_no_na_no_zero %>%
+  filter(GEN_LOC_NM %in% c("Boston Inner Harbor")) %>%
+  ggplot(aes(x="", y = sum(amount_detected), fill = organic_detected)) +
+  geom_bar(stat="identity", width=5) +
+  coord_polar("y", start=0) + 
+  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill", name = "Organic") +
+   labs(title = "Organic Concentrations in Boston Inner Harbor Sediments",
+       fill = "Organic Detected",
+       x = "Amount Detected (ug/g)")
 ```
 
 #### Cape Ann to Cape Elizabeth Concentrations
@@ -305,6 +306,7 @@ Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM == "Cape Ann to Cape Elizabeth") %>%
   arrange(desc(amount_detected))
 ```
+
 ``` {r type_of_organic-in-cape-ann-to-elizabeth-graph, warning = FALSE}
 Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM %in% c("Cape Ann to Cape Elizabeth")) %>%
@@ -325,10 +327,12 @@ Organics_long_no_na_no_zero %>%
   coord_polar("y", start=0) +
   scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill", 
                     name = "Organic") +
+  theme(axis.title.y = element_blank(), 
+        axis.text.y = element_blank())+
   labs(title = "Organic Concentrations",
        subtitle = "Cape Ann to Cape Elizabeth",
        x = "",
-       y = "Percent Composition")
+       y = "Percent Composition"))
 ```
 
 #### Southeast Boston Harbor Concentrations
