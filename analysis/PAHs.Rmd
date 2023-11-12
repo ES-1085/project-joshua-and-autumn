@@ -36,8 +36,8 @@ glimpse(PAHs)
 This function creates two columns to properly contain the values of PAHs measured during these surveys - the `pah_detected` column contains the type of PAH that was measured and the `amount_detected` column contains the values for each measurement. Selecting specific variables within the `PAHs` data set will allow for a more concise data frame that is more applicable to the analysis.
 ```{r pivoting-pah, warning=FALSE}
 PAHs <- PAHs %>%
-  mutate(CHRYSENE_C = as.numeric(CHRYSENE_C)) %>%
-  pivot_longer(cols = `BENZNE_C`:`PERYLENE_C`, 
+  mutate(CHRYSENE = as.numeric(CHRYSENE)) %>%
+  pivot_longer(cols = `BENZNE`:`PERYLENE`, 
                names_to = "pah_detected", 
                values_to = "amount_detected")
 
@@ -342,7 +342,7 @@ PAH_no_na <- PAHs %>%
   drop_na(amount_detected)
 
 PAH_no_na_specific_pah <- PAH_no_na %>%
-  filter(pah_detected %in% c("BENZNE_C", "BENZNE_C", "NAPHTHLN_C", "BIPHENYL_C", "ACNPHTHN_C", "ACNPHTYL_C", "FLUORENE_C", "PHNANTHR_C", "ANTHRACN_C", "PYRENE_C", "FLORNTHN_C", "CHRYSENE_C", "PERYLENE_C"))
+  filter(pah_detected %in% c("BENZNE", "BENZNE", "NAPHTHLN", "BIPHENYL", "ACNPHTHN", "ACNPHTYL", "FLUORENE", "PHNANTHR", "ANTHRACN", "PYRENE", "FLORNTHN", "CHRYSENE", "PERYLENE"))
 
 ```
 
