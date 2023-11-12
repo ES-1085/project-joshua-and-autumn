@@ -21,10 +21,6 @@ library(ggplot2)
 library(RColorBrewer)
 #install.packages("ggridges")
 library(ggridges)
-#install.packages("gganimate")
-library(gganimate)
-#install.packages("gapminder")
-library(gapminder)
 ```
 
 ### Loading PAH Dataset
