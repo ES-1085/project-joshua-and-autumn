@@ -125,13 +125,6 @@ PAHs %>%
         x = "Amount Detected (ng/g)", 
         y = "Frequency of Amount Detected", 
        fill = "PAH Detected")
-
-#PAHs %>%
-  #filter(pah_detected %in% c("FLORNTHN")) %>%
-  #filter(amount_detected >= 1) %>%
-#ggplot(aes(x = LONGITUDE, y = LATITUDE, col = pah_detected))+
-  #geom_hex()+
-  #theme_bw()
 ```
 
 ``` {r trying to animate, ignore this}
