@@ -123,20 +123,6 @@ PAHs %>%
        fill = "PAH Detected")
 ```
 
-``` {r trying to animate, ignore this}
-#PAHs %>%
-  #filter(pah_detected %in% c("FLORNTHN")) %>%
-  #filter(amount_detected >= 1) %>%
-  #ggplot(aes(x = LONGITUDE, y = LATITUDE, size = amount_detected, fill = amount_detected)) + 
-  #geom_point() + 
-  #scale_x_log10() + 
-  #theme_minimal() + 
-  #labs(title = "Year: {SAMP_DATE1}", x = "Longitude", y = "Latitude") + 
-  #transition_time(year)+
-  #ease_aes('linear')
-
-```
-
 
 # PAH Site to Site Comparisons
 ## General PAH Sumary Statistics
