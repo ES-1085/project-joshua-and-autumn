@@ -21,6 +21,10 @@ library(ggplot2)
 library(RColorBrewer)
 #install.packages("ggridges")
 library(ggridges)
+#install.packages("gganimate")
+library(gganimate)
+#install.packages("gapminder")
+library(gapminder)
 ```
 
 ### Loading PAH Dataset
@@ -39,6 +43,7 @@ This function creates two columns to properly contain the values of PAHs measure
 ```{r pivoting-pah, warning=FALSE}
 PAHs <- PAHs %>%
   mutate(CHRYSENE = as.numeric(CHRYSENE)) %>%
+  mutate(SAMP_DATE1 = as.Date(SAMP_DATE1)) %>%
   pivot_longer(cols = `BENZNE`:`PERYLENE`, 
                names_to = "pah_detected", 
                values_to = "amount_detected")
@@ -109,7 +114,7 @@ PAHs %>%
   filter(amount_detected <= 1000 ) %>%
   filter(amount_detected >= 1) %>%
   ggplot(aes(x = amount_detected, y = pah_detected, fill = pah_detected)) + 
-  geom_density_ridges(alpha=0.6, stat="binline", bins=100) +
+  geom_density_ridges(alpha=0.6, bins=100) +
   theme_ridges() + 
   theme(legend.position = "none", panel.spacing = unit(0.1, "lines"),
       strip.text.x = element_text(size = 8))+
@@ -120,6 +125,26 @@ PAHs %>%
         x = "Amount Detected (ng/g)", 
         y = "Frequency of Amount Detected", 
        fill = "PAH Detected")
+
+#PAHs %>%
+  #filter(pah_detected %in% c("FLORNTHN")) %>%
+  #filter(amount_detected >= 1) %>%
+#ggplot(aes(x = LONGITUDE, y = LATITUDE, col = pah_detected))+
+  #geom_hex()+
+  #theme_bw()
+```
+
+``` {r trying to animate, ignore this}
+#PAHs %>%
+  #filter(pah_detected %in% c("FLORNTHN")) %>%
+  #filter(amount_detected >= 1) %>%
+  #ggplot(aes(x = LONGITUDE, y = LATITUDE, size = amount_detected, fill = amount_detected)) + 
+  #geom_point() + 
+  #scale_x_log10() + 
+  #theme_minimal() + 
+  #labs(title = "Year: {SAMP_DATE1}", x = "Longitude", y = "Latitude") + 
+  #transition_time(year)+
+  #ease_aes('linear')
 
 ```
 
