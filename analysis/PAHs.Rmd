@@ -19,7 +19,7 @@ library(sf)
 library(leaflet)
 library(ggplot2)
 library(RColorBrewer)
-install.packages("ggridges")
+#install.packages("ggridges")
 library(ggridges)
 ```
 
@@ -83,63 +83,46 @@ PAHs %>%
        y = "Amount Detected")
 ```
 ### Fluoranthene Concentration
+ filter(pah_detected %in% c("FLORNTHN", "PYRENE", "CHRYSENE", "PHNANTHR")) %>%
+
 ``` {r fluoranthene-concentration}
+#check out the "BENZNE" and "X2BZFRN"... interesting!
+#PAHs %>%
+  #filter(pah_detected %in% c("FLORNTHN", "PYRENE", "CHRYSENE", "PHNANTHR", "BENZNE", "X2BZFRN")) %>%
+  #filter(amount_detected <= 1000 ) %>%
+  #filter(amount_detected >= 1) %>%
+  #ggplot(aes(x = amount_detected, y = pah_detected, fill = pah_detected)) + 
+  #geom_density_ridges(alpha=0.6, stat="binline", bins=100) +
+  #theme_ridges() + 
+  #theme(legend.position = "none", panel.spacing = unit(0.1, "lines"),
+      #strip.text.x = element_text(size = 8))+
+  #theme_minimal() +
+  #scale_fill_viridis_d() +
+  #labs(title = "PAH Concentration (ng/g)",
+       #subtitle = "Fluoranthene, Pyrene, Chrysene, Phenanthrene", 
+       # x = "Amount Detected (ng/g)", 
+        #y = "Frequency of Amount Detected", 
+       #fill = "PAH Detected")
+
 PAHs %>%
-  select(pah_detected == "FLORNTHN", "PYRENE", "CHRYSENE", "PHNANTHR") %>%
-  filter(amount_detected <= 2000 ) %>%
+  filter(pah_detected %in% c("FLORNTHN", "PYRENE", "CHRYSENE", "PHNANTHR")) %>%
+  filter(amount_detected <= 1000 ) %>%
+  filter(amount_detected >= 1) %>%
   ggplot(aes(x = amount_detected, y = pah_detected, fill = pah_detected)) + 
-  geom_density_ridges() +
+  geom_density_ridges(alpha=0.6, stat="binline", bins=100) +
   theme_ridges() + 
-  theme(legend.position = "none")+
+  theme(legend.position = "none", panel.spacing = unit(0.1, "lines"),
+      strip.text.x = element_text(size = 8))+
   theme_minimal() +
-  labs(title = "Fluoranthene Concentration (ng/g)", 
+  scale_fill_viridis_d() +
+  labs(title = "PAH Concentration (ng/g)",
+       subtitle = "Fluoranthene, Pyrene, Chrysene, Phenanthrene", 
         x = "Amount Detected (ng/g)", 
-        y = "Frequency of Amount Detected")
+        y = "Frequency of Amount Detected", 
+       fill = "PAH Detected")
 
 ```
 
-### Pyrene Concentration
-``` {r pyrene-concentration}
-PAHs %>%
-  filter(pah_detected == "PYRENE") %>%
-  filter(amount_detected <= 2000, 
-         amount_detected > 0) %>%
-  ggplot(aes(x = amount_detected)) +
-  geom_histogram(binwidth = 50, fill="#69b3a2", color="#e9ecef", alpha=0.9) +
-  theme_minimal() + 
-  labs(title = "Pyrene Concentration (ng/g)", 
-        x = "Amount Detected (ng/g)", 
-        y = "Frequency of Amount Detected")
-```
-
-### Chrysene Concentration
-``` {r Chrysene-concentration}
-PAHs %>%
-  filter(pah_detected == "CHRYSENE") %>%
-  filter(amount_detected <= 2000, 
-         amount_detected > 0) %>%
-  ggplot(aes(x = amount_detected)) + 
-  geom_histogram(binwidth = 50, fill="#69b3a2", color="#e9ecef", alpha=0.9) + 
-   theme_minimal() +
-  labs(title = "Chrysene Concentration (ng/g)", 
-        x = "Amount Detected (ng/g)", 
-        y = "Frequency of Amount Detected")
-```
-
-### Phenanthrene Concentration
-``` {r Phenanthrene-concentration}
-PAHs %>%
-  filter(pah_detected == "PHNANTHR") %>%
-  filter(amount_detected <= 2000, 
-         amount_detected > 0) %>%
-  ggplot(aes(x = amount_detected)) + 
-  geom_histogram(binwidth = 50, fill="#69b3a2", color="#e9ecef", alpha=0.9) + 
-   theme_minimal() +
-  labs(title = "Phenanthrene Concentration (ng/g)", 
-        x = "Amount Detected (ng/g)", 
-        y = "Frequency of Amount Detected")
-```
-```
 
 # PAH Site to Site Comparisons
 ## General PAH Sumary Statistics
@@ -532,7 +515,7 @@ Above is the same graph, but now we are coloring the points by the specific pah 
 #head(labels, 1)
 ```
 
-```{r leaflet-map-pcb}
+```{r leaflet-map-pcb} 
 #leaflet(data = PAH_no_na) %>%
   #addProviderTiles(providers$Esri.WorldTopoMap) %>%
   #setView(lng = -68.5, 
