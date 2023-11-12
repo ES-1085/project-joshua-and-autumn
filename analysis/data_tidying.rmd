@@ -34,7 +34,31 @@ Creates PCBs2002 data frame. These are variables of interest, principally contam
 ```{r select-var-PCBs}
 PCBs2002 = select(PCBs_full, c(UNIQUE_ID, PCB_52_NGG, PCB101_NGG, PCB118_NGG, PCB128_NGG, PCB138_NGG, PCB153_NGG, PCB180_NGG, PCB206_NGG, PCB209_NGG, DDT_4_4_C, DDT_2_4_C, DDE_4_4_C, DDD_4_4_C, ENDRIN_C, ENDR_ALD_C, ALDRIN_C, DIELDRN_C, CLRDNE_T_C, MIREX_C, METHOXYCLC, BHC_A_C, BHC_B_C, BHC_D_C, LINDANE_C))
 
-## JH -- can you see this?
+PCBs2002 <- PCBs2002 %>%
+  rename("PCB_52" = "PCB_52_NGG", 
+         "PCB101" = "PCB101_NGG", 
+         "PCB118" = "PCB118_NGG", 
+         "PCB128" = "PCB128_NGG", 
+         "PCB138" = "PCB138_NGG", 
+         "PCB153" = "PCB153_NGG", 
+         "PCB180" = "PCB180_NGG", 
+         "PCB206" = "PCB206_NGG", 
+         "PCB209" = "PCB209_NGG",  
+         "DDT_4_4" = "DDT_4_4_C", 
+         "DDT_2_4" = "DDT_2_4_C", 
+         "DDE_4_4" = "DDE_4_4_C", 
+         "DDD_4_4" = "DDD_4_4_C", 
+         "ENDRIN" = "ENDRIN_C", 
+         "ENDR_ALD" = "ENDR_ALD_C", 
+         "ALDRIN" = "ALDRIN_C", 
+         "DIELDRN" = "DIELDRN_C", 
+         "CLRDNE_T" = "CLRDNE_T_C", 
+         "MIREX" = "MIREX_C", 
+         "METHOXYCL" = "METHOXYCLC", 
+         "BHC_A" = "BHC_A_C", 
+         "BHC_B" = "BHC_B_C",  
+         "BHC_D" = "BHC_D_C", 
+         "LINDANE" = "LINDANE_C")
 ```
 
 ###Stations
