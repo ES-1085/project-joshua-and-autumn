@@ -44,7 +44,7 @@ PAHs <- PAHs %>%
                names_to = "pah_detected", 
                values_to = "amount_detected")
 
-PAHs = select(PAHs, c(UNIQUE_ID, LATITUDE, LONGITUDE, SOUNDING_M, QUAD_NAME, GEN_LOC_NM, SPECFC_LOC, AREA_CODE, SAMP_DATE1, TO_SMP_DT2, DPTH_N_COR, DPTH_CODE, COR_GRB_CD, site, pah_detected, amount_detected))
+PAHs = select(PAHs, c(UNIQUE_ID, LATITUDE, LONGITUDE, SOUNDING_M, QUAD_NAME, GEN_LOC_NM, SPECFC_LOC, STATE_NAME, AREA_CODE, SAMP_DATE1, TO_SMP_DT2, DPTH_N_COR, DPTH_CODE, COR_GRB_CD, site, pah_detected, amount_detected))
 
 glimpse(PAHs)
 ```
@@ -319,7 +319,59 @@ ggplot(aes(x="", y = amount_detected, fill = pah_detected)) +
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0)
 ```
+### PAH Summary Statistics of Rivers With Highest Concentrations
+As stated in our project proposal, we were interested in visualizing contaminants in Maine Rivers as well as harbors and bays. The table below is visualizing the mean, standard deviation, count, and principal square root values of PAH concentrations for the general river locations.
 
+```{r calculate-sum-pah-by-site}
+Sum_PAH_site <- PAHs %>%
+  group_by(site) %>%
+  drop_na(amount_detected) %>%
+  summarise(mean_PAH_T = mean(amount_detected),
+    sd_PAH_T = sd(amount_detected),
+    n_PAH_T = n(),
+    SE_PAH_T = sd(amount_detected) / sqrt(n()))
+
+Sum_PAH_site
+```
+
+Below we are identifying specific Maine rivers to use in our analysis.
+```{r identify-ME-rivers, message=FALSE}
+PAHs %>%
+  filter(STATE_NAME == "ME") %>%
+  filter(amount_detected != "NA") %>%
+  distinct(site)
+```
+Fore River, Royal River, Kennebunk River, York River
+
+Below we are visualizing the mean PAHs present in Maine rivers. 
+
+```{r bar-pah-me-rivers-without-union}
+Sum_Org_site %>%
+  filter(site %in% c("York River", "Kennebunk River", "Fore River", "Royal River")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PAH_T)), y = sapply(mean_PAH_T, FUN=function(x) ifelse(x==0.000000e0, -0.2,x)), fill = fct_rev(fct_reorder(site, mean_PAH_T)))) +
+  geom_bar(stat="identity", col = "black") +
+  scale_x_discrete(drop=FALSE) +
+  geom_errorbar(aes(ymin = mean_PAH_T - SE_PAH_T, ymax = mean_PAH_T + SE_PAH_T), width = 0.2) +
+  scale_fill_manual(values = c("Royal River" = "green4",
+                               "York River" = "darkgoldenrod4",
+                               "Kennebunk River" = "firebrick",
+                               "Fore River" = "peachpuff")) +
+  theme_bw() +
+  coord_flip() +
+  theme(legend.position = "none") +
+  labs(title = "PAH Concentrations in Maine Rivers",
+       subtitle = "Union River excluded",
+       caption = "Error bars = 1 standard error",
+       x = "Location",
+       y = "Mean total PAH concentration ug/g")
+```
+Next, we will analyze Rivers in Massachusetts. 
+```{r identiy-ma-rivers, message=FALSE}
+PAHs %>%
+  filter(STATE_NAME == "MA") %>%
+  filter(pah_detected != "NA") %>%
+  distinct(site)
+```
 
 ## Statistical tests
 ### Difference between general locations
