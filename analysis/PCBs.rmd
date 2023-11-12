@@ -2,7 +2,7 @@
 title: 'GOM Contaminated Sediments Analysis: PCBs'
 author: "Joshua Harkness and Autumn Pauly"
 date: "2023-10-28"
-output: html_document
+output: github_document
 ---
 # Introduction
 This document is an analysis of distributions and concentrations of PCB and Organic contaminants that were reported in a publication by the U.S. Geological Survey on contaminated sediments in the Gulf of Maine. In this data set, we analyzed the prevalence of oil and grease, petroleum Hydrocarbons, polychlorinated biphenyls, DDT compounds, DDE compounds, DDD compounds, pesticide compounds, lipids, clostridium perfringens, monobutyl tin, dibutyl tin, tributyl tin, tetrabutyl tin, PCB congeners #52-209, DDT 4,4', DDT 2,4', DDD 4,4', DDD 4,2', endrin, endrin aldehyde, aldrin, dieldrin, chlordane, mirex, methoxychlor, hexachlorocyclohexane alpha/beta/gamma isomer, and lindane.
@@ -80,12 +80,12 @@ This is creating a data set that only contains the pesticides that were measured
 ```{r create-pesticides-df-combine-pest-categories}
 pesticides <- PCBs_long %>%
   mutate(pcb = fct_recode(pcb,
-                          "DDT" = "DDT_2_4",
-                          "DDT" = "DDT_4_4",
-                          "BHC" = "BHC_A",
-                          "BHC" = "BHC_B",
-                          "BHC" = "BHC_D")) %>%
-  filter(pcb %in% c("DDT", "DDT_4_4", "DDE_4_4", "DDD_4_4", "ENDRIN", "ENDR_ALD", "ALDRIN", "DIELDRN", "CLRDNE_T", "MIREX", "METHOXYCL", "BHC", "LINDANE", "BHC"))
+                          "DDT_C" = "DDT_2_4_C",
+                          "DDT_C" = "DDT_4_4_C",
+                          "BHC_C" = "BHC_A_C",
+                          "BHC_C" = "BHC_B_C",
+                          "BHC_C" = "BHC_D_C")) %>%
+  filter(pcb %in% c("DDT_C", "DDE_4_4", "DDD_4_4", "ENDRIN_C", "ENDR_ALD_C", "ALDRIN_C", "DIELDRN_C", "CLRDNE_T_C", "MIREX_C", "METHOXYCLC", "BHC_C", "LINDANE_C"))
 
 glimpse(pesticides)
 ```
@@ -95,7 +95,7 @@ For clarity in later visualizations, we have combined 2,4 and 4,4 DDT and BHC A,
 ### Create PCBs_only dataset
 ```{r}
 pcbs_only <- PCBs_long %>%
-  filter(pcb %in% c("PCB_52", "PCB101", "PCB118", "PCB128", "PCB138", "PCB153", "PCB180", "PCB206", "PCB209"))
+  filter(pcb %in% c("PCB_52_NGG", "PCB101_NGG", "PCB118_NGG", "PCB128_NGG", "PCB138_NGG", "PCB153_NGG", "PCB180_NGG", "PCB206_NGG", "PCB209_NGG"))
 
 glimpse(pcbs_only)
 ```
@@ -175,14 +175,13 @@ The table below is visualizing the mean, standard deviation, count, and principa
 ```{r calculate-sum-stats-organics}
 Summary_Organics <- Organics %>%
   group_by(GEN_LOC_NM) %>%
-  drop_na(PCB) %>%
-  reframe(mean_PCB_T = mean(PCB),
-    sd_PCB_T = sd(PCB), 
-    range_PCB_T = range(PCB),
+  drop_na(PCB_T_UGG) %>%
+  summarise(mean_PCB_T = mean(PCB_T_UGG),
+    sd_PCB_T = sd(PCB_T_UGG),
     n_PCB_T = n(),
-    SE_PCB_T = sd(PCB) / sqrt(n()))
+    SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
 
-Summary_Organics
+#Summary_Organics
 ```
 Interpretation: Boston Inner Harbor has the highest mean PCB concentration (average of 44.21 ug/g per observation), followed by Cape Ann to Cape Elizabeth (average of 26.90 ug/g per observation) and Southeast Boston Harbor (average of 18.35 ug/g per observation). Boston Inner Harbor (average standard deviation of 284.81) and Cape Ann to Cape Elizabeth (average standard deviation of 227.34) have the highest standard deviations, suggesting that, though they are the locations with the highest average PCB concentrations, the counts per observation vary greatly. The ranges of both locations is 3,000 ug/g to 0 ug/g, which is a wide range of values. 
 
@@ -190,7 +189,7 @@ The graph below is plotting the mean PCB concentration (ug/g) found at each gene
 
 ```{r pcb-gen-loc}
 Summary_Organics %>%
-  ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -1,x) ), fill = GEN_LOC_NM)) +
+  ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -1,x)), fill = GEN_LOC_NM)) +
   geom_col(col = "black") +
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
   coord_flip() +
@@ -461,10 +460,10 @@ Sum_pesticides_rock_n <- pesticides %>%
     SE = sd(amount_detected) / sqrt(n())) %>%
   arrange(desc(mean))
 
-Sum_pesticides_rock_n
+#Sum_pesticides_rock_n
 ```
 
-```{r bar-all-pcbs-rockland-n}
+```{r bar-pesticides-rockland-n}
 Sum_pesticides_rock_n %>%
   ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
   geom_col(color = "black") +
@@ -505,14 +504,14 @@ Sum_pcbs_rock_n <- pcbs_only %>%
     SE = sd(amount_detected) / sqrt(n())) %>%
   arrange(desc(mean))
 
-Sum_pcbs_rock_n
+#Sum_pcbs_rock_n
 ```
 
 ```{r bar-pcbs-rock-n}
 Sum_pcbs_rock_n %>%
   ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
   geom_col(color = "black") +
-   geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
+  geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
   coord_flip() +
   theme_classic() +
   scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill") +
@@ -549,7 +548,7 @@ Sum_all_pcb_inshore_offshore <- PCBs_long %>%
     n = n(),
     SE = sd(amount_detected) / sqrt(n()))
 
-Sum_all_pcb_inshore_offshore
+#Sum_all_pcb_inshore_offshore
 ```
 JH -- There are no observations in the GOM <=50m Isobath category.
 
@@ -560,18 +559,18 @@ As stated in our project proposal, we were interested in visualizing contaminant
 ```{r calculate-sum-organics-by-site}
 Sum_Org_site <- Organics %>%
   group_by(site) %>%
-  drop_na(PCB) %>%
-  summarise(mean_PCB_T = mean(PCB),
-    sd_PCB_T = sd(PCB),
+  drop_na(PCB_T_UGG) %>%
+  summarise(mean_PCB_T = mean(PCB_T_UGG),
+    sd_PCB_T = sd(PCB_T_UGG),
     n_PCB_T = n(),
-    SE_PCB_T = sd(PCB) / sqrt(n()))
+    SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
 ```
 
 Below we are identifying specific Maine rivers to use in our analysis.
 ```{r identify-ME-rivers, message=FALSE}
 Organics %>%
   filter(STATE_NAME == "ME") %>%
-  filter(PCB != "NA") %>%
+  filter(PCB_T_UGG != "NA") %>%
   distinct(site)
 ```
 
@@ -627,11 +626,11 @@ Sum_Org_site %>%
 
 There are no errorbars for Union River as n = 1; single sample from this site so only a mean value.
 
-```{r identiy-ma-rivers, message=FALSE}
+```{r identiy-ma-rivers, message = FALSE, echo = FALSE, print = FALSE}
 Organics %>%
   filter(STATE_NAME == "MA") %>%
-  filter(PCB != "NA")# %>%
-#  distinct(site)
+  filter(PCB_T_UGG != "NA") %>%
+  distinct(site)
 ```
 
 ```{r bar-pcb-mass-rivers}
@@ -925,44 +924,37 @@ pesticides_no_na_no_zero <- pesticides %>%
   filter(SOUNDING_M != "0")
 ```
 
+
 ```{r create-html-labels}
-#labels <- sprintf("<strong>%s</strong><br/>%s %g ug/g</strong><br/>s %g ug/g</strong><br/>",
-#                  pesticides_no_na_no_zero$SPECFC_LOC, pesticides_no_na_no_zero$pcb == "BHC_C", pesticides_no_na_no_zero$amount_detected, #pesticides_no_na_no_zero$pcb == "DDT_C", pesticides_no_na_no_zero$amount_detected) %>%
-#  lapply(htmltools::HTML)
-
-#head(labels, 1)
-```
-
-```{r}
-markers <- pesticides_no_na_no_zero
+#markers <- pesticides_no_na_no_zero
 
 
-markers <- markers %>%
-  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
-                         "BHC: ", round(amount_detected[pcb == "BHC_C"], digits = 4), " ng/g<br>",
-                         "Chlordane: ", round(amount_detected[pcb == "CLRDNE_T_C"], digits = 4), " ng/g<br>",
-                         "DDT: ", round(amount_detected[pcb == "DDT_C"], digits = 4), " ng/g<br>",
-                         "DDE: ", round(amount_detected[pcb == "DDE_4_4_C"], digits = 4), " ng/g<br>",
-                         "DDD: ", round(amount_detected[pcb == "DDD_4_4_C"], digits = 4), " ng/g<br>",
-                         "Aldrin: ", round(amount_detected[pcb == "ALDRIN_C"], digits = 4), " ng/g<br>",
-                         "Dieldrin: ", round(amount_detected[pcb == "DIELDRN_C"], digits = 4), " ng/g<br>",
-                         "Endrin: ", round(amount_detected[pcb == "ENDRIN_C"], digits = 4), " ng/g<br>",
-                         "Endrin Aldehyde: ", round(amount_detected[pcb == "ENDR_ALD_C"], digits = 4), " ng/g<br>",
-                         "Lindane: ", round(amount_detected[pcb == "LINDANE_C"], digits = 4), " ng/g<br>",
-                         "Mirex: ", round(amount_detected[pcb == "MIREX_C"], digits = 4), " ng/g<br>",
-                         "Methoxychlor: ", round(amount_detected[pcb == "METHOXYCLC"], digits = 4), " ng/g<br>"))
+#markers <- markers %>%
+#  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
+#                         "BHC: ", round(amount_detected[pcb == "BHC_C"], digits = 4), " ng/g<br>",
+#                         "Chlordane: ", round(amount_detected[pcb == "CLRDNE_T_C"], digits = 4), " ng/g<br>",
+#                         "DDT: ", round(amount_detected[pcb == "DDT_C"], digits = 4), " ng/g<br>",
+#                         "DDE: ", round(amount_detected[pcb == "DDE_4_4_C"], digits = 4), " ng/g<br>",
+#                         "DDD: ", round(amount_detected[pcb == "DDD_4_4_C"], digits = 4), " ng/g<br>",
+#                         "Aldrin: ", round(amount_detected[pcb == "ALDRIN_C"], digits = 4), " ng/g<br>",
+#                         "Dieldrin: ", round(amount_detected[pcb == "DIELDRN_C"], digits = 4), " ng/g<br>",
+#                         "Endrin: ", round(amount_detected[pcb == "ENDRIN_C"], digits = 4), " ng/g<br>",
+#                         "Endrin Aldehyde: ", round(amount_detected[pcb == "ENDR_ALD_C"], digits = 4), " ng/g<br>",
+#                         "Lindane: ", round(amount_detected[pcb == "LINDANE_C"], digits = 4), " ng/g<br>",
+#                         "Mirex: ", round(amount_detected[pcb == "MIREX_C"], digits = 4), " ng/g<br>",
+#                         "Methoxychlor: ", round(amount_detected[pcb == "METHOXYCLC"], digits = 4), " ng/g<br>"))
 
 
-head(markers$labels, 1)
+#head(markers$labels, 1)
 ```
 
 ```{r leaflet-map-pcb}
-leaflet() %>%
-  addProviderTiles(providers$Esri.WorldTopoMap) %>%
-  setView(lng = -68.5, 
-          lat = 43.5, 
-          zoom = 6) %>%
-  addMarkers(lng = markers$LONGITUDE, lat = markers$LATITUDE, popup = markers$labels)
+#leaflet() %>%
+#  addProviderTiles(providers$Esri.WorldTopoMap) %>%
+#  setView(lng = -68.5, 
+#          lat = 43.5, 
+#          zoom = 6) %>%
+#  addMarkers(lng = markers$LONGITUDE, lat = markers$LATITUDE, popup = markers$labels)
 ```
 
 Note that the two above code chunks are commented out as .rmd will not knit to github document with html functions.  Uncomment to run and change output type to `html_document` to knit.
