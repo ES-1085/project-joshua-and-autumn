@@ -89,7 +89,15 @@ Station2002 <- Station2002 %>%
                            "Kennebec River" = "KENNEBEC RIVER,ME.", 
                            "Penobscot River" = "PENOBSCOT RIVER", 
                            "Penobscot River" = "MOUTH PENOBSCOT RIVER",
-                           "Penobscot River" = "Penobscot River To Bangor"
+                           "Penobscot River" = "Penobscot River To Bangor", 
+                           "Fore River" = "Entrance to Weymouth Fore River near Buoy N-22", 
+                           "Fore River" = "Entrance to Weymouth Fore River near Buoy N-28", 
+                           "Fore River" = "Entrance to Weymouth Fore River near C-19", 
+                            "Fore River" = "Weymouth Fore & Town River",
+                            "Fore River" = "Weymouth Fore River",
+                            "Fore River" = "Weymouth Fore River - Citgo's Braintree terminal",
+                            "Fore River" = "Weymouth Fore Rvr",
+                            "Fore River" = "WFR"
                            ))
 ```
 
