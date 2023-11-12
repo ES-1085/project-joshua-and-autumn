@@ -4,8 +4,16 @@ author: by Joshua A. Harkness and Autumn L. Pauly
 output: github_document
 ---
 
-## Summary
+## Introduction
 Pollutants, encompassing metals and organic compounds from agricultural, industrial, and household sources, have accumulated in bottom sediments in the Gulf of Maine. The U.S. federal government, through its agencies (USEPA, USGS, and NOAA) and laws (16 USC § 1447-1447f (1990); 33 USC § 1330 (1987)) has recognized the need for assessment of the distribution of contaminants in marine sediments. Our group is interested in assessing the concentration and distribution of potentially harmful contaminants in the marine environment in order for others to better understand and predict their impact. 
+
+For this project, we used data from the Gulf of Maine Contaminated Sediments Database published by the U.S. Geological Survey in 2002. This dataset is the result of a collaborative effort of several surveys from the U.S. Geological Survey Coastal and Marine Geology Program, Bigelow Laboratory for Ocean Sciences, Woods Hole Oceanographic Institution, the University of New Hampshire, and the University of Massachusetts. Methodology included samples that were collected from the sea floor using a "grab" or "core" method, which were then analyzed for measurements of major and trace elements, organic contaminant compounds, metals, and sediment textural data. 
+
+
+## 
+
+##
+
 
 
 Write-up of your project and findings go here. 
