@@ -19,6 +19,8 @@ library(sf)
 library(leaflet)
 library(ggplot2)
 library(RColorBrewer)
+install.packages("hrbrthemes")
+library(hrbrthemes)
 ```
 
 ### Loading PAH Dataset
@@ -80,6 +82,34 @@ PAHs %>%
        subtitle = "by PAH concentration",
        x = "PAH Detected",
        y = "Amount Detected")
+```
+### Fluoranthene Concentration
+
+``` {r fluoranthene-concentration}
+PAHs %>%
+  filter(pah_detected == "FLORNTHN") %>%
+  filter(amount_detected <= 4000 ) %>%
+  ggplot(aes(x = amount_detected)) + 
+  theme_ipsum_ps() +
+  geom_histogram(binwidth = 100, fill="#69b3a2", color="#e9ecef", alpha=0.9) + 
+  labs(title = "Fluoranthene Concentration (ng/g)", 
+        x = "Amount Detected (ng/g)", 
+        y = "Frequency of Amount Detected")
+
+```
+
+### Pyrene Concentration
+
+``` {r pyrene-concentration}
+PAHs %>%
+  filter(pah_detected == "PYRENE") %>%
+  filter(amount_detected <= 4000, 
+         amount_detected > 0) %>%
+  ggplot(aes(x = amount_detected)) + 
+  geom_histogram(binwidth = 100, fill="#69b3a2", color="#e9ecef", alpha=0.9) + 
+  labs(title = "Pyrene Concentration (ng/g)", 
+        x = "Amount Detected (ng/g)", 
+        y = "Frequency of Amount Detected")
 ```
 
 # PAH Site to Site Comparisons
