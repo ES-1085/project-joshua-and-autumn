@@ -44,7 +44,7 @@ glimpse(stations)
 
 #### Sediments data
 ```{r glimpse-sediments, echo=FALSE}
-glimpse(sediments)
+#glimpse(sediments)
 ```
 
 #### PCB and pesticide data
