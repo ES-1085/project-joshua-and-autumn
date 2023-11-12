@@ -5,7 +5,12 @@ date: "2023-10-28"
 output: github_document
 ---
 # Introduction
-This document is an analysis of distributions and concentrations of PCB and Organic contaminants that were reported in a publication by the U.S. Geological Survey on contaminated sediments in the Gulf of Maine. 
+This document is an analysis of distributions and concentrations of PCB and Organic contaminants that were reported in a publication by the U.S. Geological Survey on contaminated sediments in the Gulf of Maine. In this data set, we analyzed the prevalence of oil and grease, petroleum Hydrocarbons, polychlorinated biphenyls, DDT compounds, DDE compounds, DDD compounds, pesticide compounds, lipids, clostridium perfringens, monobutyl tin, dibutyl tin, tributyl tin, tetrabutyl tin, PCB congeners #52-209, DDT 4,4', DDT 2,4', DDD 4,4', DDD 4,2', endrin, endrin aldehyde, aldrin, dieldrin, chlordane, mirex, methoxychlor, hexachlorocyclohexane alpha/beta/gamma isomer, and lindane.
+
+#Background
+Polychlorinated biphenyls (PCBs) constitute a group of persistent synthetic organic pollutants characterized by two interconnected phenyl rings, forming aromatic structures with a double bond, and chlorine atoms affixed to the phenyl rings. Due to their notable thermal stability and chemical properties, PCBs found extensive use in diverse industrial applications spanning the 1930s to the 1970s. The prohibition of PCBs in the United States in 1979 resulted from substantial harm inflicted upon both human and environmental health. The Stockholm Convention on Persistent Organic Pollutants, initiated in 2001 as an international treaty, is dedicated to mitigating the production and use of persistent organic pollutants, including PCBs.
+
+PCBs have been implicated in inducing cancer in animals and eliciting various severe non-cancer health impacts, encompassing effects on the immune, reproductive, nervous, and endocrine systems. The International Agency for Research on Cancer (IARC) has classified PCBs as probable human carcinogens (Group 2A). Their deleterious influence extends to marine ecosystems, where their exceptional stability, poor biodegradability, and lipid solubility contribute to bioaccumulation (Kennish 1996). Functioning as endocrine-disrupting compounds, PCBs perturb the hormonal equilibrium in animals, potentially leading to immunodeficiency and reproductive challenges (Clark 1999).
 
 ### Loading packages
 These are the packages that will be used for analysis. 
