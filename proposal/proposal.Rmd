@@ -13,11 +13,9 @@ library(readxl)
 
 ```{r load-data, echo=FALSE, message=FALSE, warning=FALSE}
 stations = read_excel("/cloud/project/data/original_datasets/STAT2002.xls", sheet = 2, skip = 3)
-sediments = read_excel("/cloud/project/data/original_datasets/TXTR2002.xls", sheet = 2, skip = 3)
 PCBs = read_excel("/cloud/project/data/original_datasets/PCBP2002.xls", sheet = 2, skip = 3)
 PAHs = read_excel("/cloud/project/data/original_datasets/PAHS2002.xls", sheet = 2, skip = 3)
 organics = read_excel("/cloud/project/data/original_datasets/GENO2002.xls", sheet = 2, skip = 3)
-inorganics = read_excel("/cloud/project/data/original_datasets/INOR2002.xls", sheet = 2, skip = 3)
 ```
 
 ## 1. Introduction
