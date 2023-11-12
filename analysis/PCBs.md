@@ -3,7 +3,7 @@ GOM Contaminated Sediments Analysis: PCBs
 Joshua Harkness and Autumn Pauly
 2023-10-28
 
-### Introduction
+# Introduction
 
 This document is an analysis of distributions and concentrations of PCB
 and Organic contaminants that were reported in a publication by the U.S.
@@ -296,14 +296,14 @@ principal square root values of PCB concentrations for the general
 locations.
 
 Boston Inner Harbor has the highest mean PCB concentration (average of
-44.21 ng/g per observation), followed by Cape Ann to Cape Elizabeth
-(average of 26.90 ng/g per observation) and Southeast Boston Harbor
-(average of 18.35 ng/g per observation). Boston Inner Harbor (average
+44.21 ug/g per observation), followed by Cape Ann to Cape Elizabeth
+(average of 26.90 ug/g per observation) and Southeast Boston Harbor
+(average of 18.35 ug/g per observation). Boston Inner Harbor (average
 standard deviation of 284.81) and Cape Ann to Cape Elizabeth (average
 standard deviation of 227.34) have the highest standard deviations,
 suggesting that, though they are the locations with the highest average
 PCB concentrations, the counts per observation vary greatly. The ranges
-of both locations is 3,000 ng/g to 0 ng/g, which is a wide range of
+of both locations is 3,000 ug/g to 0 ug/g, which is a wide range of
 values.
 
 ``` r
@@ -334,7 +334,7 @@ Summary_Organics
     ## 10 Central Boston Harbor          0.416    0.274       0.84        41  0.0427 
     ## # ℹ 14 more rows
 
-The graph below is plotting the mean PCB concentration (ng/g) found at
+The graph below is plotting the mean PCB concentration (ug/g) found at
 each general location with error bards accounting for one standard
 error. As was reflected upon above, Boston Inner Harbor, Cape Ann to
 Cape Elizabeth, and Southeast Boston Harbor have the highest
@@ -471,10 +471,23 @@ Organics_long_no_na_no_zero %>%
   theme(legend.position = "none")+
   labs(title = "Organic Concentrations in Boston Inner Harbor Sediments",
        x = "Organic Detected",
-       y = "Amount Detected (ng/g)")
+       y = "Amount Detected (ug/g)")
 ```
 
 ![](PCBs_files/figure-gfm/type_of_organic-in-boston-inner-harbor-graph-1.png)<!-- -->
+
+``` r
+#Organics_long_no_na_no_zero %>%
+  #filter(GEN_LOC_NM %in% c("Boston Inner Harbor")) %>%
+  #ggplot(aes(x="", y = sum(amount_detected), fill = organic_detected)) +
+  #geom_bar(stat="identity", width=1) +
+  #coord_polar("y", start=0) + 
+  #theme_minimal() + 
+  #scale_fill_viridis_d() + 
+   #labs(title = "Organic Concentrations in Boston Inner Harbor Sediments",
+       #fill = "Organic Detected",
+       #x = "Amount Detected (ug/g)")
+```
 
 #### Cape Ann to Cape Elizabeth Concentrations
 
@@ -507,7 +520,7 @@ Organics_long_no_na_no_zero %>%
   theme(legend.position = "none")+
   labs(title = "Organic Concentrations in Cape Ann to Cape Elizabeth Sediments",
        x = "Organic Detected",
-       y = "Amount Detected (ng/g)")
+       y = "Amount Detected (ug/g)")
 ```
 
 ![](PCBs_files/figure-gfm/type_of_organic-in-cape-ann-to-elizabeth-graph-1.png)<!-- -->
@@ -553,7 +566,7 @@ Organics_long_no_na_no_zero %>%
   theme(legend.position = "none")+
   labs(title = "Organic Concentrations in Southeast Boston Harbor Sediments",
        x = "Organic Detected",
-       y = "Amount Detected (ng/g)")
+       y = "Amount Detected (ug/g)")
 ```
 
 ![](PCBs_files/figure-gfm/type_of_organic-in-boston-southeast-harbor-graph-1.png)<!-- -->
@@ -561,8 +574,8 @@ Organics_long_no_na_no_zero %>%
 #### Cape Elizabeth to Rockland Concentrations
 
 This plot visualizes the specific organics present from Cape Elizabeth
-to Rockland. DDD compounds (9,901.23 ng/g) is PCB with the highest
-concentration followed by PCBs (802.64 ng/g).
+to Rockland. DDD compounds (9,901.23 ug/g) is PCB with the highest
+concentration followed by PCBs (802.64 ug/g).
 
     ## # A tibble: 2 × 3
     ## # Groups:   GEN_LOC_NM [1]
@@ -582,7 +595,7 @@ Organics_long_no_na_no_zero %>%
   theme(legend.position = "none")+
   labs(title = "Organic Concentrations in Cape Elizabeth to Rockland Sediments",
        x = "Organic Detected",
-       y = "Amount Detected (ng/g)")
+       y = "Amount Detected (ug/g)")
 ```
 
 ![](PCBs_files/figure-gfm/type_of_organic-from-cape-elizabeth-to-rockland-graph-1.png)<!-- -->
@@ -590,8 +603,8 @@ Organics_long_no_na_no_zero %>%
 #### Rockland to North Concentrations
 
 This plot visualizes the specific organics present from Rockland, ME to
-any area northward. As shown in the plot, DDD compounds (1,303.10 ng/g)
-is PCB with the highest concentration followed by PCBs (354.77 ng/g).
+any area northward. As shown in the plot, DDD compounds (1,303.10 ug/g)
+is PCB with the highest concentration followed by PCBs (354.77 ug/g).
 
     ## # A tibble: 2 × 3
     ## # Groups:   GEN_LOC_NM [1]
@@ -611,12 +624,29 @@ Organics_long_no_na_no_zero %>%
   theme(legend.position = "none")+
   labs(title = "Organic Concentrations in Rockland to North Sediments",
        x = "Organic Detected",
-       y = "Amount Detected (ng/g)")
+       y = "Amount Detected (ug/g)")
 ```
 
 ![](PCBs_files/figure-gfm/type_of_organic-in-rockalnd-to-N-graph-1.png)<!-- -->
 
-### PCB and Pesticide Concentrations in Sediments
+``` r
+Sum_all_pcb_rock_n <- PCBs_long %>%
+  group_by(pcb, site) %>%
+  filter(GEN_LOC_NM == "Rockland to north") %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  drop_na(amount_detected) %>%
+  summarise(mean = mean(amount_detected),
+    sd = sd(amount_detected),
+    n = n(),
+    SE = sd(amount_detected) / sqrt(n()))
+```
+
+    ## `summarise()` has grouped output by 'pcb'. You can override using the `.groups`
+    ## argument.
+
+``` r
+Sum_all_pcb_rock_n
+```
 
     ## # A tibble: 24 × 5
     ##    pcb          mean     sd     n     SE
@@ -635,7 +665,7 @@ Organics_long_no_na_no_zero %>%
 
 ``` r
 Sum_all_pcb_rock_n %>%
-  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = mean, fill = pcb)) +
+  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
   geom_col(color = "black") +
    geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
   coord_flip() +
@@ -645,10 +675,63 @@ Sum_all_pcb_rock_n %>%
   labs(title = "PCB and Pesticide Concentrations in Sediments",
        subtitle = "Rockland, ME, and points north",
        x = "PCB/Pesticide Detected",
-       y = "Amount Detected (ng/g)")
+       y = "Amount Detected (ug/g)")
 ```
 
-![](PCBs_files/figure-gfm/pcb-pesticide-concentration-sediments-graph-1.png)<!-- -->
+    ## Warning in RColorBrewer::brewer.pal(n, pal): n too large, allowed maximum for palette Pastel2 is 8
+    ## Returning the palette you asked for with that many colors
+
+![](PCBs_files/figure-gfm/bar-all-pcbs-rockland-n-1.png)<!-- -->
+
+``` r
+Sum_all_pcb_rock_n %>%
+ggplot(aes(x="", y = mean, fill = pcb)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) 
+```
+
+![](PCBs_files/figure-gfm/bar-all-pcbs-rockland-n-2.png)<!-- --> JH – I
+will probably break this up so PCBs and pesticides are in two separate
+plots.
+
+### Inshore to offshore comparison
+
+``` r
+Sum_all_pcb_inshore_offshore <- PCBs_long %>%
+  select(GEN_LOC_NM, pcb, amount_detected) %>%
+  group_by(pcb, GEN_LOC_NM) %>%
+  filter(GEN_LOC_NM %in% c("Gulf of Maine (<=50m Isobath)", "Gulf of Maine (>50m Isobath)")) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  drop_na(amount_detected) %>%
+  summarise(mean = mean(amount_detected),
+    sd = sd(amount_detected),
+    n = n(),
+    SE = sd(amount_detected) / sqrt(n()))
+```
+
+    ## `summarise()` has grouped output by 'pcb'. You can override using the `.groups`
+    ## argument.
+
+``` r
+Sum_all_pcb_inshore_offshore
+```
+
+    ## # A tibble: 24 × 5
+    ##    pcb         mean     sd     n    SE
+    ##    <chr>      <dbl>  <dbl> <int> <dbl>
+    ##  1 ALDRIN_C   5.87   8.30      2 5.87 
+    ##  2 BHC_A_C    0      0         2 0    
+    ##  3 BHC_B_C    0      0         2 0    
+    ##  4 BHC_D_C    0      0         2 0    
+    ##  5 CLRDNE_T_C 0      0         2 0    
+    ##  6 DDD_4_4_C  7.30  10.3       2 7.30 
+    ##  7 DDE_4_4_C  4.57   6.46      2 4.57 
+    ##  8 DDT_2_4_C  0.663  0.938     2 0.663
+    ##  9 DDT_4_4_C  0.217  0.307     2 0.217
+    ## 10 DIELDRN_C  2.85   4.03      2 2.85 
+    ## # ℹ 14 more rows
+
+JH – There are no observations in the GOM \<=50m Isobath category.
 
 ### PCB Summary Statistics of Rivers With Highest Concentrations
 
@@ -715,7 +798,7 @@ Below we are visualizing the mean PCBs present in Maine rivers.
 ``` r
 Sum_Org_site %>%
   filter(site %in% c("York River", "Kennebunk River", "Fore River", "Royal River", "Kennebec River", "Penobscot River", "Saco River")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -0.2,x) ), fill = fct_rev(fct_reorder(site, mean_PCB_T)))) +
+  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -0.2,x)), fill = fct_rev(fct_reorder(site, mean_PCB_T)))) +
   geom_bar(stat="identity", col = "black") +
   scale_x_discrete(drop=FALSE) +
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
@@ -9506,7 +9589,7 @@ ggplot(GOM_states) +
   xlim(-72,-65) +
   ylim(40,45) +
   theme_bw() +
-  guides(size = guide_legend(title = "Concentration ng/g")) +
+  guides(size = guide_legend(title = "Concentration ug/g")) +
   guides(alpha = FALSE) +
   theme(legend.direction = "vertical", legend.box = "horizontal") +
   scale_color_discrete(name = "Pesticide",
