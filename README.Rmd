@@ -5,6 +5,8 @@ output: github_document
 ---
 
 ## Summary
+Pollutants, encompassing metals and organic compounds from agricultural, industrial, and household sources, have accumulated in bottom sediments in the Gulf of Maine. The U.S. federal government, through its agencies (USEPA, USGS, and NOAA) and laws (16 USC § 1447-1447f (1990); 33 USC § 1330 (1987)) has recognized the need for assessment of the distribution of contaminants in marine sediments. Our group is interested in assessing the concentration and distribution of potentially harmful contaminants in the marine environment in order for others to better understand and predict their impact. 
+
 
 Write-up of your project and findings go here. 
 Think of this as the text of your presentation. 
@@ -28,13 +30,13 @@ Your results with proper output and graphics go in your presentation, this space
 Our presentation can be found [here](presentation/presentation.html).
 
 ## Data 
-Our data came from the Gulf of Maine Contaminated Sediments Database published by the U.S. Geological Survey in their Open-File Report 02-403. The full citation list for sources of data that was entered into the Contaminated Sediments Database for the Gulf of Maine can be found here: https://pubs.usgs.gov/of/2002/of02-403/HTMLdocs/entdocs.htm 
+Our data came from the Gulf of Maine Contaminated Sediments Database published by the U.S. Geological Survey in their Open-File Report 02-403. The full citation list for sources of data that was entered into the Contaminated Sediments Database for the Gulf of Maine can be found here: https://pubs.usgs.gov/of/2002/of02-403/HTMLdocs/entdocs.html. The Database of Contaminated Sediments for the Gulf of Maine is a carefully compiled collection of edited data on contaminated sediments and associated properties, sourced from diverse outlets. The data was reviewed for quality, standardized by format, and integrated into a regional database. The resulting database includes original data from various sources and includes documentation regarding data quality. Its purpose is to assess the environmental status of coastal sediments, understand contaminant transport paths, and determine the fate of pollutants in the region.
 
 #### Citations
 Buchholtz ten Brink, M.R., Manheim, F.T., Mecray, E.L. , Hastings, M.E., and Currence, J.M., along with Farrington, J.W., Fredette, T.J., Jones, S.H., Liebman, M.L., Larsen, P.F., Smith Leo, W., Tripp, B.W., Wallace, Jr., G.T., and Ward, L.G., 2002, Contaminated sediments database for the Gulf of Maine, U.S. Geological Survey Open-file Report No. 02-403, Online at https://pubs.usgs.gov/of/2002/of02-403/. doi: 10.3133/ofr02403. Accessed 10/12/2023.
 
 ## References
-#### These references have been cited in `PAHs.Rmd` and `PCBs.Rmd`.
+##### These references have been cited in `PAHs.Rmd` and `PCBs.Rmd`.
 
 Clark, R,B., 1999. Marine pollution. Oxford University press, Fourth edition, pp 161. 
 
