@@ -28,14 +28,24 @@ Your results with proper output and graphics go in your presentation, this space
 Our presentation can be found [here](presentation/presentation.html).
 
 ## Data 
+Our data came from the Gulf of Maine Contaminated Sediments Database published by the U.S. Geological Survey in their Open-File Report 02-403. The full citation list for sources of data that was entered into the Contaminated Sediments Database for the Gulf of Maine can be found here: https://pubs.usgs.gov/of/2002/of02-403/HTMLdocs/entdocs.htm 
 
-Include a citation for your data here. 
-See http://libraryguides.vu.edu.au/c.php?g=386501&p=4347840 for guidance on proper citation for datasets. 
-If you got your data off the web, make sure to note the retrieval date.
-
-Marilyn R. Buchholtz ten Brink, F. T. Manheim, E.L. Mecray, M. E. Hastings, J.M. Currence, J.W. Farrington, S. H. Jones, P. F. Larsen, B.W. Tripp, G.T. Wallace, L. G. Ward, T.J. Fredette, M. L. Liebman, W. Smith Leo, 2002, Contaminated sediments database for the Gulf of Maine. USGS.  10.3133/ofr02403. Accessed 10/12/2023.
+#### Citations
+Buchholtz ten Brink, M.R., Manheim, F.T., Mecray, E.L. , Hastings, M.E., and Currence, J.M., along with Farrington, J.W., Fredette, T.J., Jones, S.H., Liebman, M.L., Larsen, P.F., Smith Leo, W., Tripp, B.W., Wallace, Jr., G.T., and Ward, L.G., 2002, Contaminated sediments database for the Gulf of Maine, U.S. Geological Survey Open-file Report No. 02-403, Online at https://pubs.usgs.gov/of/2002/of02-403/. doi: 10.3133/ofr02403. Accessed 10/12/2023.
 
 ## References
+#### These references have been cited in `PAHs.Rmd` and `PCBs.Rmd`.
 
-List any references here. You should, at a minimum, list your data source.
+Clark, R,B., 1999. Marine pollution. Oxford University press, Fourth edition, pp 161. 
 
+Honda, M., & Suzuki, N. (2020). Toxicities of Polycyclic Aromatic Hydrocarbons for Aquatic Animals. International journal of environmental research and public health, 17(4), 1363. https://doi.org/10.3390/ijerph17041363
+
+IARC. 2012. IARC Monographs on the Evaluation of Carcinogenic Risks to Humans. International Agency for Research on Cancer; Lyon, France.
+
+IARC (2010). Some non-heterocyclic polycyclic aromatic hydrocarbons and some related exposures. IARC Monogr Eval Carcinog Risks Hum. 92:1–853. Available from: http://publications.iarc.fr/110 PMID:21141735 
+
+James R.C., Busch H., Tamburro C.H., Roberts S.M., Schell J.D., Harbison R.D. Polychlorinated Biphenyl Exposure and Human Disease. J. Occup. Environ. Med. 1993;35:136–148. doi: 10.1097/00043764-199302000-00014.
+
+Kennish, M. J. (1996): Practical Handbook of Estuarine and Marine Pollution, CRC Press: 524.
+
+Mumtaz, M. M., George, J. D., Gold, K. W., Cibulas, W., & DeRosa, C. T. (1996). ATSDR evaluation of health effects of chemicals. IV. Polycyclic aromatic hydrocarbons (PAHs): understanding a complex problem. Toxicology and industrial health, 12(6), 742–971. https://doi.org/10.1177/074823379601200601 
