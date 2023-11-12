@@ -19,8 +19,6 @@ library(sf)
 library(leaflet)
 library(ggplot2)
 library(RColorBrewer)
-install.packages("hrbrthemes")
-library(hrbrthemes)
 ```
 
 ### Loading PAH Dataset
@@ -69,7 +67,6 @@ PAHs %>%
 
 ## General PAH Concentration
 As shown in the plot below, there is a high concentration of Fluoranthene, followed by Pyrene, Chrysene, and Phenanthrene.
-
 ``` {r plotting-pahs-detected, warning=FALSE}
 PAHs %>%
   ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = fct_infreq(pah_detected)))+
@@ -84,14 +81,13 @@ PAHs %>%
        y = "Amount Detected")
 ```
 ### Fluoranthene Concentration
-
 ``` {r fluoranthene-concentration}
 PAHs %>%
   filter(pah_detected == "FLORNTHN") %>%
-  filter(amount_detected <= 4000 ) %>%
+  filter(amount_detected <= 2000 ) %>%
   ggplot(aes(x = amount_detected)) + 
-  theme_ipsum_ps() +
-  geom_histogram(binwidth = 100, fill="#69b3a2", color="#e9ecef", alpha=0.9) + 
+  theme_minimal() +
+  geom_histogram(binwidth = 50, fill="#69b3a2", color="#e9ecef", alpha=0.9) + 
   labs(title = "Fluoranthene Concentration (ng/g)", 
         x = "Amount Detected (ng/g)", 
         y = "Frequency of Amount Detected")
@@ -99,15 +95,43 @@ PAHs %>%
 ```
 
 ### Pyrene Concentration
-
 ``` {r pyrene-concentration}
 PAHs %>%
   filter(pah_detected == "PYRENE") %>%
-  filter(amount_detected <= 4000, 
+  filter(amount_detected <= 2000, 
+         amount_detected > 0) %>%
+  ggplot(aes(x = amount_detected)) +
+  geom_histogram(binwidth = 50, fill="#69b3a2", color="#e9ecef", alpha=0.9) +
+  theme_minimal() + 
+  labs(title = "Pyrene Concentration (ng/g)", 
+        x = "Amount Detected (ng/g)", 
+        y = "Frequency of Amount Detected")
+```
+
+### Chrysene Concentration
+``` {r Chrysene-concentration}
+PAHs %>%
+  filter(pah_detected == "CHRYSENE") %>%
+  filter(amount_detected <= 2000, 
          amount_detected > 0) %>%
   ggplot(aes(x = amount_detected)) + 
-  geom_histogram(binwidth = 100, fill="#69b3a2", color="#e9ecef", alpha=0.9) + 
-  labs(title = "Pyrene Concentration (ng/g)", 
+  geom_histogram(binwidth = 50, fill="#69b3a2", color="#e9ecef", alpha=0.9) + 
+   theme_minimal() +
+  labs(title = "Chrysene Concentration (ng/g)", 
+        x = "Amount Detected (ng/g)", 
+        y = "Frequency of Amount Detected")
+```
+
+### Phenanthrene Concentration
+``` {r Phenanthrene-concentration}
+PAHs %>%
+  filter(pah_detected == "PHNANTHR") %>%
+  filter(amount_detected <= 2000, 
+         amount_detected > 0) %>%
+  ggplot(aes(x = amount_detected)) + 
+  geom_histogram(binwidth = 50, fill="#69b3a2", color="#e9ecef", alpha=0.9) + 
+   theme_minimal() +
+  labs(title = "Phenanthrene Concentration (ng/g)", 
         x = "Amount Detected (ng/g)", 
         y = "Frequency of Amount Detected")
 ```
