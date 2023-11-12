@@ -17,7 +17,7 @@ library(visdat)
 library(naniar)
 ```
 
-##Load full datasets
+##Loading Full Data Sets
 These data sets are very large. Since these are all very large data files, we will select useful variables and variables we are interested in looking at to pare them down to a more manageable size.
 
 ```{r load-data, warning=FALSE}
@@ -27,12 +27,38 @@ PAHs_full = read_excel("/cloud/project/data/original_datasets/PAHS2002.xls", she
 organics_full = read_excel("/cloud/project/data/original_datasets/GENO2002.xls", sheet = 2, skip = 3)
 ```
 
-#Selecting variables 
+#Selecting and Modifying Variables 
 ###PCBs
 Creates PCBs2002 data frame. These are variables of interest, principally contaminant concentration with assigned unique IDs that can be associated to unique IDs in the other data frames.
 
 ```{r select-var-PCBs}
 PCBs2002 = select(PCBs_full, c(UNIQUE_ID, PCB_52_NGG, PCB101_NGG, PCB118_NGG, PCB128_NGG, PCB138_NGG, PCB153_NGG, PCB180_NGG, PCB206_NGG, PCB209_NGG, DDT_4_4_C, DDT_2_4_C, DDE_4_4_C, DDD_4_4_C, ENDRIN_C, ENDR_ALD_C, ALDRIN_C, DIELDRN_C, CLRDNE_T_C, MIREX_C, METHOXYCLC, BHC_A_C, BHC_B_C, BHC_D_C, LINDANE_C))
+
+PCBs2002 <- PCBs2002 %>%
+  rename("PCB_52" = "PCB_52_NGG", 
+         "PCB101" = "PCB101_NGG", 
+         "PCB118" = "PCB118_NGG", 
+         "PCB128" = "PCB128_NGG", 
+         "PCB138" = "PCB138_NGG", 
+         "PCB153" = "PCB153_NGG", 
+         "PCB180" = "PCB180_NGG", 
+         "PCB206" = "PCB206_NGG", 
+         "PCB209" = "PCB209_NGG",  
+         "DDT_4_4" = "DDT_4_4_C", 
+         "DDT_2_4" = "DDT_2_4_C", 
+         "DDE_4_4" = "DDE_4_4_C", 
+         "DDD_4_4" = "DDD_4_4_C", 
+         "ENDRIN" = "ENDRIN_C", 
+         "ENDR_ALD" = "ENDR_ALD_C", 
+         "ALDRIN" = "ALDRIN_C", 
+         "DIELDRN" = "DIELDRN_C", 
+         "CLRDNE_T" = "CLRDNE_T_C", 
+         "MIREX" = "MIREX_C", 
+         "METHOXYCL" = "METHOXYCLC", 
+         "BHC_A" = "BHC_A_C", 
+         "BHC_B" = "BHC_B_C",  
+         "BHC_D" = "BHC_D_C", 
+         "LINDANE" = "LINDANE_C")
 ```
 
 ###Stations
@@ -40,67 +66,7 @@ Creates Stations2002 data frame.  These are unique IDs, coordinates (Lat/Lon in 
 
 ```{r select-var-STATs}
 Station2002 = select(stations_full, c(UNIQUE_ID, LATITUDE, LONGITUDE, SOUNDING_M, STATE_NAME, QUAD_NAME, GEN_LOC_NM, SPECFC_LOC, AREA_CODE, SAMP_DATE1, TO_SMP_DT2, DPTH_N_COR, DPTH_CODE, COR_GRB_CD))
-```
 
-###Organics
-Creates Organics2002 dataframe with selected variables of interest.  These include general organics as well as total PCB and some notable pesticide concentrations.
-
-```{r select-var-ORG}
-Organics2002 = select(organics_full, c(UNIQUE_ID, REPNO_ORG, TOTREP_ORG, TVS_EP_PCT, O_G_PCT, O_G_UGG, PHCTOT_PCT, PHCTOT_UGG, PCB_T_UGG, DDT_T_NGG, DDE_T_NGG, DDD_T_NGG, PEST_UG_G, PAHTOT_PCT, PAHTOT_UGG, LIPIDS_NGG, CLOST_SP_G, MBT_C, DBT_C, TBT_C, TTBT_C))
-```
-
-###PAHs
-Creates PAHs2002 dataframe with selected variables of interest.  These are principally contaminate concentrations with unique IDs associated with other data frames.
-
-```{r select-var-PAH}
-#PAHs2002 = select(PAHs_full, c("UNIQUE ID", BENZNE_C, "2BZTPN_C", "2BZTPN_T_C", C1DIBZTPNC, C2DIBZTPNC, C3DIBZTPNC, "2BZFRN_T_C", NAPHTHLN_C, NPHTLN_T_C, C1NPHTLN_C, "1MTYLNAP_C", "2MTYLNAP_C", C2NPHTLN_C, C3NPHTLN_C, C4NPHTLN_C, BIPHENYL_C, ACNPHTHN_C, ACNPHTYL_C, FLUORENE_C, C1FLORNE_C, C2FLORNE_C, C3FLORNE_C, PHNANTHR_C, "1MT_PHE_C", C2PHNANT_C, C3PHNANT_C, C4PHNANT_C, ANTHRACN_C, BZ_A_ANT_C, "2_AH_ANT_C", PYRENE_C, C1PYRENE_C, BZ_A_PYR_C, BZ_E_PYR_C, IN_123_PYC, "3_4BNZPY_C", FLORNTHN_C, C1FLRNTHNC, BZ_B_FLUOC, BZ_K_FLUOC, CHRYSENE_C, CHRYS_C1_C, CHRYS_C2_C, CHRYS_C3_C, CHRYS_C4_C, PERYLENE_C, BNZ_G_PYLC, B_GHI_PYLC))
-
-PAHs2002 = select(PAHs_full, c("UNIQUE ID", BENZNE_C, "2BZTPN_C", "2BZFRN_T_C", BIPHENYL_C, ACNPHTHN_C, ACNPHTYL_C, FLUORENE_C, PHNANTHR_C, ANTHRACN_C,  PYRENE_C, FLORNTHN_C, CHRYSENE_C, PERYLENE_C))
-
-colnames(PAHs2002)[1] ="UNIQUE_ID"
-```
-
-## Recoding/combining Categories in Stations Data Set
-### Renaming Specific Locations
-```{r combine-loc-categories}
-Station2002 <- Station2002 %>%
-  mutate(site = fct_recode(SPECFC_LOC,
-                           "Chelsea River" = "Upper Chelsea River",
-                           "Chelsea River" = "Lower Chelsea River", 
-                           "Chelsea River" = "Chelsea River mouth",
-                           "Chelsea River" = "Chelsea River A",
-                           "Chelsea River" = "Chelsea River B",
-                           "Chelsea River" = "Chelsea River C",
-                           "Chelsea River" = "Chelsea River D",
-                           "Chelsea River" = "Chelsea River E",
-                           "Chelsea River" = "Chelsea River F",
-                           "Chelsea River" = "Chelsea River G",
-                           "Chelsea River" = "Chelsea River H",
-                           "Chelsea River" = "Chelsea River, Gulf Oil Fuel Off-Loading Pier",
-                           "Chelsea River" = "Chelsea River, Golf Oil Fuel Off-Loading Pier",
-                           "Mystic River" = "MYSTIC RIVER",
-                           "Mystic River" = 'Mystic River "B"',
-                           "Mystic River" = 'Mystic "A"-7830',
-                           "Mystic River" = 'Mystic "B"-7831',
-                           "Chelsea River" = 'Chelsea "A"-7828',
-                           "Chelsea River" = 'Chelsea "E"-7829',
-                           "Island End River" = "ISLAND END RIVER",
-                           "Weymouth Fore River" = "FORE RIVER", 
-                           "Fore River" = "Portland Fore River", 
-                           "Fore River" = "Portland Harbor & Fore River", 
-                           "Saco River" = "Saco River & Camp Ellis Harbor", 
-                           "Kennebec River" = "Kennebec River to Bath", 
-                           "Kennebec River" =   "KENNEBEC RIVER",
-                           "Kennebec River" = "KENNEBEC RIVER,ME.", 
-                           "Penobscot River" = "PENOBSCOT RIVER", 
-                           "Penobscot River" = "MOUTH PENOBSCOT RIVER",
-                           "Penobscot River" = "Penobscot River To Bangor"
-                           ))
-```
-
-### Renaming General Locations
-
-```{r}
 Station2002 <- Station2002 %>%
 mutate(GEN_LOC_NM = fct_recode(GEN_LOC_NM,
                            "Rockland to north" = "North of 44; to 50M isobath",
@@ -118,9 +84,48 @@ mutate(GEN_LOC_NM = fct_recode(GEN_LOC_NM,
                            "Massachusetts Bays" = "MASS BAYS"))
 ```
 
-```{r, echo=FALSE, message=FALSE}
-Station2002 %>%
-  select(GEN_LOC_NM, site)
+###Organics
+Creates Organics2002 dataframe with selected variables of interest.  These include general organics as well as total PCB and some notable pesticide concentrations.
+
+```{r select-var-ORG}
+Organics2002 = select(organics_full, c(UNIQUE_ID, REPNO_ORG, TOTREP_ORG, TVS_EP_PCT, O_G_UGG, PHCTOT_UGG, PCB_T_UGG, DDT_T_NGG, DDE_T_NGG, DDD_T_NGG, PEST_UG_G, LIPIDS_NGG, CLOST_SP_G, MBT_C, DBT_C, TBT_C, TTBT_C))
+
+Organics2002 <- Organics2002 %>%
+  rename("O_G_" = "O_G_UGG", 
+         "PHCTOT" = "PHCTOT_UGG", 
+         "PCB" = "PCB_T_UGG", 
+         "DDT" = "DDT_T_NGG", 
+         "DDE" = "DDE_T_NGG", 
+         "PEST" = "PEST_UG_G", 
+         "LIPIDS" = "LIPIDS_NGG", 
+         "CLOST_SP" = "CLOST_SP_G", 
+         "MBT" = "MBT_C",  
+         "DBT" = "DBT_C", 
+         "TBT" = "TBT_C", 
+         "TTBT" = "TTBT_C")
+```
+
+###PAHs
+Creates PAHs2002 dataframe with selected variables of interest.  These are principally contaminate concentrations with unique IDs associated with other data frames.
+
+```{r select-var-PAH}
+PAHs2002 = select(PAHs_full, c("UNIQUE ID", BENZNE_C, "2BZTPN_C", "2BZFRN_T_C", BIPHENYL_C, ACNPHTHN_C, ACNPHTYL_C, FLUORENE_C, PHNANTHR_C, ANTHRACN_C,  PYRENE_C, FLORNTHN_C, CHRYSENE_C, PERYLENE_C)) 
+
+PAHs2002 <- PAHs2002 %>%
+  rename("UNIQUE_ID" = "UNIQUE ID", 
+         "BENZNE" = "BENZNE_C", 
+         "2BZTPN" = "2BZTPN_C", 
+         "2BZFRN" = "2BZFRN_T_C", 
+         "BIPHENYL" = "BIPHENYL_C", 
+         "ACNPHTHN" = "ACNPHTHN_C", 
+         "ACNPHTYL" = "ACNPHTYL_C", 
+         "FLUORENE" = "FLUORENE_C", 
+         "PHNANTHR" = "PHNANTHR_C", 
+         "ANTHRACN" = "ANTHRACN_C",  
+         "PYRENE" = "PYRENE_C", 
+         "FLORNTHN" = "FLORNTHN_C", 
+         "CHRYSENE" = "CHRYSENE_C", 
+         "PERYLENE" = "PERYLENE_C")
 ```
 
 ## Modifying Dataframes
@@ -136,14 +141,14 @@ This action associates location information and contaminant data by each sample'
 ```
 
 ###Recoding PAHs' Special Character Values as Numeric
-The amount values for the PAH containment `CHRYSENE_C` needs to be recoded from character values to numeric values. 
+The amount values for the PAH containment `CHRYSENE` needs to be recoded from character values to numeric values. 
 
 ``` {r converting-PAHs-as.numeric}
   PAHs_loc <- PAHs_loc %>%
-    mutate(CHRYSENE_C = recode(CHRYSENE_C, ">" = "NA")) 
+    mutate(CHRYSENE = recode(CHRYSENE, ">" = "NA")) 
 
   PAHs_loc %>%
-    transform(PAHs_loc, CHRYSENE_C = as.numeric(CHRYSENE_C))
+    transform(PAHs_loc, CHRYSENE = as.numeric(CHRYSENE))
 ```
 
 # Visualizing Missing Data
