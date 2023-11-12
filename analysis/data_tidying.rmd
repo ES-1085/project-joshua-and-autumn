@@ -199,20 +199,9 @@ naniar::miss_var_summary(PCBs_loc)
 #This shows us in which station specific organics are found
 ```
 
-# Loading full datasets as CSVs
-``` {r saving-full-data-into-csv-files}
-#write_csv(organics_full, "/cloud/project/data/datasets_csv/organics_full.csv")
-#write_csv(PAHs_full, "/cloud/project/data/datasets_csv/PAHs_full.csv")
-#write_csv(PCBs_full, "/cloud/project/data/datasets_csv/PCBs_full.csv")
-#write_csv(stations_full, "/cloud/project/data/datasets_csv/stations_full.csv")
-```
-# JH -- do we need to write full .csv files?  These are the same as the excel files, just diff format
-
 # Write loc datasets as CSVs
 ``` {r saving-data_loc-into-csv-files}
 write_csv(Organics_loc, "/cloud/project/data/datasets_csv/Organics_loc.csv")
 write_csv(PAHs_loc, "/cloud/project/data/datasets_csv/PAHs_loc.csv")
 write_csv(PCBs_loc, "/cloud/project/data/datasets_csv/PCBs_loc.csv")
 ```
-
-# JH -- we do not need to load .shp files here; we still have to load them separately whenever we use them.
