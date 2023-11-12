@@ -332,7 +332,7 @@ Organics_long_no_na_no_zero %>%
   labs(title = "Organic Concentrations",
        subtitle = "Cape Ann to Cape Elizabeth",
        x = "",
-       y = "Percent Composition"))
+       y = "Percent Composition")
 ```
 
 #### Southeast Boston Harbor Concentrations
@@ -557,11 +557,11 @@ As stated in our project proposal, we were interested in visualizing contaminant
 ```{r calculate-sum-organics-by-site}
 Sum_Org_site <- Organics %>%
   group_by(site) %>%
-  drop_na(PCB_T_UGG) %>%
-  summarise(mean_PCB_T = mean(PCB_T_UGG),
-    sd_PCB_T = sd(PCB_T_UGG),
+  drop_na(PCB) %>%
+  summarise(mean_PCB_T = mean(PCB),
+    sd_PCB_T = sd(PCB),
     n_PCB_T = n(),
-    SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
+    SE_PCB_T = sd(PCB) / sqrt(n()))
 ```
 
 Below we are identifying specific Maine rivers to use in our analysis.
