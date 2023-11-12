@@ -22,6 +22,7 @@ library(leaflet)
 library(RColorBrewer)
 #install.packages("dplyr")
 library(dplyr)
+library(ggridges)
 ```
 
 ### Loading PCB and Organics Datasets
@@ -533,6 +534,23 @@ ggplot(aes(x="", y = mean, fill = pcb)) +
        y = "Percent Composition")
 ```
 Interpretation:  This bar plot shows concentrations of each polychlorinated biplhenyl (PCBs) in the area from Rockland, ME to the Bay of Fundy, and was detected in the PCBs dataset.  All PCBs are similarly prevalent in this area, with PCB 138 being the most abundant (mean = 0.30 +/- 1.23 ng/g), and PCB 128 being the least abundant (mean = 0.02 +/- 0.2 ng/g).  The pie chart shows percent composition of the same PCBs for this area.
+
+### Top 4 Pesticides
+
+```{r}
+pesticides %>%
+  filter(pcb %in% c("BHC_C", "MIREX_C", "ALDRIN_C", "DDT_C")) %>%
+  filter(amount_detected <=30) %>%
+  filter(amount_detected > 0) %>%
+  ggplot(aes(x = amount_detected, y = pcb, fill = pcb)) +
+  geom_density_ridges() +
+  scale_fill_viridis_d() +
+  theme_minimal() +
+  labs(x = "Concentration (ng/g)",
+       y = "Pesticide",
+       caption = "Values > 30 ng/g excluded")
+  
+```
 
 
 ### Inshore to offshore comparison
