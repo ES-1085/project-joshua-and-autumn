@@ -112,7 +112,8 @@ Creates PAHs2002 dataframe with selected variables of interest.  These are princ
 PAHs2002 = select(PAHs_full, c("UNIQUE ID", BENZNE_C, "2BZTPN_C", "2BZFRN_T_C", BIPHENYL_C, ACNPHTHN_C, ACNPHTYL_C, FLUORENE_C, PHNANTHR_C, ANTHRACN_C,  PYRENE_C, FLORNTHN_C, CHRYSENE_C, PERYLENE_C)) 
 
 PAHs2002 <- PAHs2002 %>%
-  rename("BENZNE" = "BENZNE_C", 
+  rename("UNIQUE_ID" = "UNIQUE ID", 
+         "BENZNE" = "BENZNE_C", 
          "2BZTPN" = "2BZTPN_C", 
          "2BZFRN" = "2BZFRN_T_C", 
          "BIPHENYL" = "BIPHENYL_C", 
@@ -140,14 +141,14 @@ This action associates location information and contaminant data by each sample'
 ```
 
 ###Recoding PAHs' Special Character Values as Numeric
-The amount values for the PAH containment `CHRYSENE_C` needs to be recoded from character values to numeric values. 
+The amount values for the PAH containment `CHRYSENE` needs to be recoded from character values to numeric values. 
 
 ``` {r converting-PAHs-as.numeric}
   PAHs_loc <- PAHs_loc %>%
-    mutate(CHRYSENE_C = recode(CHRYSENE_C, ">" = "NA")) 
+    mutate(CHRYSENE = recode(CHRYSENE, ">" = "NA")) 
 
   PAHs_loc %>%
-    transform(PAHs_loc, CHRYSENE_C = as.numeric(CHRYSENE_C))
+    transform(PAHs_loc, CHRYSENE = as.numeric(CHRYSENE))
 ```
 
 # Visualizing Missing Data
