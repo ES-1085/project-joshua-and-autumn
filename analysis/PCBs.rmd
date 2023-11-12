@@ -111,8 +111,6 @@ Organics %>%
   labs(title = "Number of Observations by General Location",
        x = "General Location",
        y = "Count (n Observations)")
-
-
 ```
 Interpretation: This bar plot shows number of observations in each general location catagory, within the Organics dataset. 
 
@@ -568,7 +566,7 @@ Below we are identifying specific Maine rivers to use in our analysis.
 ```{r identify-ME-rivers, message=FALSE}
 Organics %>%
   filter(STATE_NAME == "ME") %>%
-  filter(PCB_T_UGG != "NA") %>%
+  filter(PCB != "NA") %>%
   distinct(site)
 ```
 
@@ -627,7 +625,7 @@ There are no errorbars for Union River as n = 1; single sample from this site so
 ```{r identiy-ma-rivers, message=FALSE}
 Organics %>%
   filter(STATE_NAME == "MA") %>%
-  filter(PCB_T_UGG != "NA")# %>%
+  filter(PCB != "NA")# %>%
 #  distinct(site)
 ```
 
