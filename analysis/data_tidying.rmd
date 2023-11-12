@@ -33,32 +33,6 @@ Creates PCBs2002 data frame. These are variables of interest, principally contam
 
 ```{r select-var-PCBs}
 PCBs2002 = select(PCBs_full, c(UNIQUE_ID, PCB_52_NGG, PCB101_NGG, PCB118_NGG, PCB128_NGG, PCB138_NGG, PCB153_NGG, PCB180_NGG, PCB206_NGG, PCB209_NGG, DDT_4_4_C, DDT_2_4_C, DDE_4_4_C, DDD_4_4_C, ENDRIN_C, ENDR_ALD_C, ALDRIN_C, DIELDRN_C, CLRDNE_T_C, MIREX_C, METHOXYCLC, BHC_A_C, BHC_B_C, BHC_D_C, LINDANE_C))
-
-PCBs2002 <- PCBs2002 %>%
-  rename("PCB_52" = "PCB_52_NGG", 
-         "PCB101" = "PCB101_NGG", 
-         "PCB118" = "PCB118_NGG", 
-         "PCB128" = "PCB128_NGG", 
-         "PCB138" = "PCB138_NGG", 
-         "PCB153" = "PCB153_NGG", 
-         "PCB180" = "PCB180_NGG", 
-         "PCB206" = "PCB206_NGG", 
-         "PCB209" = "PCB209_NGG",  
-         "DDT_4_4" = "DDT_4_4_C", 
-         "DDT_2_4" = "DDT_2_4_C", 
-         "DDE_4_4" = "DDE_4_4_C", 
-         "DDD_4_4" = "DDD_4_4_C", 
-         "ENDRIN" = "ENDRIN_C", 
-         "ENDR_ALD" = "ENDR_ALD_C", 
-         "ALDRIN" = "ALDRIN_C", 
-         "DIELDRN" = "DIELDRN_C", 
-         "CLRDNE_T" = "CLRDNE_T_C", 
-         "MIREX" = "MIREX_C", 
-         "METHOXYCL" = "METHOXYCLC", 
-         "BHC_A" = "BHC_A_C", 
-         "BHC_B" = "BHC_B_C",  
-         "BHC_D" = "BHC_D_C", 
-         "LINDANE" = "LINDANE_C")
 ```
 
 ###Stations
@@ -123,20 +97,6 @@ Creates Organics2002 dataframe with selected variables of interest.  These inclu
 
 ```{r select-var-ORG}
 Organics2002 = select(organics_full, c(UNIQUE_ID, REPNO_ORG, TOTREP_ORG, TVS_EP_PCT, O_G_UGG, PHCTOT_UGG, PCB_T_UGG, DDT_T_NGG, DDE_T_NGG, DDD_T_NGG, PEST_UG_G, LIPIDS_NGG, CLOST_SP_G, MBT_C, DBT_C, TBT_C, TTBT_C))
-
-Organics2002 <- Organics2002 %>%
-  rename("O_G_" = "O_G_UGG", 
-         "PHCTOT" = "PHCTOT_UGG", 
-         "PCB" = "PCB_T_UGG", 
-         "DDT" = "DDT_T_NGG", 
-         "DDE" = "DDE_T_NGG", 
-         "PEST" = "PEST_UG_G", 
-         "LIPIDS" = "LIPIDS_NGG", 
-         "CLOST_SP" = "CLOST_SP_G", 
-         "MBT" = "MBT_C",  
-         "DBT" = "DBT_C", 
-         "TBT" = "TBT_C", 
-         "TTBT" = "TTBT_C")
 ```
 
 ###PAHs
@@ -239,10 +199,10 @@ naniar::miss_var_summary(PCBs_loc)
 
 # Loading full datasets as CSVs
 ``` {r saving-full-data-into-csv-files}
-write_csv(organics_full, "/cloud/project/data/datasets_csv/organics_full.csv")
-write_csv(PAHs_full, "/cloud/project/data/datasets_csv/PAHs_full.csv")
-write_csv(PCBs_full, "/cloud/project/data/datasets_csv/PCBs_full.csv")
-write_csv(stations_full, "/cloud/project/data/datasets_csv/stations_full.csv")
+#write_csv(organics_full, "/cloud/project/data/datasets_csv/organics_full.csv")
+#write_csv(PAHs_full, "/cloud/project/data/datasets_csv/PAHs_full.csv")
+#write_csv(PCBs_full, "/cloud/project/data/datasets_csv/PCBs_full.csv")
+#write_csv(stations_full, "/cloud/project/data/datasets_csv/stations_full.csv")
 ```
 # JH -- do we need to write full .csv files?  These are the same as the excel files, just diff format
 

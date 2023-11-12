@@ -2,7 +2,7 @@
 title: 'GOM Contaminated Sediments Analysis: PCBs'
 author: "Joshua Harkness and Autumn Pauly"
 date: "2023-10-28"
-output: github_document
+output: html_document
 ---
 # Introduction
 This document is an analysis of distributions and concentrations of PCB and Organic contaminants that were reported in a publication by the U.S. Geological Survey on contaminated sediments in the Gulf of Maine. 
@@ -41,7 +41,7 @@ JH -- the organics dataset has already been joined with the stations dataset (lo
 
 ```{r joining-station-info, warning = FALSE}
 Organics_long <- Organics %>%
- pivot_longer(cols = `REPNO_ORG`:`TTBT`, 
+ pivot_longer(cols = `REPNO_ORG`:`TTBT_C`, 
                names_to = "organic_detected", 
                values_to = "amount_detected")
 
@@ -62,7 +62,7 @@ This function creates two columns to properly contain the values of PCBs measure
 
 ```{r pcbs-pivot-long}
 PCBs_long <- PCBs %>%
-  pivot_longer(cols = `PCB_52`:`LINDANE`, 
+  pivot_longer(cols = `PCB_52_NGG`:`LINDANE_C`, 
                names_to = "pcb", 
                values_to = "amount_detected")
 
@@ -332,7 +332,7 @@ Organics_long_no_na_no_zero %>%
   labs(title = "Organic Concentrations",
        subtitle = "Cape Ann to Cape Elizabeth",
        x = "",
-       y = "Percent Composition"))
+       y = "Percent Composition")
 ```
 
 #### Southeast Boston Harbor Concentrations
@@ -556,7 +556,7 @@ As stated in our project proposal, we were interested in visualizing contaminant
 
 ```{r calculate-sum-organics-by-site}
 Sum_Org_site <- Organics %>%
-  group_by(site) %>%
+  group_by(SPECFC_LOC) %>%
   drop_na(PCB_T_UGG) %>%
   summarise(mean_PCB_T = mean(PCB_T_UGG),
     sd_PCB_T = sd(PCB_T_UGG),
