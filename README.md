@@ -2,7 +2,7 @@ Project title
 ================
 by Joshua A. Harkness and Autumn L. Pauly
 
-## Summary
+## Introduction
 
 Pollutants, encompassing metals and organic compounds from agricultural,
 industrial, and household sources, have accumulated in bottom sediments
@@ -11,8 +11,23 @@ in the Gulf of Maine. The U.S. federal government, through its agencies
 1330 (1987)) has recognized the need for assessment of the distribution
 of contaminants in marine sediments. Our group is interested in
 assessing the concentration and distribution of potentially harmful
-contaminants in the marine environment in order to better understand and
-predict their impact.
+contaminants in the marine environment in order for others to better
+understand and predict their impact.
+
+For this project, we used data from the Gulf of Maine Contaminated
+Sediments Database published by the U.S. Geological Survey in 2002. This
+dataset is the result of a collaborative effort of several surveys from
+the U.S. Geological Survey Coastal and Marine Geology Program, Bigelow
+Laboratory for Ocean Sciences, Woods Hole Oceanographic Institution, the
+University of New Hampshire, and the University of Massachusetts.
+Methodology included samples that were collected from the sea floor
+using a “grab” or “core” method, which were then analyzed for
+measurements of major and trace elements, organic contaminant compounds,
+metals, and sediment textural data.
+
+## 
+
+## 
 
 Write-up of your project and findings go here. Think of this as the text
 of your presentation. The length should be roughly 5 minutes when read
@@ -36,7 +51,26 @@ your project.
 
 Our presentation can be found [here](presentation/presentation.html).
 
+## Acknowledgements
+
+We are incredibly grateful for the agencies and organizations in the
+Gulf of Maine area who provided this data in published reports, theses,
+unpublished data, such as the U.S. Environmental Protection Agency, U.S.
+Army Corps of Engineers, National Status and Trends Benthic Surveillance
+program, NOAA, and U.S. Geological Survey. This includes the individuals
+who participated in the collection, interpretation, and compilation of
+these datasets, including but not limited to M. Buchholtz ten Brink, F.
+Manheim, E. Mecray, M. Hastings, J. Currence, J. Farrington, B. Tripp,
+S. Jones, P. Larsen, G. Wallace, and L. Ward. We give our thanks to the
+Gulf of Maine Regional Marine Research Program for funding their
+project. Finally, we are eternally grateful for Dr. Laurie Baker, who
+provided us the instruction, guidance and advice necessary for us to
+enhance our understanding of R and data reliability, as well as the
+importance of team collaboration.
+
 ## Data
+
+#### Data Summary
 
 Our data came from the Gulf of Maine Contaminated Sediments Database
 published by the U.S. Geological Survey in their Open-File Report
@@ -53,7 +87,7 @@ purpose is to assess the environmental status of coastal sediments,
 understand contaminant transport paths, and determine the fate of
 pollutants in the region.
 
-#### Citations
+#### Data Citation
 
 Buchholtz ten Brink, M.R., Manheim, F.T., Mecray, E.L. , Hastings, M.E.,
 and Currence, J.M., along with Farrington, J.W., Fredette, T.J., Jones,

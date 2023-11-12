@@ -37,10 +37,14 @@ Your results with proper output and graphics go in your presentation, this space
 
 Our presentation can be found [here](presentation/presentation.html).
 
+## Acknowledgements
+We are incredibly grateful for the agencies and organizations in the Gulf of Maine area who provided this data in published reports, theses, unpublished data, such as the U.S. Environmental Protection Agency,  U.S. Army Corps of Engineers, National Status and Trends Benthic Surveillance program, NOAA, and  U.S. Geological Survey. This includes the individuals who participated in the collection, interpretation, and compilation of these datasets, including but not limited to M. Buchholtz ten Brink, F. Manheim, E. Mecray, M. Hastings, J. Currence, J. Farrington, B. Tripp, S. Jones, P. Larsen, G. Wallace, and L. Ward. We give our thanks to the Gulf of Maine Regional Marine Research Program for funding their project. Finally, we are eternally grateful for Dr. Laurie Baker, who provided us the instruction, guidance and advice necessary for us to enhance our understanding of R and data reliability, as well as the importance of team collaboration. 
+
 ## Data 
+#### Data Summary
 Our data came from the Gulf of Maine Contaminated Sediments Database published by the U.S. Geological Survey in their Open-File Report 02-403. The full citation list for sources of data that was entered into the Contaminated Sediments Database for the Gulf of Maine can be found here: https://pubs.usgs.gov/of/2002/of02-403/HTMLdocs/entdocs.html. The Database of Contaminated Sediments for the Gulf of Maine is a carefully compiled collection of edited data on contaminated sediments and associated properties, sourced from diverse outlets. The data was reviewed for quality, standardized by format, and integrated into a regional database. The resulting database includes original data from various sources and includes documentation regarding data quality. Its purpose is to assess the environmental status of coastal sediments, understand contaminant transport paths, and determine the fate of pollutants in the region.
 
-#### Citations
+#### Data Citation
 Buchholtz ten Brink, M.R., Manheim, F.T., Mecray, E.L. , Hastings, M.E., and Currence, J.M., along with Farrington, J.W., Fredette, T.J., Jones, S.H., Liebman, M.L., Larsen, P.F., Smith Leo, W., Tripp, B.W., Wallace, Jr., G.T., and Ward, L.G., 2002, Contaminated sediments database for the Gulf of Maine, U.S. Geological Survey Open-file Report No. 02-403, Online at https://pubs.usgs.gov/of/2002/of02-403/. doi: 10.3133/ofr02403. Accessed 10/12/2023.
 
 ## References
