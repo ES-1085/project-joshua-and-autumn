@@ -936,23 +936,22 @@ markers <- pesticides_no_na_no_zero
 
 markers <- markers %>%
   mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
-                         "BHC:", round(amount_detected[pcb == "BHC_C"], digits = 4), " ng/g<br>",
-                         "Chlordane:", round(amount_detected[pcb == "CLRDNE_T_C"], digits = 4), " ng/g<br>",
-                         "DDT:", round(amount_detected[pcb == "DDT_C"], digits = 4), " ng/g<br>",
-                         "DDE:", round(amount_detected[pcb == "DDE_4_4_C"], digits = 4), " ng/g<br>",
-                         "DDD:", round(amount_detected[pcb == "DDD_4_4_C"], digits = 4), " ng/g<br>",
-                         "Aldrin:", round(amount_detected[pcb == "ALDRIN_C"], digits = 4), " ng/g<br>",
-                         "Dieldrin:", round(amount_detected[pcb == "DIELDRN_C"], digits = 4), " ng/g<br>",
-                         "Endrin:", round(amount_detected[pcb == "ENDRIN_C"], digits = 4), " ng/g<br>",
-                         "Endrin Aldehyde:", round(amount_detected[pcb == "ENDR_ALD_C"], digits = 4), " ng/g<br>",
-                         "Lindane:", round(amount_detected[pcb == "LINDANE_C"], digits = 4), " ng/g<br>",
-                         "Mirex:", round(amount_detected[pcb == "MIREX_C"], digits = 4), " ng/g<br>",
-                         "Methoxychlor:", round(amount_detected[pcb == "METHOXYCLC"], digits = 4), " ng/g<br>"))
+                         "BHC: ", round(amount_detected[pcb == "BHC_C"], digits = 4), " ng/g<br>",
+                         "Chlordane: ", round(amount_detected[pcb == "CLRDNE_T_C"], digits = 4), " ng/g<br>",
+                         "DDT: ", round(amount_detected[pcb == "DDT_C"], digits = 4), " ng/g<br>",
+                         "DDE: ", round(amount_detected[pcb == "DDE_4_4_C"], digits = 4), " ng/g<br>",
+                         "DDD: ", round(amount_detected[pcb == "DDD_4_4_C"], digits = 4), " ng/g<br>",
+                         "Aldrin: ", round(amount_detected[pcb == "ALDRIN_C"], digits = 4), " ng/g<br>",
+                         "Dieldrin: ", round(amount_detected[pcb == "DIELDRN_C"], digits = 4), " ng/g<br>",
+                         "Endrin: ", round(amount_detected[pcb == "ENDRIN_C"], digits = 4), " ng/g<br>",
+                         "Endrin Aldehyde: ", round(amount_detected[pcb == "ENDR_ALD_C"], digits = 4), " ng/g<br>",
+                         "Lindane: ", round(amount_detected[pcb == "LINDANE_C"], digits = 4), " ng/g<br>",
+                         "Mirex: ", round(amount_detected[pcb == "MIREX_C"], digits = 4), " ng/g<br>",
+                         "Methoxychlor: ", round(amount_detected[pcb == "METHOXYCLC"], digits = 4), " ng/g<br>"))
 
 
-head(markers$labels, 3)
+head(markers$labels, 1)
 ```
-":", amount_detected[pcb == ""], "<br>",
 
 ```{r leaflet-map-pcb}
 leaflet() %>%
