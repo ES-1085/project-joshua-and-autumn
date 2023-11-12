@@ -1,4 +1,4 @@
-GOM Contaminated Sediments analysis: PCBs
+GOM Contaminated Sediments Analysis: PCBs
 ================
 Joshua Harkness and Autumn Pauly
 2023-10-28
