@@ -2,17 +2,16 @@ Project title
 ================
 by Joshua A. Harkness and Autumn L. Pauly
 
-## Introduction
-
-Pollutants, encompassing metals and organic compounds from agricultural,
-industrial, and household sources, have accumulated in bottom sediments
-in the Gulf of Maine. The U.S. federal government, through its agencies
-(USEPA, USGS, and NOAA) and laws (16 USC § 1447-1447f (1990); 33 USC §
-1330 (1987)) has recognized the need for assessment of the distribution
-of contaminants in marine sediments. Our group is interested in
-assessing the concentration and distribution of potentially harmful
-contaminants in the marine environment in order for others to better
-understand and predict their impact.
+\##Write Up \#### Introduction Pollutants, encompassing metals and
+organic compounds from agricultural, industrial, and household sources,
+have accumulated in bottom sediments in the Gulf of Maine. The U.S.
+federal government, through its agencies (USEPA, USGS, and NOAA) and
+laws (16 USC § 1447-1447f (1990); 33 USC § 1330 (1987)) has recognized
+the need for assessment of the distribution of contaminants in marine
+sediments. Our group is interested in assessing the concentration and
+distribution of potentially harmful contaminants in the marine
+environment in order for others to better understand and predict their
+impact.
 
 For this project, we used data from the Gulf of Maine Contaminated
 Sediments Database published by the U.S. Geological Survey in 2002. This
@@ -25,27 +24,35 @@ using a “grab” or “core” method, which were then analyzed for
 measurements of major and trace elements, organic contaminant compounds,
 metals, and sediment textural data.
 
-## 
+#### Missing Data and Skewness
 
-## 
+While working with this dataset, we noticed that there was a number of
+missing values for
 
-Write-up of your project and findings go here. Think of this as the text
-of your presentation. The length should be roughly 5 minutes when read
-out loud. Although pacing varies, a 5-minute speech is roughly 750
-words. To use the word count addin, select the text you want to count
-the words of (probably this is the Summary section of this document, go
-to Addins, and select the `Word count` addin). This addin counts words
-using two different algorithms, but the results should be similar and as
-long as you’re in the ballpark of 750 words, you’re good! The addin will
-ignore code chunks and only count the words in prose.
+#### Summary and Findings of Contaminates and Concentrations
 
-You can also load your data here and present any analysis results /
-plots, but I strongly urge you to keep that to a minimum (maybe only the
-most important graphic, if you have one you can choose). And make sure
-to hide your code with `echo = FALSE` unless the point you are trying to
-make is about the code itself. Your results with proper output and
-graphics go in your presentation, this space is for a brief summary of
-your project.
+The broad question that we looked at was about which contaminants are in
+the Gulf of Maine and what this means for the environment.
+
+## Navigating the Project Folder
+
+There are a series of subfolders that are contained within this project,
+including RMD, MD, and .shapefiles.
+
+For the data dictionary, navigate to the `Readme.md` file in the `data`
+folder. This contains what each dataset contains, as well as what each
+variable represents.
+
+To begin analyzing the data, navigate to the `data_tidying.rmd` in the
+`analysis` folder. This contains the code that is needed to clean and
+pivot the USGS datasets into readable formats. These cleaned files are
+the base files for the next .Rmd files.
+
+For PCB analysis, navigate to the `PCBs.rmd` in the `analysis` folder.
+
+For PAH analysis, navigate to the `PAHs.rmd` in the `analysis` folder.
+This .Rmd file analyzes the distributions and concentrations of
+Polycyclic aromatic hydrocarbon (PAH) contaminants
 
 ## Presentation
 
