@@ -444,7 +444,7 @@ Organics_long_no_na_no_zero %>%
 
 ```{r sum-all-pcbs-rockland-n}
 Sum_pesticides_rock_n <- pesticides %>%
-  group_by(pcb, site) %>%
+  group_by(pcb, SPECFC_LOC) %>%
   filter(GEN_LOC_NM == "Rockland to north") %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
   drop_na(amount_detected) %>%
@@ -931,13 +931,24 @@ markers <- pesticides_no_na_no_zero
 
 
 markers <- markers %>%
-  mutate(labels = paste0("Site: ", site,"<br>",
-                        "Latitude: ", LATITUDE, "<br>",
-                        "Longitude: ", LONGITUDE, "<br>"))
+  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
+                         "BHC:", amount_detected[pcb == "BHC_C"], "<br>",
+                         "Chlordane:", amount_detected[pcb == "CLRDNE_T_C"], "<br>",
+                         "DDT:", amount_detected[pcb == "DDT_C"], "<br>",
+                         "DDE:", amount_detected[pcb == "DDE_4_4_C"], "<br>",
+                         "DDD:", amount_detected[pcb == "DDD_4_4_C"], "<br>",
+                         "Aldrin:", amount_detected[pcb == "ALDRIN_C"], "<br>",
+                         "Dieldrin:", amount_detected[pcb == "DIELDRN_C"],
+                         "Endrin:", amount_detected[pcb == "ENDRIN_C"], "<br>",
+                         "Endrin Aldehyde:", amount_detected[pcb == "ENDR_ALD_C"], "<br>",
+                         "Lindane:", amount_detected[pcb == "LINDANE_C"], "<br>",
+                         "Mirex:", amount_detected[pcb == "MIREX_C"], "<br>",
+                         "Methoxychlor:", amount_detected[pcb == "METHOXYCLC"], "<br>"))
+
 
 head(markers$labels, 3)
 ```
-
+":", amount_detected[pcb == ""], "<br>",
 
 ```{r leaflet-map-pcb}
 leaflet() %>%
