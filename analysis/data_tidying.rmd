@@ -82,6 +82,40 @@ mutate(GEN_LOC_NM = fct_recode(GEN_LOC_NM,
                            "Inland/Rivers" = "INLAND / RIVERS",
                            "Harbor Approaches" = "HARBOR APPROACHES",
                            "Massachusetts Bays" = "MASS BAYS"))
+
+Station2002 <- Station2002 %>%
+  mutate(site = fct_recode(SPECFC_LOC,
+                           "Chelsea River" = "Upper Chelsea River",
+                           "Chelsea River" = "Lower Chelsea River", 
+                           "Chelsea River" = "Chelsea River mouth",
+                           "Chelsea River" = "Chelsea River A",
+                           "Chelsea River" = "Chelsea River B",
+                           "Chelsea River" = "Chelsea River C",
+                           "Chelsea River" = "Chelsea River D",
+                           "Chelsea River" = "Chelsea River E",
+                           "Chelsea River" = "Chelsea River F",
+                           "Chelsea River" = "Chelsea River G",
+                           "Chelsea River" = "Chelsea River H",
+                           "Chelsea River" = "Chelsea River, Gulf Oil Fuel Off-Loading Pier",
+                           "Chelsea River" = "Chelsea River, Golf Oil Fuel Off-Loading Pier",
+                           "Mystic River" = "MYSTIC RIVER",
+                           "Mystic River" = 'Mystic River "B"',
+                           "Mystic River" = 'Mystic "A"-7830',
+                           "Mystic River" = 'Mystic "B"-7831',
+                           "Chelsea River" = 'Chelsea "A"-7828',
+                           "Chelsea River" = 'Chelsea "E"-7829',
+                           "Island End River" = "ISLAND END RIVER",
+                           "Weymouth Fore River" = "FORE RIVER", 
+                           "Fore River" = "Portland Fore River", 
+                           "Fore River" = "Portland Harbor & Fore River", 
+                           "Saco River" = "Saco River & Camp Ellis Harbor", 
+                           "Kennebec River" = "Kennebec River to Bath", 
+                           "Kennebec River" =   "KENNEBEC RIVER",
+                           "Kennebec River" = "KENNEBEC RIVER,ME.", 
+                           "Penobscot River" = "PENOBSCOT RIVER", 
+                           "Penobscot River" = "MOUTH PENOBSCOT RIVER",
+                           "Penobscot River" = "Penobscot River To Bangor"
+                           ))
 ```
 
 ###Organics
@@ -205,18 +239,18 @@ naniar::miss_var_summary(PCBs_loc)
 
 # Loading full datasets as CSVs
 ``` {r saving-full-data-into-csv-files}
-#write_csv(organics_full, "/cloud/project/data/datasets_csv/organics_full.csv")
-#write_csv(PAHs_full, "/cloud/project/data/datasets_csv/PAHs_full.csv")
-#write_csv(PCBs_full, "/cloud/project/data/datasets_csv/PCBs_full.csv")
-#write_csv(stations_full, "/cloud/project/data/datasets_csv/stations_full.csv")
+write_csv(organics_full, "/cloud/project/data/datasets_csv/organics_full.csv")
+write_csv(PAHs_full, "/cloud/project/data/datasets_csv/PAHs_full.csv")
+write_csv(PCBs_full, "/cloud/project/data/datasets_csv/PCBs_full.csv")
+write_csv(stations_full, "/cloud/project/data/datasets_csv/stations_full.csv")
 ```
 # JH -- do we need to write full .csv files?  These are the same as the excel files, just diff format
 
 # Write loc datasets as CSVs
 ``` {r saving-data_loc-into-csv-files}
-#write_csv(Organics_loc, "/cloud/project/data/datasets_csv/Organics_loc.csv")
-#write_csv(PAHs_loc, "/cloud/project/data/datasets_csv/PAHs_loc.csv")
-#write_csv(PCBs_loc, "/cloud/project/data/datasets_csv/PCBs_loc.csv")
+write_csv(Organics_loc, "/cloud/project/data/datasets_csv/Organics_loc.csv")
+write_csv(PAHs_loc, "/cloud/project/data/datasets_csv/PAHs_loc.csv")
+write_csv(PCBs_loc, "/cloud/project/data/datasets_csv/PCBs_loc.csv")
 ```
 
 # JH -- we do not need to load .shp files here; we still have to load them separately whenever we use them.
