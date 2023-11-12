@@ -386,7 +386,7 @@ Organics_long_no_na_no_zero %>%
 ```
 
 ```{r sum-all-pcbs-rockland-n}
-Sum_all_pcb_rock_n <- PCBs_long %>%
+Sum_pesticides_rock_n <- pesticides %>%
   group_by(pcb, site) %>%
   filter(GEN_LOC_NM == "Rockland to north") %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
@@ -396,28 +396,44 @@ Sum_all_pcb_rock_n <- PCBs_long %>%
     n = n(),
     SE = sd(amount_detected) / sqrt(n()))
 
-Sum_all_pcb_rock_n
+Sum_pesticides_rock_n
 ```
 
 ```{r bar-all-pcbs-rockland-n}
-Sum_all_pcb_rock_n %>%
+Sum_pesticides_rock_n %>%
   ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
   geom_col(color = "black") +
    geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
   coord_flip() +
   theme_classic() +
-  scale_fill_brewer(type = "qual", palette = 5, direction = 1, aesthetics = "fill") +
+  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill") +
   theme(legend.position = "none") +
   labs(title = "PCB and Pesticide Concentrations in Sediments",
        subtitle = "Rockland, ME, and points north",
        x = "PCB/Pesticide Detected",
        y = "Amount Detected (ug/g)")
 
-Sum_all_pcb_rock_n %>%
+Sum_pesticides_rock_n %>%
 ggplot(aes(x="", y = mean, fill = pcb)) +
-  geom_bar(stat="identity", width=1) +
-  coord_polar("y", start=0) 
-  
+  geom_bar(stat="identity", width=1, color = "black") +
+  coord_polar("y", start=0) +
+  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill", 
+                    name = "Pesticide",
+                          labels = c(
+                          "DDT",
+                          "4,4' DDE",
+                          "4,4' DDD",
+                          "Endrin",
+                          "Endrin Aldehyde",
+                          "Aldrin",
+                          "Dieldrin",
+                          "Chlordane",
+                          "Mirex",
+                          "Methoxychlor",
+                          "Benzene Hexachloride",
+                          "Lindane")) +
+  labs(x = "",
+       y = "")
 ```
 JH -- I will probably break this up so PCBs and pesticides are in two separate plots.
 
