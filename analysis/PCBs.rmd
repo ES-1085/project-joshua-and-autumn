@@ -57,7 +57,7 @@ glimpse(Organics_long)
 ```
 
 ### Filter out NAs and 0 values from Organics_long
-```{r filter-organics-no-nas-no-zeros-duplicate}
+```{r filter-organics-no-nas-no-zeros}
 Organics_long_no_na_no_zero <- Organics_long %>%
   drop_na(amount_detected) %>%
   filter(amount_detected != "0")
@@ -842,10 +842,60 @@ ggplot(GOM_states) +
       text_family = "ArcherPro Book"))
 ```
 
-```{r filter-organics-no-nas-no-zeros}
-Organics_long_no_na_no_zero <- Organics_long %>%
-  drop_na(amount_detected) %>%
-  filter(amount_detected != "0")
+
+### General Organics map
+```{r create-gen-org-df}
+gen_org <- Organics_long_no_na_no_zero %>%
+  filter(organic_detected %in% c("O_G_UGG", "MBT_C", "DBT_C", "TBT_C", "PHCTOT_UGG", "CLOST_SP_G", "TTBT_C", "LIPIDS_NGG"))
+```
+
+```{r map-gen-org-gom}
+ggplot(GOM_states) +
+  geom_sf(aes()) +
+  geom_sf(data = Bathy_low_res, color = "gray80", width = 1) +
+  geom_point(data = gen_org, (aes(x = LONGITUDE, y = LATITUDE, color = fct_infreq(organic_detected), size = amount_detected, alpha = 0.5))) +
+  xlim(-71.5,-68) +
+  ylim(41,43.5) +
+  theme_bw() +
+  scale_color_brewer(type = "qual", palette = 2, direction = 1) +
+  scale_color_discrete(name = "General Organic",
+                        breaks = c(
+                          "CLOST_SP_G", 
+                          "O_G_UGG", 
+                          "PHCTOT_UGG", 
+                          "MBT_C", 
+                          "DBT_C", 
+                          "TBT_C", 
+                          "TTBT_C", 
+                          "LIPIDS_NGG"),
+                          labels = c(
+                          "DDT",
+                          "4,4' DDE",
+                          "4,4' DDD",
+                          "Endrin",
+                          "Endrin Aldehyde",
+                          "Aldrin",
+                          "Dieldrin",
+                          "Chlordane",
+                          )) +
+  labs(title = "Distribution and concentration of PCBs",
+       subtitle ="Gulf of Maine sediments",
+       x = "Longitude",
+       y = "Latitude") +
+  guides(size = guide_legend(title = "PCB ug/g"))+
+  guides(alpha = FALSE) +
+  ggspatial::annotation_scale(
+    location = "bl",
+    bar_cols = c("grey60", "white"),
+    text_family = "ArcherPro Book"
+  ) +
+  ggspatial::annotation_north_arrow(
+    location = "tr", which_north = "true",
+    pad_x = unit(0, "in"), pad_y = unit(0.2, "in"),
+    style = ggspatial::north_arrow_nautical(
+      fill = c("grey40", "white"),
+      line_col = "grey20",
+      text_family = "ArcherPro Book"))
 ```
 
 ### Mapping Specific PCBs to Gulf of Maine
