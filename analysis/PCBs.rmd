@@ -809,14 +809,14 @@ ggplot(GOM_states) +
                           "TTBT_C", 
                           "LIPIDS_NGG"),
                           labels = c(
-                          "DDT",
-                          "4,4' DDE",
-                          "4,4' DDD",
-                          "Endrin",
-                          "Endrin Aldehyde",
-                          "Aldrin",
-                          "Dieldrin",
-                          "Chlordane",
+                          "Clos. Perf.",
+                          "Oil/Grease",
+                          "Petroleum HC",
+                          "Monobutyl Tin",
+                          "Dibutyl tin",
+                          "Tributyl tin",
+                          "Tetrabutyl tin",
+                          "Lipids"
                           )) +
   labs(title = "Distribution and concentration of PCBs",
        subtitle ="Gulf of Maine sediments",
