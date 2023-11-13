@@ -83,31 +83,11 @@ PAHs %>%
        x = "PAH Detected",
        y = "Amount Detected")
 ```
-### Fluoranthene Concentration
- filter(pah_detected %in% c("FLORNTHN", "PYRENE", "CHRYSENE", "PHNANTHR")) %>%
+### PAH Concentration in the Gulf of Maine
 
-``` {r fluoranthene-concentration}
-#check out the "BENZNE" and "X2BZFRN"... interesting!
-#PAHs %>%
-  #filter(pah_detected %in% c("FLORNTHN", "PYRENE", "CHRYSENE", "PHNANTHR", "BENZNE", "X2BZFRN")) %>%
-  #filter(amount_detected <= 1000 ) %>%
-  #filter(amount_detected >= 1) %>%
-  #ggplot(aes(x = amount_detected, y = pah_detected, fill = pah_detected)) + 
-  #geom_density_ridges(alpha=0.6, stat="binline", bins=100) +
-  #theme_ridges() + 
-  #theme(legend.position = "none", panel.spacing = unit(0.1, "lines"),
-      #strip.text.x = element_text(size = 8))+
-  #theme_minimal() +
-  #scale_fill_viridis_d() +
-  #labs(title = "PAH Concentration (ng/g)",
-       #subtitle = "Fluoranthene, Pyrene, Chrysene, Phenanthrene", 
-       # x = "Amount Detected (ng/g)", 
-        #y = "Frequency of Amount Detected", 
-       #fill = "PAH Detected")
-
+``` {r pah-concentration-histogram}
 PAHs %>%
-  filter(pah_detected %in% c("FLORNTHN", "PYRENE", "CHRYSENE", "PHNANTHR")) %>%
-  filter(amount_detected <= 1000 ) %>%
+  filter(amount_detected <= 100 ) %>%
   filter(amount_detected >= 1) %>%
   ggplot(aes(x = amount_detected, y = pah_detected, fill = pah_detected)) + 
   geom_density_ridges(alpha=0.6, bins=100) +
@@ -187,6 +167,52 @@ Summary_PAHs %>%
        caption = "Error bars = 1 standard error")
 ```
 
+### Boston Harbor (General) Concentrations
+This plot visualizes the specific PAHs present in Boston Harbor. 
+As shown in the plot, Chrysene (824,674.86 ng/g) has the highest concentration in the harbor. This is followed by Pyrene (753,726.83 ng/g), Fluoranthene (721,826.05 ng/g), and Phenanthrene (494,229.22 ng/g). 
+
+```{r sum-organics-boston-general-harbor, message=FALSE, echo=FALSE}
+PAHs %>%
+  filter(GEN_LOC_NM %in%c("Boston Inner Harbor", "Northwest Boston Harbor", "Central Boston Harbor", "Southeast Boston Harbor")) %>%
+  group_by(pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  arrange(desc(amount_detected))
+
+PAHs %>%
+  group_by(GEN_LOC_NM, pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM %in% c("Boston Inner Harbor", "Northwest Boston Harbor", "Central Boston Harbor", "Southeast Boston Harbor")) %>%
+  filter(pah_detected %in% c("PYRENE", "FLORNTHN", "PHNANTHR", "CHRYSENE", "ANTHRACN", "PERYLENE", "FLUORENE", "ACNPHTHN")) %>%
+ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = pah_detected))+
+  geom_col()+
+  coord_flip()+
+  theme_minimal() +
+  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill") +
+  theme(legend.position = "none")+
+  labs(title = "PAH Concentrations in the Gulf of Maine",
+       subtitle = "in Boston Harbor",
+       x = "",
+       y = "Percentage Detected", 
+       fill = "PAH Detected")
+```
+
+``` {r pie-chart-boston}
+PAHs %>%
+  group_by(GEN_LOC_NM, pah_detected) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  filter(GEN_LOC_NM %in% c("Boston Inner Harbor", "Northwest Boston Harbor", "Central Boston Harbor", "Southeast Boston Harbor")) %>%
+ggplot(aes(x="", y= amount_detected, fill = pah_detected)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) +
+    theme_minimal() +
+  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill") +
+  labs(title = "PAH Concentrations in the Gulf of Maine",
+       subtitle = "in Boston Harbor",
+       x = "",
+       y = "Percentage Detected", 
+       fill = "PAH Detected")
+``` 
+
 ### Boston Inner Harbor Concentrations
 This plot visualizes the specific PAHs present in Boston Inner Harbor. 
 As shown in the plot, Chrysene (569,679.08 ng/g) has the highest concentration in the harbor. This is followed by Pyrene (346679.56 ng/g), Fluoranthene (319594.32 ng/g), and Phenanthrene (221,665.68 ng/g). 
@@ -197,6 +223,7 @@ PAHs %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
   filter(GEN_LOC_NM == "Boston Inner Harbor") %>%
   arrange(desc(amount_detected))
+
 ``` 
 ``` {r sum-organics-boston-inner-harbor-graph}
 PAHs %>%
@@ -461,7 +488,6 @@ PAH_no_na_specific_pah <- PAH_no_na %>%
 
 ```
 
-
 ```{r pah-gom-map-plot, warning = FALSE}
 ggplot(GOM_states)+
   geom_sf(aes())+
@@ -489,8 +515,10 @@ ggplot(GOM_states)+
       line_col = "grey20",
       text_family = "ArcherPro Book"))
 ```
+
 Above is the Distribution and concentration of PAHs in the Gulf of Maine sediments. 
 
+### MDI Area Mapped
 ```{r MDI-area-map-pah}
 ggplot(GOM_states)+
   geom_sf(aes())+
@@ -518,13 +546,44 @@ ggplot(GOM_states)+
       line_col = "grey20",
       text_family = "ArcherPro Book"))
 ```
+
+```{r MDI-area-map-pah}
+ggplot(GOM_states)+
+  geom_sf(aes())+
+  geom_sf(data = Bathy_hi_res, color = "gray80", width = 1)+
+  geom_point(data=PAH_no_na_specific_pah, (aes(x = LONGITUDE, y = LATITUDE, scale = amount_detected, color = pah_detected, alpha = 0.5)))+
+  xlim(-69.2,-68)+
+  ylim(44,44.5)+
+  theme_bw()+
+  labs(title = "Distribution and concentration of PAHs",
+       subtitle ="MDI and Penobscot Bay sediments",
+       x = "Longitude",
+       y = "Latitude", 
+       color = "PAH Detected")+
+  guides(size = guide_legend(title = "PAH ng/g"))+
+  guides(alpha = FALSE)+
+  ggspatial::annotation_scale(
+    location = "bl",
+    bar_cols = c("grey60", "white"),
+    text_family = "ArcherPro Book"
+  ) +
+  ggspatial::annotation_north_arrow(
+    location = "tr", which_north = "true",
+    pad_x = unit(0, "in"), pad_y = unit(0.2, "in"),
+    style = ggspatial::north_arrow_nautical(
+      fill = c("grey40", "white"),
+      line_col = "grey20",
+      text_family = "ArcherPro Book"))
+
+```
 Above is the Distribution and concentration of PAHs in MDI and Penobscot Bay sediments. 
 
+### Boston, MA Area Mapped
 ```{r boston-and-ma-area-map-pah}
 ggplot(GOM_states)+
   geom_sf(aes())+
   geom_sf(data = Bathy_hi_res, color = "gray80", width = 1)+
-  geom_point(data=PAH_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = amount_detected, alpha = 0.5)))+
+  geom_point(data=PAH_no_na, (aes(x = LONGITUDE, y = LATITUDE, size = amount_detected, color = pah_detected, alpha = 0.5)))+
   xlim(-71.2,-69.5)+
   ylim(41.8,43)+
   theme_bw()+
@@ -560,7 +619,8 @@ ggplot(GOM_states)+
   labs(title = "Distribution and concentration of PAHs",
        subtitle ="Boston, MA and Cape Cod Bay sediments",
        x = "Longitude",
-       y = "Latitude")+
+       y = "Latitude", 
+       color = "PAH Detected")+
   guides(size = guide_legend(title = "PAH ng/g"))+
   guides(alpha = FALSE)+
   ggspatial::annotation_scale(
