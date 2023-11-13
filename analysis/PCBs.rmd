@@ -47,7 +47,7 @@ JH -- the organics dataset has already been joined with the stations dataset (lo
 
 ```{r joining-station-info, warning = FALSE}
 Organics_long <- Organics %>%
- pivot_longer(cols = `REPNO_ORG`:`TTBT_C`, 
+ pivot_longer(cols = `O_G_UGG`:`TTBT_C`, 
                names_to = "organic_detected", 
                values_to = "amount_detected")
 
@@ -289,13 +289,16 @@ Organics_long_no_na_no_zero %>%
 
 Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM %in% c("Boston Inner Harbor")) %>%
-  ggplot(aes(x="", y = sum(amount_detected), fill = organic_detected)) +
+  ggplot(aes(x= "", y = sum(amount_detected, na.rm = TRUE), fill = organic_detected)) +
+  theme_minimal() +
   geom_bar(stat="identity", width=5) +
-  coord_polar("y", start=0) + 
-  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill", name = "Organic") +
-   labs(title = "Organic Concentrations in Boston Inner Harbor Sediments",
+  coord_polar("y", start= 0) + 
+  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill", name = "Organic Detected") +
+   labs(title = "Organic Concentrations",
+        Subtitle = "Boston Inner Harbor Sediments",
        fill = "Organic Detected",
-       x = "Amount Detected (ug/g)")
+       x = "", 
+       y = "Amount Detected (ug/g)")
 ```
 
 #### Cape Ann to Cape Elizabeth Concentrations

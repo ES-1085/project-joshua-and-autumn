@@ -125,7 +125,7 @@ Station2002 <- Station2002 %>%
 Creates Organics2002 dataframe with selected variables of interest.  These include general organics as well as total PCB and some notable pesticide concentrations.
 
 ```{r select-var-ORG}
-Organics2002 = select(organics_full, c(UNIQUE_ID, REPNO_ORG, TOTREP_ORG, TVS_EP_PCT, O_G_UGG, PHCTOT_UGG, PCB_T_UGG, DDT_T_NGG, DDE_T_NGG, DDD_T_NGG, PEST_UG_G, LIPIDS_NGG, CLOST_SP_G, MBT_C, DBT_C, TBT_C, TTBT_C))
+Organics2002 = select(organics_full, c(UNIQUE_ID, O_G_UGG, PHCTOT_UGG, PCB_T_UGG, DDT_T_NGG, DDE_T_NGG, DDD_T_NGG, PEST_UG_G, LIPIDS_NGG, CLOST_SP_G, MBT_C, DBT_C, TBT_C, TTBT_C))
 ```
 
 ###PAHs

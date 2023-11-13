@@ -346,7 +346,7 @@ Fore River, Royal River, Kennebunk River, York River
 Below we are visualizing the mean PAHs present in Maine rivers. 
 
 ```{r bar-pah-me-rivers-without-union}
-Sum_Org_site %>%
+Sum_PAH_site %>%
   filter(site %in% c("York River", "Kennebunk River", "Fore River", "Royal River")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_PAH_T)), y = sapply(mean_PAH_T, FUN=function(x) ifelse(x==0.000000e0, -0.2,x)), fill = fct_rev(fct_reorder(site, mean_PAH_T)))) +
   geom_bar(stat="identity", col = "black") +
@@ -370,8 +370,29 @@ Next, we will analyze Rivers in Massachusetts.
 PAHs %>%
   filter(STATE_NAME == "MA") %>%
   filter(pah_detected != "NA") %>%
-  distinct(site)
+  distinct(site, pah_detected, amount_detected) %>%
+  arrange(desc(amount_detected))
 ```
+```{r bar-pah-mass-rivers}
+Sum_PAH_site %>%
+  filter(site %in% c("Chelsea River", "Mystic River", "Fore River", "Charles River")) %>%
+  ggplot(aes(x = fct_rev(fct_reorder(site, mean_PAH_T)), y = sapply(mean_PAH_T, FUN=function(x) ifelse(x==0.000000e0, -0.2,x)), fill = fct_rev(fct_reorder(site, mean_PAH_T)))) +
+  geom_bar(stat="identity", col = "black") +
+  scale_x_discrete(drop=FALSE) +
+  geom_errorbar(aes(ymin = mean_PAH_T - SE_PAH_T, ymax = mean_PAH_T + SE_PAH_T), width = 0.2) +
+  scale_fill_manual(values = c("Chelsea River" = "green4",
+                               "Mystic River" = "darkgoldenrod4",
+                               "Charles River" = "firebrick",
+                               "Fore River" = "peachpuff")) +
+  theme_bw() +
+  coord_flip() +
+  theme(legend.position = "none") +
+  labs(title = "PAH Concentrations in Massachusetts Rivers",
+       caption = "Error bars = 1 standard error",
+       x = "Location",
+       y = "Mean total PAH concentration ug/g")
+```
+
 
 ## Statistical tests
 ### Difference between general locations
