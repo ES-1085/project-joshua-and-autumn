@@ -36,6 +36,7 @@ glimpse(PAHs)
 ## Data Transformation
 ### Pivoting PAHs into a Longer Format 
 This function creates two columns to properly contain the values of PAHs measured during these surveys - the `pah_detected` column contains the type of PAH that was measured and the `amount_detected` column contains the values for each measurement. Selecting specific variables within the `PAHs` data set will allow for a more concise data frame that is more applicable to the analysis.
+
 ```{r pivoting-pah, warning=FALSE}
 PAHs <- PAHs %>%
   mutate(CHRYSENE = as.numeric(CHRYSENE)) %>%
@@ -70,6 +71,7 @@ PAHs %>%
 
 ## General PAH Concentration
 As shown in the plot below, there is a high concentration of Fluoranthene, followed by Pyrene, Chrysene, and Phenanthrene.
+
 ``` {r plotting-pahs-detected, warning=FALSE}
 PAHs %>%
   ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_detected, fill = fct_infreq(pah_detected)))+
@@ -123,6 +125,7 @@ Summary_PAHs
 
 AP- I'm not sure where to put the graph below.
 This plot shows us the exact quantity of PAH found at each site. 
+
 ```{r summarize-by-site}
 PAHs %>%
   group_by(GEN_LOC_NM, pah_detected) %>%
@@ -131,6 +134,7 @@ PAHs %>%
 ```
 
 The graph below is showing which site has the highest mean PAH concentrations in the Gulf of Maine. As was reflected above, the site with the highest PAH concentration is Boston Inner Harbor, followed by Northwest Boston Harbor, Central Boston Harbor, and Cape Elizabeth to Rockland, ME. 
+
 ```{r pah-gen-loc}
 Summary_PAHs %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PAH)), y = mean_PAH, fill = GEN_LOC_NM))+
@@ -415,12 +419,14 @@ Sum_PAH_site
 ```
 
 Below we are identifying specific Maine rivers to use in our analysis.
+
 ```{r identify-ME-rivers, message=FALSE}
 PAHs %>%
   filter(STATE_NAME == "ME") %>%
   filter(amount_detected != "NA") %>%
   distinct(site)
 ```
+
 Fore River, Royal River, Kennebunk River, York River
 
 Below we are visualizing the mean PAHs present in Maine rivers. 
@@ -445,7 +451,9 @@ Sum_PAH_site %>%
        x = "Location",
        y = "Mean total PAH concentration ug/g")
 ```
+
 Next, we will analyze Rivers in Massachusetts. 
+
 ```{r identiy-ma-rivers, message=FALSE}
 PAHs %>%
   filter(STATE_NAME == "MA") %>%
@@ -453,6 +461,7 @@ PAHs %>%
   distinct(site, pah_detected, amount_detected) %>%
   arrange(desc(amount_detected))
 ```
+
 ```{r bar-pah-mass-rivers}
 Sum_PAH_site %>%
   filter(site %in% c("Chelsea River", "Mystic River", "Fore River", "Charles River")) %>%
@@ -473,7 +482,6 @@ Sum_PAH_site %>%
        y = "Mean total PAH concentration ug/g")
 ```
 
-
 ## Statistical tests
 ### Difference between general locations
 
@@ -487,7 +495,9 @@ hist(PAHs$amount_detected)
 kw1=kruskal.test(PAHs$amount_detected ~ PAHs$GEN_LOC_NM)
 kw1
 ```
+
 This shows that it is significant. We will now run a Dunn post-hoc test to identify any significance between locations.
+
 ```{r}
 #install.packages("dunn.test")
 #library(dunn.test)
@@ -495,10 +505,12 @@ This shows that it is significant. We will now run a Dunn post-hoc test to ident
 #dunn=dunn.test(PAHs$amount_detected,Organics$GEN_LOC_NM,method="bh")
 
 ```
+
 Interpretation: Most general locations have significantly different mean total PAH concentrations.
 
 ## Map Plots
 ### Static maps
+
 ```{r load-GOM_states-shp}
 GOM_states <- st_read("/cloud/project/extra/GOM_DD.shp")
 ```
@@ -506,6 +518,7 @@ GOM_states <- st_read("/cloud/project/extra/GOM_DD.shp")
 ```{r load-bathy-shp}
 Bathy <- st_read("/cloud/project/extra/BATHYMGM_ARC.shp")
 ```
+
 Bathymetry data is in projected coordinate system (NAD83), other data is geodetic (NAD83).  
 Wasn't able to add this layer to map plot -- need to change projection.
 
@@ -513,6 +526,7 @@ Wasn't able to add this layer to map plot -- need to change projection.
 st_crs(Bathy)
 Bathy <- st_transform(Bathy, "+init=epsg:4269")
 ```
+
 Now the Bathy shapefile is in geodetic NAD83 format.
 
 ```{r unique-bathy}
@@ -629,6 +643,7 @@ ggplot(GOM_states)+
       text_family = "ArcherPro Book"))
 
 ```
+
 Above is the Distribution and concentration of PAHs in MDI and Penobscot Bay sediments. 
 
 ### Boston, MA Area Mapped
@@ -659,6 +674,7 @@ ggplot(GOM_states)+
       line_col = "grey20",
       text_family = "ArcherPro Book"))
 ```
+
 Above is the Distribution and concentration of PAHs in Boston, MA and Cape Cod Bay sediments. 
 
 ```{r boston-and-ma-area-map-pah-colored}
@@ -689,6 +705,7 @@ ggplot(GOM_states)+
       line_col = "grey20",
       text_family = "ArcherPro Book"))
 ```
+
 Above is the same graph, but now we are coloring the points by the specific pah that was detected. 
 
 ### Interactive map
