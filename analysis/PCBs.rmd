@@ -47,7 +47,7 @@ JH -- the organics dataset has already been joined with the stations dataset (lo
 
 ```{r joining-station-info, warning = FALSE}
 Organics_long <- Organics %>%
- pivot_longer(cols = `TVS_EP_PCT`:`TTBT_C`, 
+ pivot_longer(cols = `O_G_UGG`:`TTBT_C`, 
                names_to = "organic_detected", 
                values_to = "amount_detected")
 
