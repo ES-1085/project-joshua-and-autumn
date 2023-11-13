@@ -101,7 +101,6 @@ pcbs_only <- PCBs_long %>%
 glimpse(pcbs_only)
 ```
 
-
 ## Data Visualizations
 ### Descriptive Visualizations
 First, the number of observations collected at each location will be visualized. This bar plot uses number of observations on its y axis, thus reflecting sampling intensity by general location.  The greatest number of observations are in the Gulf of Maine below the 50m isobath (partly this is a product of area extent as well as sampling intensity); Massachusetts Bays, Boston Harbor sites, and the MA/NH/ME coast are all generally heavily sampled.
@@ -293,17 +292,16 @@ Organics_long_no_na_no_zero %>%
   theme_minimal() +
   geom_bar(stat="identity", width=5) +
   coord_polar("y", start= 0) + 
-  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill", name = "Organic Detected") +
-   labs(title = "Organic Concentrations",
-        Subtitle = "Boston Inner Harbor Sediments",
+  scale_fill_viridis_d(option = "turbo") +
+   labs(title = "Organic Concentrations in Inner Boston Harbor Sediments",
        fill = "Organic Detected",
        x = "", 
-       y = "Amount Detected (ug/g)")
+       y = "")
 ```
 
 #### Cape Ann to Cape Elizabeth Concentrations
 This plot visualizes the specific organics present in Cape Ann to Cape Elizabeth. 
-Clostridium perfringens (724,143.53 spores/g) is PCB with the highest concentration.
+Clostridium perfringens (724,143.53 spores/g) is PCB with the highest concentration, though there are trace amounts of PCBs (5,111.91 ug/g) and DDT (480.18 ug/g).
 
 ``` {r type_of_organic-in-cape-ann-to-elizabeth, echo = FALSE, message = FALSE}
 Organics_long_no_na_no_zero %>%
@@ -331,14 +329,14 @@ Organics_long_no_na_no_zero %>%
   ggplot(aes(x="", y = amount_detected, fill = organic_detected)) +
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
-  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill", 
-                    name = "Organic") +
+  scale_fill_viridis_d(option = "turbo") +
+  theme_minimal() + 
   theme(axis.title.y = element_blank(), 
         axis.text.y = element_blank())+
-  labs(title = "Organic Concentrations",
-       subtitle = "Cape Ann to Cape Elizabeth",
+  labs(title = "Organic Concentrations from Cape Ann to Cape Elizabeth",
        x = "",
-       y = "Percent Composition")
+       y = "", 
+       fill ="Organic Detected")
 ```
 
 #### Southeast Boston Harbor Concentrations
@@ -352,6 +350,7 @@ Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM == "Southeast Boston Harbor") %>%
   arrange(desc(amount_detected))
 ```
+
 ``` {r type_of_organic-in-boston-southeast-harbor-graph, warning = FALSE}
 Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM %in% c("Southeast Boston Harbor")) %>%
@@ -370,12 +369,12 @@ Organics_long_no_na_no_zero %>%
   ggplot(aes(x="", y = amount_detected, fill = organic_detected)) +
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
-  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill", 
-                    name = "Organic") +
-  labs(title = "Organic Concentrations",
-       subtitle = "Southeast Boston Harbor",
+  scale_fill_viridis_d(option = "turbo") +
+  theme_minimal() +
+  labs(title = "Organic Concentrations in Southeast Boston Harbor",
        x = "",
-       y = "Percent Composition")
+       y = "", 
+       fill ="Organic Detected")
 ```
 
 #### Cape Elizabeth to Rockland Concentrations
