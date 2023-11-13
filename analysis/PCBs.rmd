@@ -546,6 +546,7 @@ pesticides %>%
   geom_density_ridges() +
   scale_fill_viridis_d() +
   theme_minimal() +
+  theme(legend.position="none") +
   labs(x = "Concentration (ng/g)",
        y = "Pesticide",
        caption = "Values > 30 ng/g excluded")
@@ -606,7 +607,8 @@ Sum_Org_site %>%
                                "Royal River" = "green4",
                                "York River" = "darkgoldenrod4",
                                "Kennebunk River" = "firebrick",
-                               "Fore River" = "peachpuff")) +
+                               "Fore River" = "peachpuff",
+                               "Saco River" = "dodgerblue")) +
   theme_bw() +
   coord_flip() +
   theme(legend.position = "none") +
@@ -943,36 +945,67 @@ pesticides_no_na_no_zero <- pesticides %>%
 ```
 
 
-```{r create-html-labels}
-#markers <- pesticides_no_na_no_zero
+```{r create-html-labels-pesticides}
+markers <- pesticides_no_na_no_zero
 
 
-#markers <- markers %>%
-#  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
-#                         "BHC: ", round(amount_detected[pcb == "BHC_C"], digits = 4), " ng/g<br>",
-#                         "Chlordane: ", round(amount_detected[pcb == "CLRDNE_T_C"], digits = 4), " ng/g<br>",
-#                         "DDT: ", round(amount_detected[pcb == "DDT_C"], digits = 4), " ng/g<br>",
-#                         "DDE: ", round(amount_detected[pcb == "DDE_4_4_C"], digits = 4), " ng/g<br>",
-#                         "DDD: ", round(amount_detected[pcb == "DDD_4_4_C"], digits = 4), " ng/g<br>",
-#                         "Aldrin: ", round(amount_detected[pcb == "ALDRIN_C"], digits = 4), " ng/g<br>",
-#                         "Dieldrin: ", round(amount_detected[pcb == "DIELDRN_C"], digits = 4), " ng/g<br>",
-#                         "Endrin: ", round(amount_detected[pcb == "ENDRIN_C"], digits = 4), " ng/g<br>",
-#                         "Endrin Aldehyde: ", round(amount_detected[pcb == "ENDR_ALD_C"], digits = 4), " ng/g<br>",
-#                         "Lindane: ", round(amount_detected[pcb == "LINDANE_C"], digits = 4), " ng/g<br>",
-#                         "Mirex: ", round(amount_detected[pcb == "MIREX_C"], digits = 4), " ng/g<br>",
-#                         "Methoxychlor: ", round(amount_detected[pcb == "METHOXYCLC"], digits = 4), " ng/g<br>"))
+markers <- markers %>%
+  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
+                         "BHC: ", round(amount_detected[pcb == "BHC_C"], digits = 4), " ng/g<br>",
+                         "Chlordane: ", round(amount_detected[pcb == "CLRDNE_T_C"], digits = 4), " ng/g<br>",
+                         "DDT: ", round(amount_detected[pcb == "DDT_C"], digits = 4), " ng/g<br>",
+                         "DDE: ", round(amount_detected[pcb == "DDE_4_4_C"], digits = 4), " ng/g<br>",
+                         "DDD: ", round(amount_detected[pcb == "DDD_4_4_C"], digits = 4), " ng/g<br>",
+                         "Aldrin: ", round(amount_detected[pcb == "ALDRIN_C"], digits = 4), " ng/g<br>",
+                         "Dieldrin: ", round(amount_detected[pcb == "DIELDRN_C"], digits = 4), " ng/g<br>",
+                         "Endrin: ", round(amount_detected[pcb == "ENDRIN_C"], digits = 4), " ng/g<br>",
+                         "Endrin Aldehyde: ", round(amount_detected[pcb == "ENDR_ALD_C"], digits = 4), " ng/g<br>",
+                         "Lindane: ", round(amount_detected[pcb == "LINDANE_C"], digits = 4), " ng/g<br>",
+                         "Mirex: ", round(amount_detected[pcb == "MIREX_C"], digits = 4), " ng/g<br>",
+                         "Methoxychlor: ", round(amount_detected[pcb == "METHOXYCLC"], digits = 4), " ng/g<br>"))
 
 
-#head(markers$labels, 1)
+head(markers$labels, 1)
 ```
 
-```{r leaflet-map-pcb}
-#leaflet() %>%
-#  addProviderTiles(providers$Esri.WorldTopoMap) %>%
-#  setView(lng = -68.5, 
-#          lat = 43.5, 
-#          zoom = 6) %>%
-#  addMarkers(lng = markers$LONGITUDE, lat = markers$LATITUDE, popup = markers$labels)
+```{r leaflet-map-pesticides}
+leaflet() %>%
+  addProviderTiles(providers$Esri.WorldTopoMap) %>%
+  setView(lng = -68.5, 
+          lat = 43.5, 
+          zoom = 6) %>%
+  addCircleMarkers(lng = markers$LONGITUDE, lat = markers$LATITUDE, popup = markers$labels)
 ```
 
-Note that the two above code chunks are commented out as .rmd will not knit to github document with html functions.  Uncomment to run and change output type to `html_document` to knit.
+```{r create-html-labels-pcbs}
+markers <- pcbs_only %>%
+  drop_na(amount_detected) %>%
+  filter(amount_detected != 0)
+
+
+markers <- markers %>%
+  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
+                         "PCB 52: ", round(amount_detected[pcb == "PCB_52_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 101: ", round(amount_detected[pcb == "PCB101_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 118: ", round(amount_detected[pcb == "PCB118_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 128: ", round(amount_detected[pcb == "PCB128_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 138: ", round(amount_detected[pcb == "PCB138_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 153: ", round(amount_detected[pcb == "PCB153_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 180: ", round(amount_detected[pcb == "PCB180_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 206: ", round(amount_detected[pcb == "PCB206_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 209: ", round(amount_detected[pcb == "PCB209_NGG"], digits = 4), " ng/g<br>"))
+
+
+head(markers$labels, 1)
+```
+
+```{r leaflet-map-pcbs}
+leaflet() %>%
+  addProviderTiles(providers$Esri.WorldTopoMap) %>%
+  setView(lng = -68.5, 
+          lat = 43.5, 
+          zoom = 6) %>%
+  addCircleMarkers(lng = markers$LONGITUDE, lat = markers$LATITUDE, popup = markers$labels)
+```
+
+Note that the above code chunks are commented out as .rmd will not knit to github document with html functions.  Uncomment to run and change output type to `html_document` to knit.
