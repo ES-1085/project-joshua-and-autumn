@@ -289,7 +289,7 @@ Organics_long_no_na_no_zero %>%
 
 Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM %in% c("Boston Inner Harbor")) %>%
-  ggplot(aes(x= organic_detected, y = sum(amount_detected, na.rm = TRUE), fill = organic_detected)) +
+  ggplot(aes(x= "", y = sum(amount_detected, na.rm = TRUE), fill = organic_detected)) +
   theme_minimal() +
   geom_bar(stat="identity", width=5) +
   coord_polar("y", start= 0) + 
