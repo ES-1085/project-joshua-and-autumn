@@ -97,10 +97,30 @@ Station2002 <- Station2002 %>%
                             "Fore River" = "Weymouth Fore River",
                             "Fore River" = "Weymouth Fore River - Citgo's Braintree terminal",
                             "Fore River" = "Weymouth Fore Rvr",
-                            "Fore River" = "WFR"
+                            "Fore River" = "WFR",
+                           "Piscataqua River" = "In Piscataqua River NE of Outer Cutts Cove",
+                           "Piscataqua River" = "E of Freeman's Pt. near mouth of inlet",
+                           "Piscataqua River" = "Back Channel just south of Wattlebury Is.",
+                           "Piscataqua River" = "Off dry dock 3 at PNSY 60' from pier",
+                           "Piscataqua River" = "SE of Dry Dock 1 at PNSY 75' from pier",
+                           "Piscataqua River" = "S. of Dry Dock 2 at PNSY",
+                           "Piscataqua River" = "Piscataqua River N of Pierce Is.",
+                           "Piscataqua River" = "Little Harbor S. of Shapleigh Island",
+                           "Piscataqua River" = "SSE of pier of US Coast Guard station",
+                           "Piscataqua River" = "Clark Island Embayment between Jamaica Is. and Hick Rocks",
+                           "Piscataqua River" = "Clark Island Embayment S. of Jamaica Is.",
+                           "Piscataqua River" = "Clark Island Embayment, Clark cove near Norway ball #17",
+                           "Piscataqua River" = "Clark Island Embayment, W of Clark Is. pier",
+                           "Piscataqua River" = "Clark Island Embayment N. of Clark Is. Causeway",
+                           "Piscataqua River" = "S of Clark Island causeway",
+                           "Piscataqua River" = "Back Channel E side of back gate entr. to PNSY",
+                           "Piscataqua River" = "West of Jamaica Is. in Back Channel of PNSY",
+                           "Piscataqua River" = "E. of Gooseberry Island",
+                           "Spruce Creek" = "Spruce Creek E. of Admiralty Village",
+                           "Spruce Creek" = "Back Channel Near N. shore of entrance to Barters Creek"
                            ))
 ```
-
+"Piscataqua River" = ""
 ###Organics
 Creates Organics2002 dataframe with selected variables of interest.  These include general organics as well as total PCB and some notable pesticide concentrations.
 

@@ -599,18 +599,19 @@ Below we are visualizing the mean PCBs present in Maine rivers.
 
 ```{r bar-pcb-me-rivers-without-union}
 Sum_Org_site %>%
-  filter(site %in% c("York River", "Kennebunk River", "Fore River", "Royal River", "Kennebec River", "Penobscot River", "Saco River")) %>%
+  filter(site %in% c("Piscataqua River", "York River", "Kennebunk River", "Fore River", "Royal River", "Kennebec River", "Penobscot River", "Saco River")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -0.2,x)), fill = fct_rev(fct_reorder(site, mean_PCB_T)))) +
   geom_bar(stat="identity", col = "black") +
   scale_x_discrete(drop=FALSE) +
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
   scale_fill_manual(values = c("Kennebec River" = "skyblue",
                                "Penobscot River" = "skyblue",
-                               "Royal River" = "green4",
+                               "Royal River" = "orange",
                                "York River" = "darkgoldenrod4",
                                "Kennebunk River" = "firebrick",
                                "Fore River" = "peachpuff",
-                               "Saco River" = "dodgerblue")) +
+                               "Saco River" = "dodgerblue",
+                               "Piscataqua River" = "green4")) +
   theme_bw() +
   coord_flip() +
   theme(legend.position = "none") +
@@ -625,7 +626,7 @@ Sites with only one observation or mean = 0 do not have error bars.
 
 ```{r bar-pcb-me-rivers-with-union}
 Sum_Org_site %>%
-  filter(site %in% c("York River", "Kennebunk River", "Fore River", "Royal River", "Kennebec River", "Penobscot River", "Saco River", "Union River")) %>%
+  filter(site %in% c("Piscataqua River", "York River", "Kennebunk River", "Fore River", "Royal River", "Kennebec River", "Penobscot River", "Saco River", "Union River")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -2,x)), fill = site)) +
   geom_col(col = "black") +
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
@@ -635,7 +636,8 @@ Sum_Org_site %>%
                                "York River" = "gray50",
                                "Kennebunk River" = "gray50",
                                "Fore River" = "peachpuff",
-                               "Union River" = "mediumorchid")) +
+                               "Union River" = "mediumorchid",
+                               "Piscataqua River" = "green4")) +
   theme_bw() +
   coord_flip() +
   theme(legend.position = "none") +
@@ -946,13 +948,22 @@ pesticides_no_na_no_zero <- pesticides %>%
   filter(SOUNDING_M != "0")
 ```
 
+```{r set-up-colors-for-leaflet-map}
+summary(pesticides_no_na_no_zero$amount_detected)
+
+bins <- seq(0, 10, 1)
+```
+```{r set-pallete-for-leaflet-map}
+palpest <- colorBin("YlOrRd", domain = pesticides_no_na_no_zero$amount_detected, bins = bins)
+```
+
 
 ```{r create-html-labels-pesticides}
 markers <- pesticides_no_na_no_zero
 
 
 markers <- markers %>%
-  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
+  mutate(labels1 = paste0("<strong>", "Site: ", site,"</strong><br>",
                          "BHC: ", round(amount_detected[pcb == "BHC_C"], digits = 4), " ng/g<br>",
                          "Chlordane: ", round(amount_detected[pcb == "CLRDNE_T_C"], digits = 4), " ng/g<br>",
                          "DDT: ", round(amount_detected[pcb == "DDT_C"], digits = 4), " ng/g<br>",
@@ -967,7 +978,7 @@ markers <- markers %>%
                          "Methoxychlor: ", round(amount_detected[pcb == "METHOXYCLC"], digits = 4), " ng/g<br>"))
 
 
-head(markers$labels, 1)
+head(markers$labels1, 1)
 ```
 
 ```{r leaflet-map-pesticides}
@@ -976,7 +987,7 @@ leaflet() %>%
   setView(lng = -68.5, 
           lat = 43.5, 
           zoom = 6) %>%
-  addCircleMarkers(lng = markers$LONGITUDE, lat = markers$LATITUDE, popup = markers$labels)
+  addCircleMarkers(lng = markers$LONGITUDE, lat = markers$LATITUDE, popup = markers$labels1, color = palpest, radius = log(markers$amount_detected*500))
 ```
 
 ```{r create-html-labels-pcbs}
@@ -986,7 +997,7 @@ markers <- pcbs_only %>%
 
 
 markers <- markers %>%
-  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
+  mutate(labels2 = paste0("<strong>", "Site: ", site,"</strong><br>",
                          "PCB 52: ", round(amount_detected[pcb == "PCB_52_NGG"], digits = 4), " ng/g<br>",
                          "PCB 101: ", round(amount_detected[pcb == "PCB101_NGG"], digits = 4), " ng/g<br>",
                          "PCB 118: ", round(amount_detected[pcb == "PCB118_NGG"], digits = 4), " ng/g<br>",
@@ -998,7 +1009,7 @@ markers <- markers %>%
                          "PCB 209: ", round(amount_detected[pcb == "PCB209_NGG"], digits = 4), " ng/g<br>"))
 
 
-head(markers$labels, 1)
+head(markers$labels2, 1)
 ```
 
 ```{r leaflet-map-pcbs}
@@ -1007,7 +1018,7 @@ leaflet() %>%
   setView(lng = -68.5, 
           lat = 43.5, 
           zoom = 6) %>%
-  addCircleMarkers(lng = markers$LONGITUDE, lat = markers$LATITUDE, popup = markers$labels)
+  addCircleMarkers(lng = markers$LONGITUDE, lat = markers$LATITUDE, popup = markers$labels2, color = palpest, radius = log(markers$amount_detected*500))
 ```
 
 Note that the above code chunks are commented out as .rmd will not knit to github document with html functions.  Uncomment to run and change output type to `html_document` to knit.
