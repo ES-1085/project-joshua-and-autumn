@@ -458,7 +458,7 @@ Sum_pcbs_rock_n %>%
   geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
   coord_flip() +
   theme_classic() +
-  scale_fill_brewer(type = "qual", palette = 2, direction = 1, aesthetics = "fill") +
+  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill") +
   theme(legend.position = "none") +
   labs(title = "PCB Concentrations in Sediments",
        subtitle = "Rockland, ME, and points north",
@@ -813,7 +813,7 @@ ggplot(GOM_states) +
                           "Oil/Grease",
                           "Petroleum HC",
                           "Monobutyl Tin",
-                          "Dibutyl tin",
+                          "Dibutyl ti",
                           "Tributyl tin",
                           "Tetrabutyl tin",
                           "Lipids"
