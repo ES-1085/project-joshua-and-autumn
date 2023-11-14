@@ -103,8 +103,14 @@ PAHs %>%
         x = "Amount Detected (ng/g)", 
         y = "Frequency of Amount Detected", 
        fill = "PAH Detected")
-```
 
+PAHs %>%
+  group_by(pah_detected) %>%
+  summarise(amount_detected = mean(amount_detected, na.rm = TRUE), 
+            sd_PAH = sd(amount_detected, na.rm = TRUE)) %>%
+  arrange(desc(amount_detected))
+```
+```
 
 # PAH Site to Site Comparisons
 ## General PAH Sumary Statistics
@@ -173,13 +179,13 @@ Summary_PAHs %>%
 
 ### Boston Harbor (General) Concentrations
 This plot visualizes the specific PAHs present in Boston Harbor. 
-As shown in the plot, Chrysene (824,674.86 ng/g) has the highest concentration in the harbor. This is followed by Pyrene (753,726.83 ng/g), Fluoranthene (721,826.05 ng/g), and Phenanthrene (494,229.22 ng/g). 
+As shown in the plot, Chrysene (2234.89 ng/g) has the highest average concentration in the harbor. This is followed by Pyrene (average of 2197.45 ng/g), Fluoranthene (average of 2016.27 ng/g), and Phenanthrene (average of 1307.48 ng/g). 
 
 ```{r sum-organics-boston-general-harbor, message=FALSE, echo=FALSE}
 PAHs %>%
   filter(GEN_LOC_NM %in%c("Boston Inner Harbor", "Northwest Boston Harbor", "Central Boston Harbor", "Southeast Boston Harbor")) %>%
   group_by(pah_detected) %>%
-  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  summarise(amount_detected = mean(amount_detected, na.rm = TRUE)) %>%
   arrange(desc(amount_detected))
 ```
 
