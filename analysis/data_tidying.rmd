@@ -181,50 +181,40 @@ Visualizing missing data can help us determine which specific contaminants were 
 ###Missing PCB Data
 ``` {r missing-data-PCBs}
 #Visualizing the percentage of missing data
-#visdat::vis_miss(PCBs_loc)
+visdat::vis_miss(PCBs_loc)
 
-#visualizing correlations in data as a heatmap - only numeric values...
-#dplyr::select(PCBs_loc, where(is.numeric)) %>%
-#visdat::vis_cor(PCBs_loc, "pearson", "pairwise.complete.obs", facet)
+visdat::vis_dat(PCBs_loc) +
+  labs(title = "Missing Data from the PCBs Dataset")
 
-#we should highlight the locations where there are PCBs detected
-```
-
-```{r}
- visdat::vis_dat(PCBs_loc)
-```
-
-```{r}
 naniar::gg_miss_var(PCBs_loc)
-```
 
-```{r}
 naniar::miss_var_summary(PCBs_loc)
 ```
-
 
 ###Missing PAH Data
 ``` {r missing-data-PAHs}
 #Visualizing the percentage of missing data
-#visdat::vis_miss(PAHs_loc)
+visdat::vis_miss(PAHs_loc)
 
-#visualizing correlations in data as a heatmap - only numeric values...
-#dplyr::select(PAHs_loc, where(is.numeric)) %>%
-#visdat::vis_cor(PAHs_loc, "pearson", "pairwise.complete.obs", facet)
+visdat::vis_dat(PAHs_loc)+
+  labs(title = "Missing Data from the PAHs Dataset")
 
-#we should highlight the locations where there are PAHs detected
+naniar::gg_miss_var(PAHs_loc)
+
+naniar::miss_var_summary(PAHs_loc)
 ```
 
 ###Missing Organics Data
-``` {r missing-data-Organics}
+``` {r missing-data-organics}
 #Visualizing the percentage of missing data
-# visdat::vis_miss(Organics_loc)
+visdat::vis_miss(Organics_loc)
 
-#visualizing correlations in data as a heatmap - only numeric values...
-#dplyr::select(Organics_loc, where(is.numeric)) %>%
-#visdat::vis_cor(Organics_loc, "pearson", "pairwise.complete.obs", facet)
+visdat::vis_dat(Organics_loc)+
+  labs(title = "Missing Data from the Organics Dataset")
 
-#This shows us in which station specific organics are found
+naniar::gg_miss_var(Organics_loc)
+
+naniar::miss_var_summary(Organics_loc)
 ```
 
 # Write loc datasets as CSVs
