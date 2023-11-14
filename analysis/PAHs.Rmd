@@ -85,7 +85,12 @@ PAHs %>%
        x = "PAH Detected",
        y = "Amount Detected")
 ```
+
 ### PAH Concentration in the Gulf of Maine
+Of the entire Gulf of Maine, the PAH with the highest average concentration was Fluoranthene (1962.25 ng/g). This is followed by Pyrene (934.50 ng/g), Chrysene (887.80 ng/g), and Phenanthrene (546.57 ng/g). 
+
+AP - *add interpretation here that talks about the properties of each PAH?*
+
 
 ``` {r pah-concentration-histogram}
 PAHs %>%
@@ -106,6 +111,7 @@ PAHs %>%
 
 PAHs %>%
   group_by(pah_detected) %>%
+  filter(GEN_LOC_NM %in%c("Rockland to north")) %>%
   summarise(amount_detected = mean(amount_detected, na.rm = TRUE), 
             sd_PAH = sd(amount_detected, na.rm = TRUE)) %>%
   arrange(desc(amount_detected))
