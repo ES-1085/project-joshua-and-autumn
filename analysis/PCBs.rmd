@@ -392,7 +392,7 @@ Organics_long_no_na_no_zero %>%
 ```
 
 ```{r sum-all-pcbs-rockland-n}
-Sum_pesticides_rock_n <- pesticides %>%
+Sum_pesticides_gom <- pesticides %>%
   group_by(pcb, SPECFC_LOC) %>%
   filter(GEN_LOC_NM == "Rockland to north") %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
@@ -403,20 +403,20 @@ Sum_pesticides_rock_n <- pesticides %>%
     SE = sd(amount_detected) / sqrt(n())) %>%
   arrange(desc(mean))
 
-#Sum_pesticides_rock_n
+Sum_pesticides_gom
 ```
 
 ```{r bar-pesticides-rockland-n}
-Sum_pesticides_rock_n %>%
+Sum_pesticides_gom %>%
   ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
   geom_col(color = "black") +
    geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
   coord_flip() +
   theme_classic() +
-  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill") +
+  scale_fill_viridis_d() +
   theme(legend.position = "none") +
-  labs(title = "Pesticide Concentrations in Sediments",
-       subtitle = "Rockland, ME, and points north",
+  labs(title = "Pesticide Concentrations",
+       subtitle = "In Gulf of Maine Sediments",
        x = "Pesticide",
        y = "Concentration (ng/g)",
        caption = "Error bars = 1 standard error")
@@ -437,9 +437,8 @@ Sum_pesticides_rock_n %>%
 Interpretation: This bar plot shows concentrations of each pesticide per ng/g of sediment in the inshore area from Rockland, Maine to the Bay of Fundy.  Benzene hexachloride alpha, beta, and delta isomers (BHC) are the most prevalent in this area, but are also highly variable (mean = 1.67 +/- 12.91 ng/g).  Lindane, the gamma isomer of BHC, which is more insecticidal, is much less prevalent (mean = 0.13 +/- 0.58 ng/g).  Mirex (mean = 0.26 +/- 1.71 ng/g) and aldrin (mean = 0.24 +/- 1.43 ng/g) are also prevalent.  Chlordane, endrin aldehyde, endrin, and methoxychlor were not detected (indicated with negative bars.)  Pie chart shows percent composition of the pesticides for this area.
 
 ```{r sum-pcbs-rock-n}
-Sum_pcbs_rock_n <- pcbs_only %>%
+Sum_pcbs_gom <- pcbs_only %>%
   group_by(pcb, site) %>%
-  filter(GEN_LOC_NM == "Rockland to north") %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
   drop_na(amount_detected) %>%
   summarise(mean = mean(amount_detected),
@@ -452,7 +451,7 @@ Sum_pcbs_rock_n <- pcbs_only %>%
 ```
 
 ```{r bar-pcbs-rock-n}
-Sum_pcbs_rock_n %>%
+Sum_pcbs_gom %>%
   ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
   geom_col(color = "black") +
   geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
@@ -460,10 +459,11 @@ Sum_pcbs_rock_n %>%
   theme_classic() +
   scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill") +
   theme(legend.position = "none") +
-  labs(title = "PCB Concentrations in Sediments",
-       subtitle = "Rockland, ME, and points north",
+  labs(title = "PCB Composition and Concentrations",
+       subtitle = "In Gulf of Maine Sediments",
        x = "PCB",
-       y = "Amount Detected (ng/g)")
+       y = "Amount Detected (ng/g)",
+       caption = "Error bars = 1 standard error")
 
 Sum_pcbs_rock_n %>%
 ggplot(aes(x="", y = mean, fill = pcb)) +
@@ -477,6 +477,37 @@ ggplot(aes(x="", y = mean, fill = pcb)) +
 ```
 Interpretation:  This bar plot shows concentrations of each polychlorinated biplhenyl (PCBs) in the area from Rockland, ME to the Bay of Fundy, and was detected in the PCBs dataset.  All PCBs are similarly prevalent in this area, with PCB 138 being the most abundant (mean = 0.30 +/- 1.23 ng/g), and PCB 128 being the least abundant (mean = 0.02 +/- 0.2 ng/g).  The pie chart shows percent composition of the same PCBs for this area.
 
+```{r}
+Sum_pcbs_gom <- pcbs_only %>%
+  group_by(pcb, site) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  drop_na(amount_detected) %>%
+  summarise(mean = mean(amount_detected),
+    sd = sd(amount_detected),
+    n = n(),
+    SE = sd(amount_detected) / sqrt(n())) %>%
+  arrange(desc(mean))
+
+Sum_pcbs_gom
+```
+
+```{r}
+Sum_pcbs_gom %>%
+  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
+  geom_col(color = "black") +
+  geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
+  coord_flip() +
+  theme_classic() +
+  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill") +
+  theme(legend.position = "none") +
+  labs(title = "PCB Composition and Concentrations",
+       subtitle = "In Gulf of Maine Sediments",
+       x = "PCB",
+       y = "Amount Detected (ng/g)",
+       caption = "Error bars = 1 standard error")
+
+```
+
 ### Top 4 Pesticides
 
 ```{r}
@@ -489,7 +520,8 @@ pesticides %>%
   scale_fill_viridis_d() +
   theme_minimal() +
   theme(legend.position="none") +
-  labs(x = "Concentration (ng/g)",
+  labs(title = "Data Distribution of Top 4 Pesticides",
+       x = "Concentration (ng/g)",
        y = "Pesticide",
        caption = "Values > 30 ng/g excluded")
   
@@ -927,7 +959,120 @@ ggplot(GOM_states) +
       line_col = "grey20",
       text_family = "ArcherPro Book"))
 ```
+```{r map-pest-mass-bays}
+ggplot(GOM_states) +
+  geom_sf(aes()) +
+  geom_sf(data = Bathy_hi_res, color = "gray80", width = 1) +
+  geom_point(data=pesticides, (aes(x = LONGITUDE, y = LATITUDE, size = amount_detected, color = pcb, alpha = 0.5))) +
+  xlim(-71.1,-70.7) +
+  ylim(42.25,42.45) +
+  theme_bw() +
+  guides(size = guide_legend(title = "Concentration ug/g")) +
+  guides(alpha = FALSE) +
+  theme(legend.direction = "vertical", legend.box = "horizontal") +
+  scale_color_discrete(name = "Pesticide",
+                        breaks = c(
+                          "DDT_C", 
+                          "DDE_4_4_C", 
+                          "DDD_4_4_C", 
+                          "ENDRIN_C", 
+                          "ENDR_ALD_C", 
+                          "ALDRIN_C", 
+                          "DIELDRN_C", 
+                          "CLRDNE_T_C", 
+                          "MIREX_C", 
+                          "METHOXYCLC", 
+                          "BHC_C",
+                          "LINDANE_C"),
+                          labels = c(
+                          "DDT",
+                          "4,4' DDE",
+                          "4,4' DDD",
+                          "Endrin",
+                          "Endrin Aldehyde",
+                          "Aldrin",
+                          "Dieldrin",
+                          "Chlordane",
+                          "Mirex",
+                          "Methoxychlor",
+                          "Benzene Hexachloride",
+                          "Lindane")) +
+  labs(title = "Distribution and concentration of Pesticides",
+       subtitle ="Boston Harbor sediments",
+       x = "Longitude",
+       y = "Latitude") +
+  ggspatial::annotation_scale(
+    location = "bl",
+    bar_cols = c("grey60", "white"),
+    text_family = "ArcherPro Book"
+  ) +
+  ggspatial::annotation_north_arrow(
+    location = "tr", which_north = "true",
+    pad_x = unit(0, "in"), pad_y = unit(0.2, "in"),
+    style = ggspatial::north_arrow_nautical(
+      fill = c("grey40", "white"),
+      line_col = "grey20",
+      text_family = "ArcherPro Book"))
+```
 
+
+```{r}
+ggplot(GOM_states) +
+  geom_sf(aes()) +
+  geom_sf(data = Bathy_hi_res, color = "gray80", width = 1) +
+  geom_point(data=pesticides, (aes(x = LONGITUDE, y = LATITUDE, size = amount_detected, color = pcb, alpha = 0.5))) +
+  xlim(-69.2,-68) +
+  ylim(44,44.5) +
+  theme_bw() +
+  guides(size = guide_legend(title = "Concentration ug/g")) +
+  guides(alpha = FALSE) +
+  theme(legend.direction = "vertical", legend.box = "horizontal") +
+  scale_color_discrete(name = "Pesticide",
+                        breaks = c(
+                          "DDT_C", 
+                          "DDE_4_4_C", 
+                          "DDD_4_4_C", 
+                          "ENDRIN_C", 
+                          "ENDR_ALD_C", 
+                          "ALDRIN_C", 
+                          "DIELDRN_C", 
+                          "CLRDNE_T_C", 
+                          "MIREX_C", 
+                          "METHOXYCLC", 
+                          "BHC_C",
+                          "LINDANE_C"),
+                          labels = c(
+                          "DDT",
+                          "4,4' DDE",
+                          "4,4' DDD",
+                          "Endrin",
+                          "Endrin Aldehyde",
+                          "Aldrin",
+                          "Dieldrin",
+                          "Chlordane",
+                          "Mirex",
+                          "Methoxychlor",
+                          "Benzene Hexachloride",
+                          "Lindane")) +
+  labs(title = "Distribution and concentration of Pesticides",
+       subtitle ="Boston Harbor sediments",
+       x = "Longitude",
+       y = "Latitude") +
+  ggspatial::annotation_scale(
+    location = "bl",
+    bar_cols = c("grey60", "white"),
+    text_family = "ArcherPro Book"
+  ) +
+  ggspatial::annotation_north_arrow(
+    location = "tr", which_north = "true",
+    pad_x = unit(0, "in"), pad_y = unit(0.2, "in"),
+    style = ggspatial::north_arrow_nautical(
+      fill = c("grey40", "white"),
+      line_col = "grey20",
+      text_family = "ArcherPro Book"))
+```
+  
+  
 ## Interactive map
 
 ```{r create-organics-long-with-no-nas-no-zeros}
