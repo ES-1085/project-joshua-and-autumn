@@ -193,7 +193,7 @@ Summary_Organics %>%
   geom_col(col = "black") +
   geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
   coord_flip() +
-  scale_fill_viridis_d() +
+  scale_fill_viridis_d(option = "plasma") +
   theme_bw() +
   theme(legend.position = "none") +
   labs(title = "Mean PCB Concentrations in Gulf of Maine Sediments",
@@ -276,18 +276,6 @@ Organics_long_no_na_no_zero %>%
 ``` {r type_of_organic-in-boston-inner-harbor-graph, warning = FALSE}
 Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM %in% c("Boston Inner Harbor")) %>%
-  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
-  geom_col()+
-  theme_minimal()+
-  scale_fill_viridis_d()+
-  coord_flip()+
-  theme(legend.position = "none")+
-  labs(title = "Organic Concentrations in Boston Inner Harbor Sediments",
-       x = "Organic Detected",
-       y = "Amount Detected (ug/g)")
-
-Organics_long_no_na_no_zero %>%
-  filter(GEN_LOC_NM %in% c("Boston Inner Harbor")) %>%
   ggplot(aes(x= "", y = sum(amount_detected, na.rm = TRUE), fill = organic_detected)) +
   theme_minimal() +
   geom_bar(stat="identity", width=5) +
@@ -312,18 +300,6 @@ Organics_long_no_na_no_zero %>%
 ```
 
 ``` {r type_of_organic-in-cape-ann-to-elizabeth-graph, warning = FALSE}
-Organics_long_no_na_no_zero %>%
-  filter(GEN_LOC_NM %in% c("Cape Ann to Cape Elizabeth")) %>%
-  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
-  geom_col()+
-  theme_minimal()+
-  scale_fill_viridis_d()+
-  coord_flip()+
-  theme(legend.position = "none")+
-  labs(title = "Organic Concentrations in Cape Ann to Cape Elizabeth Sediments",
-       x = "Organic Detected",
-       y = "Amount Detected (ug/g)")
-
 Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM %in% c("Cape Ann to Cape Elizabeth")) %>%
   ggplot(aes(x="", y = amount_detected, fill = organic_detected)) +
@@ -354,18 +330,6 @@ Organics_long_no_na_no_zero %>%
 ``` {r type_of_organic-in-boston-southeast-harbor-graph, warning = FALSE}
 Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM %in% c("Southeast Boston Harbor")) %>%
-  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
-  geom_col()+
-  theme_minimal()+
-  scale_fill_viridis_d()+
-  coord_flip()+
-  theme(legend.position = "none")+
-  labs(title = "Organic Concentrations in Southeast Boston Harbor Sediments",
-       x = "Organic Detected",
-       y = "Amount Detected (ug/g)")
-
-Organics_long_no_na_no_zero %>%
-  filter(GEN_LOC_NM %in% c("Southeast Boston Harbor")) %>%
   ggplot(aes(x="", y = amount_detected, fill = organic_detected)) +
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
@@ -391,27 +355,15 @@ Organics_long_no_na_no_zero %>%
 ``` {r type_of_organic-from-cape-elizabeth-to-rockland-graph, warning = FALSE}
 Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM %in% c("Cape Elizabeth to Rockland")) %>%
-  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
-  geom_col()+
-  theme_minimal()+
-  scale_fill_viridis_d()+
-  coord_flip()+
-  theme(legend.position = "none")+
-  labs(title = "Organic Concentrations in Cape Elizabeth to Rockland Sediments",
-       x = "Organic Detected",
-       y = "Amount Detected (ug/g)")
-
-Organics_long_no_na_no_zero %>%
-  filter(GEN_LOC_NM %in% c("Cape Elizabeth to Rockland")) %>%
   ggplot(aes(x="", y = amount_detected, fill = organic_detected)) +
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
-  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill", 
-                    name = "Organic") +
-  labs(title = "Organic Concentrations",
-       subtitle = "Cape Elizabeth to Rockland",
+  scale_fill_viridis_d(option = "turbo") +
+  theme_minimal() +
+  labs(title = "Organic Concentrations from Cape Elizabeth to Rockland",
        x = "",
-       y = "Percent Composition")
+       y = "", 
+       fill ="Organic Detected")
 ```
 
 #### Rockland to North Concentrations
@@ -428,27 +380,15 @@ Organics_long_no_na_no_zero %>%
 ``` {r type_of_organic-in-rockalnd-to-N-graph, warning = FALSE}
 Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM %in% c("Rockland to north")) %>%
-  ggplot(aes(x = organic_detected, y = amount_detected, fill = organic_detected))+
-  geom_col()+
-  theme_minimal()+
-  scale_fill_viridis_d()+
-  coord_flip()+
-  theme(legend.position = "none")+
-  labs(title = "Organic Concentrations in Rockland to North Sediments",
-       x = "Organic Detected",
-       y = "Amount Detected (ug/g)")
-
-Organics_long_no_na_no_zero %>%
-  filter(GEN_LOC_NM %in% c("Rockland to north")) %>%
   ggplot(aes(x="", y = amount_detected, fill = organic_detected)) +
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
-  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill", 
-                    name = "Organic") +
-  labs(title = "Organic Concentrations",
-       subtitle = "Rockland to north",
+  scale_fill_viridis_d(option = "turbo") +
+  theme_minimal() +
+  labs(title = "Organic Concentrations from Rockland to north",
        x = "",
-       y = "Percent Composition")
+       y = "", 
+       fill ="Organic Detected")
 ```
 
 ```{r sum-all-pcbs-rockland-n}
@@ -482,15 +422,16 @@ Sum_pesticides_gom %>%
        caption = "Error bars = 1 standard error")
 
 Sum_pesticides_rock_n %>%
-ggplot(aes(x="", y = mean, fill = pcb)) +
-  geom_bar(stat="identity", width=1, color = "black") +
+  ggplot(aes(x="", y = mean, fill = pcb)) +
+  geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
-  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill", 
-                    name = "Pesticide") +
+  scale_fill_viridis_d(option = "turbo") +
+  theme_minimal() +
   labs(title = "Pesticide Composition",
        subtitle = "Rockland, ME, and points north",
        x = "",
-       y = "Percent Composition")
+       y = "Percent Composition", 
+       fill = "Pesticide")
 ```
 
 Interpretation: This bar plot shows concentrations of each pesticide per ng/g of sediment in the inshore area from Rockland, Maine to the Bay of Fundy.  Benzene hexachloride alpha, beta, and delta isomers (BHC) are the most prevalent in this area, but are also highly variable (mean = 1.67 +/- 12.91 ng/g).  Lindane, the gamma isomer of BHC, which is more insecticidal, is much less prevalent (mean = 0.13 +/- 0.58 ng/g).  Mirex (mean = 0.26 +/- 1.71 ng/g) and aldrin (mean = 0.24 +/- 1.43 ng/g) are also prevalent.  Chlordane, endrin aldehyde, endrin, and methoxychlor were not detected (indicated with negative bars.)  Pie chart shows percent composition of the pesticides for this area.
@@ -526,10 +467,9 @@ Sum_pcbs_gom %>%
 
 Sum_pcbs_rock_n %>%
 ggplot(aes(x="", y = mean, fill = pcb)) +
-  geom_bar(stat="identity", width=1, color = "black") +
+  geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
-  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill", 
-                    name = "PCB") +
+  scale_fill_viridis_d(option = "turbo") +
   labs(title = "PCB Composition",
        subtitle = "Rockland, ME, and points north",
        x = "",
@@ -901,14 +841,14 @@ ggplot(GOM_states) +
                           "TTBT_C", 
                           "LIPIDS_NGG"),
                           labels = c(
-                          "DDT",
-                          "4,4' DDE",
-                          "4,4' DDD",
-                          "Endrin",
-                          "Endrin Aldehyde",
-                          "Aldrin",
-                          "Dieldrin",
-                          "Chlordane",
+                          "Clos. Perf.",
+                          "Oil/Grease",
+                          "Petroleum HC",
+                          "Monobutyl Tin",
+                          "Dibutyl ti",
+                          "Tributyl tin",
+                          "Tetrabutyl tin",
+                          "Lipids"
                           )) +
   labs(title = "Distribution and concentration of PCBs",
        subtitle ="Gulf of Maine sediments",
