@@ -3,7 +3,7 @@ title: Project title
 author: by Joshua A. Harkness and Autumn L. Pauly
 output: github_document
 ---
-##Write Up
+## Write Up
 #### Introduction
 Pollutants, encompassing metals and organic compounds from agricultural, industrial, and household sources, have accumulated in bottom sediments in the Gulf of Maine. The U.S. federal government, through its agencies (USEPA, USGS, and NOAA) and laws (16 USC § 1447-1447f (1990); 33 USC § 1330 (1987)) has recognized the need for assessment of the distribution of contaminants in marine sediments. Our group is interested in assessing the concentration and distribution of potentially harmful contaminants in the marine environment in order for others to better understand and predict their impact. 
 
@@ -18,15 +18,15 @@ While working with this dataset, we noticed that there was a number of missing v
 The broad question that we looked at was about which contaminants are in the Gulf of Maine and what this means for the environment. 
 
 ## Navigating the Project Folder
-There are a series of subfolders that are contained within this project, including RMD, MD, and .shapefiles. 
+There are a series of subfolders that are contained within this project, including .Rmd, .md, and .shapefiles. 
 
 For the data dictionary, navigate to the `Readme.md` file in the `data` folder. This contains what each dataset contains, as well as what each variable represents. 
 
 To begin analyzing the data, navigate to the `data_tidying.rmd` in the `analysis` folder. This contains the code that is needed to clean and pivot the USGS datasets into readable formats. These cleaned files are the base files for the next .Rmd files. 
 
-For PCB analysis, navigate to the `PCBs.rmd` in the `analysis` folder.  
+For PCB analysis, navigate to the `PCBs.rmd` in the `analysis` folder. This folder contains the code needed to analyse PCB and pesticide pollutants through spatial comparisons and a leafmap. 
 
-For PAH analysis, navigate to the `PAHs.rmd` in the `analysis` folder. This .Rmd file analyzes the distributions and concentrations of Polycyclic aromatic hydrocarbon (PAH) contaminants
+For PAH analysis, navigate to the `PAHs.rmd` in the `analysis` folder. This folder contains the code needed to analyse PAH pollutants through spatial comparisons and a leafmap.
 
 ## Presentation
 
