@@ -2,7 +2,8 @@ Project title
 ================
 by Joshua A. Harkness and Autumn L. Pauly
 
-\##Write Up \#### Introduction Pollutants, encompassing metals and
+### Introduction 
+Pollutants, encompassing metals and
 organic compounds from agricultural, industrial, and household sources,
 have accumulated in bottom sediments in the Gulf of Maine. The U.S.
 federal government, through its agencies (USEPA, USGS, and NOAA) and
