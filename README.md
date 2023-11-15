@@ -51,11 +51,11 @@ To begin analyzing the data, navigate to the `data_tidying.rmd` in the
 pivot the USGS datasets into readable formats. These cleaned files are
 the base files for the next .Rmd files.
 
-For PCB analysis, navigate to the `PCBs.rmd` in the `analysis` folder.
+For PCB analysis, navigate to the `PCBs.rmd` in the `analysis` folder. This .Rmd file analyzes the distributions and concentrations of Polycyclic aromatic hydrocarbon (PAH) contaminants. 
 
 For PAH analysis, navigate to the `PAHs.rmd` in the `analysis` folder.
-This .Rmd file analyzes the distributions and concentrations of
-Polycyclic aromatic hydrocarbon (PAH) contaminants
+This .Rmd file analyzes the distributions and concentrations of two organic contaminants,
+Polychlorinated biphenyls (PCB) and pesticide. 
 
 ## Presentation
 
