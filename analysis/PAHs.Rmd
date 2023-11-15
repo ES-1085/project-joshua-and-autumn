@@ -111,7 +111,6 @@ PAHs %>%
 
 PAHs %>%
   group_by(pah_detected) %>%
-  filter(GEN_LOC_NM %in%c("Rockland to north")) %>%
   summarise(amount_detected = mean(amount_detected, na.rm = TRUE), 
             sd_PAH = sd(amount_detected, na.rm = TRUE)) %>%
   arrange(desc(amount_detected))
