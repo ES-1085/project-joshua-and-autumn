@@ -122,14 +122,14 @@ Organics %>%
        y = "Count (n Observations)")
 ```
 
-Interpretation: This bar plot shows number of observations in each general location catagory, within the Organics data set. 
+Interpretation: This bar plot shows number of observations within the Organics dataset in each general location category. 
 
-```{r hist-pcb-total}
+```{r hist-pcb-total, warning=FALSE}
 ggplot(PCBs_long, aes(x = amount_detected)) +
   geom_histogram(fill = "skyblue", color = "black")
 ```
 
-``` { hist-organics-total}
+``` { hist-organics-total, warning=FALSE}
 ggplot(Organics_long, aes(x = amount_detected)) +
   geom_histogram(fill = "skyblue", color = "black")
 ```
@@ -144,7 +144,7 @@ ggplot(pesticides, aes(x = GEN_LOC_NM, y = amount_detected)) +
        x = "General location",
        y = "Concentration (ng/g)")
 
-#create zoomed in version
+#create a zoomed in version
 
 ggplot(pesticides, aes(x = GEN_LOC_NM, y = amount_detected)) +
   geom_boxplot() +
