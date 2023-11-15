@@ -34,7 +34,9 @@ missing values for
 #### Summary and Findings of Contaminates and Concentrations
 
 The broad question that we looked at was about which contaminants are in
-the Gulf of Maine and what this means for the environment.
+the Gulf of Maine and what this means for the environment. Of all the organics present in the Gulf of Maine, the most prevalent PCB by average was PCB 153 (10.59 ng/g), followed by PCB 138 (9.43 ng/g), PCB 101 (7.76 ng/g), and PCB 118 (7.12 ng/g). The most prevalent pesticides on average were DDT (0.17 ng/g), Aldrin (0.24 ng/g), Mirex (0.26 ng/g), and Lindane (1.61 ng/g). An analysis of these contaminants revealed that the highest average concentration and distribution was located in Boston Harbor, MA.
+
+The spatial distribution of PAHs reflected that of PCBs and pesticides. Of all the PAHs present in the Gulf of Maine, the most prevalent PAH by average was Fluoranthene (962.25 ng/g), followed by Pyrene (934.50 ng/g), Chrysene (887.80 ng/g), and Phenanthrene (546.57 ng/g). Boston Harbor had the highest mean concentration of PAHs, where the highest concentrations were of Chrysene (2,234.89 ng/g), Pyrene (2,197.45 ng/g), Fluoranthene (2,016.27 ng/g), and Phenanthrene (1,307.48 ng/g). This was drastically higher than the average concentrations that were found in the Penobscot to Mount Desert Island region, where the highest concentrations were of Fluoranthene (723.32 ng/g) and Pyrene (1845.59 ng/g). 
 
 ## Navigating the Project Folder
 
