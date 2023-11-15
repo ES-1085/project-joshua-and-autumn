@@ -32,7 +32,7 @@ library(visdat)
 library(naniar)
 ```
 
-\##Load full datasets
+## Load full datasets
 
 ``` r
 stations_full = read_excel("/cloud/project/data/original_datasets/STAT2002.xls", sheet = 2, skip = 3)
@@ -50,7 +50,9 @@ down to a more manageable size. Note that the `inorganics_full`
 dataframe is commented out because we are unlikely to use it in our
 final analysis.
 
-\#Selecting variables \###PCBs
+# Selecting variables
+
+### PCBs
 
 ``` r
 PCBs2002 = select(PCBs_full, c(UNIQUE_ID, PCB_52_NGG, PCB101_NGG, PCB118_NGG, PCB128_NGG, PCB138_NGG, PCB153_NGG, PCB180_NGG, PCB206_NGG, PCB209_NGG, DDT_4_4_C, DDT_2_4_C, DDE_4_4_C, DDD_4_4_C, ENDRIN_C, ENDR_ALD_C, ALDRIN_C, DIELDRN_C, CLRDNE_T_C, MIREX_C, METHOXYCLC, BHC_A_C, BHC_B_C, BHC_D_C, LINDANE_C))
@@ -60,7 +62,7 @@ Creates PCBs2002 dataframe. These are variables of interest, principally
 contaminant concentration with assigned unique IDs that can be
 associated to unique IDs in the other dataframes.
 
-\###Stations
+### Stations
 
 ``` r
 Station2002 = select(stations_full, c(UNIQUE_ID, LATITUDE, LONGITUDE, SOUNDING_M, STATE_NAME, QUAD_NAME, GEN_LOC_NM, SPECFC_LOC, AREA_CODE, SAMP_DATE1, TO_SMP_DT2, DPTH_N_COR, DPTH_CODE, COR_GRB_CD))
@@ -71,7 +73,7 @@ Creates Stations2002 dataframe. These are unique IDs, coordinates
 quad name, general and specific location names, area code, sampling
 date, resampling date, and information on sediment collection
 
-\###Textures
+### Textures
 
 ``` r
 Texture2002 = select(textures_full, c(UNIQUE_ID, SAMPLE_WT, SAMP_UNITS, Q1_MM, Q2_MED_MM, Q3_MM, GRN_SI_PCT, SPECIFIC_G, GRAVEL_PCT, SAND_PCT, SILT_PCT, CLAY_PCT, FINES_SIL, SED_CLASS, CLASSIF_S, MEDIAN, MEAN, STDEV_SORT, SKEWNESS, KURTOSIS))
@@ -83,7 +85,7 @@ sediment (sand, gravel, clay, silt). There is also general information
 about samples, and some statistics to describe the distribution of
 sediment characters.
 
-\###Inorganics
+### Inorganics
 
 ``` r
 #Not going to use this for the time being... will determine if we need these variables in the future. 
@@ -94,7 +96,7 @@ Creates Inorganics2002 dataframe with selected variables. This code
 chunk is commented out as we are unlikely to use the inorganics
 dataframe in our analysis.
 
-\###Organics
+### Organics
 
 ``` r
 Organics2002 = select(organics_full, c(UNIQUE_ID, REPNO_ORG, TOTREP_ORG, TVS_EP_PCT, O_G_PCT, O_G_UGG, PHCTOT_PCT, PHCTOT_UGG, PCB_T_UGG, DDT_T_NGG, DDE_T_NGG, DDD_T_NGG, PEST_UG_G, PAHTOT_PCT, PAHTOT_UGG, LIPIDS_NGG, CLOST_SP_G, MBT_C, DBT_C, TBT_C, TTBT_C))
@@ -104,7 +106,7 @@ Creates Organics2002 dataframe with selected variables of interest.
 These include general organics as well as total PCB and some notable
 pesticide concentrations.
 
-\###PAHs
+### PAHs
 
 ``` r
 PAHs2002 = select(PAHs_full, c("UNIQUE ID", BENZNE_C, "2BZTPN_C", "2BZTPN_T_C", C1DIBZTPNC, C2DIBZTPNC, C3DIBZTPNC, "2BZFRN_T_C", NAPHTHLN_C, NPHTLN_T_C, C1NPHTLN_C, "1MTYLNAP_C", "2MTYLNAP_C", C2NPHTLN_C, C3NPHTLN_C, C4NPHTLN_C, BIPHENYL_C, ACNPHTHN_C, ACNPHTYL_C, FLUORENE_C, C1FLORNE_C, C2FLORNE_C, C3FLORNE_C, PHNANTHR_C, "1MT_PHE_C", C2PHNANT_C, C3PHNANT_C, C4PHNANT_C, ANTHRACN_C, BZ_A_ANT_C, "2_AH_ANT_C", PYRENE_C, C1PYRENE_C, BZ_A_PYR_C, BZ_E_PYR_C, IN_123_PYC, "3_4BNZPY_C", FLORNTHN_C, C1FLRNTHNC, BZ_B_FLUOC, BZ_K_FLUOC, CHRYSENE_C, CHRYS_C1_C, CHRYS_C2_C, CHRYS_C3_C, CHRYS_C4_C, PERYLENE_C, BNZ_G_PYLC, B_GHI_PYLC))
@@ -116,7 +118,9 @@ Creates PAHs2002 dataframe with selected variables of interest. These
 are principally contaminat concentrations with unique IDs associated
 with other dataframes.
 
-\#Joining Dataframes \###Associates location information with texture
+#Joining Dataframes 
+
+### Associates location information with texture
 and contaminant data by sample unique ID
 
 ``` r
@@ -129,7 +133,7 @@ and contaminant data by sample unique ID
   Organics_loc <- full_join(Station2002, Organics2002, by = "UNIQUE_ID")
 ```
 
-\###Associates location and sediment character information with
+### Associates location and sediment character information with
 contaminant data by sample unique ID
 
 ``` r
@@ -142,8 +146,8 @@ contaminant data by sample unique ID
 #This will allow us to see if there are specific textures/sediments that attract certain PCBs, PAHs, and Organics.
 ```
 
-\###Recode special character value in PAHs\$CHRYSENE_C as numeric.
-
+### Recode special character value in PAHs\$CHRYSENE_C as numeric.
+ 
 ``` r
   PAHs_loc <- PAHs_loc %>%
     mutate(CHRYSENE_C = recode(CHRYSENE_C, ">" = "NA")) 
@@ -23598,7 +23602,7 @@ Visualizing missing data can help us determine which specific
 contaminants were actually detected, and should then be analyzed, as
 there are a lot of missing values within each dataset.
 
-\###PCBs
+### PCBs
 
 ``` r
  visdat::vis_miss(PCBs_loc)
@@ -23610,7 +23614,7 @@ there are a lot of missing values within each dataset.
 #we should highlight the locations where there are PCBs detected
 ```
 
-\###PAHs
+### PAHs
 
 ``` r
  visdat::vis_miss(PAHs_loc)
@@ -23622,7 +23626,7 @@ there are a lot of missing values within each dataset.
 #we should highlight the locations where there are PAHs detected
 ```
 
-\###PAHs
+### PAHs
 
 ``` r
  visdat::vis_miss(Organics_loc)
@@ -23634,7 +23638,7 @@ there are a lot of missing values within each dataset.
 #This shows us in which station specific textures are found
 ```
 
-\###Textures
+### Textures
 
 ``` r
  visdat::vis_miss(Texture_loc)
@@ -23643,7 +23647,7 @@ there are a lot of missing values within each dataset.
 ![](analysis_files/figure-gfm/missing-data-Textures-1.png)<!-- -->
 
 ``` r
-#This shows us in which station specific textures are found
+# This shows us in which station specific textures are found
 ```
 
 # Loading full datasets as CSVs
