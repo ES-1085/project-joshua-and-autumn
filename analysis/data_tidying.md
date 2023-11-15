@@ -40,10 +40,11 @@ library(visdat)
 library(naniar)
 ```
 
-\##Loading Full Data Sets These data sets are very large. Since these
-are all very large data files, we will select useful variables and
-variables we are interested in looking at to pare them down to a more
-manageable size.
+## Loading Full Data Sets
+
+These data sets are very large. Since these are all very large data
+files, we will select useful variables and variables we are interested
+in looking at to pare them down to a more manageable size.
 
 ``` r
 stations_full = read_xls("/cloud/project/data/original_datasets/STAT2002.xls", sheet = 2, skip = 3)
@@ -52,19 +53,24 @@ PAHs_full = read_excel("/cloud/project/data/original_datasets/PAHS2002.xls", she
 organics_full = read_excel("/cloud/project/data/original_datasets/GENO2002.xls", sheet = 2, skip = 3)
 ```
 
-\#Selecting and Modifying Variables \###PCBs Creates PCBs2002 data
-frame. These are variables of interest, principally contaminant
-concentration with assigned unique IDs that can be associated to unique
-IDs in the other data frames.
+# Selecting and Modifying Variables
+
+### PCBs
+
+Creates PCBs2002 data frame. These are variables of interest,
+principally contaminant concentration with assigned unique IDs that can
+be associated to unique IDs in the other data frames.
 
 ``` r
 PCBs2002 = select(PCBs_full, c(UNIQUE_ID, PCB_52_NGG, PCB101_NGG, PCB118_NGG, PCB128_NGG, PCB138_NGG, PCB153_NGG, PCB180_NGG, PCB206_NGG, PCB209_NGG, DDT_4_4_C, DDT_2_4_C, DDE_4_4_C, DDD_4_4_C, ENDRIN_C, ENDR_ALD_C, ALDRIN_C, DIELDRN_C, CLRDNE_T_C, MIREX_C, METHOXYCLC, BHC_A_C, BHC_B_C, BHC_D_C, LINDANE_C))
 ```
 
-\###Stations Creates Stations2002 data frame. These are unique IDs,
-coordinates (Lat/Lon in decimal degrees), depth sounding (meters), state
-name, USGS quad name, general and specific location names, area code,
-sampling date, resampling date, and information on sediment collection.
+### Stations
+
+Creates Stations2002 data frame. These are unique IDs, coordinates
+(Lat/Lon in decimal degrees), depth sounding (meters), state name, USGS
+quad name, general and specific location names, area code, sampling
+date, resampling date, and information on sediment collection.
 
 ``` r
 Station2002 = select(stations_full, c(UNIQUE_ID, LATITUDE, LONGITUDE, SOUNDING_M, STATE_NAME, QUAD_NAME, GEN_LOC_NM, SPECFC_LOC, AREA_CODE, SAMP_DATE1, TO_SMP_DT2, DPTH_N_COR, DPTH_CODE, COR_GRB_CD))
@@ -148,17 +154,21 @@ Station2002 <- Station2002 %>%
                            ))
 ```
 
-“Piscataqua River” = “” \###Organics Creates Organics2002 dataframe with
-selected variables of interest. These include general organics as well
-as total PCB and some notable pesticide concentrations.
+### Organics
+
+Creates Organics2002 dataframe with selected variables of interest.
+These include general organics as well as total PCB and some notable
+pesticide concentrations.
 
 ``` r
 Organics2002 = select(organics_full, c(UNIQUE_ID, O_G_UGG, PHCTOT_UGG, PCB_T_UGG, DDT_T_NGG, DDE_T_NGG, DDD_T_NGG, PEST_UG_G, LIPIDS_NGG, CLOST_SP_G, MBT_C, DBT_C, TBT_C, TTBT_C))
 ```
 
-\###PAHs Creates PAHs2002 dataframe with selected variables of interest.
-These are principally contaminate concentrations with unique IDs
-associated with other data frames.
+### PAHs
+
+Creates PAHs2002 dataframe with selected variables of interest. These
+are principally contaminate concentrations with unique IDs associated
+with other data frames.
 
 ``` r
 PAHs2002 = select(PAHs_full, c("UNIQUE ID", BENZNE_C, "2BZTPN_C", "2BZFRN_T_C", BIPHENYL_C, ACNPHTHN_C, ACNPHTYL_C, FLUORENE_C, PHNANTHR_C, ANTHRACN_C,  PYRENE_C, FLORNTHN_C, CHRYSENE_C, PERYLENE_C)) 
@@ -195,9 +205,10 @@ sample’s `UNIQUE_ID`.
   Organics_loc <- full_join(Station2002, Organics2002, by = "UNIQUE_ID")
 ```
 
-\###Recoding PAHs’ Special Character Values as Numeric The amount values
-for the PAH containment `CHRYSENE` needs to be recoded from character
-values to numeric values.
+### Recoding PAHs’ Special Character Values as Numeric
+
+The amount values for the PAH containment `CHRYSENE` needs to be recoded
+from character values to numeric values.
 
 ``` r
   PAHs_loc <- PAHs_loc %>%
@@ -32366,7 +32377,7 @@ Visualizing missing data can help us determine which specific
 contaminants were actually detected, and should then be analyzed, as
 there are a lot of missing values within each data set.
 
-\###Missing PCB Data
+### Missing PCB Data
 
 ``` r
 #Visualizing the percentage of missing data
@@ -32407,7 +32418,7 @@ naniar::miss_var_summary(PCBs_loc)
     ## 10 MIREX_C      7428     94.6
     ## # ℹ 29 more rows
 
-\###Missing PAH Data
+### Missing PAH Data
 
 ``` r
 #Visualizing the percentage of missing data
@@ -32448,7 +32459,7 @@ naniar::miss_var_summary(PAHs_loc)
     ## 10 ANTHRACN     6784     86.5
     ## # ℹ 18 more rows
 
-\###Missing Organics Data
+### Missing Organics Data
 
 ``` r
 #Visualizing the percentage of missing data
