@@ -115,7 +115,6 @@ PAHs %>%
             sd_PAH = sd(amount_detected, na.rm = TRUE)) %>%
   arrange(desc(amount_detected))
 ```
-```
 
 # PAH Site to Site Comparisons
 ## General PAH Sumary Statistics
@@ -149,7 +148,7 @@ The graph below is showing which site has the highest mean PAH concentrations in
 ```{r pah-gen-loc}
 Summary_PAHs %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PAH)), y = mean_PAH, fill = GEN_LOC_NM))+
-  geom_col(col = "black")+
+  geom_col(color = "black")+
   geom_errorbar(aes(ymin = mean_PAH - SE_PAH, ymax = mean_PAH + SE_PAH), width = 0.2)+
   coord_flip()+
   scale_fill_viridis_d()+
@@ -169,7 +168,7 @@ This graph looks specifically at the locations with the highest concentrations o
 Summary_PAHs %>%
   filter(GEN_LOC_NM %in% c("Boston Inner Harbor", "Northwest Boston Harbor", "Central Boston Harbor", "Cape Elizabeth to Rockland", "Cape Ann to Cape Elizabeth")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PAH)), y = mean_PAH, fill = GEN_LOC_NM)) +
-  geom_col() +
+  geom_col(color = "black") +
   geom_errorbar(aes(ymin = mean_PAH - SE_PAH, ymax = mean_PAH + SE_PAH), width = 0.2) +
   scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill") +
   theme_minimal() +
@@ -194,7 +193,7 @@ PAHs %>%
   arrange(desc(amount_detected))
 ```
 
-``` {r pahs-boston-harbor-graph}
+``` {r pahs-boston-harbor-graph, warning=FALSE}
 PAHs %>%
   group_by(GEN_LOC_NM, pah_detected) %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
@@ -213,7 +212,7 @@ ggplot(aes(x = fct_rev(fct_reorder(pah_detected, amount_detected)), y = amount_d
        fill = "PAH Detected")
 ```
 
-``` {r pie-chart-boston}
+``` {r pie-chart-gom, warning=FALSE}
 PAHs %>%
   group_by(GEN_LOC_NM, pah_detected) %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
@@ -242,7 +241,8 @@ PAHs %>%
   filter(GEN_LOC_NM == "Boston Inner Harbor") %>%
   arrange(desc(amount_detected))
 
-``` 
+```
+
 ``` {r sum-organics-boston-inner-harbor-graph}
 PAHs %>%
   group_by(GEN_LOC_NM, pah_detected) %>%
@@ -270,6 +270,7 @@ PAHs %>%
   filter(GEN_LOC_NM == "Northwest Boston Harbor") %>%
   arrange(desc(amount_detected))
 ```
+-
 ``` {r type_of_organic-in-northwest-boston-harbor-graph, warning = FALSE}
 PAHs %>%
   drop_na(amount_detected) %>%
@@ -625,11 +626,11 @@ ggplot(GOM_states)+
       text_family = "ArcherPro Book"))
 ```
 
-```{r MDI-area-map-pah}
+```{r MDI-area-map-pah-colored}
 ggplot(GOM_states)+
   geom_sf(aes())+
   geom_sf(data = Bathy_hi_res, color = "gray80", width = 1)+
-  geom_point(data=PAH_no_na_specific_pah, (aes(x = LONGITUDE, y = LATITUDE, scale = amount_detected, color = pah_detected, alpha = 0.5)))+
+  geom_point(data=PAH_no_na_specific_pah, (aes(x = LONGITUDE, y = LATITUDE, scale = amount_detected, color = pah_detected, alpha = 0.5)))+ 
   xlim(-69.2,-68)+
   ylim(44,44.5)+
   theme_bw()+
