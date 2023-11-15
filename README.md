@@ -2,7 +2,8 @@ Project title
 ================
 by Joshua A. Harkness and Autumn L. Pauly
 
-### Introduction 
+##Write Up 
+#### Introduction 
 Pollutants, encompassing metals and
 organic compounds from agricultural, industrial, and household sources,
 have accumulated in bottom sediments in the Gulf of Maine. The U.S.
@@ -57,7 +58,8 @@ Polycyclic aromatic hydrocarbon (PAH) contaminants
 
 ## Presentation
 
-Our presentation can be found [here](presentation/presentation.html).
+Our presentation can be found
+[here](https://docs.google.com/presentation/d/1LWPEdxH3TlTmRcBp79jHunibIEL1xaWUlSAA-Bt3cE8/edit?usp=sharing).
 
 ## Acknowledgements
 
