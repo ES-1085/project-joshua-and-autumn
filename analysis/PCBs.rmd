@@ -4,13 +4,13 @@ author: "Joshua Harkness and Autumn Pauly"
 date: "2023-10-28"
 output: github_document
 ---
-# Introduction
+## Introduction
 This document is an analysis of distributions and concentrations of PCB and Organic contaminants that were reported in a publication by the U.S. Geological Survey on contaminated sediments in the Gulf of Maine. In this data set, we analyzed the prevalence of oil and grease, petroleum Hydrocarbons, polychlorinated biphenyls, DDT compounds, DDE compounds, DDD compounds, pesticide compounds, lipids, clostridium perfringens, monobutyl tin, dibutyl tin, tributyl tin, tetrabutyl tin, PCB congeners #52-209, DDT 4,4', DDT 2,4', DDD 4,4', DDD 4,2', endrin, endrin aldehyde, aldrin, dieldrin, chlordane, mirex, methoxychlor, hexachlorocyclohexane alpha/beta/gamma isomer, and lindane.
 
-#Background
+### Background
 Polychlorinated biphenyls (PCBs) constitute a group of persistent synthetic organic pollutants characterized by two interconnected phenyl rings, forming aromatic structures with a double bond, and chlorine atoms affixed to the phenyl rings. Due to their notable thermal stability and chemical properties, PCBs found extensive use in diverse industrial applications spanning the 1930s to the 1970s. The prohibition of PCBs in the United States in 1979 resulted from substantial harm inflicted upon both human and environmental health. The Stockholm Convention on Persistent Organic Pollutants, initiated in 2001 as an international treaty, is dedicated to mitigating the production and use of persistent organic pollutants, including PCBs.
 
-PCBs have been implicated in inducing cancer in animals and eliciting various severe non-cancer health impacts, encompassing effects on the immune, reproductive, nervous, and endocrine systems. The International Agency for Research on Cancer (IARC) has classified PCBs as probable human carcinogens (Group 2A). Their deleterious influence extends to marine ecosystems, where their exceptional stability, poor biodegradability, and lipid solubility contribute to bioaccumulation (Kennish 1996). Functioning as endocrine-disrupting compounds, PCBs perturb the hormonal equilibrium in animals, potentially leading to immunodeficiency and reproductive challenges (Clark 1999).
+Research suggests that PCBs can induce cancer in animals as well as various severe non-cancer health impacts, including having effects on the immune, reproductive, nervous, and endocrine systems. The International Agency for Research on Cancer (IARC) has classified PCBs as probable human carcinogens. Their deleterious influence extends to marine ecosystems, where their exceptional stability, poor biodegradability, and lipid solubility contribute to bioaccumulation (Kennish 1996). Functioning as endocrine-disrupting compounds, PCBs perturb the hormonal equilibrium in animals, potentially leading to immunodeficiency and reproductive challenges (Clark 1999).
 
 ### Loading packages
 These are the packages that will be used for analysis. 
@@ -23,6 +23,7 @@ library(RColorBrewer)
 #install.packages("dplyr")
 library(dplyr)
 library(ggridges)
+library(rmarkdown)
 ```
 
 ### Loading PCB and Organics Datasets
@@ -42,8 +43,8 @@ glimpse(Organics)
 ```
 
 ## Data Transformation
-### Pivot Organics Longer
-JH -- the organics dataset has already been joined with the stations dataset (loaded "Organics_loc.csv" above), so the data now needs to be pivoted into R format.
+### Pivoting Organics into a Longer Format
+This function creates two columns to properly contain the values of the organics measured during these surveys - the `organic_detected` column contains the type of organic that was measured and the `amount_detected` column contains the values for each measurement. 
 
 ```{r joining-station-info, warning = FALSE}
 Organics_long <- Organics %>%
@@ -53,10 +54,12 @@ Organics_long <- Organics %>%
 
 Organics_long = select(Organics_long, c(UNIQUE_ID, LATITUDE, LONGITUDE, SOUNDING_M, STATE_NAME, QUAD_NAME, GEN_LOC_NM, SPECFC_LOC, AREA_CODE, SAMP_DATE1, TO_SMP_DT2, DPTH_N_COR, DPTH_CODE, COR_GRB_CD, organic_detected, amount_detected))
 
-glimpse(Organics_long)
+#glimpse(Organics_long)
 ```
 
-### Filter out NAs and 0 values from Organics_long
+### Filter Out NAs and 0 Values
+This function will filter out all NA and 0 values from the Organics_long data set. This will allow us to look only at observations were some form of Organic was detected. 
+
 ```{r filter-organics-no-nas-no-zeros}
 Organics_long_no_na_no_zero <- Organics_long %>%
   drop_na(amount_detected) %>%
@@ -72,11 +75,11 @@ PCBs_long <- PCBs %>%
                names_to = "pcb", 
                values_to = "amount_detected")
 
-glimpse(PCBs_long)
+#glimpse(PCBs_long)
 ```
 
-### Creating Pesticides Data Set
-This is creating a data set that only contains the pesticides that were measured. 
+#### Creating Pesticides Data Set
+This is creating a data set from the PCBs dataset that will only contain the pesticides that were measured. For clarity in later visualizations, we have combined 2,4 DDT with 4,4 DDT and BHC A, B, and D.
 
 ```{r create-pesticides-df-combine-pest-categories}
 pesticides <- PCBs_long %>%
@@ -88,12 +91,13 @@ pesticides <- PCBs_long %>%
                           "BHC_C" = "BHC_D_C")) %>%
   filter(pcb %in% c("DDT_C", "DDE_4_4", "DDD_4_4", "ENDRIN_C", "ENDR_ALD_C", "ALDRIN_C", "DIELDRN_C", "CLRDNE_T_C", "MIREX_C", "METHOXYCLC", "BHC_C", "LINDANE_C"))
 
-glimpse(pesticides)
+#glimpse(pesticides)
 ```
 
-For clarity in later visualizations, we have combined 2,4 and 4,4 DDT and BHC A, B, and D.
 
 ### Create PCBs_only dataset
+This is creating a data set that only contains the PCBs that were measured. 
+
 ```{r}
 pcbs_only <- PCBs_long %>%
   filter(pcb %in% c("PCB_52_NGG", "PCB101_NGG", "PCB118_NGG", "PCB128_NGG", "PCB138_NGG", "PCB153_NGG", "PCB180_NGG", "PCB206_NGG", "PCB209_NGG"))
@@ -117,12 +121,15 @@ Organics %>%
        x = "General Location",
        y = "Count (n Observations)")
 ```
-Interpretation: This bar plot shows number of observations in each general location catagory, within the Organics dataset. 
+
+Interpretation: This bar plot shows number of observations in each general location catagory, within the Organics data set. 
 
 ```{r hist-pcb-total}
 ggplot(PCBs_long, aes(x = amount_detected)) +
   geom_histogram(fill = "skyblue", color = "black")
+```
 
+``` { hist-organics-total}
 ggplot(Organics_long, aes(x = amount_detected)) +
   geom_histogram(fill = "skyblue", color = "black")
 ```
@@ -421,17 +428,19 @@ Sum_pesticides_gom %>%
        y = "Concentration (ng/g)",
        caption = "Error bars = 1 standard error")
 
-Sum_pesticides_rock_n %>%
-  ggplot(aes(x="", y = mean, fill = pcb)) +
-  geom_bar(stat="identity", width=1) +
-  coord_polar("y", start=0) +
-  scale_fill_viridis_d(option = "turbo") +
-  theme_minimal() +
-  labs(title = "Pesticide Composition",
-       subtitle = "Rockland, ME, and points north",
-       x = "",
-       y = "Percent Composition", 
-       fill = "Pesticide")
+#Sum_pesticides_rock_n %>%
+  #ggplot(aes(x="", y = mean, fill = pcb)) +
+  #geom_bar(stat="identity", width=1) +
+  #coord_polar("y", start=0) +
+  #scale_fill_viridis_d(option = "turbo") +
+  #theme_minimal() +
+  #labs(title = "Pesticide Composition",
+       #subtitle = "Rockland, ME, and points north",
+       #x = "",
+       #y = "Percent Composition", 
+       #fill = "Pesticide")
+
+#AP - I couldn't find what sum_pesticides_rock_n was, so I commented it out! 
 ```
 
 Interpretation: This bar plot shows concentrations of each pesticide per ng/g of sediment in the inshore area from Rockland, Maine to the Bay of Fundy.  Benzene hexachloride alpha, beta, and delta isomers (BHC) are the most prevalent in this area, but are also highly variable (mean = 1.67 +/- 12.91 ng/g).  Lindane, the gamma isomer of BHC, which is more insecticidal, is much less prevalent (mean = 0.13 +/- 0.58 ng/g).  Mirex (mean = 0.26 +/- 1.71 ng/g) and aldrin (mean = 0.24 +/- 1.43 ng/g) are also prevalent.  Chlordane, endrin aldehyde, endrin, and methoxychlor were not detected (indicated with negative bars.)  Pie chart shows percent composition of the pesticides for this area.
@@ -465,15 +474,15 @@ Sum_pcbs_gom %>%
        y = "Amount Detected (ng/g)",
        caption = "Error bars = 1 standard error")
 
-Sum_pcbs_rock_n %>%
-ggplot(aes(x="", y = mean, fill = pcb)) +
-  geom_bar(stat="identity", width=1) +
-  coord_polar("y", start=0) +
-  scale_fill_viridis_d(option = "turbo") +
-  labs(title = "PCB Composition",
-       subtitle = "Rockland, ME, and points north",
-       x = "",
-       y = "Percent Composition")
+#Sum_pcbs_rock_n %>%
+#ggplot(aes(x="", y = mean, fill = pcb)) +
+  #geom_bar(stat="identity", width=1) +
+  #coord_polar("y", start=0) +
+  #scale_fill_viridis_d(option = "turbo") +
+  #labs(title = "PCB Composition",
+       #subtitle = "Rockland, ME, and points north",
+       #x = "",
+       #y = "Percent Composition")
 ```
 Interpretation:  This bar plot shows concentrations of each polychlorinated biplhenyl (PCBs) in the area from Rockland, ME to the Bay of Fundy, and was detected in the PCBs dataset.  All PCBs are similarly prevalent in this area, with PCB 138 being the most abundant (mean = 0.30 +/- 1.23 ng/g), and PCB 128 being the least abundant (mean = 0.02 +/- 0.2 ng/g).  The pie chart shows percent composition of the same PCBs for this area.
 
@@ -1084,76 +1093,76 @@ pesticides_no_na_no_zero <- pesticides %>%
 ```
 
 ```{r set-up-colors-for-leaflet-map}
-summary(pesticides_no_na_no_zero$amount_detected)
+#summary(pesticides_no_na_no_zero$amount_detected)
 
-bins <- seq(0, 10, 1)
+#bins <- seq(0, 10, 1)
 ```
 ```{r set-pallete-for-leaflet-map}
-palpest <- colorBin("YlOrRd", domain = pesticides_no_na_no_zero$amount_detected, bins = bins)
+#palpest <- colorBin("YlOrRd", domain = pesticides_no_na_no_zero$amount_detected, bins = bins)
 ```
 
 
 ```{r create-html-labels-pesticides}
-markers <- pesticides_no_na_no_zero
+#markers <- pesticides_no_na_no_zero
 
 
-markers <- markers %>%
-  mutate(labels1 = paste0("<strong>", "Site: ", site,"</strong><br>",
-                         "BHC: ", round(amount_detected[pcb == "BHC_C"], digits = 4), " ng/g<br>",
-                         "Chlordane: ", round(amount_detected[pcb == "CLRDNE_T_C"], digits = 4), " ng/g<br>",
-                         "DDT: ", round(amount_detected[pcb == "DDT_C"], digits = 4), " ng/g<br>",
-                         "DDE: ", round(amount_detected[pcb == "DDE_4_4_C"], digits = 4), " ng/g<br>",
-                         "DDD: ", round(amount_detected[pcb == "DDD_4_4_C"], digits = 4), " ng/g<br>",
-                         "Aldrin: ", round(amount_detected[pcb == "ALDRIN_C"], digits = 4), " ng/g<br>",
-                         "Dieldrin: ", round(amount_detected[pcb == "DIELDRN_C"], digits = 4), " ng/g<br>",
-                         "Endrin: ", round(amount_detected[pcb == "ENDRIN_C"], digits = 4), " ng/g<br>",
-                         "Endrin Aldehyde: ", round(amount_detected[pcb == "ENDR_ALD_C"], digits = 4), " ng/g<br>",
-                         "Lindane: ", round(amount_detected[pcb == "LINDANE_C"], digits = 4), " ng/g<br>",
-                         "Mirex: ", round(amount_detected[pcb == "MIREX_C"], digits = 4), " ng/g<br>",
-                         "Methoxychlor: ", round(amount_detected[pcb == "METHOXYCLC"], digits = 4), " ng/g<br>"))
+#markers <- markers %>%
+  #mutate(labels1 = paste0("<strong>", "Site: ", site,"</strong><br>",
+   #                      "BHC: ", round(amount_detected[pcb == "BHC_C"], digits = 4), " ng/g<br>",
+    #                     "Chlordane: ", round(amount_detected[pcb == "CLRDNE_T_C"], digits = 4), " ng/g<br>",
+     #                    "DDT: ", round(amount_detected[pcb == "DDT_C"], digits = 4), " ng/g<br>",
+      #                   "DDE: ", round(amount_detected[pcb == "DDE_4_4_C"], digits = 4), " ng/g<br>",
+       #                  "DDD: ", round(amount_detected[pcb == "DDD_4_4_C"], digits = 4), " ng/g<br>",
+        #                 "Aldrin: ", round(amount_detected[pcb == "ALDRIN_C"], digits = 4), " ng/g<br>",
+         #                "Dieldrin: ", round(amount_detected[pcb == "DIELDRN_C"], digits = 4), " ng/g<br>",
+          #               "Endrin: ", round(amount_detected[pcb == "ENDRIN_C"], digits = 4), " ng/g<br>",
+           #              "Endrin Aldehyde: ", round(amount_detected[pcb == "ENDR_ALD_C"], digits = 4), " ng/g<br>",
+            #             "Lindane: ", round(amount_detected[pcb == "LINDANE_C"], digits = 4), " ng/g<br>",
+             #            "Mirex: ", round(amount_detected[pcb == "MIREX_C"], digits = 4), " ng/g<br>",
+              #           "Methoxychlor: ", round(amount_detected[pcb == "METHOXYCLC"], digits = 4), " ng/g<br>"))
 
 
-head(markers$labels1, 1)
+#head(markers$labels1, 1)
 ```
 
 ```{r leaflet-map-pesticides}
-leaflet() %>%
-  addProviderTiles(providers$Esri.WorldTopoMap) %>%
-  setView(lng = -68.5, 
-          lat = 43.5, 
-          zoom = 6) %>%
-  addCircleMarkers(lng = markers$LONGITUDE, lat = markers$LATITUDE, popup = markers$labels1, color = palpest, radius = log(markers$amount_detected*500))
+#leaflet() %>%
+  #addProviderTiles(providers$Esri.WorldTopoMap) %>%
+  #setView(lng = -68.5, 
+   #       lat = 43.5, 
+    #      zoom = 6) %>%
+  #addCircleMarkers(lng = markers$LONGITUDE, lat = markers$LATITUDE, popup = markers$labels1, color = palpest, radius = #log(markers$amount_detected*500))
 ```
 
 ```{r create-html-labels-pcbs}
-markers <- pcbs_only %>%
-  drop_na(amount_detected) %>%
-  filter(amount_detected != 0)
+#markers <- pcbs_only %>%
+  #drop_na(amount_detected) %>%
+  #filter(amount_detected != 0)
 
 
-markers <- markers %>%
-  mutate(labels2 = paste0("<strong>", "Site: ", site,"</strong><br>",
-                         "PCB 52: ", round(amount_detected[pcb == "PCB_52_NGG"], digits = 4), " ng/g<br>",
-                         "PCB 101: ", round(amount_detected[pcb == "PCB101_NGG"], digits = 4), " ng/g<br>",
-                         "PCB 118: ", round(amount_detected[pcb == "PCB118_NGG"], digits = 4), " ng/g<br>",
-                         "PCB 128: ", round(amount_detected[pcb == "PCB128_NGG"], digits = 4), " ng/g<br>",
-                         "PCB 138: ", round(amount_detected[pcb == "PCB138_NGG"], digits = 4), " ng/g<br>",
-                         "PCB 153: ", round(amount_detected[pcb == "PCB153_NGG"], digits = 4), " ng/g<br>",
-                         "PCB 180: ", round(amount_detected[pcb == "PCB180_NGG"], digits = 4), " ng/g<br>",
-                         "PCB 206: ", round(amount_detected[pcb == "PCB206_NGG"], digits = 4), " ng/g<br>",
-                         "PCB 209: ", round(amount_detected[pcb == "PCB209_NGG"], digits = 4), " ng/g<br>"))
+#markers <- markers %>%
+  #mutate(labels2 = paste0("<strong>", "Site: ", site,"</strong><br>",
+                         #"PCB 52: ", round(amount_detected[pcb == "PCB_52_NGG"], digits = 4), " ng/g<br>",
+                         #"PCB 101: ", round(amount_detected[pcb == "PCB101_NGG"], digits = 4), " ng/g<br>",
+                         #"PCB 118: ", round(amount_detected[pcb == "PCB118_NGG"], digits = 4), " ng/g<br>",
+                         #"PCB 128: ", round(amount_detected[pcb == "PCB128_NGG"], digits = 4), " ng/g<br>",
+                         #"PCB 138: ", round(amount_detected[pcb == "PCB138_NGG"], digits = 4), " ng/g<br>",
+                         #"PCB 153: ", round(amount_detected[pcb == "PCB153_NGG"], digits = 4), " ng/g<br>",
+                         #"PCB 180: ", round(amount_detected[pcb == "PCB180_NGG"], digits = 4), " ng/g<br>",
+                         #"PCB 206: ", round(amount_detected[pcb == "PCB206_NGG"], digits = 4), " ng/g<br>",
+                         #"PCB 209: ", round(amount_detected[pcb == "PCB209_NGG"], digits = 4), " ng/g<br>"))
 
 
-head(markers$labels2, 1)
+#head(markers$labels2, 1)
 ```
 
 ```{r leaflet-map-pcbs}
-leaflet() %>%
-  addProviderTiles(providers$Esri.WorldTopoMap) %>%
-  setView(lng = -68.5, 
-          lat = 43.5, 
-          zoom = 6) %>%
-  addCircleMarkers(lng = markers$LONGITUDE, lat = markers$LATITUDE, popup = markers$labels2, color = palpest, radius = log(markers$amount_detected*500))
+#leaflet() %>%
+  #addProviderTiles(providers$Esri.WorldTopoMap) %>%
+  #setView(lng = -68.5, 
+          #lat = 43.5, 
+          #zoom = 6) %>%
+  #addCircleMarkers(lng = markers$LONGITUDE, lat = markers$LATITUDE, popup = markers$labels2, color = palpest, radius = #log(markers$amount_detected*500))
 ```
 
 Note that the above code chunks are commented out as .rmd will not knit to github document with html functions.  Uncomment to run and change output type to `html_document` to knit.
