@@ -2,7 +2,6 @@ Project title
 ================
 by Joshua A. Harkness and Autumn L. Pauly
 
-##Write Up 
 #### Introduction 
 Pollutants, encompassing metals and
 organic compounds from agricultural, industrial, and household sources,
