@@ -13,7 +13,7 @@ Polycyclic aromatic hydrocarbons (PAH) are a class of organic compounds that are
 The Agency for Toxic Substances and Disease Registry states that PAHs have a low degree of acute toxicity to humans. When chronically exposed to high doses, PAH toxicity can induce issues within the pulmonary, gastrointestinal, renal, and dental systems as well as increase an individual's risk of cancer (Mumtaz et al. 1996). The International Agency for Research on Cancer (IARC) has classified certain PAHs, such as benzo[a]pyrene, as Group 1 human carcinogens (IARC, 2010). In regards to the environment, PAHs have moderate to high acute toxicity to wildlife, specifically aquatic life and birds. Research has found that PAHs have toxic compounds that affect immunotoxicity, cardiotoxicity, and embryonic abnormalities in marine organisms (Honda & Suzuki 2020). Environmental and health concerns associated with PAHs have led to increased efforts to monitor and regulate their presence. Strategies to reduce PAH exposure include controlling emissions from industrial processes, improving combustion efficiency, and employing proper waste disposal methods.
 
 ### Loading Packages
-```{r load-packages}
+```{r load-packages, warning=FALSE}
 library(tidyverse)
 library(sf)
 library(leaflet)
@@ -24,7 +24,7 @@ library(ggridges)
 ```
 
 ### Loading PAH Dataset
-```{r load-data}
+```{r load-data, warning=FALSE}
 PAHs <- read.csv(paste0("/cloud/project/data/datasets_csv/PAHs_loc.csv"), header = T)
 ```
 
