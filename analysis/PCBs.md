@@ -30,11 +30,11 @@ Convention on Persistent Organic Pollutants, initiated in 2001 as an
 international treaty, is dedicated to mitigating the production and use
 of persistent organic pollutants, including PCBs.
 
-PCBs have been implicated in inducing cancer in animals and eliciting
-various severe non-cancer health impacts, encompassing effects on the
-immune, reproductive, nervous, and endocrine systems. The International
-Agency for Research on Cancer (IARC) has classified PCBs as probable
-human carcinogens (Group 2A). Their deleterious influence extends to
+Research suggests that PCBs can induce cancer in animals as well as
+various severe non-cancer health impacts, including having effects on
+the immune, reproductive, nervous, and endocrine systems. The
+International Agency for Research on Cancer (IARC) has classified PCBs
+as probable human carcinogens. Their deleterious influence extends to
 marine ecosystems, where their exceptional stability, poor
 biodegradability, and lipid solubility contribute to bioaccumulation
 (Kennish 1996). Functioning as endocrine-disrupting compounds, PCBs
@@ -155,13 +155,12 @@ glimpse(Organics)
 
 ## Data Transformation
 
-### Organics
+### Pivoting Organics into a Longer Format
 
-#### Pivoting a Longer Format
-
-The Organics dataset has already been joined with the Stations dataset
-(loaded “Organics_loc.csv” above) in the `data_tidying.Rmd`, so the data
-now needs to be pivoted into R format.
+This function creates two columns to properly contain the values of the
+organics measured during these surveys - the `organic_detected` column
+contains the type of organic that was measured and the `amount_detected`
+column contains the values for each measurement.
 
 ``` r
 Organics_long <- Organics %>%
@@ -174,7 +173,7 @@ Organics_long = select(Organics_long, c(UNIQUE_ID, LATITUDE, LONGITUDE, SOUNDING
 #glimpse(Organics_long)
 ```
 
-#### Filter Out NAs and 0 Values
+### Filter Out NAs and 0 Values
 
 This function will filter out all NA and 0 values from the Organics_long
 data set. This will allow us to look only at observations were some form
@@ -186,9 +185,7 @@ Organics_long_no_na_no_zero <- Organics_long %>%
   filter(amount_detected != "0")
 ```
 
-### PCBs
-
-#### Pivoting a Longer Format
+### Pivoting PCBs into a Longer Format
 
 This function creates two columns to properly contain the values of PCBs
 measured during these surveys - the `pcb` column contains the type of
@@ -206,8 +203,9 @@ PCBs_long <- PCBs %>%
 
 #### Creating Pesticides Data Set
 
-This is creating a data set that only contains the pesticides that were
-measured.
+This is creating a data set from the PCBs dataset that will only contain
+the pesticides that were measured. For clarity in later visualizations,
+we have combined 2,4 DDT with 4,4 DDT and BHC A, B, and D.
 
 ``` r
 pesticides <- PCBs_long %>%
@@ -221,9 +219,6 @@ pesticides <- PCBs_long %>%
 
 #glimpse(pesticides)
 ```
-
-For clarity in later visualizations, we have combined 2,4 and 4,4 DDT
-and BHC A, B, and D.
 
 ### Create PCBs_only dataset
 
@@ -282,9 +277,10 @@ Organics %>%
        y = "Count (n Observations)")
 ```
 
-![](PCBs_files/figure-gfm/n-obs-gen-loc-1.png)<!-- --> Interpretation:
-This bar plot shows number of observations in each general location
-catagory, within the Organics dataset.
+![](PCBs_files/figure-gfm/n-obs-gen-loc-1.png)<!-- -->
+
+Interpretation: This bar plot shows number of observations within the
+Organics dataset in each general location category.
 
 ``` r
 ggplot(PCBs_long, aes(x = amount_detected)) +
@@ -293,23 +289,12 @@ ggplot(PCBs_long, aes(x = amount_detected)) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-    ## Warning: Removed 178743 rows containing non-finite values (`stat_bin()`).
-
 ![](PCBs_files/figure-gfm/hist-pcb-total-1.png)<!-- -->
 
-``` r
-ggplot(Organics_long, aes(x = amount_detected)) +
-  geom_histogram(fill = "skyblue", color = "black")
-```
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
-    ## Warning: Removed 98860 rows containing non-finite values (`stat_bin()`).
-
-![](PCBs_files/figure-gfm/hist-pcb-total-2.png)<!-- --> Interpretation:
-In both the PCBs and Organics datasets, the amount detected
-(concentration) is extremely right skewed, with most of our values close
-to zero, and high influence outliers at much higher values.
+`{ hist-organics-total, warning=FALSE} ggplot(Organics_long, aes(x = amount_detected)) +   geom_histogram(fill = "skyblue", color = "black")`
+Interpretation: In both the PCBs and Organics datasets, the amount
+detected (concentration) is extremely right skewed, with most of our
+values close to zero, and high influence outliers at much higher values.
 
 ``` r
 ggplot(pesticides, aes(x = GEN_LOC_NM, y = amount_detected)) +
@@ -326,7 +311,7 @@ ggplot(pesticides, aes(x = GEN_LOC_NM, y = amount_detected)) +
 ![](PCBs_files/figure-gfm/boxplots-skewness-1.png)<!-- -->
 
 ``` r
-#create zoomed in version
+#create a zoomed in version
 
 ggplot(pesticides, aes(x = GEN_LOC_NM, y = amount_detected)) +
   geom_boxplot() +
