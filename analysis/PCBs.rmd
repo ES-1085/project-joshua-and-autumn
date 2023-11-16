@@ -356,6 +356,8 @@ Sum_pesticides_gom %>%
 
 Interpretation: Dieldrin is the most abundant pesticide identified in the Gulf of Maine, with (mean = 2.08 (+/- 76.2) ng/g per sample).  Lindane is also highly abundant (mean = 1.51 (+/- 42.42) ng/g per sample).  All other pesticides have means less than 0.4 ng/g per sample.  Note size of standard deviations, which illustrate how varied concentrations are; most have means close to zero, but high influence outliers are common.
 
+*Note that the version included in our presentation contained two errors; we had originally copied the code from a general location comparison but had inadvertently retained the filter function such that the summary statistics were still being filtered for that general location.  Additionally, the summary statistics were grouped by specific location name and not per sample, resulting in higher mean values that per sample.  This is the corrected version.
+
 ### Top 4 Pesticides
 
 ```{r ridge-top4-pest, fig.alt = "Density ridgeline plot of top four most concentrated pesticides in Gulf of Maine Sediments, Dieldrin, Lindane, DDT, and 4,4' DDD.  All four have similar data distributions; they are unimodal, with mean values close to zero and high influence outliers at higher values.  Values greater than 10 ng/g have been excluded from this figure."}
@@ -465,11 +467,14 @@ Organics_long_no_na_no_zero %>%
   geom_bar(stat="identity", width=5) +
   coord_polar("y", start= 0) + 
   scale_fill_viridis_d(option = "turbo") +
-   labs(title = "Organic Concentrations in Inner Boston Harbor Sediments",
+   labs(title = "General Organic Composition",
+       subtitle = "in Inner Boston Harbor Sediments",
        fill = "Organic Detected",
        x = "", 
        y = "")
 ```
+
+Interpretation: PCBs are most abundant, followed by oil and greese.  DDT, PHC, and MBT comprise substantial proportions.  Clostridium sp. was detected.
 
 #### Cape Ann to Cape Elizabeth Concentrations
 This plot visualizes the specific organics present in Cape Ann to Cape Elizabeth. 
@@ -483,7 +488,7 @@ Organics_long_no_na_no_zero %>%
   arrange(desc(amount_detected))
 ```
 
-``` {r type_of_organic-in-cape-ann-to-elizabeth-graph, warning = FALSE, fig.alt = "Pie chart of composition of general organic contaminats in inshore area from Cape Ann, MA to Cape Elizabeth, ME.  "}
+``` {r type_of_organic-in-cape-ann-to-elizabeth-graph, warning = FALSE, fig.alt = "Pie chart of composition of general organic contaminats in inshore area from Cape Ann, MA to Cape Elizabeth, ME. Clostridium sp. is by far the most prevalent contaminant at this location.  PCB totals comprise a significantly smaller proportion, and are followed by oil and greese."}
 Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM %in% c("Cape Ann to Cape Elizabeth")) %>%
   ggplot(aes(x="", y = amount_detected, fill = organic_detected)) +
@@ -493,11 +498,14 @@ Organics_long_no_na_no_zero %>%
   theme_minimal() + 
   theme(axis.title.y = element_blank(), 
         axis.text.y = element_blank())+
-  labs(title = "Organic Concentrations from Cape Ann to Cape Elizabeth",
+  labs(title = "General Organic Composition",
+       subtitle = "from Cape Ann to Cape Elizabeth",
        x = "",
        y = "", 
        fill ="Organic Detected")
 ```
+
+Intrepretation: Clostridium sp. is by far the most prevalent contaminant at this location.  PCB totals comprise a significantly smaller proportion, and are followed by oil and greese.
 
 #### Southeast Boston Harbor Concentrations
 This plot visualizes the specific organics present in Southeast Boston Harbor. 
@@ -511,7 +519,7 @@ Organics_long_no_na_no_zero %>%
   arrange(desc(amount_detected))
 ```
 
-``` {r type_of_organic-in-boston-southeast-harbor-graph, warning = FALSE}
+``` {r type_of_organic-in-boston-southeast-harbor-graph, warning = FALSE, fig.alt = "Pie chart of general organic composition in Southeast Boston Harbor.  Clostridium sp. accounts for slightly more than half the detected contaminants.  Oil and greese and PHC also make up significant proportions."}
 Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM %in% c("Southeast Boston Harbor")) %>%
   ggplot(aes(x="", y = amount_detected, fill = organic_detected)) +
@@ -519,11 +527,14 @@ Organics_long_no_na_no_zero %>%
   coord_polar("y", start=0) +
   scale_fill_viridis_d(option = "turbo") +
   theme_minimal() +
-  labs(title = "Organic Concentrations in Southeast Boston Harbor",
+  labs(title = "General Organic Composition",
+       subtitle = "in Southeast Boston Harbor",
        x = "",
        y = "", 
        fill ="Organic Detected")
 ```
+
+Interpretation: Clostridium sp. accounts for slightly more than half the detected contaminants.  Oil and greese and PHC also make up significant proportions.
 
 #### Cape Elizabeth to Rockland Concentrations
 This plot visualizes the specific organics present from Cape Elizabeth to Rockland. 
@@ -536,19 +547,22 @@ Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM == "Cape Elizabeth to Rockland") %>%
   arrange(desc(amount_detected))
 ```
-``` {r type_of_organic-from-cape-elizabeth-to-rockland-graph, warning = FALSE}
+``` {r type_of_organic-from-cape-elizabeth-to-rockland-graph, warning = FALSE, fig.alt = "Pie chart of general organic contaminant composition from Cape Elizabeth, ME, to Rockland, ME.  DDT constitutes the majority of general organics detected in this zone.  PCBs also make up a much smaller proportion  Clostridium sp. is not detected here."}
 Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM %in% c("Cape Elizabeth to Rockland")) %>%
   ggplot(aes(x="", y = amount_detected, fill = organic_detected)) +
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
-  scale_fill_viridis_d(option = "turbo") +
+  scale_fill_viridis_d(option = "plasma") +
   theme_minimal() +
-  labs(title = "Organic Concentrations from Cape Elizabeth to Rockland",
+  labs(title = "General Organic Composition", 
+       subtitle = "from Cape Elizabeth to Rockland",
        x = "",
        y = "", 
        fill ="Organic Detected")
 ```
+
+Interpretation: DDT constitutes the majority of general organics detected in this zone.  PCBs also make up a much smaller proportion  Clostridium sp. is not detected here.
 
 #### Rockland to North Concentrations
 This plot visualizes the specific organics present from Rockland, ME to any area northward. 
@@ -561,39 +575,22 @@ Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM == "Rockland to north") %>%
   arrange(desc(amount_detected))
 ```
-``` {r type_of_organic-in-rockalnd-to-N-graph, warning = FALSE}
+``` {r type_of_organic-in-rockalnd-to-N-graph, warning = FALSE, fig.alt = "Pie chart of general organic contaminant composition from Rockland to Bay of Fundy.  DDT makes up greater than 75% of total; PCBs make up less than 25%.  Clostridium sp. was not detected in this zone."}
 Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM %in% c("Rockland to north")) %>%
   ggplot(aes(x="", y = amount_detected, fill = organic_detected)) +
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
-  scale_fill_viridis_d(option = "turbo") +
+  scale_fill_viridis_d(option = "plasma") +
   theme_minimal() +
-  labs(title = "Organic Concentrations from Rockland to north",
+  labs(title = "General Organic Composition", 
+       subtitle = "From Rockland, ME, to Bay of Fundy",
        x = "",
        y = "", 
        fill ="Organic Detected")
 ```
 
-
-
-### Inshore to offshore comparison
-```{r sum-pcbs-inshore-offshore}
-Sum_all_pcb_inshore_offshore <- PCBs_long %>%
-  select(GEN_LOC_NM, pcb, amount_detected) %>%
-  group_by(pcb, GEN_LOC_NM) %>%
-  filter(GEN_LOC_NM %in% c("Gulf of Maine (<=50m Isobath)", "Gulf of Maine (>50m Isobath)")) %>%
-  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  drop_na(amount_detected) %>%
-  summarise(mean = mean(amount_detected),
-    sd = sd(amount_detected),
-    n = n(),
-    SE = sd(amount_detected) / sqrt(n()))
-
-#Sum_all_pcb_inshore_offshore
-```
-JH -- There are no observations in the GOM <=50m Isobath category.
-
+Interpretation: DDT makes up greater than 75% of total; PCBs make up less than 25%.  Clostridium sp. was not detected in this zone.
 
 ### PCB Summary Statistics of Rivers With Highest Concentrations
 As stated in our project proposal, we were interested in visualizing contaminants in Maine Rivers as well as harbors and bays. The table below is visualizing the mean, standard deviation, count, and principal square root values of PCB concentrations for the general river locations.
