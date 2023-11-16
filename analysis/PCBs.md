@@ -74,85 +74,9 @@ Pivoting will need to be done to restructure this into a format that
 will be easier to interpret.
 
 ``` r
-glimpse(PCBs)
+#glimpse(PCBs)
+#glimpse(Organics)
 ```
-
-    ## Rows: 7,848
-    ## Columns: 39
-    ## $ UNIQUE_ID  <chr> "US00001", "US00002", "US00003", "US00004", "US00005", "US0…
-    ## $ LATITUDE   <dbl> 42.35972, 42.36028, 42.38500, 42.38500, 42.38500, 42.38500,…
-    ## $ LONGITUDE  <dbl> -71.02861, -71.02778, -71.04611, -71.04611, -71.04611, -71.…
-    ## $ SOUNDING_M <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ STATE_NAME <chr> "MA", "MA", "MA", "MA", "MA", "MA", "MA", "MA", "MA", "MA",…
-    ## $ QUAD_NAME  <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ GEN_LOC_NM <chr> "Boston Inner Harbor", "Boston Inner Harbor", "Boston Inner…
-    ## $ SPECFC_LOC <chr> "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BI…
-    ## $ AREA_CODE  <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
-    ## $ SAMP_DATE1 <chr> NA, NA, "5/1/1981", "5/1/1981", "5/1/1981", "5/1/1981", "5/…
-    ## $ TO_SMP_DT2 <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ DPTH_N_COR <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "0"…
-    ## $ DPTH_CODE  <chr> "Unknown", "Unknown", "Depth", "Depth", "Unknown", "Unknown…
-    ## $ COR_GRB_CD <chr> "Grab", "Grab", "Core", "Core", "Grab", "Grab", "Grab", "Gr…
-    ## $ site       <chr> "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BI…
-    ## $ PCB_52_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ PCB101_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ PCB118_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ PCB128_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ PCB138_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ PCB153_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ PCB180_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ PCB206_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ PCB209_NGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ DDT_4_4_C  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ DDT_2_4_C  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ DDE_4_4_C  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ DDD_4_4_C  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ ENDRIN_C   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ ENDR_ALD_C <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ ALDRIN_C   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ DIELDRN_C  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ CLRDNE_T_C <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ MIREX_C    <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ METHOXYCLC <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ BHC_A_C    <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ BHC_B_C    <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ BHC_D_C    <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ LINDANE_C  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-
-``` r
-glimpse(Organics)
-```
-
-    ## Rows: 7,849
-    ## Columns: 28
-    ## $ UNIQUE_ID  <chr> "US00001", "US00002", "US00003", "US00004", "US00005", "US0…
-    ## $ LATITUDE   <dbl> 42.35972, 42.36028, 42.38500, 42.38500, 42.38500, 42.38500,…
-    ## $ LONGITUDE  <dbl> -71.02861, -71.02778, -71.04611, -71.04611, -71.04611, -71.…
-    ## $ SOUNDING_M <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ STATE_NAME <chr> "MA", "MA", "MA", "MA", "MA", "MA", "MA", "MA", "MA", "MA",…
-    ## $ QUAD_NAME  <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ GEN_LOC_NM <chr> "Boston Inner Harbor", "Boston Inner Harbor", "Boston Inner…
-    ## $ SPECFC_LOC <chr> "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BI…
-    ## $ AREA_CODE  <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
-    ## $ SAMP_DATE1 <chr> NA, NA, "5/1/1981", "5/1/1981", "5/1/1981", "5/1/1981", "5/…
-    ## $ TO_SMP_DT2 <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ DPTH_N_COR <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "0"…
-    ## $ DPTH_CODE  <chr> "Unknown", "Unknown", "Depth", "Depth", "Unknown", "Unknown…
-    ## $ COR_GRB_CD <chr> "Grab", "Grab", "Core", "Core", "Grab", "Grab", "Grab", "Gr…
-    ## $ site       <chr> "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BIH", "BI…
-    ## $ O_G_UGG    <dbl> NA, NA, NA, NA, 10882.00, 3115.00, 880.00, 542.30, 31.44, N…
-    ## $ PHCTOT_UGG <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ PCB_T_UGG  <dbl> NA, NA, NA, NA, 0.500, 0.500, 0.500, 0.500, 0.500, NA, NA, …
-    ## $ DDT_T_NGG  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 76.50, 33.00, 1…
-    ## $ DDE_T_NGG  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ DDD_T_NGG  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ PEST_UG_G  <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ LIPIDS_NGG <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ CLOST_SP_G <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ MBT_C      <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ DBT_C      <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ TBT_C      <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-    ## $ TTBT_C     <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
 
 ## Data Transformation
 
@@ -802,125 +726,6 @@ River has the third highest conentration (mean = 0.77 (+/- 1.54) ng/g).
 No PCBs were detected in the Kennebec or Penobscot Rivers. There are no
 errorbars for Union River as there is only one observation from this
 river.
-
-    ##                                                                                          site
-    ## 1                                                                                         BIH
-    ## 2                                                                                        MBDS
-    ## 3   Reserve Channel, Main Shipping Channel, Boston Harbor to the Western shore of Deer Island
-    ## 4                                                                              DORCHESTER BAY
-    ## 5                                                                         CRYSTAL COVE MARINA
-    ## 6                                                                                  BASS RIVER
-    ## 7                                                                               HINGAM HARBOR
-    ## 8                                                                              HINGHAM HARBOR
-    ## 9                                                                                Mystic River
-    ## 10                                                                                 SMITH COVE
-    ## 11                                                                            WINTHROP HARBOR
-    ## 12                                                                             WINTROP HARBOR
-    ## 13                                                                      Little Mystic Channel
-    ## 14                                                                          MANCHESTER HARBOR
-    ## 15                                                                            SCITUATE HARBOR
-    ## 16                                                                        Weymouth Fore River
-    ## 17                                                                               SALEM HARBOR
-    ## 18                                                                       BOSTON HARBOR MARINA
-    ## 19                                                                          GLOUCESTER HARBOR
-    ## 20                                                                              BOSTON HARBOR
-    ## 21                                                                                DUXBURY BAY
-    ## 22                                                                             BEVERLY HARBOR
-    ## 23                                                                    PORT NORFOLK YACHT CLUB
-    ## 24                                                                              Chelsea River
-    ## 25                                                                             Dorchester Bay
-    ## 26                                                                    Rowes and Fosters Wharf
-    ## 27                                                                                 Mill Creek
-    ## 28                                                            Victory Road Park Inlet Channel
-    ## 29                                                                 Seaward of Waterfront Park
-    ## 30                                                                                 Long Wharf
-    ## 31                                                                                South River
-    ## 32                                                                            Winthrop Harbor
-    ## 33                                                          Winthrop Harbor, entrance channel
-    ## 34                                                                      North & Danvers River
-    ## 35                                                                          Reserve Channel B
-    ## 36                                                                       Inner Confluence "B"
-    ## 37                                                                           Reserve "B"-7826
-    ## 38                                                                           Reserve "D"-7827
-    ## 39                                                               FADS-Reference location-7832
-    ## 40                                                                               Gulf Oil Co.
-    ## 41                                                                               Gibb Oil ???
-    ## 42                                                                       Gibb Oil North Berth
-    ## 43                                                                       Gibb Oil South Berth
-    ## 44                                                                       ESE of Castle Island
-    ## 45                                                          btwn Deer I. & Governors I. Flats
-    ## 46                                                                                 Quincy Bay
-    ## 47                                                            Nantasket Roads W of Perry Cove
-    ## 48                                                                                   Hull Bay
-    ## 49                                                                SE of The Graves, Mass. Bay
-    ## 50                                                                          Massachusetts Bay
-    ## 51                                                                               Cape Cod Bay
-    ## 52                                                             HbrView Marina,Town Rvr Quincy
-    ## 53                                                                                  Foul Area
-    ## 54                                                            Marina Bay, Squantum Pt, Quincy
-    ## 55                                                                           Island End River
-    ## 56                                                                                 NUT ISLAND
-    ## 57                                                                                DEER ISLAND
-    ## 58                                                                            Cohasset Harbor
-    ## 59                                                                            Scituate Harbor
-    ## 60                                                                                        NAR
-    ## 61                                                                                        DOB
-    ## 62                                                                                        BOI
-    ## 63                                                                                        PRR
-    ## 64                                                                                        LDF
-    ## 65                                                                                        BRS
-    ## 66                                                                                        MAB
-    ## 67                                                                                       <NA>
-    ## 68                                                                                Broad Sound
-    ## 69                                                                                Salem Sound
-    ## 70                                                                            Foul area north
-    ## 71                                                                           Foul area center
-    ## 72                                                                            Foul area south
-    ## 73                                                                             Foul area east
-    ## 74                                                                             Foul area west
-    ## 75                                                                         south of Foul area
-    ## 76                                                                               Spec. Island
-    ## 77                                                                           Third Hbr Tunnel
-    ## 78                                                                            MERRIMACK RIVER
-    ## 79                                                                                        QUB
-    ## 80                                                                         Fort Point Channel
-    ## 81                                                             1-U.S. GypsumCo.200TerminalSt.
-    ## 82                                                             2-U.S. GypsumCo.200TerminalSt.
-    ## 83                                                             3-U.S. GypsumCo.200TerminalSt.
-    ## 84                                                             4-U.S. GypsumCo.200TerminalSt.
-    ## 85                                                                                       FADS
-    ## 86                                                                          JEFFRIES POINT YC
-    ## 87                                                                       MBDS Reference sites
-    ## 88                                                                        STFP outfall siting
-    ## 89                                                                                Hingham Bay
-    ## 90                                                                                 Fore River
-    ## 91                                                                            Nantasket Roads
-    ## 92                                                                              Sculpin Ledge
-    ## 93                                                                           Northwest Harbor
-    ## 94                                                                         Charleston Channel
-    ## 95                                                                             Boston Channel
-    ## 96                                                                              Channel Mouth
-    ## 97                                                                           Reserved Channel
-    ## 98                                                                             Boston Wharves
-    ## 99                                                   South Bay area of the Fort Point Channel
-    ## 100                                                  between Spectacle Island and Long Island
-    ## 101                                                                                Town Brook
-    ## 102                                                                            Beverly Harbor
-    ## 103                                                         WINTHROP HARBOR, BELLE ISLE INLET
-    ## 104                                                                    LOGAN AIRPORT E.BOSTON
-    ## 105                                                              Logan Airport Runway End 22L
-    ## 106                                                               Logan Airport Runway End 27
-    ## 107                                                              Logan Airport Runway End 33L
-    ## 108                                                                  Winthrop Basin Anchorage
-    ## 109                                                                Wnthrop Basin Spur Channel
-    ## 110                                                    Entrance Channel Opposite Snake Island
-    ## 111                                                        Entrance Channel at Basin Entrance
-    ## 112                                                                    Cottage Park Anchorage
-    ## 113                                                                      Cottage Park Channel
-    ## 114                                                                    Snake Island Anchorage
-    ## 115                                                                    Crystal Cove Anchorage
-    ## 116                                                        Entrance Channel off Winthrop Y.C.
-    ## 117                                                          Entrance Channel at Crystal Cove
 
 ``` r
 Sum_Org_site %>%
@@ -1851,25 +1656,27 @@ pesticides_no_na_no_zero <- pesticides %>%
 ```
 
 ``` r
-#markers1 <- pesticides_no_na_no_zero
+markers1 <- pesticides_no_na_no_zero
 
-#markers1 <- markers1 %>%
-#  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
-#                         "BHC: ", round(amount_detected[pcb == "BHC_C"], digits = 4), " ng/g<br>",
-#                         "Chlordane: ", round(amount_detected[pcb == "CLRDNE_T_C"], digits = 4), " #ng/g<br>",
-#                         "DDT: ", round(amount_detected[pcb == "DDT_C"], digits = 4), " ng/g<br>",
-#                         "DDE: ", round(amount_detected[pcb == "DDE_4_4_C"], digits = 4), " ng/g<br>",
-#                         "DDD: ", round(amount_detected[pcb == "DDD_4_4_C"], digits = 4), " ng/g<br>",
-#                         "Aldrin: ", round(amount_detected[pcb == "ALDRIN_C"], digits = 4), " #ng/g<br>",
-#                         "Dieldrin: ", round(amount_detected[pcb == "DIELDRN_C"], digits = 4), " #ng/g<br>",
-#                         "Endrin: ", round(amount_detected[pcb == "ENDRIN_C"], digits = 4), " #ng/g<br>",
-#                         "Endrin Aldehyde: ", round(amount_detected[pcb == "ENDR_ALD_C"], digits = 4), #" ng/g<br>",
-#                         "Lindane: ", round(amount_detected[pcb == "LINDANE_C"], digits = 4), " #ng/g<br>",
-#                         "Mirex: ", round(amount_detected[pcb == "MIREX_C"], digits = 4), " ng/g<br>",
-#                         "Methoxychlor: ", round(amount_detected[pcb == "METHOXYCLC"], digits = 4), " #ng/g<br>"))
+markers1 <- markers1 %>%
+  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
+                         "BHC: ", round(amount_detected[pcb == "BHC_C"], digits = 4), " ng/g<br>",
+                         "Chlordane: ", round(amount_detected[pcb == "CLRDNE_T_C"], digits = 4), " ng/g<br>",
+                         "DDT: ", round(amount_detected[pcb == "DDT_C"], digits = 4), " ng/g<br>",
+                         "DDE: ", round(amount_detected[pcb == "DDE_4_4_C"], digits = 4), " ng/g<br>",
+                         "DDD: ", round(amount_detected[pcb == "DDD_4_4_C"], digits = 4), " ng/g<br>",
+                         "Aldrin: ", round(amount_detected[pcb == "ALDRIN_C"], digits = 4), " ng/g<br>",
+                         "Dieldrin: ", round(amount_detected[pcb == "DIELDRN_C"], digits = 4), " ng/g<br>",
+                         "Endrin: ", round(amount_detected[pcb == "ENDRIN_C"], digits = 4), " ng/g<br>",
+                         "Endrin Aldehyde: ", round(amount_detected[pcb == "ENDR_ALD_C"], digits = 4), " ng/g<br>",
+                         "Lindane: ", round(amount_detected[pcb == "LINDANE_C"], digits = 4), " ng/g<br>",
+                         "Mirex: ", round(amount_detected[pcb == "MIREX_C"], digits = 4), " ng/g<br>",
+                         "Methoxychlor: ", round(amount_detected[pcb == "METHOXYCLC"], digits = 4), " ng/g<br>"))
 
-#head(markers1$labels, 1)
+head(markers1$labels, 1)
 ```
+
+    ## [1] "<strong>Site: Jonesport Harbor - Sawyer Cove</strong><br>BHC: 100 ng/g<br>Chlordane:  ng/g<br>DDT: 0.6808 ng/g<br>DDE: 2.6853 ng/g<br>DDD: 3.2071 ng/g<br>Aldrin: 3.3824 ng/g<br>Dieldrin: 0.1319 ng/g<br>Endrin: 2.3008 ng/g<br>Endrin Aldehyde:  ng/g<br>Lindane: 3.8988 ng/g<br>Mirex: 0.1922 ng/g<br>Methoxychlor:  ng/g<br>"
 
 ``` r
 #leaflet() %>%
@@ -1877,29 +1684,31 @@ pesticides_no_na_no_zero <- pesticides %>%
 #  setView(lng = -68.5, 
 #          lat = 43.5, 
 #          zoom = 6) %>%
-#  addCircleMarkers(lng = pesticides_no_na_no_zero$LONGITUDE, lat = pesticides_no_na_no_zero$LATITUDE, #color = "black", popup = markers$labels1, radius = log(markers$amount_detected*100))
+#  addCircleMarkers(lng = markers1$LONGITUDE, lat = markers1$LATITUDE, color = "black", popup = #markers1$labels, radius = log(markers1$amount_detected*200))
 ```
 
 ``` r
-#markers2 <- pcbs_only %>%
-#  drop_na(amount_detected) %>%
-#  filter(amount_detected != 0)
+markers2 <- pcbs_only %>%
+  drop_na(amount_detected) %>%
+  filter(amount_detected != 0)
 
-#markers2 <- markers %>%
-#  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
-#                         "PCB 52: ", round(amount_detected[pcb == "PCB_52_NGG"], digits = 4), " #ng/g<br>",
-#                         "PCB 101: ", round(amount_detected[pcb == "PCB101_NGG"], digits = 4), " #ng/g<br>",
-#                         "PCB 118: ", round(amount_detected[pcb == "PCB118_NGG"], digits = 4), " #ng/g<br>",
-#                         "PCB 128: ", round(amount_detected[pcb == "PCB128_NGG"], digits = 4), " #ng/g<br>",
-#                         "PCB 138: ", round(amount_detected[pcb == "PCB138_NGG"], digits = 4), " #ng/g<br>",
-#                         "PCB 153: ", round(amount_detected[pcb == "PCB153_NGG"], digits = 4), " #ng/g<br>",
-#                         "PCB 180: ", round(amount_detected[pcb == "PCB180_NGG"], digits = 4), " #ng/g<br>",
-#                         "PCB 206: ", round(amount_detected[pcb == "PCB206_NGG"], digits = 4), " #ng/g<br>",
-#                         "PCB 209: ", round(amount_detected[pcb == "PCB209_NGG"], digits = 4), " #ng/g<br>"))
+markers2 <- markers2 %>%
+  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
+                         "PCB 52: ", round(amount_detected[pcb == "PCB_52_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 101: ", round(amount_detected[pcb == "PCB101_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 118: ", round(amount_detected[pcb == "PCB118_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 128: ", round(amount_detected[pcb == "PCB128_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 138: ", round(amount_detected[pcb == "PCB138_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 153: ", round(amount_detected[pcb == "PCB153_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 180: ", round(amount_detected[pcb == "PCB180_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 206: ", round(amount_detected[pcb == "PCB206_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 209: ", round(amount_detected[pcb == "PCB209_NGG"], digits = 4), " ng/g<br>"))
 
 
-#head(markers2$labels, 1)
+head(markers2$labels, 1)
 ```
+
+    ## [1] "<strong>Site: MBDS</strong><br>PCB 52: 1.6 ng/g<br>PCB 101: 3.5 ng/g<br>PCB 118: 2.3 ng/g<br>PCB 128: 1.1 ng/g<br>PCB 138: 3 ng/g<br>PCB 153: 3.6 ng/g<br>PCB 180: 1.2 ng/g<br>PCB 206: 0.5 ng/g<br>PCB 209: 1 ng/g<br>"
 
 ``` r
 #leaflet() %>%
@@ -1907,7 +1716,7 @@ pesticides_no_na_no_zero <- pesticides %>%
 #  setView(lng = -68.5, 
 #          lat = 43.5, 
 #          zoom = 6) %>%
-#  addCircleMarkers(lng = markers2$LONGITUDE, lat = markers2$LATITUDE, popup = markers2$labels, color = #"black", radius = log(markers$amount_detected*500))
+#  addCircleMarkers(lng = markers2$LONGITUDE, lat = markers2$LATITUDE, popup = markers2$labels, color = "black", radius = log(markers2$amount_detected*200))
 ```
 
 Note that the above code chunks are commented out as .rmd will not knit

@@ -39,8 +39,8 @@ Organics <- read.csv(paste0("/cloud/project/data/datasets_csv/Organics_loc.csv")
 These data sets are quite large and contain a lot of information. Pivoting will need to be done to restructure this into a format that will be easier to interpret. 
 
 ```{r glimpse-data, warning = FALSE}
-glimpse(PCBs)
-glimpse(Organics)
+#glimpse(PCBs)
+#glimpse(Organics)
 ```
 
 ## Data Transformation
@@ -421,11 +421,11 @@ Sum_Org_site %>%
 
 Intrepretation: The Union River in Ellsworth, Maine has the highest total concentration (mean = 276.6 ng/g).  There is only one observation associated with the Union River.  The Portland Fore River has the second highest total concentration (mean = 13.18 (+/- 43.72) ng/g). Kennebunk River has the third highest conentration (mean = 0.77 (+/- 1.54) ng/g).  No PCBs were detected in the Kennebec or Penobscot Rivers.  There are no errorbars for Union River as there is only one observation from this river.
 
-```{r identiy-ma-rivers, message = FALSE, echo = FALSE, print = FALSE}
-Organics %>%
-  filter(STATE_NAME == "MA") %>%
-  filter(PCB_T_UGG != "NA") %>%
-  distinct(site)
+```{r identiy-ma-rivers, echo = FALSE}
+#Organics %>%
+#  filter(STATE_NAME == "MA") %>%
+#  filter(PCB_T_UGG != "NA") %>%
+#  distinct(site)
 ```
 
 ```{r}
@@ -1062,24 +1062,24 @@ pesticides_no_na_no_zero <- pesticides %>%
 ```
 
 ```{r create-html-labels-pesticides}
-#markers1 <- pesticides_no_na_no_zero
+markers1 <- pesticides_no_na_no_zero
 
-#markers1 <- markers1 %>%
-#  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
-#                         "BHC: ", round(amount_detected[pcb == "BHC_C"], digits = 4), " ng/g<br>",
-#                         "Chlordane: ", round(amount_detected[pcb == "CLRDNE_T_C"], digits = 4), " #ng/g<br>",
-#                         "DDT: ", round(amount_detected[pcb == "DDT_C"], digits = 4), " ng/g<br>",
-#                         "DDE: ", round(amount_detected[pcb == "DDE_4_4_C"], digits = 4), " ng/g<br>",
-#                         "DDD: ", round(amount_detected[pcb == "DDD_4_4_C"], digits = 4), " ng/g<br>",
-#                         "Aldrin: ", round(amount_detected[pcb == "ALDRIN_C"], digits = 4), " #ng/g<br>",
-#                         "Dieldrin: ", round(amount_detected[pcb == "DIELDRN_C"], digits = 4), " #ng/g<br>",
-#                         "Endrin: ", round(amount_detected[pcb == "ENDRIN_C"], digits = 4), " #ng/g<br>",
-#                         "Endrin Aldehyde: ", round(amount_detected[pcb == "ENDR_ALD_C"], digits = 4), #" ng/g<br>",
-#                         "Lindane: ", round(amount_detected[pcb == "LINDANE_C"], digits = 4), " #ng/g<br>",
-#                         "Mirex: ", round(amount_detected[pcb == "MIREX_C"], digits = 4), " ng/g<br>",
-#                         "Methoxychlor: ", round(amount_detected[pcb == "METHOXYCLC"], digits = 4), " #ng/g<br>"))
+markers1 <- markers1 %>%
+  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
+                         "BHC: ", round(amount_detected[pcb == "BHC_C"], digits = 4), " ng/g<br>",
+                         "Chlordane: ", round(amount_detected[pcb == "CLRDNE_T_C"], digits = 4), " ng/g<br>",
+                         "DDT: ", round(amount_detected[pcb == "DDT_C"], digits = 4), " ng/g<br>",
+                         "DDE: ", round(amount_detected[pcb == "DDE_4_4_C"], digits = 4), " ng/g<br>",
+                         "DDD: ", round(amount_detected[pcb == "DDD_4_4_C"], digits = 4), " ng/g<br>",
+                         "Aldrin: ", round(amount_detected[pcb == "ALDRIN_C"], digits = 4), " ng/g<br>",
+                         "Dieldrin: ", round(amount_detected[pcb == "DIELDRN_C"], digits = 4), " ng/g<br>",
+                         "Endrin: ", round(amount_detected[pcb == "ENDRIN_C"], digits = 4), " ng/g<br>",
+                         "Endrin Aldehyde: ", round(amount_detected[pcb == "ENDR_ALD_C"], digits = 4), " ng/g<br>",
+                         "Lindane: ", round(amount_detected[pcb == "LINDANE_C"], digits = 4), " ng/g<br>",
+                         "Mirex: ", round(amount_detected[pcb == "MIREX_C"], digits = 4), " ng/g<br>",
+                         "Methoxychlor: ", round(amount_detected[pcb == "METHOXYCLC"], digits = 4), " ng/g<br>"))
 
-#head(markers1$labels, 1)
+head(markers1$labels, 1)
 ```
 
 ```{r leaflet-map-pesticides, fig.alt = "Interactive map of pesticide detections in the Gulf of Maine.  Each point indicates where at least one pesticide was detected.  Clicking on a point opens a pop-up window that gives a list of concentrations of each detected pesticide."}
@@ -1088,29 +1088,29 @@ pesticides_no_na_no_zero <- pesticides %>%
 #  setView(lng = -68.5, 
 #          lat = 43.5, 
 #          zoom = 6) %>%
-#  addCircleMarkers(lng = pesticides_no_na_no_zero$LONGITUDE, lat = pesticides_no_na_no_zero$LATITUDE, #color = "black", popup = markers$labels1, radius = log(markers$amount_detected*100))
+#  addCircleMarkers(lng = markers1$LONGITUDE, lat = markers1$LATITUDE, color = "black", popup = #markers1$labels, radius = log(markers1$amount_detected*200))
 ```
 
 
 ```{r create-html-labels-pcbs}
-#markers2 <- pcbs_only %>%
-#  drop_na(amount_detected) %>%
-#  filter(amount_detected != 0)
+markers2 <- pcbs_only %>%
+  drop_na(amount_detected) %>%
+  filter(amount_detected != 0)
 
-#markers2 <- markers %>%
-#  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
-#                         "PCB 52: ", round(amount_detected[pcb == "PCB_52_NGG"], digits = 4), " #ng/g<br>",
-#                         "PCB 101: ", round(amount_detected[pcb == "PCB101_NGG"], digits = 4), " #ng/g<br>",
-#                         "PCB 118: ", round(amount_detected[pcb == "PCB118_NGG"], digits = 4), " #ng/g<br>",
-#                         "PCB 128: ", round(amount_detected[pcb == "PCB128_NGG"], digits = 4), " #ng/g<br>",
-#                         "PCB 138: ", round(amount_detected[pcb == "PCB138_NGG"], digits = 4), " #ng/g<br>",
-#                         "PCB 153: ", round(amount_detected[pcb == "PCB153_NGG"], digits = 4), " #ng/g<br>",
-#                         "PCB 180: ", round(amount_detected[pcb == "PCB180_NGG"], digits = 4), " #ng/g<br>",
-#                         "PCB 206: ", round(amount_detected[pcb == "PCB206_NGG"], digits = 4), " #ng/g<br>",
-#                         "PCB 209: ", round(amount_detected[pcb == "PCB209_NGG"], digits = 4), " #ng/g<br>"))
+markers2 <- markers2 %>%
+  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
+                         "PCB 52: ", round(amount_detected[pcb == "PCB_52_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 101: ", round(amount_detected[pcb == "PCB101_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 118: ", round(amount_detected[pcb == "PCB118_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 128: ", round(amount_detected[pcb == "PCB128_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 138: ", round(amount_detected[pcb == "PCB138_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 153: ", round(amount_detected[pcb == "PCB153_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 180: ", round(amount_detected[pcb == "PCB180_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 206: ", round(amount_detected[pcb == "PCB206_NGG"], digits = 4), " ng/g<br>",
+                         "PCB 209: ", round(amount_detected[pcb == "PCB209_NGG"], digits = 4), " ng/g<br>"))
 
 
-#head(markers2$labels, 1)
+head(markers2$labels, 1)
 ```
 
 ```{r leaflet-map-pcbs, fig.alt = "Interactive map of PCB detections in the Gulf of Maine.  Each point indicates where at least one PCB was detected.  Clicking on a point opens a pop-up window that gives a list of concentrations of each detected PCB."}
@@ -1119,7 +1119,7 @@ pesticides_no_na_no_zero <- pesticides %>%
 #  setView(lng = -68.5, 
 #          lat = 43.5, 
 #          zoom = 6) %>%
-#  addCircleMarkers(lng = markers2$LONGITUDE, lat = markers2$LATITUDE, popup = markers2$labels, color = #"black", radius = log(markers$amount_detected*500))
+#  addCircleMarkers(lng = markers2$LONGITUDE, lat = markers2$LATITUDE, popup = markers2$labels, color = "black", radius = log(markers2$amount_detected*200))
 ```
 
 Note that the above code chunks are commented out as .rmd will not knit to github document with html functions.  Uncomment to run and change output type to `html_document` to knit.
