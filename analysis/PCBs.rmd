@@ -95,18 +95,18 @@ glimpse(pesticides)
 For clarity in later visualizations, we have combined 2,4 and 4,4 DDT and BHC A, B, and D.
 
 ### Create PCBs_only dataset
-```{r}
+Same as above, just for PCBs instead of pesticides.
+```{r create-pcbs_only-df}
 pcbs_only <- PCBs_long %>%
   filter(pcb %in% c("PCB_52_NGG", "PCB101_NGG", "PCB118_NGG", "PCB128_NGG", "PCB138_NGG", "PCB153_NGG", "PCB180_NGG", "PCB206_NGG", "PCB209_NGG"))
 
 glimpse(pcbs_only)
 ```
 
-
 ## Statistical Tests
 ### Diff PCBs and Pesticides
 
-Using a Wilcoxon Rank Sum test here since it is non-parametric and does not make assumptions about the normality of our data.
+Using a Wilcoxon Rank Sum test here since it is non-parametric and does not make assumptions about the normality of our data (see Descriptive Visualizations)
 
 ```{r wilcox-test-total-pcbs-pesticides}
 wilcox.test(pcbs_only$amount_detected, pesticides$amount_detected)
@@ -114,9 +114,21 @@ wilcox.test(pcbs_only$amount_detected, pesticides$amount_detected)
 
 Report: PCBs occurred at significantly higher concentrations than organochlorine pesticides (Wilcoxon Rank Sum Test, W = 14169, P = <0.001).
 
+### Concentration diff by pesticide type
 
+```{r kw-test-pest-gen-loc}
+kw1 = kruskal.test(pesticides$amount_detected, pesticides$pcb)
+kw1
+```
 
+Significant (P = <0.001).  So we should do a Dunn post hoc test.
 
+```{r dunn-pest-gen-loc}
+dunn.test(pesticides$amount_detected, pesticides$pcb, method = "Bonferroni")
+```
+
+Interpretation: Most pairwise comparisons were significantly different (P = 
+<0.05), except for Chlordane and BHC, DDE and DDD, Dieldrin and Aldrin, Dieldrin and DDT, Endrin Aldehyde and Chlordane, Lindane and Aldrin, Methoxychlor and BHC, Methoxychlor and Chlordane, Mirex and DDT, Endrin and Endrin Aldehyde, Lindane and Dieldrin, Methoxychlor and Endrin Aldehyde, Methoxychlor and Endrin, Mirex and Dieldrin, and Mirex and Lindane.  It should be noted the a number of the pesticides whose concentrations are not significantly different share very similar molecular formulas.
 
 ## Data Visualizations
 ### Descriptive Visualizations
