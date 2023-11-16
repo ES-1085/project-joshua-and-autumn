@@ -112,6 +112,8 @@ Online at <https://pubs.usgs.gov/of/2002/of02-403/>. doi:
 
 ##### These references have been cited in `PAHs.Rmd` and `PCBs.Rmd`.
 
+CDC. (2019, May 24). Polycyclic Aromatic Hydrocarbons (PAHs) Factsheet | National Biomonitoring Program | CDC. Www.cdc.gov. https://www.cdc.gov/biomonitoring/PAHs_FactSheet.html
+
 Clark, R,B., 1999. Marine pollution. Oxford University press, Fourth
 edition, pp 161.
 
