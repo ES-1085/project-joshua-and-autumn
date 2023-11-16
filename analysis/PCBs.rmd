@@ -68,28 +68,28 @@ Organics_long_no_na_no_zero <- Organics_long %>%
 ```
 
 ### Pivoting PCBs Longer
-Creates two columns to properly contain the values of PCBs measured during these surveys - the `pcb` column contains the type of PCB that was measured and the `amount_detected` column contains the values for each measurement. 
+Creates two columns to properly contain the values of PCBs measured during these surveys - the `pcb` column contains the type of PCB that was measured and the `amount_detected` column contains the values for each measurement. For clarity in later visualizations, we have combined 2,4 DDT with 4,4 DDT and BHC A, B, and D.
 
 ```{r pcbs-pivot-long}
 PCBs_long <- PCBs %>%
   pivot_longer(cols = `PCB_52_NGG`:`LINDANE_C`, 
                names_to = "pcb", 
-               values_to = "amount_detected")
+               values_to = "amount_detected") %>%
+mutate(pcb = fct_recode(pcb,
+                          "DDT_C" = "DDT_2_4_C",
+                          "DDT_C" = "DDT_4_4_C",
+                          "BHC_C" = "BHC_A_C",
+                          "BHC_C" = "BHC_B_C",
+                          "BHC_C" = "BHC_D_C"))
 
 #glimpse(PCBs_long)
 ```
 
 #### Creating Pesticides Data Set
-This is creating a data set from the PCBs dataset that will only contain the pesticides that were measured. For clarity in later visualizations, we have combined 2,4 DDT with 4,4 DDT and BHC A, B, and D.
+This is creating a data set from the PCBs dataset that will only contain the pesticides that were measured.
 
 ```{r create-pesticides-df-combine-pest-categories}
 pesticides <- PCBs_long %>%
-  mutate(pcb = fct_recode(pcb,
-                          "DDT_C" = "DDT_2_4_C",
-                          "DDT_C" = "DDT_4_4_C",
-                          "BHC_C" = "BHC_A_C",
-                          "BHC_C" = "BHC_B_C",
-                          "BHC_C" = "BHC_D_C")) %>%
   filter(pcb %in% c("DDT_C", "DDE_4_4_C", "DDD_4_4_C", "ENDRIN_C", "ENDR_ALD_C", "ALDRIN_C", "DIELDRN_C", "CLRDNE_T_C", "MIREX_C", "METHOXYCLC", "BHC_C", "LINDANE_C"))
 
 #glimpse(pesticides)
@@ -150,27 +150,26 @@ Organics %>%
        y = "Count (n Observations)")
 ```
 
-Interpretation: This bar plot shows number of observations within the Organics dataset in each general location category. 
+Interpretation: This bar plot shows number of observations within the Organics dataset in each general location category.  The highest numbers of observations come from the Gulf of Maine >50m Isobath (offshore sediments), and Massachusetts Bays, Northwest Boston Harbor, and Cape Elizabeth to Rockland are all highly sampled as well.  Intertidal Atlantic Canada is the least sampled general location in our dataset.
 
 ```{r hist-pcb-total, warning=FALSE}
 ggplot(PCBs_long, aes(x = amount_detected)) +
   geom_histogram(fill = "skyblue", color = "black")
-```
 
-``` { hist-organics-total, warning=FALSE}
 ggplot(Organics_long, aes(x = amount_detected)) +
   geom_histogram(fill = "skyblue", color = "black")
 ```
+
 Interpretation: In both the PCBs and Organics datasets, the amount detected (concentration) is extremely right skewed, with most of our values close to zero, and high influence outliers at much higher values.
 
-```{r}
+```{r facet-hist-pcb-pest-dist}
 PCBs_long %>%
   filter(pcb %in% c("BHC_C", "MIREX_C", "ALDRIN_C", "DDT_C", "PCB153_NGG", "PCB138_NGG", "PCB101_NGG", "PCB118_NGG")) %>%
   filter(amount_detected <= 100) %>%
   filter(amount_detected > 0) %>%
   ggplot(aes(x = amount_detected)) +
   geom_histogram(fill = "skyblue", color = "black") +
-  facet_wrap(.~pcb) +
+  facet_wrap(.~pcb, ncol = 4) +
   theme_bw() +
   labs(title = "Data Skewness",
        subtitle = "Most Abundant PCBs and Pesticides",
@@ -179,6 +178,7 @@ PCBs_long %>%
        caption = "Values >100 ng/g excluded")
 ```
 
+Interpretation: Histograms depicting data distributions of four most abundant pesticides (top row), and the four most abundant PCBs (bottom row) in the Gulf of Maine.  Distributions are exclusively unimodal, but are all highly right skewed with mean values close to zero and outliers occurring at far higher values.  Of these, Mirex appears to be the most skewed, and PCB 138 the least skewed.  Note that values greater than 100ng/g are excluded for clarity in the plot.  
 
 ```{r boxplots-skewness}
 ggplot(pesticides, aes(x = GEN_LOC_NM, y = amount_detected)) +
@@ -219,7 +219,7 @@ pesticides %>%
        caption = "Values >15 ng/g excluded")
 ```
 
-Interpretation: Filtering out zero values helps with the skewness; but since zero values (absence of PCBs from sample) are important to our analysis, this is not a valid approach.
+Interpretation: Filtering out zero values helps with the skewness; but since zero values (absence of PCBs from sample) are important to our analysis, this is not a valid approach except for in some visualizations.
 
 ### PCB Site to Site Comparisons
 #### General PCB Summary Statistics
