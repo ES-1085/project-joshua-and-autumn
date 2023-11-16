@@ -3,7 +3,7 @@ title: Project title
 author: by Joshua A. Harkness and Autumn L. Pauly
 output: github_document
 ---
-##Write Up
+## Write Up
 #### Introduction
 Pollutants, encompassing metals and organic compounds from agricultural, industrial, and household sources, have accumulated in bottom sediments in the Gulf of Maine. The U.S. federal government, through its agencies (USEPA, USGS, and NOAA) and laws (16 USC § 1447-1447f (1990); 33 USC § 1330 (1987)) has recognized the need for assessment of the distribution of contaminants in marine sediments. Our group is interested in assessing the concentration and distribution of potentially harmful contaminants in the marine environment in order for others to better understand and predict their impact. 
 
@@ -15,22 +15,25 @@ While working with this dataset, we noticed that there was a number of missing v
 
 
 #### Summary and Findings of Contaminates and Concentrations
-The broad question that we looked at was about which contaminants are in the Gulf of Maine and what this means for the environment. 
+Of all the organics present in the Gulf of Maine, the most prevalent PCB by average was PCB 153 (10.59 ng/g), followed by PCB 138 (9.43 ng/g), PCB 101 (7.76 ng/g), and PCB 118 (7.12 ng/g). The most prevalent pesticides on average were DDT (0.17 ng/g), Aldrin (0.24 ng/g), Mirex (0.26 ng/g), and Lindane (1.61 ng/g). An analysis of these contaminants revealed that the highest average concentration and distribution was located in Boston Harbor, MA.
+
+The spatial distribution of PAHs reflected that of PCBs and pesticides. Of all the PAHs present in the Gulf of Maine, the most prevalent PAH by average was Fluoranthene (962.25 ng/g), followed by Pyrene (934.50 ng/g), Chrysene (887.80 ng/g), and Phenanthrene (546.57 ng/g). Boston Harbor had the highest mean concentration of PAHs, where the highest concentrations were of Chrysene (2,234.89 ng/g), Pyrene (2,197.45 ng/g), Fluoranthene (2,016.27 ng/g), and Phenanthrene (1,307.48 ng/g). This was drastically higher than the average concentrations that were found in the Penobscot to Mount Desert Island region, where the highest concentrations were of Fluoranthene (723.32 ng/g) and Pyrene (1845.59 ng/g). 
+
 
 ## Navigating the Project Folder
-There are a series of subfolders that are contained within this project, including RMD, MD, and .shapefiles. 
+There are a series of subfolders that are contained within this project, including .Rmd, .md, and .shapefiles. 
 
 For the data dictionary, navigate to the `Readme.md` file in the `data` folder. This contains what each dataset contains, as well as what each variable represents. 
 
 To begin analyzing the data, navigate to the `data_tidying.rmd` in the `analysis` folder. This contains the code that is needed to clean and pivot the USGS datasets into readable formats. These cleaned files are the base files for the next .Rmd files. 
 
-For PCB analysis, navigate to the `PCBs.rmd` in the `analysis` folder.  
+For PCB analysis, navigate to the `PCBs.rmd` in the `analysis` folder. This folder contains the code needed to analyse PCB and pesticide pollutants through spatial comparisons and a leafmap. 
 
-For PAH analysis, navigate to the `PAHs.rmd` in the `analysis` folder. This .Rmd file analyzes the distributions and concentrations of Polycyclic aromatic hydrocarbon (PAH) contaminants
+For PAH analysis, navigate to the `PAHs.rmd` in the `analysis` folder. This folder contains the code needed to analyse PAH pollutants through spatial comparisons and a leafmap.
 
 ## Presentation
 
-Our presentation can be found [here](presentation/presentation.html).
+Our presentation can be found [here](https://docs.google.com/presentation/d/1LWPEdxH3TlTmRcBp79jHunibIEL1xaWUlSAA-Bt3cE8/edit?usp=sharing).
 
 ## Acknowledgements
 We are incredibly grateful for the agencies and organizations in the Gulf of Maine area who provided this data in published reports, theses, unpublished data, such as the U.S. Environmental Protection Agency,  U.S. Army Corps of Engineers, National Status and Trends Benthic Surveillance program, NOAA, and  U.S. Geological Survey. This includes the individuals who participated in the collection, interpretation, and compilation of these datasets, including but not limited to M. Buchholtz ten Brink, F. Manheim, E. Mecray, M. Hastings, J. Currence, J. Farrington, B. Tripp, S. Jones, P. Larsen, G. Wallace, and L. Ward. We give our thanks to the Gulf of Maine Regional Marine Research Program for funding their project. Finally, we are eternally grateful for Dr. Laurie Baker, who provided us the instruction, guidance and advice necessary for us to enhance our understanding of R and data reliability, as well as the importance of team collaboration. 

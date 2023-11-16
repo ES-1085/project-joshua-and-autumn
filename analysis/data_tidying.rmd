@@ -4,6 +4,7 @@ author: "Joshua Harkness and Autumn Pauly,"
 date: "2023-10-20"
 output: github_document
 ---
+
 # Introduction
 This document is tidying the data sets of a series of reports published by the U.S. Geological Survey about the distributions and concentrations of contaminated sediments in the Gulf of Maine. 
 
@@ -17,7 +18,7 @@ library(visdat)
 library(naniar)
 ```
 
-##Loading Full Data Sets
+## Loading Full Data Sets
 These data sets are very large. Since these are all very large data files, we will select useful variables and variables we are interested in looking at to pare them down to a more manageable size.
 
 ```{r load-data, warning=FALSE}
@@ -27,8 +28,8 @@ PAHs_full = read_excel("/cloud/project/data/original_datasets/PAHS2002.xls", she
 organics_full = read_excel("/cloud/project/data/original_datasets/GENO2002.xls", sheet = 2, skip = 3)
 ```
 
-#Selecting and Modifying Variables 
-###PCBs
+# Selecting and Modifying Variables 
+### PCBs
 Creates PCBs2002 data frame. These are variables of interest, principally contaminant concentration with assigned unique IDs that can be associated to unique IDs in the other data frames.
 
 ```{r select-var-PCBs}
@@ -36,7 +37,7 @@ PCBs2002 = select(PCBs_full, c(UNIQUE_ID, PCB_52_NGG, PCB101_NGG, PCB118_NGG, PC
 
 ```
 
-###Stations
+### Stations
 Creates Stations2002 data frame.  These are unique IDs, coordinates (Lat/Lon in decimal degrees), depth sounding (meters), state name, USGS quad name, general and specific location names, area code, sampling date, resampling date, and information on sediment collection. 
 
 ```{r select-var-STATs}
@@ -120,15 +121,15 @@ Station2002 <- Station2002 %>%
                            "Spruce Creek" = "Back Channel Near N. shore of entrance to Barters Creek"
                            ))
 ```
-"Piscataqua River" = ""
-###Organics
+
+### Organics
 Creates Organics2002 dataframe with selected variables of interest.  These include general organics as well as total PCB and some notable pesticide concentrations.
 
 ```{r select-var-ORG}
 Organics2002 = select(organics_full, c(UNIQUE_ID, O_G_UGG, PHCTOT_UGG, PCB_T_UGG, DDT_T_NGG, DDE_T_NGG, DDD_T_NGG, PEST_UG_G, LIPIDS_NGG, CLOST_SP_G, MBT_C, DBT_C, TBT_C, TTBT_C))
 ```
 
-###PAHs
+### PAHs
 Creates PAHs2002 dataframe with selected variables of interest.  These are principally contaminate concentrations with unique IDs associated with other data frames.
 
 ```{r select-var-PAH}
@@ -164,7 +165,7 @@ This action associates location information and contaminant data by each sample'
   Organics_loc <- full_join(Station2002, Organics2002, by = "UNIQUE_ID")
 ```
 
-###Recoding PAHs' Special Character Values as Numeric
+### Recoding PAHs' Special Character Values as Numeric
 The amount values for the PAH containment `CHRYSENE` needs to be recoded from character values to numeric values. 
 
 ``` {r converting-PAHs-as.numeric}
@@ -178,32 +179,20 @@ The amount values for the PAH containment `CHRYSENE` needs to be recoded from ch
 # Visualizing Missing Data
 Visualizing missing data can help us determine which specific contaminants were actually detected, and should then be analyzed, as there are a lot of missing values within each data set.
 
-###Missing PCB Data
+### Missing PCB Data
 ``` {r missing-data-PCBs}
 #Visualizing the percentage of missing data
-#visdat::vis_miss(PCBs_loc)
+visdat::vis_miss(PCBs_loc)
 
-#visualizing correlations in data as a heatmap - only numeric values...
-#dplyr::select(PCBs_loc, where(is.numeric)) %>%
-#visdat::vis_cor(PCBs_loc, "pearson", "pairwise.complete.obs", facet)
+visdat::vis_dat(PCBs_loc) +
+  labs(title = "Missing Data from the PCBs Dataset")
 
-#we should highlight the locations where there are PCBs detected
-```
-
-```{r}
- visdat::vis_dat(PCBs_loc)
-```
-
-```{r}
 naniar::gg_miss_var(PCBs_loc)
-```
 
-```{r}
 naniar::miss_var_summary(PCBs_loc)
 ```
 
-
-###Missing PAH Data
+### Missing PAH Data
 ``` {r missing-data-PAHs}
 #Visualizing the percentage of missing data
 visdat::vis_miss(PAHs_loc)
@@ -212,19 +201,25 @@ visdat::vis_miss(PAHs_loc)
 #dplyr::select(PAHs_loc, where(is.numeric)) %>%
 #atavist::vis_cor(PAHs_loc, "pearson", "pairwise.complete.obs", facet)
 
-#we should highlight the locations where there are PAHs detected
+visdat::vis_dat(PAHs_loc)+
+  labs(title = "Missing Data from the PAHs Dataset")
+
+naniar::gg_miss_var(PAHs_loc)
+
+naniar::miss_var_summary(PAHs_loc)
 ```
 
-###Missing Organics Data
-``` {r missing-data-Organics}
+### Missing Organics Data
+``` {r missing-data-organics}
 #Visualizing the percentage of missing data
-# visdat::vis_miss(Organics_loc)
+visdat::vis_miss(Organics_loc)
 
-#visualizing correlations in data as a heatmap - only numeric values...
-#dplyr::select(Organics_loc, where(is.numeric)) %>%
-#visdat::vis_cor(Organics_loc, "pearson", "pairwise.complete.obs", facet)
+visdat::vis_dat(Organics_loc)+
+  labs(title = "Missing Data from the Organics Dataset")
 
-#This shows us in which station specific organics are found
+naniar::gg_miss_var(Organics_loc)
+
+naniar::miss_var_summary(Organics_loc)
 ```
 
 # Write loc datasets as CSVs
