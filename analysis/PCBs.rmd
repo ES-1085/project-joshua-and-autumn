@@ -222,25 +222,26 @@ pesticides %>%
 Interpretation: Filtering out zero values helps with the skewness; but since zero values (absence of PCBs from sample) are important to our analysis, this is not a valid approach except for in some visualizations.
 
 ### PCB Site to Site Comparisons
-#### General PCB Summary Statistics
-The table below is visualizing the mean, standard deviation, count, and principal square root values of PCB concentrations for the general locations.
+#### GOM General Locations
+Below we are calculating the mean, standard deviation, count, and standard error values of PCB concentrations, grouped by general locations.
 
-```{r calculate-sum-stats-organics}
+```{r calculate-sum-stats-organics, fig.align = "A table of summary statistics of total PCB concentrations grouped by general locations in the Gulf of Maine and arranged in descending order of mean total concentration.  Summary statistics include mean, standard deviation, count, and standard error.  Boston Inner Harbor has the highest mean total concentration in micrograms per gram of sediment, followed by Cape Ann to Cape Elizabeth.  Cape Cod Bay has the lowest mean concentrations."}
 Summary_Organics <- Organics %>%
   group_by(GEN_LOC_NM) %>%
   drop_na(PCB_T_UGG) %>%
   summarise(mean_PCB_T = mean(PCB_T_UGG),
     sd_PCB_T = sd(PCB_T_UGG),
     n_PCB_T = n(),
-    SE_PCB_T = sd(PCB_T_UGG) / sqrt(n()))
+    SE_PCB_T = sd(PCB_T_UGG) / sqrt(n())) %>%
+  arrange(desc(mean_PCB_T))
 
+#Output is commented out to save space when knitting output document
 #Summary_Organics
 ```
-Interpretation: Boston Inner Harbor has the highest mean PCB concentration (average of 44.21 ug/g per observation), followed by Cape Ann to Cape Elizabeth (average of 26.90 ug/g per observation) and Southeast Boston Harbor (average of 18.35 ug/g per observation). Boston Inner Harbor (average standard deviation of 284.81) and Cape Ann to Cape Elizabeth (average standard deviation of 227.34) have the highest standard deviations, suggesting that, though they are the locations with the highest average PCB concentrations, the counts per observation vary greatly. The ranges of both locations is 3,000 ug/g to 0 ug/g, which is a wide range of values. 
 
 The graph below is plotting the mean PCB concentration (ug/g) found at each general location with error bards accounting for one standard error. 
 
-```{r pcb-gen-loc}
+```{r pcb-gen-loc, fig.alt = "Bar plot of mean total PCB concentrations in micrograms per gram of sediment by general location in the Gulf of Maine.  Boston Inner Harbor has the highest mean total concentration at 44.21 ug/g, followed by Cape Ann to Cape Elizabeth at 26.90 ug/g, and Southeast Boston Harbor at 18.35 ug/g. Cape Cod Bay has the lowest mean total concentration at 0.01 ug/g."}
 Summary_Organics %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -1,x)), fill = GEN_LOC_NM)) +
   geom_col(col = "black") +
@@ -254,7 +255,8 @@ Summary_Organics %>%
        y = "Mean total PCB concentration ug/g",
        caption = "Error bars = 1 standard error")
 ```
-Interpretation: As was reflected upon above, Boston Inner Harbor, Cape Ann to Cape Elizabeth, and Southeast Boston Harbor have the highest concentrations of PCBs.
+
+Interpretation: Boston Inner Harbor has the highest mean PCB concentration (mean = 44.21 ug/g), followed by Cape Ann to Cape Elizabeth (mean = 26.90 ug/g) and Southeast Boston Harbor (mean 18.35 ug/g). Boston Inner Harbor (average standard deviation of 284.81) and Cape Ann to Cape Elizabeth (average standard deviation of 227.34) have the highest standard deviations, suggesting that, though they are the locations with the highest average PCB concentrations, the counts per observation vary greatly. The ranges of both locations is 3,000 ug/g to 0 ug/g, which is a wide range of values.  Cape Cod Bay has the lowest mean concentration.
 
 #### PCB Summary Statistics of Boston Harbor
 This graph shows the PCB concentrations in Boston Harbor, comparing all locations. 
