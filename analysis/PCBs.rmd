@@ -225,7 +225,7 @@ Interpretation: Filtering out zero values helps with the skewness; but since zer
 #### GOM General Locations
 Below we are calculating the mean, standard deviation, count, and standard error values of PCB concentrations, grouped by general locations.
 
-```{r calculate-sum-stats-organics, fig.align = "A table of summary statistics of total PCB concentrations grouped by general locations in the Gulf of Maine and arranged in descending order of mean total concentration.  Summary statistics include mean, standard deviation, count, and standard error.  Boston Inner Harbor has the highest mean total concentration in micrograms per gram of sediment, followed by Cape Ann to Cape Elizabeth.  Cape Cod Bay has the lowest mean concentrations."}
+```{r calculate-sum-stats-organics}
 Summary_Organics <- Organics %>%
   group_by(GEN_LOC_NM) %>%
   drop_na(PCB_T_UGG) %>%
@@ -261,7 +261,13 @@ Interpretation: Boston Inner Harbor has the highest mean PCB concentration (mean
 #### PCB Summary Statistics of Boston Harbor
 This graph shows the PCB concentrations in Boston Harbor, comparing all locations. 
 
-```{r pcb-boston-harbor1}
+```{r table-pcb-boston-harbor}
+Summary_Organics %>%
+  filter(GEN_LOC_NM %in% c("Boston Inner Harbor", "Central Boston Harbor", "Southeast Boston Harbor", "Northwest Boston Harbor")) %>%
+  arrange(desc(mean_PCB_T))
+```
+
+```{r bar-pcbs-boston-harbors, fig.alt = "Bar plot of mean total PCB concentrations in micrograms per gram of sediment in four Boston Harbor locations.  Concentrations are highest in Boston Inner Harbor at 44.21 ug/g; Southeast Boston Harbor is also highly contaminated with PCBs at 18.35 ug/g.  Central Boston Harbor (mean = 0.42 ug/g) and Northwest Boston Harbor (mean = 0.32 ug/g) are the least contaminated of the Boston Harbor sites with PCBs."}
 Summary_Organics %>%
   filter(GEN_LOC_NM %in% c("Boston Inner Harbor", "Central Boston Harbor", "Southeast Boston Harbor", "Northwest Boston Harbor")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = mean_PCB_T, fill = GEN_LOC_NM)) +
@@ -277,45 +283,180 @@ Summary_Organics %>%
        caption = "Error bars = 1 standard error")
 ```
 
-This graph shows the PCB concentrations in Boston Harbor, comparing Central Boston Harbor and Northwest Boston Harbor.
+Interpretation: Mean total PCB concentration is highest at Boston Inner Harbor stations (mean = 44.21 ug/g); Southeast Boston Harbor (mean = 18.35 ug/g) is also highly contaminated with PCBs.  Central Boston Harbor (mean = 0.42 ug/g) and Northwest Boston Harbor (mean = 0.32 ug/g) are the least contaminated of the Boston Harbor sites with PCBs. 
 
-```{r pcb-boston-harbor2}
-Summary_Organics %>%
-  filter(GEN_LOC_NM %in% c("Central Boston Harbor", "Northwest Boston Harbor")) %>%
-  ggplot(aes(x = fct_reorder(GEN_LOC_NM, mean_PCB_T), y = mean_PCB_T, fill = GEN_LOC_NM)) +
-  geom_col(col = "black") +
-  geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
-  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill") +
-  theme_bw() +
-  theme(legend.position = "none") +
-  labs(title = "PCB Concentrations in Boston Harbor Sediments",
-       subtitle = "Central and Northwest Boston Harbor",
-       x = "General location",
-       y = "Mean total PCB concentration ug/g",
-       caption = "Error bars = 1 standard error")
+### Specific PCB comparisons across GOM
+
+```{r sum-all-pcbs-rockland-n}
+Sum_pesticides_gom <- pesticides %>%
+  group_by(pcb, UNIQUE_ID) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  drop_na(amount_detected) %>%
+  summarise(mean = mean(amount_detected),
+    sd = sd(amount_detected),
+    n = n(),
+    SE = sd(amount_detected) / sqrt(n())) %>%
+  arrange(desc(mean))
+
+Sum_pesticides_gom
 ```
 
-## Visualizing Specific PCB Concentrations
-### PCB Summary Statistics of Harbors With Highest Concentrations
-This graph identifies the locations with the highest concentrations of PCBs.
-
-```{r pcb-highest-concentrations, warning=FALSE}
-Summary_Organics %>%
-  filter(GEN_LOC_NM %in% c("Boston Inner Harbor", "Cape Ann to Cape Elizabeth", "Southeast Boston Harbor", "Cape Elizabeth to Rockland", "Rockland to north")) %>%
-  ggplot(aes(x = fct_rev(fct_reorder(GEN_LOC_NM, mean_PCB_T)), y = mean_PCB_T, fill = GEN_LOC_NM)) +
-  geom_col() +
-  geom_errorbar(aes(ymin = mean_PCB_T - SE_PCB_T, ymax = mean_PCB_T + SE_PCB_T), width = 0.2) +
-  scale_fill_brewer(type = "qual", palette = 4, direction = 1, aesthetics = "fill") +
-  theme_minimal() +
-  scale_fill_viridis_d()+
+```{r bar-pesticides-gom, fig.alt = "Bar plot of mean concentration in nanograms per gram of sediment, of each detected pesticide in each sample.  Dieldrin is the most abundant pesticide identified in the Gulf of Maine, with (mean = 2.08 (+/- 76.2) ng/g per sample).  Lindane is also highly abundant (mean = 1.51 (+/- 42.42) ng/g per sample).  All other pesticides have means less than 0.4 ng/g per sample.  Note size of standard deviations, which illustrate how varied concentrations are; most have means close to zero, but high influence outliers are common."}
+Sum_pesticides_gom %>%
+  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
+  geom_col(color = "black") +
+   geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
   coord_flip() +
+  theme_classic() +
+  scale_fill_viridis_d(option = "plasma") +
   theme(legend.position = "none") +
-  labs(title = "Locations with the highest PCB Concentrations",
-       x = "General location",
-       y = "Mean total PCB concentration ug/g",
+  labs(title = "Pesticide Concentrations",
+       subtitle = "In Gulf of Maine Sediments",
+       x = "Pesticide",
+       y = "Concentration (ng/g)",
        caption = "Error bars = 1 standard error")
 ```
 
+Interpretation: Dieldrin is the most abundant pesticide identified in the Gulf of Maine, with (mean = 2.08 (+/- 76.2) ng/g per sample).  Lindane is also highly abundant (mean = 1.51 (+/- 42.42) ng/g per sample).  All other pesticides have means less than 0.4 ng/g per sample.  Note size of standard deviations, which illustrate how varied concentrations are; most have means close to zero, but high influence outliers are common.
+
+
+```{r sum-pcbs-rock-n}
+Sum_pcbs_gom <- pcbs_only %>%
+  group_by(pcb, site) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  drop_na(amount_detected) %>%
+  summarise(mean = mean(amount_detected),
+    sd = sd(amount_detected),
+    n = n(),
+    SE = sd(amount_detected) / sqrt(n())) %>%
+  arrange(desc(mean))
+
+#Sum_pcbs_rock_n
+```
+
+```{r bar-pcbs-rock-n}
+Sum_pcbs_gom %>%
+  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
+  geom_col(color = "black") +
+  geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
+  coord_flip() +
+  theme_classic() +
+  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill") +
+  theme(legend.position = "none") +
+  labs(title = "PCB Composition and Concentrations",
+       subtitle = "In Gulf of Maine Sediments",
+       x = "PCB",
+       y = "Amount Detected (ng/g)",
+       caption = "Error bars = 1 standard error")
+
+#Sum_pcbs_rock_n %>%
+#ggplot(aes(x="", y = mean, fill = pcb)) +
+  #geom_bar(stat="identity", width=1) +
+  #coord_polar("y", start=0) +
+  #scale_fill_viridis_d(option = "turbo") +
+  #labs(title = "PCB Composition",
+       #subtitle = "Rockland, ME, and points north",
+       #x = "",
+       #y = "Percent Composition")
+```
+Interpretation:  This bar plot shows concentrations of each polychlorinated biplhenyl (PCBs) in the area from Rockland, ME to the Bay of Fundy, and was detected in the PCBs dataset.  All PCBs are similarly prevalent in this area, with PCB 138 being the most abundant (mean = 0.30 +/- 1.23 ng/g), and PCB 128 being the least abundant (mean = 0.02 +/- 0.2 ng/g).  The pie chart shows percent composition of the same PCBs for this area.
+
+```{r}
+Sum_pcbs_gom <- pcbs_only %>%
+  group_by(pcb, site) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  drop_na(amount_detected) %>%
+  summarise(mean = mean(amount_detected),
+    sd = sd(amount_detected),
+    n = n(),
+    SE = sd(amount_detected) / sqrt(n())) %>%
+  arrange(desc(mean))
+
+Sum_pcbs_gom
+```
+
+```{r}
+Sum_pcbs_gom %>%
+  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
+  geom_col(color = "black") +
+  geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
+  coord_flip() +
+  theme_classic() +
+  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill") +
+  theme(legend.position = "none") +
+  labs(title = "PCB Composition and Concentrations",
+       subtitle = "In Gulf of Maine Sediments",
+       x = "PCB",
+       y = "Amount Detected (ng/g)",
+       caption = "Error bars = 1 standard error")
+
+```
+
+### Top 4 Pesticides
+
+```{r}
+pesticides %>%
+  filter(pcb %in% c("BHC_C", "MIREX_C", "ALDRIN_C", "DDT_C")) %>%
+  filter(amount_detected <=30) %>%
+  filter(amount_detected > 0) %>%
+  ggplot(aes(x = amount_detected, y = pcb, fill = pcb)) +
+  geom_density_ridges() +
+  scale_fill_viridis_d() +
+  theme_minimal() +
+  theme(legend.position="none") +
+  labs(title = "Data Distribution of Top 4 Pesticides",
+       x = "Concentration (ng/g)",
+       y = "Pesticide",
+       caption = "Values > 30 ng/g excluded")
+  
+```
+
+### Site Specific pesticide comparisons
+```{r sum-all-pcbs-rockland-n}
+Sum_pesticides_gom <- pesticides %>%
+  group_by(pcb, SPECFC_LOC) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  drop_na(amount_detected) %>%
+  summarise(mean = mean(amount_detected),
+    sd = sd(amount_detected),
+    n = n(),
+    SE = sd(amount_detected) / sqrt(n())) %>%
+  arrange(desc(mean))
+
+Sum_pesticides_gom
+```
+
+```{r bar-pesticides-gom}
+Sum_pesticides_gom %>%
+  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
+  geom_col(color = "black") +
+   geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
+  coord_flip() +
+  theme_classic() +
+  scale_fill_viridis_d() +
+  theme(legend.position = "none") +
+  labs(title = "Pesticide Concentrations",
+       subtitle = "In Gulf of Maine Sediments",
+       x = "Pesticide",
+       y = "Concentration (ng/g)",
+       caption = "Error bars = 1 standard error")
+
+Sum_pesticides_gom %>%
+  ggplot(aes(x="", y = mean, fill = pcb)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) +
+  scale_fill_viridis_d(option = "turbo") +
+  theme_minimal() +
+  labs(title = "Pesticide Composition",
+       subtitle = "Rockland, ME, and points north",
+       x = "",
+       y = "Percent Composition", 
+       fill = "Pesticide")
+ 
+```
+Interpretation: This bar plot shows concentrations of each pesticide per ng/g of sediment in the inshore area from Rockland, Maine to the Bay of Fundy.  Benzene hexachloride alpha, beta, and delta isomers (BHC) are the most prevalent in this area, but are also highly variable (mean = 1.67 +/- 12.91 ng/g).  Lindane, the gamma isomer of BHC, which is more insecticidal, is much less prevalent (mean = 0.13 +/- 0.58 ng/g).  Mirex (mean = 0.26 +/- 1.71 ng/g) and aldrin (mean = 0.24 +/- 1.43 ng/g) are also prevalent.  Chlordane, endrin aldehyde, endrin, and methoxychlor were not detected (indicated with negative bars.)  Pie chart shows percent composition of the pesticides for this area.
+
+## Visualizing General Organic Concentrations
 #### Boston Inner Harbor Concentrations
 This plot visualizes the specific organics present in Boston Inner Harbor. 
 Oil and Grease (173,938.40 moles/g) has the highest concentration in sediments in the harbor, followed by Petroleum Hydrocarbons (134,266.0 percent dry weight), and then Clostridium perfringens (99,230.00 spores/g). 
@@ -446,143 +587,6 @@ Organics_long_no_na_no_zero %>%
        fill ="Organic Detected")
 ```
 
-```{r sum-all-pcbs-rockland-n}
-Sum_pesticides_gom <- pesticides %>%
-  group_by(pcb, SPECFC_LOC) %>%
-  filter(GEN_LOC_NM == "Rockland to north") %>%
-  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  drop_na(amount_detected) %>%
-  summarise(mean = mean(amount_detected),
-    sd = sd(amount_detected),
-    n = n(),
-    SE = sd(amount_detected) / sqrt(n())) %>%
-  arrange(desc(mean))
-
-Sum_pesticides_gom
-```
-
-```{r bar-pesticides-rockland-n}
-Sum_pesticides_gom %>%
-  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
-  geom_col(color = "black") +
-   geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
-  coord_flip() +
-  theme_classic() +
-  scale_fill_viridis_d() +
-  theme(legend.position = "none") +
-  labs(title = "Pesticide Concentrations",
-       subtitle = "In Gulf of Maine Sediments",
-       x = "Pesticide",
-       y = "Concentration (ng/g)",
-       caption = "Error bars = 1 standard error")
-
-#Sum_pesticides_rock_n %>%
-  #ggplot(aes(x="", y = mean, fill = pcb)) +
-  #geom_bar(stat="identity", width=1) +
-  #coord_polar("y", start=0) +
-  #scale_fill_viridis_d(option = "turbo") +
-  #theme_minimal() +
-  #labs(title = "Pesticide Composition",
-       #subtitle = "Rockland, ME, and points north",
-       #x = "",
-       #y = "Percent Composition", 
-       #fill = "Pesticide")
-
-#AP - I couldn't find what sum_pesticides_rock_n was, so I commented it out! 
-```
-
-Interpretation: This bar plot shows concentrations of each pesticide per ng/g of sediment in the inshore area from Rockland, Maine to the Bay of Fundy.  Benzene hexachloride alpha, beta, and delta isomers (BHC) are the most prevalent in this area, but are also highly variable (mean = 1.67 +/- 12.91 ng/g).  Lindane, the gamma isomer of BHC, which is more insecticidal, is much less prevalent (mean = 0.13 +/- 0.58 ng/g).  Mirex (mean = 0.26 +/- 1.71 ng/g) and aldrin (mean = 0.24 +/- 1.43 ng/g) are also prevalent.  Chlordane, endrin aldehyde, endrin, and methoxychlor were not detected (indicated with negative bars.)  Pie chart shows percent composition of the pesticides for this area.
-
-```{r sum-pcbs-rock-n}
-Sum_pcbs_gom <- pcbs_only %>%
-  group_by(pcb, site) %>%
-  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  drop_na(amount_detected) %>%
-  summarise(mean = mean(amount_detected),
-    sd = sd(amount_detected),
-    n = n(),
-    SE = sd(amount_detected) / sqrt(n())) %>%
-  arrange(desc(mean))
-
-#Sum_pcbs_rock_n
-```
-
-```{r bar-pcbs-rock-n}
-Sum_pcbs_gom %>%
-  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
-  geom_col(color = "black") +
-  geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
-  coord_flip() +
-  theme_classic() +
-  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill") +
-  theme(legend.position = "none") +
-  labs(title = "PCB Composition and Concentrations",
-       subtitle = "In Gulf of Maine Sediments",
-       x = "PCB",
-       y = "Amount Detected (ng/g)",
-       caption = "Error bars = 1 standard error")
-
-#Sum_pcbs_rock_n %>%
-#ggplot(aes(x="", y = mean, fill = pcb)) +
-  #geom_bar(stat="identity", width=1) +
-  #coord_polar("y", start=0) +
-  #scale_fill_viridis_d(option = "turbo") +
-  #labs(title = "PCB Composition",
-       #subtitle = "Rockland, ME, and points north",
-       #x = "",
-       #y = "Percent Composition")
-```
-Interpretation:  This bar plot shows concentrations of each polychlorinated biplhenyl (PCBs) in the area from Rockland, ME to the Bay of Fundy, and was detected in the PCBs dataset.  All PCBs are similarly prevalent in this area, with PCB 138 being the most abundant (mean = 0.30 +/- 1.23 ng/g), and PCB 128 being the least abundant (mean = 0.02 +/- 0.2 ng/g).  The pie chart shows percent composition of the same PCBs for this area.
-
-```{r}
-Sum_pcbs_gom <- pcbs_only %>%
-  group_by(pcb, site) %>%
-  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  drop_na(amount_detected) %>%
-  summarise(mean = mean(amount_detected),
-    sd = sd(amount_detected),
-    n = n(),
-    SE = sd(amount_detected) / sqrt(n())) %>%
-  arrange(desc(mean))
-
-Sum_pcbs_gom
-```
-
-```{r}
-Sum_pcbs_gom %>%
-  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
-  geom_col(color = "black") +
-  geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
-  coord_flip() +
-  theme_classic() +
-  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill") +
-  theme(legend.position = "none") +
-  labs(title = "PCB Composition and Concentrations",
-       subtitle = "In Gulf of Maine Sediments",
-       x = "PCB",
-       y = "Amount Detected (ng/g)",
-       caption = "Error bars = 1 standard error")
-
-```
-
-### Top 4 Pesticides
-
-```{r}
-pesticides %>%
-  filter(pcb %in% c("BHC_C", "MIREX_C", "ALDRIN_C", "DDT_C")) %>%
-  filter(amount_detected <=30) %>%
-  filter(amount_detected > 0) %>%
-  ggplot(aes(x = amount_detected, y = pcb, fill = pcb)) +
-  geom_density_ridges() +
-  scale_fill_viridis_d() +
-  theme_minimal() +
-  theme(legend.position="none") +
-  labs(title = "Data Distribution of Top 4 Pesticides",
-       x = "Concentration (ng/g)",
-       y = "Pesticide",
-       caption = "Values > 30 ng/g excluded")
-  
-```
 
 
 ### Inshore to offshore comparison
