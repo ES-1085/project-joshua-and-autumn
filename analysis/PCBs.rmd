@@ -457,7 +457,7 @@ Organics_long_no_na_no_zero %>%
   arrange(desc(amount_detected))
 ```
 
-``` {r type_of_organic-in-boston-inner-harbor-graph, warning = FALSE}
+``` {r type_of_organic-in-boston-inner-harbor-graph, warning = FALSE, fig.alt = "Pie chart showing composition of general organic contaminants in Boston Inner Harbor sediments.  PCBs are most abundant, followed by oil and greese.  DDT, PHC, and MBT comprise substantial proportions.  Clostridium sp. was detected."}
 Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM %in% c("Boston Inner Harbor")) %>%
   ggplot(aes(x= "", y = sum(amount_detected, na.rm = TRUE), fill = organic_detected)) +
@@ -483,7 +483,7 @@ Organics_long_no_na_no_zero %>%
   arrange(desc(amount_detected))
 ```
 
-``` {r type_of_organic-in-cape-ann-to-elizabeth-graph, warning = FALSE}
+``` {r type_of_organic-in-cape-ann-to-elizabeth-graph, warning = FALSE, fig.alt = "Pie chart of composition of general organic contaminats in inshore area from Cape Ann, MA to Cape Elizabeth, ME.  "}
 Organics_long_no_na_no_zero %>%
   filter(GEN_LOC_NM %in% c("Cape Ann to Cape Elizabeth")) %>%
   ggplot(aes(x="", y = amount_detected, fill = organic_detected)) +
