@@ -883,7 +883,7 @@ gen_org <- Organics_long_no_na_no_zero %>%
   filter(organic_detected %in% c("O_G_UGG", "MBT_C", "DBT_C", "TBT_C", "PHCTOT_UGG", "CLOST_SP_G", "TTBT_C", "LIPIDS_NGG"))
 ```
 
-```{r map-gen-org-gom}
+```{r map-gen-org-gom, fig.alt = "Map of central New England Coast, with points indicating stations where general organic contaminants were detected.  Color of points indicates contaminant detected.  Clostridium sp. is abundant from Cape Cod Bay to the mouth of Piscataqua River in New Hampshire/ME."}
 ggplot(GOM_states) +
   geom_sf(aes()) +
   geom_sf(data = Bathy_low_res, color = "gray80", width = 1) +
@@ -932,41 +932,9 @@ ggplot(GOM_states) +
       text_family = "ArcherPro Book"))
 ```
 
-### Mapping Specific PCBs to Gulf of Maine
-This map is displaying which specific PCB has been detected in Gulf of Maine sediments. 
+Interpretation: Clostridium sp. is abundant from Cape Cod Bay to the mouth of Piscataqua River in New Hampshire/ME.
 
-```{r map-all-organics-gom}
-ggplot(GOM_states) +
-  geom_sf(aes()) +
-  geom_sf(data = Bathy_low_res, color = "gray80", width = 1) +
-  geom_point(data=Organics_long_no_na_no_zero, (aes(x = LONGITUDE, y = LATITUDE, size = amount_detected, color = organic_detected, alpha = 0.5))) +
-  xlim(-72,-65) +
-  ylim(40,45) +
-  theme_bw() +
-  labs(title = "Distribution and concentration of PCBs",
-       subtitle ="MDI and Penobscot Bay sediments",
-       x = "Longitude",
-       y = "Latitude") +
-  guides(size = guide_legend(title = "PCB ug/g")) +
-  guides(alpha = FALSE) +
-  ggspatial::annotation_scale(
-    location = "bl",
-    bar_cols = c("grey60", "white"),
-    text_family = "ArcherPro Book"
-  ) +
-  ggspatial::annotation_north_arrow(
-    location = "tr", which_north = "true",
-    pad_x = unit(0, "in"), pad_y = unit(0.2, "in"),
-    style = ggspatial::north_arrow_nautical(
-      fill = c("grey40", "white"),
-      line_col = "grey20",
-      text_family = "ArcherPro Book"))
-
-```
-
-
-
-```{r map-all-pesticides-gom, warning = FALSE}
+```{r map-all-pesticides-gom, warning = FALSE, fig.alt = "Map of the Gulf of Maine, with points indicating pesticide detections.  Points are colored by pesticide type; point radius indicates concentration.  The highest concentrations and diversity of pesticides are found in and around Boston Harbor, Massachusetts, with dieldrin and endrin aldehydr being highly concentrated.  The Maine coast sees a much lower diversity of pesticides, primarily Lindane and BHC, with some Chlordane."}
 ggplot(GOM_states) +
   geom_sf(aes()) +
   geom_sf(data = Bathy_low_res, color = "gray80", width = 1) +
@@ -1021,7 +989,10 @@ ggplot(GOM_states) +
       line_col = "grey20",
       text_family = "ArcherPro Book"))
 ```
-```{r map-pest-mass-bays}
+
+Interpretations: The highest concentrations and diversity of pesticides are found in and around Boston Harbor, Massachusetts, with dieldrin and endrin aldehydr being highly concentrated.  The Maine coast sees a much lower diversity of pesticides, primarily Lindane and BHC, with some Chlordane.
+
+```{r map-pest-mass-bays, fig.alt = "Map of Boston Harbor and part of Massachusetts Bay with points indicating pesticide detections.  Points are colored by pesticide type; point radius indicates concentration.  Dieldrin, endrin aldehyde, and endrin are principally found near shore, while lindane, BHC, and DDT and its products are found further offshore."}
 ggplot(GOM_states) +
   geom_sf(aes()) +
   geom_sf(data = Bathy_hi_res, color = "gray80", width = 1) +
@@ -1077,64 +1048,8 @@ ggplot(GOM_states) +
       text_family = "ArcherPro Book"))
 ```
 
+Interpretation: Dieldrin, endrin aldehyde, and endrin are principally found near shore, while lindane, BHC, and DDT and its products are found further offshore.
 
-```{r}
-ggplot(GOM_states) +
-  geom_sf(aes()) +
-  geom_sf(data = Bathy_hi_res, color = "gray80", width = 1) +
-  geom_point(data=pesticides, (aes(x = LONGITUDE, y = LATITUDE, size = amount_detected, color = pcb, alpha = 0.5))) +
-  xlim(-69.2,-68) +
-  ylim(44,44.5) +
-  theme_bw() +
-  guides(size = guide_legend(title = "Concentration ug/g")) +
-  guides(alpha = FALSE) +
-  theme(legend.direction = "vertical", legend.box = "horizontal") +
-  scale_color_discrete(name = "Pesticide",
-                        breaks = c(
-                          "DDT_C", 
-                          "DDE_4_4_C", 
-                          "DDD_4_4_C", 
-                          "ENDRIN_C", 
-                          "ENDR_ALD_C", 
-                          "ALDRIN_C", 
-                          "DIELDRN_C", 
-                          "CLRDNE_T_C", 
-                          "MIREX_C", 
-                          "METHOXYCLC", 
-                          "BHC_C",
-                          "LINDANE_C"),
-                          labels = c(
-                          "DDT",
-                          "4,4' DDE",
-                          "4,4' DDD",
-                          "Endrin",
-                          "Endrin Aldehyde",
-                          "Aldrin",
-                          "Dieldrin",
-                          "Chlordane",
-                          "Mirex",
-                          "Methoxychlor",
-                          "Benzene Hexachloride",
-                          "Lindane")) +
-  labs(title = "Distribution and concentration of Pesticides",
-       subtitle ="Boston Harbor sediments",
-       x = "Longitude",
-       y = "Latitude") +
-  ggspatial::annotation_scale(
-    location = "bl",
-    bar_cols = c("grey60", "white"),
-    text_family = "ArcherPro Book"
-  ) +
-  ggspatial::annotation_north_arrow(
-    location = "tr", which_north = "true",
-    pad_x = unit(0, "in"), pad_y = unit(0.2, "in"),
-    style = ggspatial::north_arrow_nautical(
-      fill = c("grey40", "white"),
-      line_col = "grey20",
-      text_family = "ArcherPro Book"))
-```
-  
-  
 ## Interactive map
 
 ```{r create-organics-long-with-no-nas-no-zeros}
