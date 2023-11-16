@@ -2,7 +2,7 @@
 title: 'GOM Contaminated Sediments Analysis: PCBs'
 author: "Joshua Harkness and Autumn Pauly"
 date: "2023-10-28"
-output: html_document
+output: github_document
 ---
 ## Introduction
 This document is an analysis of distributions and concentrations of PCB and Organic contaminants that were reported in a publication by the U.S. Geological Survey on contaminated sediments in the Gulf of Maine. In this data set, we analyzed the prevalence of oil and grease, petroleum Hydrocarbons, polychlorinated biphenyls, DDT compounds, DDE compounds, DDD compounds, pesticide compounds, lipids, clostridium perfringens, monobutyl tin, dibutyl tin, tributyl tin, tetrabutyl tin, PCB congeners #52-209, DDT 4,4', DDT 2,4', DDD 4,4', DDD 4,2', endrin, endrin aldehyde, aldrin, dieldrin, chlordane, mirex, methoxychlor, hexachlorocyclohexane alpha/beta/gamma isomer, and lindane.
@@ -24,6 +24,7 @@ library(RColorBrewer)
 library(dplyr)
 library(ggridges)
 library(rmarkdown)
+library(dunn.test)
 ```
 
 ### Loading PCB and Organics Datasets
@@ -103,7 +104,7 @@ Same as above, just for PCBs instead of pesticides.
 pcbs_only <- PCBs_long %>%
   filter(pcb %in% c("PCB_52_NGG", "PCB101_NGG", "PCB118_NGG", "PCB128_NGG", "PCB138_NGG", "PCB153_NGG", "PCB180_NGG", "PCB206_NGG", "PCB209_NGG"))
 
-glimpse(pcbs_only)
+#glimpse(pcbs_only)
 ```
 
 ## Statistical Tests
@@ -204,7 +205,7 @@ ggplot(pesticides, aes(x = GEN_LOC_NM, y = amount_detected)) +
 
 Interpretation: These two boxplots also serve the purpose of indicating how extremely skewed our dataset is; the first shows the full range of our data, the second limits the y axis to 0 to 15 ng/g.  Mean values are all less than 2.5 ng/gm, but outliers are present as high as 4000 ng/g.
 
-```{r boxplot-without-zeros, fig.alt = "Boxplot of pesticide concentration by general location showing data skewness, this time with zero values filtered out from dataset.  All location categories are less skewed than when zero values are included, but remain highly skewed.}
+```{r boxplot-without-zeros, fig.alt = "Boxplot of pesticide concentration by general location showing data skewness, this time with zero values filtered out from dataset.  All location categories are less skewed than when zero values are included, but remain highly skewed."}
 pesticides %>%
   filter(amount_detected <= 15) %>%
   filter(amount_detected > 0) %>%
@@ -323,7 +324,7 @@ Interpretation: PCB 153 is the most abundant in Gulf of Maine sediments (mean = 
 
 ### Pesticides comparisons across GOM
 Calculating summary statistics of pesticides by type and sample ID
-```{r sum-all-pcbs-rockland-n}
+```{r sum-pest-gom}
 Sum_pesticides_gom <- pesticides %>%
   group_by(pcb, UNIQUE_ID) %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
@@ -1060,87 +1061,65 @@ pesticides_no_na_no_zero <- pesticides %>%
   filter(SOUNDING_M != "0")
 ```
 
-```{r set-up-colors-for-leaflet-map}
-#summary(pesticides_no_na_no_zero$amount_detected)
-
-#bins <- seq(0, 10, 1)
-```
-```{r set-pallete-for-leaflet-map}
-#palpest <- colorBin("YlOrRd", domain = pesticides_no_na_no_zero$amount_detected, bins = bins)
-```
-
-```{r}
-pesticides_no_na <- pesticides %>%
-  drop_na(amount_detected)
-```
-
-
 ```{r create-html-labels-pesticides}
-markers <- pesticides_no_na
+#markers1 <- pesticides_no_na_no_zero
 
+#markers1 <- markers1 %>%
+#  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
+#                         "BHC: ", round(amount_detected[pcb == "BHC_C"], digits = 4), " ng/g<br>",
+#                         "Chlordane: ", round(amount_detected[pcb == "CLRDNE_T_C"], digits = 4), " #ng/g<br>",
+#                         "DDT: ", round(amount_detected[pcb == "DDT_C"], digits = 4), " ng/g<br>",
+#                         "DDE: ", round(amount_detected[pcb == "DDE_4_4_C"], digits = 4), " ng/g<br>",
+#                         "DDD: ", round(amount_detected[pcb == "DDD_4_4_C"], digits = 4), " ng/g<br>",
+#                         "Aldrin: ", round(amount_detected[pcb == "ALDRIN_C"], digits = 4), " #ng/g<br>",
+#                         "Dieldrin: ", round(amount_detected[pcb == "DIELDRN_C"], digits = 4), " #ng/g<br>",
+#                         "Endrin: ", round(amount_detected[pcb == "ENDRIN_C"], digits = 4), " #ng/g<br>",
+#                         "Endrin Aldehyde: ", round(amount_detected[pcb == "ENDR_ALD_C"], digits = 4), #" ng/g<br>",
+#                         "Lindane: ", round(amount_detected[pcb == "LINDANE_C"], digits = 4), " #ng/g<br>",
+#                         "Mirex: ", round(amount_detected[pcb == "MIREX_C"], digits = 4), " ng/g<br>",
+#                         "Methoxychlor: ", round(amount_detected[pcb == "METHOXYCLC"], digits = 4), " #ng/g<br>"))
 
-markers <- markers %>%
-  mutate(labels1 = paste0("<strong>", "Site: ", site,"</strong><br>",
-                         "BHC: ", if_else(round(amount_detected[pcb == "BHC_C"], digits = 4), " ng/g<br>",
-                         "Chlordane: ", round(amount_detected[pcb == "CLRDNE_T_C"], digits = 4), " ng/g<br>",
-                         "DDT: ", round(amount_detected[pcb == "DDT_C"], digits = 4), " ng/g<br>",
-                         "DDE: ", round(amount_detected[pcb == "DDE_4_4_C"], digits = 4), " ng/g<br>",
-                         "DDD: ", round(amount_detected[pcb == "DDD_4_4_C"], digits = 4), " ng/g<br>",
-                         "Aldrin: ", round(amount_detected[pcb == "ALDRIN_C"], digits = 4), " ng/g<br>",
-                         "Dieldrin: ", round(amount_detected[pcb == "DIELDRN_C"], digits = 4), " ng/g<br>",
-                         "Endrin: ", round(amount_detected[pcb == "ENDRIN_C"], digits = 4), " ng/g<br>",
-                         "Endrin Aldehyde: ", round(amount_detected[pcb == "ENDR_ALD_C"], digits = 4), " ng/g<br>",
-                         "Lindane: ", round(amount_detected[pcb == "LINDANE_C"], digits = 4), " ng/g<br>",
-                         "Mirex: ", round(amount_detected[pcb == "MIREX_C"], digits = 4), " ng/g<br>",
-                         "Methoxychlor: ", round(amount_detected[pcb == "METHOXYCLC"], digits = 4), " ng/g<br>")))
-
-#head(markers$labels1, 1)
+#head(markers1$labels, 1)
 ```
 
-```{r leaflet-map-pesticides}
-leaflet() %>%
-  addProviderTiles(providers$Esri.WorldTopoMap) %>%
-  setView(lng = -68.5, 
-          lat = 43.5, 
-          zoom = 6) %>%
-  addCircleMarkers(lng = pesticides_no_na_no_zero$LONGITUDE, lat = pesticides_no_na_no_zero$LATITUDE, color = "black", popup = markers$labels1, radius = log(markers$amount_detected*100))
+```{r leaflet-map-pesticides, fig.alt = "Interactive map of pesticide detections in the Gulf of Maine.  Each point indicates where at least one pesticide was detected.  Clicking on a point opens a pop-up window that gives a list of concentrations of each detected pesticide."}
+#leaflet() %>%
+#  addProviderTiles(providers$Esri.WorldTopoMap) %>%
+#  setView(lng = -68.5, 
+#          lat = 43.5, 
+#          zoom = 6) %>%
+#  addCircleMarkers(lng = pesticides_no_na_no_zero$LONGITUDE, lat = pesticides_no_na_no_zero$LATITUDE, #color = "black", popup = markers$labels1, radius = log(markers$amount_detected*100))
 ```
+
 
 ```{r create-html-labels-pcbs}
-markers <- pcbs_long %>%
-  drop_na(amount_detected) %>%
-  filter(amount_detected != 0)
+#markers2 <- pcbs_only %>%
+#  drop_na(amount_detected) %>%
+#  filter(amount_detected != 0)
+
+#markers2 <- markers %>%
+#  mutate(labels = paste0("<strong>", "Site: ", site,"</strong><br>",
+#                         "PCB 52: ", round(amount_detected[pcb == "PCB_52_NGG"], digits = 4), " #ng/g<br>",
+#                         "PCB 101: ", round(amount_detected[pcb == "PCB101_NGG"], digits = 4), " #ng/g<br>",
+#                         "PCB 118: ", round(amount_detected[pcb == "PCB118_NGG"], digits = 4), " #ng/g<br>",
+#                         "PCB 128: ", round(amount_detected[pcb == "PCB128_NGG"], digits = 4), " #ng/g<br>",
+#                         "PCB 138: ", round(amount_detected[pcb == "PCB138_NGG"], digits = 4), " #ng/g<br>",
+#                         "PCB 153: ", round(amount_detected[pcb == "PCB153_NGG"], digits = 4), " #ng/g<br>",
+#                         "PCB 180: ", round(amount_detected[pcb == "PCB180_NGG"], digits = 4), " #ng/g<br>",
+#                         "PCB 206: ", round(amount_detected[pcb == "PCB206_NGG"], digits = 4), " #ng/g<br>",
+#                         "PCB 209: ", round(amount_detected[pcb == "PCB209_NGG"], digits = 4), " #ng/g<br>"))
+
+
+#head(markers2$labels, 1)
 ```
 
-```{r create-html-labels-pcbs}
-#markers <- pcbs_only %>%
-  #drop_na(amount_detected) %>%
-  #filter(amount_detected != 0)
-
-
-#markers <- markers %>%
-  #mutate(labels2 = paste0("<strong>", "Site: ", site,"</strong><br>",
-                         #"PCB 52: ", round(amount_detected[pcb == "PCB_52_NGG"], digits = 4), " ng/g<br>",
-                         #"PCB 101: ", round(amount_detected[pcb == "PCB101_NGG"], digits = 4), " ng/g<br>",
-                         #"PCB 118: ", round(amount_detected[pcb == "PCB118_NGG"], digits = 4), " ng/g<br>",
-                         #"PCB 128: ", round(amount_detected[pcb == "PCB128_NGG"], digits = 4), " ng/g<br>",
-                         #"PCB 138: ", round(amount_detected[pcb == "PCB138_NGG"], digits = 4), " ng/g<br>",
-                         #"PCB 153: ", round(amount_detected[pcb == "PCB153_NGG"], digits = 4), " ng/g<br>",
-                         #"PCB 180: ", round(amount_detected[pcb == "PCB180_NGG"], digits = 4), " ng/g<br>",
-                         #"PCB 206: ", round(amount_detected[pcb == "PCB206_NGG"], digits = 4), " ng/g<br>",
-                         #"PCB 209: ", round(amount_detected[pcb == "PCB209_NGG"], digits = 4), " ng/g<br>"))
-
-
-#head(markers$labels2, 1)
-```
-
-```{r leaflet-map-pcbs}
-leaflet() %>%
-  addProviderTiles(providers$Esri.WorldTopoMap) %>%
-  setView(lng = -68.5, 
-          lat = 43.5, 
-          zoom = 6) %>%
-  addCircleMarkers(lng = pcb_only$LONGITUDE, lat = pcbs_only$LATITUDE, popup = markers$labels2, color = palpest, radius = log(markers$amount_detected*500))
+```{r leaflet-map-pcbs, fig.alt = "Interactive map of PCB detections in the Gulf of Maine.  Each point indicates where at least one PCB was detected.  Clicking on a point opens a pop-up window that gives a list of concentrations of each detected PCB."}
+#leaflet() %>%
+#  addProviderTiles(providers$Esri.WorldTopoMap) %>%
+#  setView(lng = -68.5, 
+#          lat = 43.5, 
+#          zoom = 6) %>%
+#  addCircleMarkers(lng = markers2$LONGITUDE, lat = markers2$LATITUDE, popup = markers2$labels, color = #"black", radius = log(markers$amount_detected*500))
 ```
 
 Note that the above code chunks are commented out as .rmd will not knit to github document with html functions.  Uncomment to run and change output type to `html_document` to knit.
