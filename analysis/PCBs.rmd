@@ -299,7 +299,8 @@ Sum_pcbs_gom <- pcbs_only %>%
     SE = sd(amount_detected) / sqrt(n())) %>%
   arrange(desc(mean))
 
-Sum_pcbs_gom
+#Output is commented out to save space when knitting document.
+#Sum_pcbs_gom
 ```
 
 ```{r bar-pcbs-gom, fig.alt = "Bar plot of mean PCB concentrations per sample by type of PCB.  PCB 153 is the most abundant in Gulf of Maine sediments (mean = 0.85 (+/- 20.01) ng/g per sample).  PCB 138 (mean = 0.76 (+/- 22.18) ng/g), PCB 101 (mean = 0.62 (+/- 18.55) ng/g), and PCB 118 (mean = 0.57 (+/- 17.30) ng/g) are also highly abundant.  PCB 209 is the least abundant detected PCB (mean = 0.10 (+/- 0.86) ng/g)."}
@@ -333,7 +334,8 @@ Sum_pesticides_gom <- pesticides %>%
     SE = sd(amount_detected) / sqrt(n())) %>%
   arrange(desc(mean))
 
-Sum_pesticides_gom
+#Output is commented out to save space when knitting output document.
+#Sum_pesticides_gom
 ```
 
 ```{r bar-pesticides-gom, fig.alt = "Bar plot of mean concentration in nanograms per gram of sediment, of each detected pesticide in each sample.  Dieldrin is the most abundant pesticide identified in the Gulf of Maine, with (mean = 2.08 (+/- 76.2) ng/g per sample).  Lindane is also highly abundant (mean = 1.51 (+/- 42.42) ng/g per sample).  All other pesticides have means less than 0.4 ng/g per sample.  Note size of standard deviations, which illustrate how varied concentrations are; most have means close to zero, but high influence outliers are common."}
@@ -354,64 +356,32 @@ Sum_pesticides_gom %>%
 
 Interpretation: Dieldrin is the most abundant pesticide identified in the Gulf of Maine, with (mean = 2.08 (+/- 76.2) ng/g per sample).  Lindane is also highly abundant (mean = 1.51 (+/- 42.42) ng/g per sample).  All other pesticides have means less than 0.4 ng/g per sample.  Note size of standard deviations, which illustrate how varied concentrations are; most have means close to zero, but high influence outliers are common.
 
-
-
-Interpretation:  This bar plot shows concentrations of each polychlorinated biplhenyl (PCBs) in the area from Rockland, ME to the Bay of Fundy, and was detected in the PCBs dataset.  All PCBs are similarly prevalent in this area, with PCB 138 being the most abundant (mean = 0.30 +/- 1.23 ng/g), and PCB 128 being the least abundant (mean = 0.02 +/- 0.2 ng/g).  The pie chart shows percent composition of the same PCBs for this area.
-
-```{r}
-Sum_pcbs_gom <- pcbs_only %>%
-  group_by(pcb, site) %>%
-  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  drop_na(amount_detected) %>%
-  summarise(mean = mean(amount_detected),
-    sd = sd(amount_detected),
-    n = n(),
-    SE = sd(amount_detected) / sqrt(n())) %>%
-  arrange(desc(mean))
-
-Sum_pcbs_gom
-```
-
-```{r}
-Sum_pcbs_gom %>%
-  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
-  geom_col(color = "black") +
-  geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
-  coord_flip() +
-  theme_classic() +
-  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill") +
-  theme(legend.position = "none") +
-  labs(title = "PCB Composition and Concentrations",
-       subtitle = "In Gulf of Maine Sediments",
-       x = "PCB",
-       y = "Amount Detected (ng/g)",
-       caption = "Error bars = 1 standard error")
-
-```
-
 ### Top 4 Pesticides
 
-```{r}
+```{r ridge-top4-pest, fig.alt = "Density ridgeline plot of top four most concentrated pesticides in Gulf of Maine Sediments, Dieldrin, Lindane, DDT, and 4,4' DDD.  All four have similar data distributions; they are unimodal, with mean values close to zero and high influence outliers at higher values.  Values greater than 10 ng/g have been excluded from this figure."}
 pesticides %>%
-  filter(pcb %in% c("BHC_C", "MIREX_C", "ALDRIN_C", "DDT_C")) %>%
-  filter(amount_detected <=30) %>%
+  filter(pcb %in% c("DIELDRN_C", "LINDANE_C", "DDT_C", "DDD_4_4_C")) %>%
+  filter(amount_detected <=10) %>%
   filter(amount_detected > 0) %>%
   ggplot(aes(x = amount_detected, y = pcb, fill = pcb)) +
   geom_density_ridges() +
   scale_fill_viridis_d() +
   theme_minimal() +
   theme(legend.position="none") +
-  labs(title = "Data Distribution of Top 4 Pesticides",
+  labs(title = "Density of Top 4 Concentrated Pesticides",
        x = "Concentration (ng/g)",
        y = "Pesticide",
-       caption = "Values > 30 ng/g excluded")
+       caption = "Values > 10 ng/g excluded")
   
 ```
 
+Interpretation: Density ridgeline plot of top four most concentrated pesticides in Gulf of Maine Sediments, Dieldrin, Lindane, DDT, and 4,4' DDD.  All four have similar data distributions; they are unimodal, with mean values close to zero and high influence outliers at higher values.  Values greater than 10 ng/g have been excluded from this figure.
+
 ### Site Specific pesticide comparisons
 ```{r sum-all-pcbs-rockland-n}
-Sum_pesticides_gom <- pesticides %>%
-  group_by(pcb, SPECFC_LOC) %>%
+Sum_pesticides_rock_n <- pesticides %>%
+  filter(GEN_LOC_NM == "Rockland to north") %>%
+  group_by(pcb, UNIQUE_ID) %>%
   summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
   drop_na(amount_detected) %>%
   summarise(mean = mean(amount_detected),
@@ -420,38 +390,59 @@ Sum_pesticides_gom <- pesticides %>%
     SE = sd(amount_detected) / sqrt(n())) %>%
   arrange(desc(mean))
 
-Sum_pesticides_gom
+#Output is commented out to save space when knitting output document.
+#Sum_pesticides_rock_n
 ```
 
-```{r bar-pesticides-gom}
-Sum_pesticides_gom %>%
-  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
+```{r bar-pesticides-rock-n, fig.alt = "Bar plot showing mean concentrations of each pesticide in nanograms per gram of sediment per sample in the inshore area from Rockland, Maine northeast to the Bay of Fundy.  Benzene hexachloride alpha, beta, and delta isomers (BHC) are the most prevalent in this area, but are also highly variable (mean = 0.20 +/- 4.45 ng/g).  Lindane, the gamma isomer of BHC, which is more insecticidal, is much less prevalent (mean = 0.015 +/- 0.10 ng/g).  Mirex (mean = 0.031 +/- 0.34 ng/g) and aldrin (mean = 0.029 +/- 0.33 ng/g) are also prevalent.  Chlordane, endrin aldehyde, endrin, and methoxychlor were not detected (indicated with negative bars)."}
+Sum_pesticides_rock_n %>%
+  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.002,x)), fill = pcb)) +
   geom_col(color = "black") +
    geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
   coord_flip() +
   theme_classic() +
   scale_fill_viridis_d() +
   theme(legend.position = "none") +
-  labs(title = "Pesticide Concentrations",
-       subtitle = "In Gulf of Maine Sediments",
+  labs(title = "Pesticide Concentrations in Gulf of Maine Sediments",
+       subtitle = "Rockland, ME and Points Northeast",
        x = "Pesticide",
        y = "Concentration (ng/g)",
        caption = "Error bars = 1 standard error")
-
-Sum_pesticides_gom %>%
-  ggplot(aes(x="", y = mean, fill = pcb)) +
-  geom_bar(stat="identity", width=1) +
-  coord_polar("y", start=0) +
-  scale_fill_viridis_d(option = "turbo") +
-  theme_minimal() +
-  labs(title = "Pesticide Composition",
-       subtitle = "Rockland, ME, and points north",
-       x = "",
-       y = "Percent Composition", 
-       fill = "Pesticide")
- 
 ```
-Interpretation: This bar plot shows concentrations of each pesticide per ng/g of sediment in the inshore area from Rockland, Maine to the Bay of Fundy.  Benzene hexachloride alpha, beta, and delta isomers (BHC) are the most prevalent in this area, but are also highly variable (mean = 1.67 +/- 12.91 ng/g).  Lindane, the gamma isomer of BHC, which is more insecticidal, is much less prevalent (mean = 0.13 +/- 0.58 ng/g).  Mirex (mean = 0.26 +/- 1.71 ng/g) and aldrin (mean = 0.24 +/- 1.43 ng/g) are also prevalent.  Chlordane, endrin aldehyde, endrin, and methoxychlor were not detected (indicated with negative bars.)  Pie chart shows percent composition of the pesticides for this area.
+Interpretation: This bar plot shows concentrations of each pesticide in ng/g of sediment per sample in the inshore area from Rockland, Maine northeast to the Bay of Fundy.  Benzene hexachloride alpha, beta, and delta isomers (BHC) are the most prevalent in this area, but are also highly variable (mean = 0.20 +/- 4.45 ng/g).  Lindane, the gamma isomer of BHC, which is more insecticidal, is much less prevalent (mean = 0.015 +/- 0.10 ng/g).  Mirex (mean = 0.031 +/- 0.34 ng/g) and aldrin (mean = 0.029 +/- 0.33 ng/g) are also prevalent.  Chlordane, endrin aldehyde, endrin, and methoxychlor were not detected (indicated with negative bars).
+
+```{r sum-pest-boston}
+Sum_pesticides_boston <- pesticides %>%
+  filter(GEN_LOC_NM %in% c("Boston Inner Harbor", "Northwest Boston Harbor", "Southeast Boston Harbor")) %>%
+  group_by(pcb, UNIQUE_ID) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  drop_na(amount_detected) %>%
+  summarise(mean = mean(amount_detected),
+    sd = sd(amount_detected),
+    n = n(),
+    SE = sd(amount_detected) / sqrt(n())) %>%
+  arrange(desc(mean))
+
+Sum_pesticides_boston
+```
+
+```{r bar-pesticides-boston, fig.alt = "Bar plot showing mean concentrations of each pesticide in nanograms per gram of sediment per sample in Boston Harbor locations.  Dieldrin is the most prevalent pesticide (mean = 3.77 (+/- 103.2) nanograms per gram), followed by Endrin Aldehyde (mean = 1.48 (+/- 30.04) ng/g), and DDD (mean = 1.03 (+/- 8.58) ng/g).  Chlordane is the only pesticide in our dataset not detected in Boston Harbor locations (indicated with negative bar)."}
+Sum_pesticides_boston %>%
+  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.04,x)), fill = pcb)) +
+  geom_col(color = "black") +
+   geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
+  coord_flip() +
+  theme_classic() +
+  scale_fill_viridis_d(option = "mako") +
+  theme(legend.position = "none") +
+  labs(title = "Pesticide Concentrations in Gulf of Maine Sediments",
+       subtitle = "Boston Harbor Locations",
+       x = "Pesticide",
+       y = "Concentration (ng/g)",
+       caption = "Error bars = 1 standard error")
+```
+
+Interpretation: Dieldrin is the most prevalent pesticide (mean = 3.77 (+/- 103.2) nanograms per gram), followed by Endrin Aldehyde (mean = 1.48 (+/- 30.04) ng/g), and DDD (mean = 1.03 (+/- 8.58) ng/g).  Chlordane is the only pesticide in our dataset not detected in Boston Harbor locations (indicated with negative bar).
 
 ## Visualizing General Organic Concentrations
 #### Boston Inner Harbor Concentrations
