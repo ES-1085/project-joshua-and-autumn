@@ -339,7 +339,7 @@ Sum_pesticides_gom <- pesticides %>%
 ```
 
 ### PCB site specific comparisons
-As stated in our project proposal, we were interested in visualizing contaminants in Maine Rivers as well as harbors and bays. The table below is visualizing the mean, standard deviation, count, and principal square root values of PCB concentrations for the general river locations.
+As stated in our project proposal, we were interested in visualizing contaminants in Maine Rivers as well as harbors and bays. The table below is visualizing the mean, standard deviation, count, and standard error values of PCB concentrations for river locations.
 
 ```{r calculate-sum-organics-by-site}
 Sum_Org_site <- Organics %>%
@@ -359,11 +359,17 @@ Organics %>%
   distinct(site)
 ```
 
+```{r sum-me-rivers}
+Sum_Org_site %>%
+  filter(site %in% c("Piscataqua River", "York River", "Kennebunk River", "Portland Fore River", "Royal River", "Kennebec River", "Penobscot River", "Saco River", "Union River")) %>%
+  arrange(desc(mean_PCB_T))
+```
+
 Below we are visualizing the mean PCBs present in Maine rivers. 
 
-```{r bar-pcb-me-rivers-without-union}
+```{r bar-pcb-me-rivers-without-union, fig.alt = "Bar plot of mean total PCB concentrations in micrograms per gram of sediment from Maine Rivers.  The Portland Fore River has the highest total concentration (mean = 13.18 (+/- 43.72) ng/g). Kennebunk River has the second highest conentration (mean = 0.77 (+/- 1.54) ng/g).  No PCBs were detected in the Kennebec or Penobscot Rivers (indicated with negative bars).  The Union River has been excluded from this plot."}
 Sum_Org_site %>%
-  filter(site %in% c("Piscataqua River", "York River", "Kennebunk River", "Fore River", "Royal River", "Kennebec River", "Penobscot River", "Saco River")) %>%
+  filter(site %in% c("Piscataqua River", "York River", "Kennebunk River", "Portland Fore River", "Royal River", "Kennebec River", "Penobscot River", "Saco River")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -0.2,x)), fill = fct_rev(fct_reorder(site, mean_PCB_T)))) +
   geom_bar(stat="identity", col = "black") +
   scale_x_discrete(drop=FALSE) +
@@ -373,7 +379,7 @@ Sum_Org_site %>%
                                "Royal River" = "orange",
                                "York River" = "darkgoldenrod4",
                                "Kennebunk River" = "firebrick",
-                               "Fore River" = "peachpuff",
+                               "Portland Fore River" = "peachpuff",
                                "Saco River" = "dodgerblue",
                                "Piscataqua River" = "green4")) +
   theme_bw() +
@@ -386,9 +392,9 @@ Sum_Org_site %>%
        y = "Mean total PCB concentration ug/g")
 ```
 
-Sites with only one observation or mean = 0 do not have error bars.
+Interpretation: The Portland Fore River has the highest total concentration (mean = 13.18 (+/- 43.72) ng/g). Kennebunk River has the second highest conentration (mean = 0.77 (+/- 1.54) ng/g).  No PCBs were detected in the Kennebec or Penobscot Rivers.  The Union River has been excluded from this plot.
 
-```{r bar-pcb-me-rivers-with-union}
+```{r bar-pcb-me-rivers-with-union, fig.alt = "Bar plot of mean total PCB concentrations in micrograms per gram of sediment from Maine Rivers.  The Union River in Ellsworth, Maine has the highest total concentration (mean = 276.6 ng/g).  There is only one observation associated with the Union River.  The Portland Fore River has the second highest total concentration (mean = 13.18 (+/- 43.72) ng/g). Kennebunk River has the third highest conentration (mean = 0.77 (+/- 1.54) ng/g).  No PCBs were detected in the Kennebec or Penobscot Rivers (indicated with negative bars)."}
 Sum_Org_site %>%
   filter(site %in% c("Piscataqua River", "York River", "Kennebunk River", "Fore River", "Royal River", "Kennebec River", "Penobscot River", "Saco River", "Union River")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -2,x)), fill = site)) +
@@ -412,7 +418,7 @@ Sum_Org_site %>%
        y = "Mean total PCB concentration ug/g")
 ```
 
-There are no errorbars for Union River as n = 1; single sample from this site so only a mean value.
+Intrepretation: The Union River in Ellsworth, Maine has the highest total concentration (mean = 276.6 ng/g).  There is only one observation associated with the Union River.  The Portland Fore River has the second highest total concentration (mean = 13.18 (+/- 43.72) ng/g). Kennebunk River has the third highest conentration (mean = 0.77 (+/- 1.54) ng/g).  No PCBs were detected in the Kennebec or Penobscot Rivers.  There are no errorbars for Union River as there is only one observation from this river.
 
 ```{r identiy-ma-rivers, message = FALSE, echo = FALSE, print = FALSE}
 Organics %>%
@@ -421,7 +427,13 @@ Organics %>%
   distinct(site)
 ```
 
-```{r bar-pcb-mass-rivers}
+```{r}
+Sum_Org_site %>%
+  filter(site %in% c("BASS RIVER", "ESSEX RIVER", "MYSTIC RIVER", "MERRIMACK RIVER", "Weymouth Fore River", "CHELSEA RIVER", "Chelsea River", "Mill Creek", "Neponset River Bridge", "South River", "Weymouth Fore & Town River", "North & Danvers River", "Island End River")) %>%
+  arrange(desc(mean_PCB_T))
+```
+
+```{r bar-pcb-mass-rivers, fig.alt = "Bar plot of mean total PCB concentrations in micrograms per gram of sediment from Massachusetts Rivers.  The Chelsea River in Boston and Chelsea, Massachusetts has the highest concentration (mean = 57.08 (+/- 95.25) ng/g) -- this is a highly industrial area.  Island End River has the second highest concentration (mean = 9.52 (+/- 7.86) ng/g).  The Merrimack River and Mill Creek have no detected PCBs (indicated with negative bars)."}
 Sum_Org_site %>%
   filter(site %in% c("BASS RIVER", "ESSEX RIVER", "MYSTIC RIVER", "MERRIMACK RIVER", "Weymouth Fore River", "CHELSEA RIVER", "Chelsea River", "Mill Creek", "Neponset River Bridge", "South River", "Weymouth Fore & Town River", "North & Danvers River", "Island End River")) %>%
   ggplot(aes(x = fct_rev(fct_reorder(site, mean_PCB_T)), y = sapply(mean_PCB_T, FUN=function(x) ifelse(x==0.000000e0, -.7,x)), fill = site)) +
@@ -437,6 +449,8 @@ Sum_Org_site %>%
        x = "Location",
        y = "Mean total PCB concentration ug/g")
 ```
+
+Intrepretation: The Chelsea River in Boston and Chelsea, Massachusetts has the highest concentration (mean = 57.08 (+/- 95.25) ng/g) -- this is a highly industrial area.  Island End River has the second highest concentration (mean = 9.52 (+/- 7.86) ng/g).  The Merrimack River and Mill Creek have no detected PCBs (indicated with negative bars).
 
 ```{r bar-pesticides-gom, fig.alt = "Bar plot of mean concentration in nanograms per gram of sediment, of each detected pesticide in each sample.  Dieldrin is the most abundant pesticide identified in the Gulf of Maine, with (mean = 2.08 (+/- 76.2) ng/g per sample).  Lindane is also highly abundant (mean = 1.51 (+/- 42.42) ng/g per sample).  All other pesticides have means less than 0.4 ng/g per sample.  Note size of standard deviations, which illustrate how varied concentrations are; most have means close to zero, but high influence outliers are common."}
 Sum_pesticides_gom %>%
