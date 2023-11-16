@@ -706,7 +706,7 @@ Organics_long_no_na_no_zero %>%
 
 Interpretation: DDT makes up greater than 75% of total; PCBs make up less than 25%.  Clostridium sp. was not detected in this zone.
 
-# Static Map Plots
+## Static Map Plots
 ### Loading Map Data
 Bathymetry data is in projected coordinate system (NAD83), other data is geodetic (NAD83).  Wasn't able to add this layer to map plot -- need to change projection.
 
@@ -745,7 +745,7 @@ ggplot(Bathy_hi_res) +
 ```
 Using this bathymetry layer, the distribution and concentration of PCBs can be mapped. 
 
-```{r map-pcbs-with-nas-zeros}
+```{r map-all-stations, fig.alt = "Map of all sampled locations in the Gulf of Maine. Sampling intensity was greatest inshore, along the coast from Cape Cod Bay to the Bay of Fundy. Offshore sampling mostly was done in a grid pattern; there are some clumps of apparently random points throughout the offshore area, especially along the continental shelf southeast of Cape Cod."}
 ggplot(GOM_states) +
   geom_sf(aes()) +
   geom_sf(data = Bathy_low_res, color = "gray80", width = 1) +
@@ -772,15 +772,16 @@ ggplot(GOM_states) +
       text_family = "ArcherPro Book"))
 ```
 
+Interpretation: Sampling intensity was greatest inshore, along the coast from Cape Cod Bay to the Bay of Fundy. Offshore sampling mostly was done in a grid pattern; there are some clumps of apparently random points throughout the offshore area, especially along the continental shelf southeast of Cape Cod.
+
 ```{r drop-na-PCB_T}
 Org_no_na_no_zero <- Organics %>%
   drop_na(PCB_T_UGG) %>%
   filter(PCB_T_UGG != "0")
 ```
 
-This map is mapping the dataset that has no `NA` values or values that are less than or equal to `0`. The map significantly changes as these values are dropped. This visualizes where PCBs have been measured in the Gulf of Maine. (AP - I am not confident about this interpretation, feel free to change!)
 
-```{r map-pcb-gom}
+```{r map-pcb-gom, fig.alt = "Map of the Gulf of Maine with points indicating stations where PCBs were detected.  Radius of points indicates concentration detected.  The highest concentrations are in Boston Harbor and along the New Hampshire coast.  Detection density is highest in Massachusetts Bay.  Other locations are sparsely scattered along the Maine coast and offshore." }
 ggplot(GOM_states) +
   geom_sf(aes()) +
   geom_sf(data = Bathy_low_res, color = "gray80", width = 1) +
@@ -808,10 +809,12 @@ ggplot(GOM_states) +
       text_family = "ArcherPro Book"))
 ```
 
+Interpretation: The highest PCB concentrations are in Boston Harbor and along the New Hampshire coast.  Detection density is highest in Massachusetts Bay.  Other locations are sparsely scattered along the Maine coast and offshore.
+
 ### Mapping PCBs to the Mount Desert Island Area
 This map is displaying the distribution and concentration of PCBs in sediments within the MDI and Penobscot Bay region. 
 
-```{r map-pcb-mdi-area}
+```{r map-pcb-mdi-area, fig.alt = "Map of Maine coast from Rockland to Schoodic Peninsula, with points indicating stations where PCBs were detected.  Radius of points indicates concentration detected.  The highest concentrations are in the Union River, Ellsworth, and in Bass Harbor. Some low concentrations were detected along the west shore of Penobscot Bay."}
 ggplot(GOM_states) +
   geom_sf(aes()) +
   geom_sf(data = Bathy_hi_res, color = "gray80", width = 1) +
@@ -839,10 +842,12 @@ ggplot(GOM_states) +
       text_family = "ArcherPro Book"))
 ```
 
+Interpretation: The highest PCB concentrations are in the Union River, Ellsworth, and in Bass Harbor. Some low concentrations were detected along the west shore of Penobscot Bay.
+
 ### Mapping PCBs to Massachusetts and Cape Cod Bays
 These maps are displaying the distribution and concentration of PCBs in sediments within the Massachusetts and Cape Cod Bays.
 
-```{r map-pcb-mass-bays}
+```{r map-pcb-mass-bays, fig.alt = "Map of Massachusetts and New Hampshire Coast from Cape Cod, MA to Portsmouth, NH, with points indicating stations where PCBs were detected.  Radius of points indicates concentration detected.  Highest concentrations are in Boston Harbor, and at Hampton/Seabrook, NH.  Highest density of detections is in basin of Massachusetts Bay outside of Boston Harbor."}
 ggplot(GOM_states) +
   geom_sf(aes()) +
   geom_sf(data = Bathy_hi_res, color = "gray80", width = 1) +
@@ -870,6 +875,7 @@ ggplot(GOM_states) +
       text_family = "ArcherPro Book"))
 ```
 
+Interpretation: Highest PCB concentrations are in Boston Harbor, and at Hampton/Seabrook, NH.  Highest density of detections is in basin of Massachusetts Bay outside of Boston Harbor.
 
 ### General Organics map
 ```{r create-gen-org-df}
