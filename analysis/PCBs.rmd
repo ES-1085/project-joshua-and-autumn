@@ -135,9 +135,9 @@ Interpretation: Most pairwise comparisons were significantly different (P =
 
 ## Data Visualizations
 ### Descriptive Visualizations
-First, the number of observations collected at each location will be visualized. This bar plot uses number of observations on its y axis, thus reflecting sampling intensity by general location.  The greatest number of observations are in the Gulf of Maine below the 50m isobath (partly this is a product of area extent as well as sampling intensity); Massachusetts Bays, Boston Harbor sites, and the MA/NH/ME coast are all generally heavily sampled.
+First, the number of observations collected at each location will be visualized. This bar plot uses number of observations on its y axis, thus reflecting sampling intensity by general location.
 
-```{r n-obs-gen-loc}
+```{r n-obs-gen-loc, fig.alt = "Histogram of number of observations in each general location category. Gulf of Maine below the 50 meter isobath is the most sampled location category, followed by Massachusetts Bays, Northwest Boston Harbor, and Cape Elizabeth to Rockland (Maine Coast).  The least sampled category is Intertidal Atlantic Canada."}
 Organics %>%
   ggplot(aes(x = fct_infreq(GEN_LOC_NM), fill = fct_infreq(GEN_LOC_NM))) +
   geom_bar(stat = "count", color = "black") +
@@ -150,9 +150,9 @@ Organics %>%
        y = "Count (n Observations)")
 ```
 
-Interpretation: This bar plot shows number of observations within the Organics dataset in each general location category.  The highest numbers of observations come from the Gulf of Maine >50m Isobath (offshore sediments), and Massachusetts Bays, Northwest Boston Harbor, and Cape Elizabeth to Rockland are all highly sampled as well.  Intertidal Atlantic Canada is the least sampled general location in our dataset.
+Interpretation: This bar plot shows number of observations within the Organics dataset in each general location category.  The greatest number of observations are in the Gulf of Maine below the 50m isobath (partly this is a product of area extent as well as sampling intensity); Massachusetts Bays, Boston Harbor sites, and the MA/NH/ME coast are all generally heavily sampled.  Intertidal Atlantic Canada is the least sampled general location in our dataset.
 
-```{r hist-pcb-total, warning=FALSE}
+```{r hist-pcb-total, warning=FALSE, fig.alt = "Two hisograms showing data distribution of contaminant concentration (in nanograms per gram of sediment) in the PCBs/pesticides dataframe and the general organics dataframe.  Both distributions are unimodal but highly right skewed, with mean values close to zero and high influence outliers at much higher values."}
 ggplot(PCBs_long, aes(x = amount_detected)) +
   geom_histogram(fill = "skyblue", color = "black")
 
@@ -162,7 +162,7 @@ ggplot(Organics_long, aes(x = amount_detected)) +
 
 Interpretation: In both the PCBs and Organics datasets, the amount detected (concentration) is extremely right skewed, with most of our values close to zero, and high influence outliers at much higher values.
 
-```{r facet-hist-pcb-pest-dist}
+```{r facet-hist-pcb-pest-dist, fig.alt = "Histograms showing the data distributions of the top four most abundant pesticides and the top four most abundant PCBs in the Gulf of Maine.  These are Aldrin, Benzene hexachloride, DDT, Mirex, PCB 101, PCB 118, PCB 138, and PCB 153 respectively.  All have unimodal but highly right skewed distributions; Mirex appears to be the most skewed, and PCB 138 the least skewed."}
 PCBs_long %>%
   filter(pcb %in% c("BHC_C", "MIREX_C", "ALDRIN_C", "DDT_C", "PCB153_NGG", "PCB138_NGG", "PCB101_NGG", "PCB118_NGG")) %>%
   filter(amount_detected <= 100) %>%
@@ -180,7 +180,7 @@ PCBs_long %>%
 
 Interpretation: Histograms depicting data distributions of four most abundant pesticides (top row), and the four most abundant PCBs (bottom row) in the Gulf of Maine.  Distributions are exclusively unimodal, but are all highly right skewed with mean values close to zero and outliers occurring at far higher values.  Of these, Mirex appears to be the most skewed, and PCB 138 the least skewed.  Note that values greater than 100ng/g are excluded for clarity in the plot.  
 
-```{r boxplots-skewness}
+```{r boxplots-skewness, fig.alt = "Two boxplots of pesticide concentration by general location, showing data skewness at two resolutions. Mean values are close to zero, while high influence outliers are present at much higher values across all categories.  Cape Ann to Cape Elizabeth appears to have the least skewness."}
 ggplot(pesticides, aes(x = GEN_LOC_NM, y = amount_detected)) +
   geom_boxplot() +
   coord_flip() +
@@ -204,7 +204,7 @@ ggplot(pesticides, aes(x = GEN_LOC_NM, y = amount_detected)) +
 
 Interpretation: These two boxplots also serve the purpose of indicating how extremely skewed our dataset is; the first shows the full range of our data, the second limits the y axis to 0 to 15 ng/g.  Mean values are all less than 2.5 ng/gm, but outliers are present as high as 4000 ng/g.
 
-```{r boxplot-without-zeros}
+```{r boxplot-without-zeros, fig.alt = "Boxplot of pesticide concentration by general location showing data skewness, this time with zero values filtered out from dataset.  All location categories are less skewed than when zero values are included, but remain highly skewed.}
 pesticides %>%
   filter(amount_detected <= 15) %>%
   filter(amount_detected > 0) %>%
