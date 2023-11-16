@@ -206,11 +206,11 @@ naniar::miss_var_summary(PCBs_loc)
 ###Missing PAH Data
 ``` {r missing-data-PAHs}
 #Visualizing the percentage of missing data
-#visdat::vis_miss(PAHs_loc)
+visdat::vis_miss(PAHs_loc)
 
 #visualizing correlations in data as a heatmap - only numeric values...
 #dplyr::select(PAHs_loc, where(is.numeric)) %>%
-#visdat::vis_cor(PAHs_loc, "pearson", "pairwise.complete.obs", facet)
+#atavist::vis_cor(PAHs_loc, "pearson", "pairwise.complete.obs", facet)
 
 #we should highlight the locations where there are PAHs detected
 ```

@@ -2,7 +2,7 @@
 title: 'GOM Contaminated Sediments Analysis: PCBs'
 author: "Joshua Harkness and Autumn Pauly"
 date: "2023-10-28"
-output: github_document
+output: html_document
 ---
 # Introduction
 This document is an analysis of distributions and concentrations of PCB and Organic contaminants that were reported in a publication by the U.S. Geological Survey on contaminated sediments in the Gulf of Maine. In this data set, we analyzed the prevalence of oil and grease, petroleum Hydrocarbons, polychlorinated biphenyls, DDT compounds, DDE compounds, DDD compounds, pesticide compounds, lipids, clostridium perfringens, monobutyl tin, dibutyl tin, tributyl tin, tetrabutyl tin, PCB congeners #52-209, DDT 4,4', DDT 2,4', DDD 4,4', DDD 4,2', endrin, endrin aldehyde, aldrin, dieldrin, chlordane, mirex, methoxychlor, hexachlorocyclohexane alpha/beta/gamma isomer, and lindane.
@@ -43,7 +43,7 @@ glimpse(Organics)
 
 ## Data Transformation
 ### Pivot Organics Longer
-JH -- the organics dataset has already been joined with the stations dataset (loaded "Organics_loc.csv" above), so the data now needs to be pivoted into R format.
+We already joined all of our concentration data files with the stations data file, so here we can just pivot these into long format.
 
 ```{r joining-station-info, warning = FALSE}
 Organics_long <- Organics %>%
@@ -57,14 +57,15 @@ glimpse(Organics_long)
 ```
 
 ### Filter out NAs and 0 values from Organics_long
+This is useful for displaying data when we don't want to display a large number of stations that have only missing valuse or zeros associated with them.
 ```{r filter-organics-no-nas-no-zeros}
 Organics_long_no_na_no_zero <- Organics_long %>%
   drop_na(amount_detected) %>%
   filter(amount_detected != "0")
 ```
 
-### Pivoting PCBs into a Longer Format
-This function creates two columns to properly contain the values of PCBs measured during these surveys - the `pcb` column contains the type of PCB that was measured and the `amount_detected` column contains the values for each measurement. 
+### Pivoting PCBs Longer
+Creates two columns to properly contain the values of PCBs measured during these surveys - the `pcb` column contains the type of PCB that was measured and the `amount_detected` column contains the values for each measurement. 
 
 ```{r pcbs-pivot-long}
 PCBs_long <- PCBs %>%
@@ -76,7 +77,7 @@ glimpse(PCBs_long)
 ```
 
 ### Creating Pesticides Data Set
-This is creating a data set that only contains the pesticides that were measured. 
+We are essentially subsetting the PCBs_long dataset so it only includes the following pesticides.
 
 ```{r create-pesticides-df-combine-pest-categories}
 pesticides <- PCBs_long %>%
@@ -86,7 +87,7 @@ pesticides <- PCBs_long %>%
                           "BHC_C" = "BHC_A_C",
                           "BHC_C" = "BHC_B_C",
                           "BHC_C" = "BHC_D_C")) %>%
-  filter(pcb %in% c("DDT_C", "DDE_4_4", "DDD_4_4", "ENDRIN_C", "ENDR_ALD_C", "ALDRIN_C", "DIELDRN_C", "CLRDNE_T_C", "MIREX_C", "METHOXYCLC", "BHC_C", "LINDANE_C"))
+  filter(pcb %in% c("DDT_C", "DDE_4_4_C", "DDD_4_4_C", "ENDRIN_C", "ENDR_ALD_C", "ALDRIN_C", "DIELDRN_C", "CLRDNE_T_C", "MIREX_C", "METHOXYCLC", "BHC_C", "LINDANE_C"))
 
 glimpse(pesticides)
 ```
@@ -100,6 +101,22 @@ pcbs_only <- PCBs_long %>%
 
 glimpse(pcbs_only)
 ```
+
+
+## Statistical Tests
+### Diff PCBs and Pesticides
+
+Using a Wilcoxon Rank Sum test here since it is non-parametric and does not make assumptions about the normality of our data.
+
+```{r wilcox-test-total-pcbs-pesticides}
+wilcox.test(pcbs_only$amount_detected, pesticides$amount_detected)
+```
+
+Report: PCBs occurred at significantly higher concentrations than organochlorine pesticides (Wilcoxon Rank Sum Test, W = 14169, P = <0.001).
+
+
+
+
 
 ## Data Visualizations
 ### Descriptive Visualizations
@@ -128,6 +145,23 @@ ggplot(Organics_long, aes(x = amount_detected)) +
 ```
 Interpretation: In both the PCBs and Organics datasets, the amount detected (concentration) is extremely right skewed, with most of our values close to zero, and high influence outliers at much higher values.
 
+```{r}
+PCBs_long %>%
+  filter(pcb %in% c("BHC_C", "MIREX_C", "ALDRIN_C", "DDT_C", "PCB153_NGG", "PCB138_NGG", "PCB101_NGG", "PCB118_NGG")) %>%
+  filter(amount_detected <= 100) %>%
+  filter(amount_detected > 0) %>%
+  ggplot(aes(x = amount_detected)) +
+  geom_histogram(fill = "skyblue", color = "black") +
+  facet_wrap(.~pcb) +
+  theme_bw() +
+  labs(title = "Data Skewness",
+       subtitle = "Most Abundant PCBs and Pesticides",
+       x = "Concentration (ng/g)",
+       y = "n Observations",
+       caption = "Values >100 ng/g excluded")
+```
+
+
 ```{r boxplots-skewness}
 ggplot(pesticides, aes(x = GEN_LOC_NM, y = amount_detected)) +
   geom_boxplot() +
@@ -154,7 +188,8 @@ Interpretation: These two boxplots also serve the purpose of indicating how extr
 
 ```{r boxplot-without-zeros}
 pesticides %>%
-  filter(amount_detected != 0) %>%
+  filter(amount_detected <= 15) %>%
+  filter(amount_detected > 0) %>%
   
   ggplot(aes(x = GEN_LOC_NM, y = amount_detected)) +
   geom_boxplot() +
@@ -162,8 +197,8 @@ pesticides %>%
   theme_bw() +
   labs(title = "Boxplot of PCB/pesticide concentrations",
        x = "General location",
-       y = "Concentration (ng/g)") +
-  ylim(0,15)
+       y = "Concentration (ng/g)",
+       caption = "Values >15 ng/g excluded")
 ```
 
 Interpretation: Filtering out zero values helps with the skewness; but since zero values (absence of PCBs from sample) are important to our analysis, this is not a valid approach.
@@ -646,9 +681,6 @@ Sum_Org_site %>%
        y = "Mean total PCB concentration ug/g")
 ```
 
-# PCB Statistical Tests
-
-
 # Static Map Plots
 ### Loading Map Data
 Bathymetry data is in projected coordinate system (NAD83), other data is geodetic (NAD83).  Wasn't able to add this layer to map plot -- need to change projection.
@@ -692,15 +724,14 @@ Using this bathymetry layer, the distribution and concentration of PCBs can be m
 ggplot(GOM_states) +
   geom_sf(aes()) +
   geom_sf(data = Bathy_low_res, color = "gray80", width = 1) +
-  geom_point(data = Organics, (aes(x = LONGITUDE, y = LATITUDE, color = PCB_T_UGG, alpha = 0.5))) +
+  geom_point(data = Organics, (aes(x = LONGITUDE, y = LATITUDE)), color = "black", alpha = 0.5)+
   xlim(-72,-65) +
   ylim(40,45) +
   theme_bw() +
-  labs(title = "Distribution and concentration of PCBs",
+  labs(title = "Sampled Locations",
        subtitle ="Gulf of Maine sediments",
        x = "Longitude",
        y = "Latitude") +
-  guides(size = guide_legend(title = "PCB ug/g")) +
   guides(alpha = FALSE) +
   ggspatial::annotation_scale(
     location = "bl",
@@ -1092,14 +1123,19 @@ bins <- seq(0, 10, 1)
 palpest <- colorBin("YlOrRd", domain = pesticides_no_na_no_zero$amount_detected, bins = bins)
 ```
 
+```{r}
+pesticides_no_na <- pesticides %>%
+  drop_na(amount_detected)
+```
+
 
 ```{r create-html-labels-pesticides}
-markers <- pesticides_no_na_no_zero
+markers <- pesticides_no_na
 
 
 markers <- markers %>%
   mutate(labels1 = paste0("<strong>", "Site: ", site,"</strong><br>",
-                         "BHC: ", round(amount_detected[pcb == "BHC_C"], digits = 4), " ng/g<br>",
+                         "BHC: ", if_else(round(amount_detected[pcb == "BHC_C"], digits = 4), " ng/g<br>",
                          "Chlordane: ", round(amount_detected[pcb == "CLRDNE_T_C"], digits = 4), " ng/g<br>",
                          "DDT: ", round(amount_detected[pcb == "DDT_C"], digits = 4), " ng/g<br>",
                          "DDE: ", round(amount_detected[pcb == "DDE_4_4_C"], digits = 4), " ng/g<br>",
@@ -1122,11 +1158,11 @@ leaflet() %>%
   setView(lng = -68.5, 
           lat = 43.5, 
           zoom = 6) %>%
-  addCircleMarkers(lng = markers$LONGITUDE, lat = markers$LATITUDE, popup = markers$labels1, color = palpest, radius = log(markers$amount_detected*500))
+  addCircleMarkers(lng = pesticides_no_na_no_zero$LONGITUDE, lat = pesticides_no_na_no_zero$LATITUDE, color = "black", popup = markers$labels1, radius = log(markers$amount_detected*100))
 ```
 
 ```{r create-html-labels-pcbs}
-markers <- pcbs_only %>%
+markers <- pcbs_long %>%
   drop_na(amount_detected) %>%
   filter(amount_detected != 0)
 
@@ -1153,7 +1189,7 @@ leaflet() %>%
   setView(lng = -68.5, 
           lat = 43.5, 
           zoom = 6) %>%
-  addCircleMarkers(lng = markers$LONGITUDE, lat = markers$LATITUDE, popup = markers$labels2, color = palpest, radius = log(markers$amount_detected*500))
+  addCircleMarkers(lng = pcb_only$LONGITUDE, lat = pcbs_only$LATITUDE, popup = markers$labels2, color = palpest, radius = log(markers$amount_detected*500))
 ```
 
 Note that the above code chunks are commented out as .rmd will not knit to github document with html functions.  Uncomment to run and change output type to `html_document` to knit.
