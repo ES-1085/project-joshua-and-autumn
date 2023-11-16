@@ -287,6 +287,41 @@ Interpretation: Mean total PCB concentration is highest at Boston Inner Harbor s
 
 ### Specific PCB comparisons across GOM
 
+Calculating summary statistics for PCBs, grouped by type and sample ID.
+```{r sum-pcbs-gom}
+Sum_pcbs_gom <- pcbs_only %>%
+  group_by(pcb, UNIQUE_ID) %>%
+  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
+  drop_na(amount_detected) %>%
+  summarise(mean = mean(amount_detected),
+    sd = sd(amount_detected),
+    n = n(),
+    SE = sd(amount_detected) / sqrt(n())) %>%
+  arrange(desc(mean))
+
+Sum_pcbs_gom
+```
+
+```{r bar-pcbs-gom, fig.alt = "Bar plot of mean PCB concentrations per sample by type of PCB.  PCB 153 is the most abundant in Gulf of Maine sediments (mean = 0.85 (+/- 20.01) ng/g per sample).  PCB 138 (mean = 0.76 (+/- 22.18) ng/g), PCB 101 (mean = 0.62 (+/- 18.55) ng/g), and PCB 118 (mean = 0.57 (+/- 17.30) ng/g) are also highly abundant.  PCB 209 is the least abundant detected PCB (mean = 0.10 (+/- 0.86) ng/g)."}
+Sum_pcbs_gom %>%
+  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
+  geom_col(color = "black") +
+  geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
+  coord_flip() +
+  theme_classic() +
+  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill") +
+  theme(legend.position = "none") +
+  labs(title = "PCB Composition and Concentrations",
+       subtitle = "In Gulf of Maine Sediments",
+       x = "PCB",
+       y = "Concentration (ng/g)",
+       caption = "Error bars = 1 standard error")
+```
+
+Interpretation: PCB 153 is the most abundant in Gulf of Maine sediments (mean = 0.85 (+/- 20.01) ng/g per sample).  PCB 138 (mean = 0.76 (+/- 22.18) ng/g), PCB 101 (mean = 0.62 (+/- 18.55) ng/g), and PCB 118 (mean = 0.57 (+/- 17.30) ng/g) are also highly abundant.  PCB 209 is the least abundant detected PCB (mean = 0.10 (+/- 0.86) ng/g).
+
+### Pesticides comparisons across GOM
+Calculating summary statistics of pesticides by type and sample ID
 ```{r sum-all-pcbs-rockland-n}
 Sum_pesticides_gom <- pesticides %>%
   group_by(pcb, UNIQUE_ID) %>%
@@ -320,45 +355,7 @@ Sum_pesticides_gom %>%
 Interpretation: Dieldrin is the most abundant pesticide identified in the Gulf of Maine, with (mean = 2.08 (+/- 76.2) ng/g per sample).  Lindane is also highly abundant (mean = 1.51 (+/- 42.42) ng/g per sample).  All other pesticides have means less than 0.4 ng/g per sample.  Note size of standard deviations, which illustrate how varied concentrations are; most have means close to zero, but high influence outliers are common.
 
 
-```{r sum-pcbs-rock-n}
-Sum_pcbs_gom <- pcbs_only %>%
-  group_by(pcb, site) %>%
-  summarise(amount_detected = sum(amount_detected, na.rm = TRUE)) %>%
-  drop_na(amount_detected) %>%
-  summarise(mean = mean(amount_detected),
-    sd = sd(amount_detected),
-    n = n(),
-    SE = sd(amount_detected) / sqrt(n())) %>%
-  arrange(desc(mean))
 
-#Sum_pcbs_rock_n
-```
-
-```{r bar-pcbs-rock-n}
-Sum_pcbs_gom %>%
-  ggplot(aes(x = fct_rev(fct_reorder(pcb, mean)), y = sapply(mean, FUN=function(x) ifelse(x==0.000000e0, -0.02,x)), fill = pcb)) +
-  geom_col(color = "black") +
-  geom_errorbar(aes(ymin = mean - SE, ymax = mean + SE), width = 0.2) +
-  coord_flip() +
-  theme_classic() +
-  scale_fill_brewer(type = "qual", palette = 8, direction = 1, aesthetics = "fill") +
-  theme(legend.position = "none") +
-  labs(title = "PCB Composition and Concentrations",
-       subtitle = "In Gulf of Maine Sediments",
-       x = "PCB",
-       y = "Amount Detected (ng/g)",
-       caption = "Error bars = 1 standard error")
-
-#Sum_pcbs_rock_n %>%
-#ggplot(aes(x="", y = mean, fill = pcb)) +
-  #geom_bar(stat="identity", width=1) +
-  #coord_polar("y", start=0) +
-  #scale_fill_viridis_d(option = "turbo") +
-  #labs(title = "PCB Composition",
-       #subtitle = "Rockland, ME, and points north",
-       #x = "",
-       #y = "Percent Composition")
-```
 Interpretation:  This bar plot shows concentrations of each polychlorinated biplhenyl (PCBs) in the area from Rockland, ME to the Bay of Fundy, and was detected in the PCBs dataset.  All PCBs are similarly prevalent in this area, with PCB 138 being the most abundant (mean = 0.30 +/- 1.23 ng/g), and PCB 128 being the least abundant (mean = 0.02 +/- 0.2 ng/g).  The pie chart shows percent composition of the same PCBs for this area.
 
 ```{r}
