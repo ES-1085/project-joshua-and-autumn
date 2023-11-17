@@ -123,7 +123,8 @@ Gulf of Maine Regional Marine Research Program for funding their
 project. Finally, we are eternally grateful for Dr. Laurie Baker, who
 provided us the instruction, guidance and advice necessary for us to
 enhance our understanding of R and data reliability, as well as the
-importance of team collaboration.
+importance of team collaboration. We are also grateful to Shea
+Turner-Matthews for helping when we encountered issues in our code.
 
 ## Data
 
