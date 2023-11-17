@@ -1,18 +1,21 @@
-Project title
+Gulf of Maine Contaminated Sediments
 ================
-by Joshua A. Harkness and Autumn L. Pauly
+by Joshua A. Harkness and Autumn L. Pauly,
+November, 2023
 
-#### Introduction 
-Pollutants, encompassing metals and
-organic compounds from agricultural, industrial, and household sources,
-have accumulated in bottom sediments in the Gulf of Maine. The U.S.
-federal government, through its agencies (USEPA, USGS, and NOAA) and
-laws (16 USC § 1447-1447f (1990); 33 USC § 1330 (1987)) has recognized
-the need for assessment of the distribution of contaminants in marine
-sediments. Our group is interested in assessing the concentration and
-distribution of potentially harmful contaminants in the marine
-environment in order for others to better understand and predict their
-impact.
+## Write Up
+
+#### Introduction
+
+Pollutants, encompassing metals and organic compounds from agricultural,
+industrial, and household sources, have accumulated in bottom sediments
+in the Gulf of Maine. The U.S. federal government, through its agencies
+(USEPA, USGS, and NOAA) and laws (16 USC § 1447-1447f (1990); 33 USC §
+1330 (1987)) has recognized the need for assessment of the distribution
+of contaminants in marine sediments. Our group is interested in
+assessing the concentration and distribution of potentially harmful
+contaminants in the marine environment in order for others to better
+understand and predict their impact.
 
 For this project, we used data from the Gulf of Maine Contaminated
 Sediments Database published by the U.S. Geological Survey in 2002. This
@@ -27,20 +30,61 @@ metals, and sediment textural data.
 
 #### Missing Data and Skewness
 
-While working with this dataset, we noticed that there was a number of
-missing values for
+While working with this dataset, we noticed that there was a large
+amount of missing data throughout our datafiles. Missing values are
+principally within the contaminant variables; the majority of spatial
+and categorical location data is present. Since multiple researchers
+collected this data, and multiple labs analyzed samples, we do not know
+how zero values were treated. Missing values in our data could indicate
+that no contaminant was detected, or it could indicate that the sample
+was not analyzed – more likely it is some combination of the two. We
+were unable to find an answer to this, so we principally exclude NA
+values from our analysis.
+
+There are also some inconsistencies between data files, namely that
+there are some observations that are present in one data file but not in
+the other. For example, in the organics data file, there is a single
+observation of total PCB concentration for the Union River in Ellsworth,
+ME, which is exceptionally high and may be an error in data entry;
+interestingly it does not appear in the PCBs datafile, apparently as the
+type of PCB was not identified.
+
+Concentration data is also extremely skewed, with means very close to
+zero and high influence outliers at higher values, which means our data
+does not meet the assumptions of parametric statistical tests, and makes
+it difficult to visualize, with histograms, density plots, boxplots,
+etc.
 
 #### Summary and Findings of Contaminates and Concentrations
 
-The broad question that we looked at was about which contaminants are in
-the Gulf of Maine and what this means for the environment. Of all the organics present in the Gulf of Maine, the most prevalent PCB by average was PCB 153 (10.59 ng/g), followed by PCB 138 (9.43 ng/g), PCB 101 (7.76 ng/g), and PCB 118 (7.12 ng/g). The most prevalent pesticides on average were DDT (0.17 ng/g), Aldrin (0.24 ng/g), Mirex (0.26 ng/g), and Lindane (1.61 ng/g). An analysis of these contaminants revealed that the highest average concentration and distribution was located in Boston Harbor, MA.
+Of all the organics present in the Gulf of Maine, the most prevalent PCB
+by average was PCB 153 (mean = 0.85 (+/- 20.01) ng/g), followed by PCB
+138 (mean = 0.76 (+/- 22.18) ng/g), PCB 101 (mean = 0.62 (+/- 18.55)
+ng/g), and PCB 118 (mean = 0.57 (+/- 17.30) ng/g). The most prevalent
+pesticides on average Dieldrin (mean = 2.08 (+/- 76.2) ng/g per sample),
+Lindane (mean = 1.51 (+/- 42.42) ng/g per sample). All other pesticides
+have means less than 0.4 ng/g per sample. Note size of standard
+deviations, which illustrate how varied concentrations are; most have
+means close to zero, but high influence outliers are common. An analysis
+of these contaminants revealed that the highest average concentration
+and distribution was located in Boston Harbor, MA.
 
-The spatial distribution of PAHs reflected that of PCBs and pesticides. Of all the PAHs present in the Gulf of Maine, the most prevalent PAH by average was Fluoranthene (962.25 ng/g), followed by Pyrene (934.50 ng/g), Chrysene (887.80 ng/g), and Phenanthrene (546.57 ng/g). Boston Harbor had the highest mean concentration of PAHs, where the highest concentrations were of Chrysene (2,234.89 ng/g), Pyrene (2,197.45 ng/g), Fluoranthene (2,016.27 ng/g), and Phenanthrene (1,307.48 ng/g). This was drastically higher than the average concentrations that were found in the Penobscot to Mount Desert Island region, where the highest concentrations were of Fluoranthene (723.32 ng/g) and Pyrene (1845.59 ng/g). 
+The spatial distribution of PAHs reflected that of PCBs and pesticides.
+Of all the PAHs present in the Gulf of Maine, the most prevalent PAH by
+average was Fluoranthene (962.25 ng/g), followed by Pyrene (934.50
+ng/g), Chrysene (887.80 ng/g), and Phenanthrene (546.57 ng/g). Boston
+Harbor had the highest mean concentration of PAHs, where the highest
+concentrations were of Chrysene (2,234.89 ng/g), Pyrene (2,197.45 ng/g),
+Fluoranthene (2,016.27 ng/g), and Phenanthrene (1,307.48 ng/g). This was
+drastically higher than the average concentrations that were found in
+the Penobscot to Mount Desert Island region, where the highest
+concentrations were of Fluoranthene (723.32 ng/g) and Pyrene (1845.59
+ng/g).
 
 ## Navigating the Project Folder
 
 There are a series of subfolders that are contained within this project,
-including RMD, MD, and .shapefiles.
+including .Rmd, .md, and .shapefiles.
 
 For the data dictionary, navigate to the `Readme.md` file in the `data`
 folder. This contains what each dataset contains, as well as what each
@@ -51,11 +95,13 @@ To begin analyzing the data, navigate to the `data_tidying.rmd` in the
 pivot the USGS datasets into readable formats. These cleaned files are
 the base files for the next .Rmd files.
 
-For PCB analysis, navigate to the `PCBs.rmd` in the `analysis` folder. This .Rmd file analyzes the distributions and concentrations of Polycyclic aromatic hydrocarbon (PAH) contaminants. 
+For PCB analysis, navigate to the `PCBs.rmd` in the `analysis` folder.
+This folder contains the code needed to analyse PCB and pesticide
+pollutants through spatial comparisons and a leafmap.
 
 For PAH analysis, navigate to the `PAHs.rmd` in the `analysis` folder.
-This .Rmd file analyzes the distributions and concentrations of two organic contaminants,
-Polychlorinated biphenyls (PCB) and pesticide. 
+This folder contains the code needed to analyse PAH pollutants through
+spatial comparisons and a leafmap.
 
 ## Presentation
 
@@ -111,8 +157,6 @@ Online at <https://pubs.usgs.gov/of/2002/of02-403/>. doi:
 ## References
 
 ##### These references have been cited in `PAHs.Rmd` and `PCBs.Rmd`.
-
-CDC. (2019, May 24). Polycyclic Aromatic Hydrocarbons (PAHs) Factsheet | National Biomonitoring Program | CDC. Www.cdc.gov. https://www.cdc.gov/biomonitoring/PAHs_FactSheet.html
 
 Clark, R,B., 1999. Marine pollution. Oxford University press, Fourth
 edition, pp 161.

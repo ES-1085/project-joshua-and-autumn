@@ -1,6 +1,7 @@
 ---
-title: Project title
-author: by Joshua A. Harkness and Autumn L. Pauly
+title: Gulf of Maine Contaminated Sediments
+author: by Joshua A. Harkness and Autumn L. Pauly,
+date: November, 2023
 output: github_document
 ---
 ## Write Up
